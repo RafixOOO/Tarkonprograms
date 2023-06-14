@@ -34,7 +34,7 @@
                  </li>
                  <li class="nav-item">
                      <a class="nav-link active" id="contact-tab" data-toggle="tab" href="niewykonane.php" role="tab" aria-controls="Nie wykonane" aria-selected="true">Nie wykonane
-                     <?php if($max3 != 0){ echo "<span class='badge rounded-pill badge-notification bg-danger'>$max2</span>"; } ?>
+                     <?php if($max3 != 0){ echo "<span class='badge rounded-pill badge-notification bg-danger'>$max3</span>"; } ?>
                      </a>
                  </li>
              </ul>
