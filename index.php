@@ -209,15 +209,6 @@ if (isUserAdmin()) {
         }
       });
 
-    $('#colorbox').mousemove(function (event) {
-
-        clearTimeout($(this).data('timer'));
-
-        $(this).data('timer', setTimeout(function () {
-            window.location.reload();
-        }, 30000));
-    });
-
     $('.row_position').sortable({
         delay: 150,
         stop: function () {
