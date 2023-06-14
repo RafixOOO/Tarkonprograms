@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br />
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Hasło</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
             </div>
             <br />
