@@ -100,10 +100,10 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             ?>
 
                             <tr id="<?php echo $data['ArchivePacketID'] ?>">
-                            <td>
-                                <?php
-                                if (isUserAdmin()) {
-                                    echo "
+                                <td>
+                                    <?php
+                                    if (isUserAdmin()) {
+                                        echo "
                                 <details><summary>Rozwiń</summary>
                                 <form id='myForm' action='update.php' method='POST'>
                                 <input type='hidden' name='id' value='$data[ArchivePacketID]'>
@@ -113,17 +113,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
                                 </details>
                             ";
-                                } else if(!empty($data["part"])) {
-                                    echo "
+                                    } else if (!empty($data["part"])) {
+                                        echo "
                                 <details>
                                 <summary>Rozwiń</summary>
-                                <label>". $data["part"] ."</label>
+                                <label>" . $data["part"] . "</label>
                                 </details>
                             ";
-                                }
+                                    }
 
 
-                                ?>
+                                    ?>
                                 </td>
 
                                 <td>
