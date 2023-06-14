@@ -54,7 +54,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         ?>
         <table class="table table-hover" id="mytable">
             <thead>
-                <th>#</th>
+                <th>Imię i Nazwisko</th>
                 <th>Nazwa programu</th>
                 <th>Nazwa arkusza</th>
                 <th>Nazwa maszyny</th>
