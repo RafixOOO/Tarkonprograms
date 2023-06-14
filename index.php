@@ -44,9 +44,8 @@ $sql2 = "SELECT
 $res1 = sqlsrv_query($conn, $sql2);
 $max = "";
 while ($row1 = sqlsrv_fetch_array($res1, SQLSRV_FETCH_ASSOC)) {
-    $max = $row1["zupa"];
+    $max = substr($row1["zupa"], 0, 2);
 }
-
 function czyCiągZawieraLiczbyPHP($ciąg)
 {
     $pattern = '/-?\d+(?:\.\d+)?(?:e-?\d+)?/';
@@ -90,7 +89,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                         if (empty($data["Comment"])) {
                             $max++;
                             $sql = "UPDATE [SNDBASE_PROD].[dbo].[Program]
-                                    SET [Comment]='$max'
+                                    SET [Comment]='$max,'
                                     WHERE [ArchivePacketID]=$data[ArchivePacketID]";
                             sqlsrv_query($conn, $sql);
                         }
@@ -184,6 +183,30 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             window.location.reload();
         }, 5000));
     });
+
+    let mybutton = document.getElementById("btn-back-to-top");
+
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 </script>
 <?php
 if (isUserAdmin()) {

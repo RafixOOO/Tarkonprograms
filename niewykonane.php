@@ -4,6 +4,7 @@
 require_once('auth.php');
 requireLogin();
 
+$_SESSION['visited_page'] = true;
 function czyCiągZawieraLiczbyPHP($ciąg)
 {
     $pattern = '/-?\d+(?:\.\d+)?(?:e-?\d+)?/';
@@ -71,7 +72,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                 while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) { ?>
 
                     <?php if ($data["Comment"] == "nie znaleziono arkusza" | $data["Comment"] == "zla jakosc otworow" | $data["Comment"] == "zla jakosc faz" | $data["Comment"] == "inne") { ?>
-                        <tr id="<?php echo $data['ArchivePacketID'] ?>">
+                        <tr class="table-danger" id="<?php echo $data['ArchivePacketID'] ?>">
                             <td>
                                 <?php echo "$data[Comment] "; ?>
                             </td>
@@ -117,6 +118,31 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     </div>
 
 </body>
+<script>
+    let mybutton = document.getElementById("btn-back-to-top");
+
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
 </script>
 
 </html>
