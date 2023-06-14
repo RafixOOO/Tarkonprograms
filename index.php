@@ -98,26 +98,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
                             ?>
 
-                            <tr id="<?php echo $data['ArchivePacketID'] ?>">
+                            <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <td>
                                     <?php
                                     if (isUserAdmin()) {
                                         echo "
-                                <details><summary>Rozwiń</summary>
-                                <form id='myForm' action='update.php' method='POST'>
-                                <input type='hidden' name='id' value='$data[ArchivePacketID]'>
-                                <input type='hidden' name='lop' value='$data[Comment]'>
-                                <input type='text' name='myField' id='myField' oninput='validateInput(event)' Placeholder='$data[part]'>
-                                </form>
-
-                                </details>
+                                        <i class='bi bi-arrow-down-short' aria-hidden='false'></i>
+                                
                             ";
                                     } else if (!empty($data["part"])) {
                                         echo "
-                                <details>
-                                <summary>Rozwiń</summary>
-                                <label>" . $data["part"] . "</label>
-                                </details>
+                                        <i class='bi bi-arrow-down-short' aria-hidden='false'></i>
                             ";
                                     }
 
@@ -155,13 +146,31 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                     <a class='btn btn-primary btn-sm'
                                         href='edit.php?id=<?php echo $data["ArchivePacketID"]; ?>'>Zarządzaj</a>
                                 </td>
-                            <?php }
-                    } ?>
+                                </tr>
 
-
-
-                    </tr>
-
+                                <tr>
+                                <td colspan="10" id="collapseFour" class="collapse acc" data-parent="#accordion">
+                                <?php
+                                if (isUserAdmin()) {
+                                        echo "
+                                        <i class='fa' aria-hidden='false'></i>
+                                <form id='myForm' action='update.php' method='POST'>
+                                <input type='hidden' name='id' value='$data[ArchivePacketID]'>
+                                <input type='hidden' name='lop' value='$data[Comment]'>
+                                <input type='text' name='myField' id='myField' oninput='validateInput(event)' Placeholder='$data[part]'>
+                                </form>
+                            ";
+                                    } else if (!empty($data["part"])) {
+                                        echo "
+                                <details>
+                                <summary>Rozwiń</summary>
+                                <label>" . $data["part"] . "</label>
+                                </details>
+                            ";
+                                    } ?>
+                                </td>
+                                </tr>
+                    <?php } } ?>                
                 </tbody>
 
             </table>
