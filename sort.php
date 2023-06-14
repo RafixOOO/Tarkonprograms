@@ -1,4 +1,7 @@
-<?php require_once('dbconnect.php');
+<?php
+require_once('auth.php');
+requireLogin();
+require_once('dbconnect.php');
 $allData = $_POST['allData'];
 $i = "0A";
 foreach ($allData as $key => $value) {

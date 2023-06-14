@@ -1,4 +1,7 @@
 <?php
+require_once('auth.php');
+requireLogin();
+
 require_once('dbconnect.php');
 $myField = $_POST['myField'];
 $id = $_POST['id'];
