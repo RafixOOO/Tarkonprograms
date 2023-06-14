@@ -177,7 +177,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
         $(this).data('timer', setTimeout(function () {
             window.location.reload();
-        }, 5000));
+        }, 20000));
     });
 
     let mybutton = document.getElementById("btn-back-to-top");
