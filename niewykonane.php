@@ -4,7 +4,6 @@
 require_once('auth.php');
 requireLogin();
 
-$_SESSION['visited_page'] = true;
 function czyCiągZawieraLiczbyPHP($ciąg)
 {
     $pattern = '/-?\d+(?:\.\d+)?(?:e-?\d+)?/';
