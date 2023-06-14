@@ -247,7 +247,7 @@ if (isUserAdmin()) {
                 allData: aData
             },
             success: function (data) {
-                toastr.success('Zmiany zostały zapisane');
+                location.reload();
             }
         })
     }
