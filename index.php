@@ -2,12 +2,17 @@
 <html lang="en">
 
 <?php
+
 require_once('auth.php');
 requireLogin();
 
 function isUserAdmin()
 {
     return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+}
+
+if(!isUserAdmin()){
+    header("refresh: 15;");
 }
 
 ?>
@@ -83,6 +88,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                 </thead>
                 <tbody class="row_position">
                     <?php
+                    $time="";
                     $i = 1;
                     while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
 
@@ -149,13 +155,12 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 <td>
                                     <?php echo "$data[czaspalenia]"; ?>
                                 </td>
-
                                 <td>
+                                    
                                     <a class='btn btn-primary btn-sm'
                                         href='edit.php?id=<?php echo $data["ArchivePacketID"]; ?>'>Zarządzaj</a>
                                 </td>
                                 </tr>
-
                 
                     <?php } } ?>                
                 </tbody>
@@ -171,20 +176,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 
 <script>
-    $('#colorbox').mousemove(function (event) {
-
-        clearTimeout($(this).data('timer'));
-
-        $(this).data('timer', setTimeout(function () {
-            window.location.reload();
-        }, 20000));
-    });
-
-    let mybutton = document.getElementById("btn-back-to-top");
-
-window.onscroll = function () {
-  scrollFunction();
-};
 
 function scrollFunction() {
   if (
@@ -205,6 +196,7 @@ function backToTop() {
 }
 </script>
 <?php
+
 if (isUserAdmin()) {
 
 
