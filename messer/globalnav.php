@@ -16,7 +16,7 @@
          <div>
              <ul style="float:left;" class="nav nav-tabs" id="myTab" role="tablist">
                  <li class="nav-item">
-                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="index.php" role="tab" aria-selected="true">Aktualne</a>
+                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="main.php" role="tab" aria-selected="true">Aktualne</a>
                  </li>
                  <li class="nav-item ">
                      <a class="nav-link active" id="profile-tab" data-toggle="tab" href="wykonane.php" role="tab" aria-controls="profile" aria-selected="true">Wykonane

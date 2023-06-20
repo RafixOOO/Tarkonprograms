@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         sqlsrv_query($conn, $sql1);
     }
     sqlsrv_close($conn);
-    header("location: index.php");
+    header("location: main.php");
     exit();
 }
 
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     <button class="btn btn-outline-primary" type="Submit">Zapisz</button>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="index.php" role="button">Anuluj</a>
+                    <a class="btn btn-outline-primary" href="main.php" role="button">Anuluj</a>
                 </div>
             </div>
 

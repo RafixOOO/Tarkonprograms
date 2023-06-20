@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (login($username, $password)) {
-        header('Location: index.php');
+        header('Location: main.php');
         exit();
     } else {
         echo "<script>toastr.error('Błędne dane logowania!!!')</script>";

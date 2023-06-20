@@ -24,6 +24,6 @@ $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
 sqlsrv_query($conn, $sql1);
 
 sqlsrv_close($conn);
-header('Location: index.php');
+header('Location: main.php');
 exit();
 ?>
