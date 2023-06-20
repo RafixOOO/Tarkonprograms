@@ -1,4 +1,5 @@
 <?php
+
 require_once('auth.php');
 requireLogin();
 
@@ -13,4 +14,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if ($conn === false) {
     die(print_r(sqlsrv_errors(), true));
 }
+
+
+
 ?>
