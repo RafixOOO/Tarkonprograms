@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Programy</title>
+    <title>Tarkonprograms</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +14,16 @@
 <body>
 </body>
 <div class="container">
+  <br />
+  <h1><b>Tarkon <i>programs</i></b></h1>
+  <br /><br /><br /><br /><br /><br />
+<div class="interior" >
+    <a class="btn btn-outline-primary" href="messer/login.php">Messer</a>
+  </div>
   <div class="interior">
-    <a class="btn" href="messer/login.php">👋 Messer</a>
+    <a class="btn btn-outline-warning" href="parts/login.php">Parts</a>
+  </div>
+  <div style="clear:both;"></div>
   </div>
 </div>
 </html>
