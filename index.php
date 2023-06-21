@@ -21,7 +21,7 @@
     <a class="btn btn-outline-primary" href="messer/login.php">Messer</a>
   </div>
   <div class="interior">
-    <a class="btn btn-outline-warning" href="parts/login.php">Parts</a>
+    <a class="btn btn-outline-warning" href="parts/main.php">Parts</a>
   </div>
   <div style="clear:both;"></div>
   </div>
