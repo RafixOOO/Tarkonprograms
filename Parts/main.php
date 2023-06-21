@@ -4,7 +4,7 @@
     
     <?php require_once('globalhead.php') ?>
 </head>
-<body class = "bg-secondary p-2 text-white bg-opacity-25">
+<body class = "bg-secondary p-2 text-dark bg-opacity-25">
     <div class="container">
     <?php require_once('globalnav.php') ?>
 <table class="table table-striped table-bordered">

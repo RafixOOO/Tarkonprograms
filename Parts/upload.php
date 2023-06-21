@@ -9,15 +9,15 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
     <title>Parts</title>
     <?php require_once('globalhead.php') ?>
 </head>
-<body>
+<body class = "bg-secondary p-2 text-dark bg-opacity-25">
     <br />
     <div class="container">
     <form action="" method="POST" enctype="multipart/form-data">
         <label class="form-label" for="customFile">Przesyłanie pliku Excel</label>
         <input type="file" class="form-control" id="customFile"  name="excelFile" accept=".xlsx, .xls"/>
         <p class="text-muted"><h6>Akceptowalne roszerzenie .xls i .xlsx</h6></p>
-        <button type="submit" name="submit" class="btn btn-outline-warning">Wyślij</button>
-        <a class="btn btn-outline-warning" href="main.php" role="button">Anuluj</a>
+        <button type="submit" name="submit" class="btn btn-outline-warning text-dark">Wyślij</button>
+        <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Anuluj</a>
     </form>
     </div>
     <?php

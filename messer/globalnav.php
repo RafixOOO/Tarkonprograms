@@ -12,7 +12,7 @@
             }
 
             ?>
-              <a href="/programs/Tarkonprograms/index.php" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1><b>Tarkon <i>programs</i></b></h1></a>
+              <a href="/programs/Tarkonprograms/index.php" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-center"><h1><b>Tarkon <i>programs</i></b></h1></a>
               <br/>
          <div>
              <ul style="float:left;" class="nav nav-tabs" id="myTab" role="tablist">
