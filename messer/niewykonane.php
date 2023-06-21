@@ -32,7 +32,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <br />
         <?php include 'globalnav.php'; ?>
         <br />
-        <h2 class="text-uppercase">Programy nie wykonane</h2><br>
+        <h3 class="text-uppercase">Programy nie wykonane</h3><br>
 
         <?php require_once('dbconnect.php');
         $sql = "SELECT [ProgramName]

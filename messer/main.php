@@ -67,7 +67,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <br />
         <?php include 'globalnav.php'; ?>
         <br />
-        <h2 class="text-uppercase">Programy Aktualne</h2><br>
+        <h3 class="text-uppercase">Programy Aktualne</h3><br>
         <div class="table-responsive">
             <table class="table table-hover" id="mytable">
                 <thead>
