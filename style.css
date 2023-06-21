@@ -1,8 +1,6 @@
   html,
   body {
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
   }
   
   html {
@@ -19,7 +17,6 @@
   }
   
   .container {
-    display: bloack;
     text-align: center;
   }
 
@@ -27,11 +24,10 @@
   
   .btn {
     background-color: white;
-    width: auto;
     padding: 1em 1.5em;
     border-radius: 0.5rem;
     text-decoration: none;
-    float: left;
     margin-left: 10px;
+    width: 49%;
   }
   
