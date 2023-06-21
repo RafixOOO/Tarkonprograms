@@ -28,7 +28,7 @@
   
   .btn {
     background-color: white;
-    width: 46%;
+    width: auto;
     padding: 1em 1.5em;
     border-radius: 0.5rem;
     text-decoration: none;
