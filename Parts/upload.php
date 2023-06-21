@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require 'C:\xampp\htdocs\programs\Tarkonprograms\vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 ?>
@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 <html>
 <head>
     <title>Parts</title>
+    <?php require_once('globalhead.php') ?>
 </head>
 <body>
     <br />
@@ -15,7 +16,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
         <label class="form-label" for="customFile">Przesyłanie pliku Excel</label>
         <input type="file" class="form-control" id="customFile"  name="excelFile" accept=".xlsx, .xls"/>
         <p class="text-muted"><h6>Akceptowalne roszerzenie .xls i .xlsx</h6></p>
-        <button type="submit" name="submit" class="btn btn-outline-primary">Wyślij</button>
+        <button type="submit" name="submit" class="btn btn-outline-warning">Wyślij</button>
+        <a class="btn btn-outline-warning" href="main.php" role="button">Anuluj</a>
     </form>
     </div>
     <?php
