@@ -1,7 +1,6 @@
 <?php
 
 require_once('auth.php');
-requireLogin();
 
 $serverName = '10.100.100.48,49827';
 $connectionOptions = array(

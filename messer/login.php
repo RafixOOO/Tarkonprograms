@@ -17,7 +17,6 @@ function requireLogin()
 
 $users = array(
     'Admin' => array('password' => 'AdminTarkon##', 'role' => 'admin'),
-    '' => array('password' => '', 'role' => 'user'),
 );
 
 function login($username, $password)
@@ -59,7 +58,9 @@ function login($username, $password)
             </div>
             <br />
             <button type="submit" class="btn btn-primary">Zaloguj</button>
+            <a href="main.php" class="btn btn-primary">Anuluj</a>
         </form>
+        
 
     </div>
 </body>

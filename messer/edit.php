@@ -1,6 +1,5 @@
 <?php
 require_once('auth.php');
-requireLogin();
 
 require_once("dbconnect.php");
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

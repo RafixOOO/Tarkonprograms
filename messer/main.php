@@ -4,12 +4,11 @@
 <?php
 
 require_once('auth.php');
-requireLogin();
 
 function isUserAdmin()
-{
-    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
-}
+                {
+                    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+                }
 
 if(!isUserAdmin()){
     header("refresh: 15;");

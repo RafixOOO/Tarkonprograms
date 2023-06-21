@@ -12,7 +12,8 @@
             }
 
             ?>
-
+              <a href="http://localhost/programs/Tarkonprograms/index.php" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1><b>Tarkon <i>programs</i></b></h1></a>
+              <br/>
          <div>
              <ul style="float:left;" class="nav nav-tabs" id="myTab" role="tablist">
                  <li class="nav-item">
@@ -28,10 +29,18 @@
                      </a>
                  </li>
              </ul>
-
-             <form style="float:right;" class="form-inline my-2 my-lg-0" method="POST" action="logout.php">
+             <?php if (isUserAdmin()){ ?>
+                
+                 </form>
+                <form style="float:right;" class="form-inline my-2 my-lg-0" method="POST" action="logout.php">\
                  <input class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Wyloguj">
-             </form>
+                 </form>
+                 <?php } else{ ?>
+                    <form style="float:right;" class="form-inline my-2 my-lg-0" action="login.php">
+                 <input class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Zaloguj">
+                 </form>
+             <?php } ?>
+             
          </div>
          <div style="clear:both;"></div>
 
