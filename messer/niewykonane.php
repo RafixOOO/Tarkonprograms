@@ -23,7 +23,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 <head>
 
-    <title>Programy nie wykonane</title>
     <?php include 'globalhead.php'; ?>
 
 </head>

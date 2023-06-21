@@ -24,7 +24,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 <head>
     
-    <title>Programy wykonane</title>
     <?php include 'globalhead.php'; ?>
 
 </head>

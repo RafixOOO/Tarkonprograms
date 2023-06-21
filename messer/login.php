@@ -36,7 +36,6 @@ function login($username, $password)
 <html>
 
 <head>
-    <title>Logowanie</title>
     <?php include 'globalhead.php'; ?>
 </head>
 

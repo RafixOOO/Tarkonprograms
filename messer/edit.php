@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 <html lang="en">
 
 <head>
-    <title>Edycja</title>
     <?php include 'globalhead.php'; ?>
 </head>
 

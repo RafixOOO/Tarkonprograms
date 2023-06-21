@@ -17,7 +17,6 @@ if(!isUserAdmin()){
 ?>
 
 <head>
-    <title>Programy aktualne</title>
     <?php include 'globalhead.php'; ?>
 </head>
 <?php require_once('dbconnect.php');
