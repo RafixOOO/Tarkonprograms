@@ -77,7 +77,7 @@
 <script>
 
 document.getElementById("searchInput").addEventListener("keyup", function() {
-  let input = this.value.toLowerCase().split(",");
+  let input = this.value.toLowerCase().trim();
   let table = document.getElementById("myTable");
   let rows = table.getElementsByTagName("tr");
 
@@ -88,18 +88,22 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
     for (let j = 0; j < rowData.length; j++) {
       let cellText = rowData[j].textContent.toLowerCase();
 
-      let allInputsFound = true;
-      for (let k = 0; k < input.length; k++) {
-        let currentInput = input[k].trim();
-        if (cellText.indexOf(currentInput) === -1) {
-          allInputsFound = false;
+      if (input.includes("-")) {
+
+        let range = input.split("-");
+        let fromValue = range[0].trim();
+        let toValue = range[1].trim();
+
+        if (cellText >= fromValue && cellText <= toValue) {
+          found = true;
           break;
         }
-      }
-
-      if (allInputsFound) {
-        found = true;
-        break;
+      } else {
+    
+        if (cellText.indexOf(input) !== -1) {
+          found = true;
+          break;
+        }
       }
     }
 
@@ -107,35 +111,35 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
   }
 });
 
-// Pobierz wszystkie nagłówki kolumn
+
 const headers = document.querySelectorAll("#myTable th");
 
-// Przypisz obsługę zdarzenia kliknięcia do każdego nagłówka kolumny
+
 headers.forEach(header => {
   header.addEventListener("click", () => {
     const table = header.closest("table");
     const tbody = table.querySelector("tbody");
     const rows = Array.from(tbody.querySelectorAll("tr"));
 
-    // Pobierz indeks kolumny na podstawie indeksu nagłówka kolumny
+    
     const columnIndex = Array.from(header.parentNode.children).indexOf(header);
 
-    // Pobierz kierunek sortowania z atrybutu "data-sort"
+
     const sortDirection = header.getAttribute("data-sort");
 
-    // Zmiana kierunku sortowania po kliknięciu
+
     const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
 
-    // Zaktualizuj atrybut "data-sort" na nagłówku kolumny
+ 
     header.setAttribute("data-sort", newSortDirection);
 
-    // Usuń istniejący znak sortowania we wszystkich nagłówkach kolumn
-    headers.forEach(h => h.textContent = h.textContent.replace(" ↑", "").replace(" ↓", ""));
 
-    // Dodaj znak sortowania w zależności od kierunku sortowania
-    header.textContent += newSortDirection === "asc" ? " ↑" : " ↓";
+    headers.forEach(h => h.textContent = h.textContent.replace(" ▲", "").replace(" ▼", ""));
 
-    // Sortowanie danych wierszy
+   
+    header.textContent += newSortDirection === "asc" ? " ▲" : " ▼";
+
+   
     const sortedRows = rows.sort((a, b) => {
       const cellA = a.querySelectorAll("td")[columnIndex].textContent.toLowerCase();
       const cellB = b.querySelectorAll("td")[columnIndex].textContent.toLowerCase();
@@ -147,10 +151,10 @@ headers.forEach(header => {
       }
     });
 
-    // Usuń istniejące wiersze z tabeli
+   
     rows.forEach(row => tbody.removeChild(row));
 
-    // Dodaj posortowane wiersze do tabeli
+    
     sortedRows.forEach(row => tbody.appendChild(row));
   });
 });
