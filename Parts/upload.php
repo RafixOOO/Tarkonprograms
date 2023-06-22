@@ -32,7 +32,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                 die("Niewłaściwy format pliku. Akceptowane rozszerzenia to .xlsx i .xls.");
             }
 
-            $targetDirectory = "Files/";
+            $targetDirectory = "C:/xampp/htdocs/programs/Tarkonprograms/Files/";
             $targetFile = $targetDirectory . basename($file['name']);
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
                 echo "Plik został przesłany i zapisany na serwerze.";
@@ -47,17 +47,15 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                             $isFirstRow = false;
                             continue;
                         }
-                        $sql = "SELECT * FROM Parts WHERE Zespol = '$row[A]' AND Pozycja = '$row[B]'";
+                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
                         $result = sqlsrv_query($conn, $sql);
-                        
                         if (sqlsrv_num_rows($result)>0) {
-                            $sql = "UPDATE `parts` SET `Zespol`='$row[A]',`Pozycja`='$row[B]',`Ilosc`='$row[C]',`Profil`='$row[D]',`Material`='$row[E]',`Dlugosc`='$row[F]',`Ciezar`='$row[G]',`Calk_Ciezar`='$row[H]',`Uwaga`='$row[I]' WHERE Zespol = '$row[A]' AND Pozycja = '$row[B]'";
+                            $sql = "UPDATE Parts SET [Zespol] = '{$row['A']}', [Pozycja] = '{$row['B']}', [Ilosc] = {$row['C']}, [Profil] = '{$row['D']}', [Material] = '{$row['E']}', [Dlugosc] = '{$row['F']}', [Ciezar] = '{$row['G']}', [Calk_ciez] = '{$row['H']}', [Uwaga] = '{$row['I']}' WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
                             sqlsrv_query($conn, $sql);
                             continue;
                         }
 
-                        $sql = "INSERT INTO `parts`(`Zespol`, `Pozycja`, `Ilosc`, `Profil`, `Material`, `Dlugosc`, `Ciezar`, `Calk_Ciezar`, `Uwaga`) VALUES ('$row[A]','$row[B]','$row[C]','$row[D]','$row[E]','$row[F]','$row[G]','$row[H]','$row[I]')";
-
+                        $sql = "INSERT INTO Parts ([Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga]) VALUES ('{$row['A']}', '{$row['B']}', {$row['C']}, '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}')";
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();
                         }

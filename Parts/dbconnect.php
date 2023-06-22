@@ -2,7 +2,7 @@
 
 $serverName = '10.100.100.48,49827';
 $connectionOptions = array(
-    "Database" => "PartChecker",
+    "Database" => "PartCheck",
     "Uid" => "Sa",
     "PWD" => "Shark1445NE\$T"
 );
