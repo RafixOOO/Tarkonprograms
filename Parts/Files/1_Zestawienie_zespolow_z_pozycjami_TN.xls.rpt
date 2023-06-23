@@ -1,0 +1,7748 @@
+template _tmp_880
+{
+    name = "tpled_template1";
+    type = TEXTUAL;
+    width = 150;
+    maxheight = 100000;
+    columns = (1, 1);
+    gap = 0;
+    fillpolicy = EVEN;
+    filldirection = HORIZONTAL;
+    fillstartfrom = TOPLEFT;
+    margins = (1, 1, 1, 1);
+    gridxspacing = 1;
+    gridyspacing = 1;
+    version = 4.1;
+    created = "06.07.2009 22:06";
+    modified = "22.06.2023 10:25";
+    notes = "";
+
+    header _tmp_881
+    {
+        name = "Header";
+        height = 533;
+
+        text _tmp_1001
+        {
+            name = "text_1";
+            x1 = 1;
+            y1 = 532;
+            x2 = 1;
+            y2 = 532;
+            string = "<html xmlns:v=\"urn:schemas-microsoft-com:vml\"";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1002
+        {
+            name = "text_2";
+            x1 = 1;
+            y1 = 531;
+            x2 = 1;
+            y2 = 531;
+            string = "xmlns:o=\"urn:schemas-microsoft-com:office:office\"";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1003
+        {
+            name = "text_3";
+            x1 = 1;
+            y1 = 530;
+            x2 = 1;
+            y2 = 530;
+            string = "xmlns:x=\"urn:schemas-microsoft-com:office:excel\"";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1004
+        {
+            name = "text_4";
+            x1 = 1;
+            y1 = 529;
+            x2 = 1;
+            y2 = 529;
+            string = "xmlns=\"http://www.w3.org/TR/REC-html40\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1005
+        {
+            name = "text_5";
+            x1 = 1;
+            y1 = 528;
+            x2 = 1;
+            y2 = 528;
+            string = "<head>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1006
+        {
+            name = "text_6";
+            x1 = 1;
+            y1 = 527;
+            x2 = 1;
+            y2 = 527;
+            string = "<meta http-equiv=Content-Type content=\"text/html; charset=windows-1250\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1007
+        {
+            name = "text_7";
+            x1 = 1;
+            y1 = 526;
+            x2 = 1;
+            y2 = 526;
+            string = "<meta name=ProgId content=Excel.Sheet>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1008
+        {
+            name = "text_8";
+            x1 = 1;
+            y1 = 525;
+            x2 = 1;
+            y2 = 525;
+            string = "<meta name=Generator content=\"Microsoft Excel 11\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1009
+        {
+            name = "text_9";
+            x1 = 1;
+            y1 = 524;
+            x2 = 1;
+            y2 = 524;
+            string = "<link rel=File-List";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1010
+        {
+            name = "Tekst";
+            x1 = 1;
+            y1 = 523;
+            x2 = 1;
+            y2 = 523;
+            string = "href=\"Construsoft_rachunek_materia³u/filelist.xml\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1011
+        {
+            name = "text_11";
+            x1 = 1;
+            y1 = 522;
+            x2 = 1;
+            y2 = 522;
+            string = "<link rel=Edit-Time-Data";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1012
+        {
+            name = "Tekst_1";
+            x1 = 1;
+            y1 = 521;
+            x2 = 1;
+            y2 = 521;
+            string = "href=\"Construsoft_rachunek_materia³u/editdata.mso\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1013
+        {
+            name = "text_13";
+            x1 = 1;
+            y1 = 520;
+            x2 = 1;
+            y2 = 520;
+            string = "<link rel=OLE-Object-Data";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1014
+        {
+            name = "Tekst_2";
+            x1 = 1;
+            y1 = 519;
+            x2 = 1;
+            y2 = 519;
+            string = "href=\"Construsoft_rachunek_materia³u/oledata.mso\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1015
+        {
+            name = "text_15";
+            x1 = 1;
+            y1 = 518;
+            x2 = 1;
+            y2 = 518;
+            string = "<!--[if !mso]>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1016
+        {
+            name = "text_16";
+            x1 = 1;
+            y1 = 517;
+            x2 = 1;
+            y2 = 517;
+            string = "<style>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1017
+        {
+            name = "text_17";
+            x1 = 1;
+            y1 = 516;
+            x2 = 1;
+            y2 = 516;
+            string = "v\\:* {behavior:url(#default#VML);}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1018
+        {
+            name = "text_18";
+            x1 = 1;
+            y1 = 515;
+            x2 = 1;
+            y2 = 515;
+            string = "o\\:* {behavior:url(#default#VML);}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1019
+        {
+            name = "text_19";
+            x1 = 1;
+            y1 = 514;
+            x2 = 1;
+            y2 = 514;
+            string = "x\\:* {behavior:url(#default#VML);}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1020
+        {
+            name = "text_20";
+            x1 = 1;
+            y1 = 513;
+            x2 = 1;
+            y2 = 513;
+            string = ".shape {behavior:url(#default#VML);}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1021
+        {
+            name = "text_21";
+            x1 = 1;
+            y1 = 512;
+            x2 = 1;
+            y2 = 512;
+            string = "</style>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1022
+        {
+            name = "text_22";
+            x1 = 1;
+            y1 = 511;
+            x2 = 1;
+            y2 = 511;
+            string = "<![endif]--><!--[if gte mso 9]><xml>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1023
+        {
+            name = "text_23";
+            x1 = 1;
+            y1 = 510;
+            x2 = 1;
+            y2 = 510;
+            string = " <o:DocumentProperties>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1024
+        {
+            name = "text_24";
+            x1 = 1;
+            y1 = 509;
+            x2 = 1;
+            y2 = 509;
+            string = "  <o:Author>Ivo Nevtípil</o:Author>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1025
+        {
+            name = "Tekst_3";
+            x1 = 1;
+            y1 = 508;
+            x2 = 1;
+            y2 = 508;
+            string = "  <o:LastAuthor>Marcin Tadej</o:LastAuthor>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1026
+        {
+            name = "text_26";
+            x1 = 1;
+            y1 = 507;
+            x2 = 1;
+            y2 = 507;
+            string = "  <o:LastPrinted>2009-07-17T11:35:46Z</o:LastPrinted>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1027
+        {
+            name = "text_27";
+            x1 = 1;
+            y1 = 506;
+            x2 = 1;
+            y2 = 506;
+            string = "  <o:Created>2009-07-17T10:41:03Z</o:Created>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1028
+        {
+            name = "text_28";
+            x1 = 1;
+            y1 = 505;
+            x2 = 1;
+            y2 = 505;
+            string = "  <o:LastSaved>2009-07-17T12:01:18Z</o:LastSaved>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1029
+        {
+            name = "text_29";
+            x1 = 1;
+            y1 = 504;
+            x2 = 1;
+            y2 = 504;
+            string = "  <o:Company>Construsoft</o:Company>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1030
+        {
+            name = "text_30";
+            x1 = 1;
+            y1 = 503;
+            x2 = 1;
+            y2 = 503;
+            string = "  <o:Version>11.5606</o:Version>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1031
+        {
+            name = "text_31";
+            x1 = 1;
+            y1 = 502;
+            x2 = 1;
+            y2 = 502;
+            string = " </o:DocumentProperties>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1032
+        {
+            name = "text_32";
+            x1 = 1;
+            y1 = 501;
+            x2 = 1;
+            y2 = 501;
+            string = "</xml><![endif]-->";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1033
+        {
+            name = "text_33";
+            x1 = 1;
+            y1 = 500;
+            x2 = 1;
+            y2 = 500;
+            string = "<style>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1034
+        {
+            name = "text_34";
+            x1 = 1;
+            y1 = 499;
+            x2 = 1;
+            y2 = 499;
+            string = "<!--table";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1035
+        {
+            name = "text_35";
+            x1 = 1;
+            y1 = 498;
+            x2 = 1;
+            y2 = 498;
+            string = "{mso-displayed-decimal-separator:\"\\,\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1036
+        {
+            name = "text_36";
+            x1 = 1;
+            y1 = 497;
+            x2 = 1;
+            y2 = 497;
+            string = "mso-displayed-thousand-separator:\" \";}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1037
+        {
+            name = "text_37";
+            x1 = 1;
+            y1 = 496;
+            x2 = 1;
+            y2 = 496;
+            string = "@page";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1038
+        {
+            name = "text_333";
+            x1 = 1;
+            y1 = 494;
+            x2 = 1;
+            y2 = 494;
+            string = "margin:.59in .39in .59in .39in;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1039
+        {
+            name = "text_451";
+            x1 = 1;
+            y1 = 493;
+            x2 = 1;
+            y2 = 493;
+            string = "mso-header-margin:.20in;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1040
+        {
+            name = "text_452";
+            x1 = 1;
+            y1 = 492;
+            x2 = 1;
+            y2 = 492;
+            string = "mso-footer-margin:.20in;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1041
+        {
+            name = "text_41";
+            x1 = 1;
+            y1 = 491;
+            x2 = 1;
+            y2 = 491;
+            string = "tr";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1042
+        {
+            name = "text_42";
+            x1 = 1;
+            y1 = 490;
+            x2 = 1;
+            y2 = 490;
+            string = "{mso-height-source:auto;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1043
+        {
+            name = "text_43";
+            x1 = 1;
+            y1 = 489;
+            x2 = 1;
+            y2 = 489;
+            string = "col";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1044
+        {
+            name = "text_44";
+            x1 = 1;
+            y1 = 488;
+            x2 = 1;
+            y2 = 488;
+            string = "{mso-width-source:auto;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1045
+        {
+            name = "text_45";
+            x1 = 1;
+            y1 = 487;
+            x2 = 1;
+            y2 = 487;
+            string = "br";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1046
+        {
+            name = "text_46";
+            x1 = 1;
+            y1 = 486;
+            x2 = 1;
+            y2 = 486;
+            string = "{mso-data-placement:same-cell;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1047
+        {
+            name = "text_47";
+            x1 = 1;
+            y1 = 485;
+            x2 = 1;
+            y2 = 485;
+            string = ".style18";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1048
+        {
+            name = "text_48";
+            x1 = 1;
+            y1 = 484;
+            x2 = 1;
+            y2 = 484;
+            string = "{color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1049
+        {
+            name = "text_49";
+            x1 = 1;
+            y1 = 483;
+            x2 = 1;
+            y2 = 483;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1050
+        {
+            name = "text_50";
+            x1 = 1;
+            y1 = 482;
+            x2 = 1;
+            y2 = 482;
+            string = "font-weight:400;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1051
+        {
+            name = "text_51";
+            x1 = 1;
+            y1 = 481;
+            x2 = 1;
+            y2 = 481;
+            string = "font-style:normal;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1052
+        {
+            name = "text_52";
+            x1 = 1;
+            y1 = 480;
+            x2 = 1;
+            y2 = 480;
+            string = "text-decoration:underline;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1053
+        {
+            name = "text_53";
+            x1 = 1;
+            y1 = 479;
+            x2 = 1;
+            y2 = 479;
+            string = "text-underline-style:single;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1054
+        {
+            name = "text_54";
+            x1 = 1;
+            y1 = 478;
+            x2 = 1;
+            y2 = 478;
+            string = "font-family:Arial;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1055
+        {
+            name = "text_55";
+            x1 = 1;
+            y1 = 477;
+            x2 = 1;
+            y2 = 477;
+            string = "mso-generic-font-family:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1056
+        {
+            name = "text_56";
+            x1 = 1;
+            y1 = 476;
+            x2 = 1;
+            y2 = 476;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1057
+        {
+            name = "Tekst_5";
+            x1 = 1;
+            y1 = 475;
+            x2 = 1;
+            y2 = 475;
+            string = "mso-style-name:\"Hiper³¹cze\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1058
+        {
+            name = "text_58";
+            x1 = 1;
+            y1 = 474;
+            x2 = 1;
+            y2 = 474;
+            string = "mso-style-id:8;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1059
+        {
+            name = "text_59";
+            x1 = 1;
+            y1 = 473;
+            x2 = 1;
+            y2 = 473;
+            string = "a:link";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1060
+        {
+            name = "text_60";
+            x1 = 1;
+            y1 = 472;
+            x2 = 1;
+            y2 = 472;
+            string = "{color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1061
+        {
+            name = "text_61";
+            x1 = 1;
+            y1 = 471;
+            x2 = 1;
+            y2 = 471;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1062
+        {
+            name = "text_62";
+            x1 = 1;
+            y1 = 470;
+            x2 = 1;
+            y2 = 470;
+            string = "font-weight:400;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1063
+        {
+            name = "text_63";
+            x1 = 1;
+            y1 = 469;
+            x2 = 1;
+            y2 = 469;
+            string = "font-style:normal;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1064
+        {
+            name = "text_64";
+            x1 = 1;
+            y1 = 468;
+            x2 = 1;
+            y2 = 468;
+            string = "text-decoration:underline;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1065
+        {
+            name = "text_65";
+            x1 = 1;
+            y1 = 467;
+            x2 = 1;
+            y2 = 467;
+            string = "text-underline-style:single;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1066
+        {
+            name = "text_66";
+            x1 = 1;
+            y1 = 466;
+            x2 = 1;
+            y2 = 466;
+            string = "font-family:Arial;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1067
+        {
+            name = "text_67";
+            x1 = 1;
+            y1 = 465;
+            x2 = 1;
+            y2 = 465;
+            string = "mso-generic-font-family:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1068
+        {
+            name = "text_68";
+            x1 = 1;
+            y1 = 464;
+            x2 = 1;
+            y2 = 464;
+            string = "mso-font-charset:238;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1069
+        {
+            name = "text_69";
+            x1 = 1;
+            y1 = 463;
+            x2 = 1;
+            y2 = 463;
+            string = "a:visited";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1070
+        {
+            name = "text_70";
+            x1 = 1;
+            y1 = 462;
+            x2 = 1;
+            y2 = 462;
+            string = "{color:purple;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1071
+        {
+            name = "text_71";
+            x1 = 1;
+            y1 = 461;
+            x2 = 1;
+            y2 = 461;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1072
+        {
+            name = "text_72";
+            x1 = 1;
+            y1 = 460;
+            x2 = 1;
+            y2 = 460;
+            string = "font-weight:400;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1073
+        {
+            name = "text_73";
+            x1 = 1;
+            y1 = 459;
+            x2 = 1;
+            y2 = 459;
+            string = "font-style:normal;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1074
+        {
+            name = "text_74";
+            x1 = 1;
+            y1 = 458;
+            x2 = 1;
+            y2 = 458;
+            string = "text-decoration:underline;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1075
+        {
+            name = "text_75";
+            x1 = 1;
+            y1 = 457;
+            x2 = 1;
+            y2 = 457;
+            string = "text-underline-style:single;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1076
+        {
+            name = "text_76";
+            x1 = 1;
+            y1 = 456;
+            x2 = 1;
+            y2 = 456;
+            string = "font-family:Arial;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1077
+        {
+            name = "text_77";
+            x1 = 1;
+            y1 = 455;
+            x2 = 1;
+            y2 = 455;
+            string = "mso-generic-font-family:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1078
+        {
+            name = "text_78";
+            x1 = 1;
+            y1 = 454;
+            x2 = 1;
+            y2 = 454;
+            string = "mso-font-charset:238;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1079
+        {
+            name = "text_79";
+            x1 = 1;
+            y1 = 453;
+            x2 = 1;
+            y2 = 453;
+            string = ".style0";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1080
+        {
+            name = "text_80";
+            x1 = 1;
+            y1 = 452;
+            x2 = 1;
+            y2 = 452;
+            string = "{mso-number-format:General;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1081
+        {
+            name = "text_81";
+            x1 = 1;
+            y1 = 451;
+            x2 = 1;
+            y2 = 451;
+            string = "text-align:general;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1082
+        {
+            name = "text_82";
+            x1 = 1;
+            y1 = 450;
+            x2 = 1;
+            y2 = 450;
+            string = "vertical-align:bottom;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1083
+        {
+            name = "text_83";
+            x1 = 1;
+            y1 = 449;
+            x2 = 1;
+            y2 = 449;
+            string = "white-space:nowrap;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1084
+        {
+            name = "text_84";
+            x1 = 1;
+            y1 = 448;
+            x2 = 1;
+            y2 = 448;
+            string = "mso-rotate:0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1085
+        {
+            name = "text_85";
+            x1 = 1;
+            y1 = 447;
+            x2 = 1;
+            y2 = 447;
+            string = "mso-background-source:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1086
+        {
+            name = "text_86";
+            x1 = 1;
+            y1 = 446;
+            x2 = 1;
+            y2 = 446;
+            string = "mso-pattern:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1087
+        {
+            name = "text_87";
+            x1 = 1;
+            y1 = 445;
+            x2 = 1;
+            y2 = 445;
+            string = "color:windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1088
+        {
+            name = "text_88";
+            x1 = 1;
+            y1 = 444;
+            x2 = 1;
+            y2 = 444;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1089
+        {
+            name = "text_89";
+            x1 = 1;
+            y1 = 443;
+            x2 = 1;
+            y2 = 443;
+            string = "font-weight:400;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1090
+        {
+            name = "text_90";
+            x1 = 1;
+            y1 = 442;
+            x2 = 1;
+            y2 = 442;
+            string = "font-style:normal;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1091
+        {
+            name = "text_91";
+            x1 = 1;
+            y1 = 441;
+            x2 = 1;
+            y2 = 441;
+            string = "text-decoration:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1092
+        {
+            name = "text_92";
+            x1 = 1;
+            y1 = 440;
+            x2 = 1;
+            y2 = 440;
+            string = "font-family:Arial;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1093
+        {
+            name = "text_93";
+            x1 = 1;
+            y1 = 439;
+            x2 = 1;
+            y2 = 439;
+            string = "mso-generic-font-family:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1094
+        {
+            name = "text_94";
+            x1 = 1;
+            y1 = 438;
+            x2 = 1;
+            y2 = 438;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1095
+        {
+            name = "text_95";
+            x1 = 1;
+            y1 = 437;
+            x2 = 1;
+            y2 = 437;
+            string = "border:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1096
+        {
+            name = "text_96";
+            x1 = 1;
+            y1 = 436;
+            x2 = 1;
+            y2 = 436;
+            string = "mso-protection:locked visible;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1097
+        {
+            name = "text_97";
+            x1 = 1;
+            y1 = 435;
+            x2 = 1;
+            y2 = 435;
+            string = "mso-style-name:normální;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1098
+        {
+            name = "text_98";
+            x1 = 1;
+            y1 = 434;
+            x2 = 1;
+            y2 = 434;
+            string = "mso-style-id:0;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1099
+        {
+            name = "text_99";
+            x1 = 1;
+            y1 = 433;
+            x2 = 1;
+            y2 = 433;
+            string = "td";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1100
+        {
+            name = "text_100";
+            x1 = 1;
+            y1 = 432;
+            x2 = 1;
+            y2 = 432;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1101
+        {
+            name = "text_101";
+            x1 = 1;
+            y1 = 431;
+            x2 = 1;
+            y2 = 431;
+            string = "padding:0px;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1102
+        {
+            name = "text_102";
+            x1 = 1;
+            y1 = 430;
+            x2 = 1;
+            y2 = 430;
+            string = "mso-ignore:padding;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1103
+        {
+            name = "text_103";
+            x1 = 1;
+            y1 = 429;
+            x2 = 1;
+            y2 = 429;
+            string = "color:windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1104
+        {
+            name = "text_104";
+            x1 = 1;
+            y1 = 428;
+            x2 = 1;
+            y2 = 428;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1105
+        {
+            name = "text_105";
+            x1 = 1;
+            y1 = 427;
+            x2 = 1;
+            y2 = 427;
+            string = "font-weight:400;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1106
+        {
+            name = "text_106";
+            x1 = 1;
+            y1 = 426;
+            x2 = 1;
+            y2 = 426;
+            string = "font-style:normal;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1107
+        {
+            name = "text_107";
+            x1 = 1;
+            y1 = 425;
+            x2 = 1;
+            y2 = 425;
+            string = "text-decoration:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1108
+        {
+            name = "text_108";
+            x1 = 1;
+            y1 = 424;
+            x2 = 1;
+            y2 = 424;
+            string = "font-family:Arial;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1109
+        {
+            name = "text_109";
+            x1 = 1;
+            y1 = 423;
+            x2 = 1;
+            y2 = 423;
+            string = "mso-generic-font-family:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1110
+        {
+            name = "text_110";
+            x1 = 1;
+            y1 = 422;
+            x2 = 1;
+            y2 = 422;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1111
+        {
+            name = "text_111";
+            x1 = 1;
+            y1 = 421;
+            x2 = 1;
+            y2 = 421;
+            string = "mso-number-format:General;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1112
+        {
+            name = "text_112";
+            x1 = 1;
+            y1 = 420;
+            x2 = 1;
+            y2 = 420;
+            string = "text-align:general;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1113
+        {
+            name = "text_113";
+            x1 = 1;
+            y1 = 419;
+            x2 = 1;
+            y2 = 419;
+            string = "vertical-align:bottom;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1114
+        {
+            name = "text_114";
+            x1 = 1;
+            y1 = 418;
+            x2 = 1;
+            y2 = 418;
+            string = "border:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1115
+        {
+            name = "text_115";
+            x1 = 1;
+            y1 = 417;
+            x2 = 1;
+            y2 = 417;
+            string = "mso-background-source:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1116
+        {
+            name = "text_116";
+            x1 = 1;
+            y1 = 416;
+            x2 = 1;
+            y2 = 416;
+            string = "mso-pattern:auto;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1117
+        {
+            name = "text_117";
+            x1 = 1;
+            y1 = 415;
+            x2 = 1;
+            y2 = 415;
+            string = "mso-protection:locked visible;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1118
+        {
+            name = "text_118";
+            x1 = 1;
+            y1 = 414;
+            x2 = 1;
+            y2 = 414;
+            string = "white-space:nowrap;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1119
+        {
+            name = "text_119";
+            x1 = 1;
+            y1 = 413;
+            x2 = 1;
+            y2 = 413;
+            string = "mso-rotate:0;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1120
+        {
+            name = "text_120";
+            x1 = 1;
+            y1 = 412;
+            x2 = 1;
+            y2 = 412;
+            string = ".xl24";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1121
+        {
+            name = "text_121";
+            x1 = 1;
+            y1 = 411;
+            x2 = 1;
+            y2 = 411;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1122
+        {
+            name = "text_122";
+            x1 = 1;
+            y1 = 410;
+            x2 = 1;
+            y2 = 410;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1123
+        {
+            name = "text_123";
+            x1 = 1;
+            y1 = 409;
+            x2 = 1;
+            y2 = 409;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1124
+        {
+            name = "text_124";
+            x1 = 1;
+            y1 = 408;
+            x2 = 1;
+            y2 = 408;
+            string = "mso-font-charset:238;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1125
+        {
+            name = "text_125";
+            x1 = 1;
+            y1 = 407;
+            x2 = 1;
+            y2 = 407;
+            string = ".xl25";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1126
+        {
+            name = "text_126";
+            x1 = 1;
+            y1 = 406;
+            x2 = 1;
+            y2 = 406;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1127
+        {
+            name = "text_127";
+            x1 = 1;
+            y1 = 405;
+            x2 = 1;
+            y2 = 405;
+            string = "color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1128
+        {
+            name = "text_128";
+            x1 = 1;
+            y1 = 404;
+            x2 = 1;
+            y2 = 404;
+            string = "font-size:9.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1129
+        {
+            name = "text_129";
+            x1 = 1;
+            y1 = 403;
+            x2 = 1;
+            y2 = 403;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1130
+        {
+            name = "text_130";
+            x1 = 1;
+            y1 = 402;
+            x2 = 1;
+            y2 = 402;
+            string = "mso-font-charset:238;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1131
+        {
+            name = "text_131";
+            x1 = 1;
+            y1 = 401;
+            x2 = 1;
+            y2 = 401;
+            string = ".xl26";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1132
+        {
+            name = "text_132";
+            x1 = 1;
+            y1 = 400;
+            x2 = 1;
+            y2 = 400;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1133
+        {
+            name = "text_133";
+            x1 = 1;
+            y1 = 399;
+            x2 = 1;
+            y2 = 399;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1134
+        {
+            name = "text_134";
+            x1 = 1;
+            y1 = 398;
+            x2 = 1;
+            y2 = 398;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1135
+        {
+            name = "text_135";
+            x1 = 1;
+            y1 = 397;
+            x2 = 1;
+            y2 = 397;
+            string = "border-bottom:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1136
+        {
+            name = "text_136";
+            x1 = 1;
+            y1 = 396;
+            x2 = 1;
+            y2 = 396;
+            string = "border-left:none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1137
+        {
+            name = "text_137";
+            x1 = 1;
+            y1 = 395;
+            x2 = 1;
+            y2 = 395;
+            string = ".xl27";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1138
+        {
+            name = "text_138";
+            x1 = 1;
+            y1 = 394;
+            x2 = 1;
+            y2 = 394;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1139
+        {
+            name = "text_139";
+            x1 = 1;
+            y1 = 393;
+            x2 = 1;
+            y2 = 393;
+            string = "font-size:16.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1140
+        {
+            name = "text_140";
+            x1 = 1;
+            y1 = 392;
+            x2 = 1;
+            y2 = 392;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1141
+        {
+            name = "text_141";
+            x1 = 1;
+            y1 = 391;
+            x2 = 1;
+            y2 = 391;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1142
+        {
+            name = "text_142";
+            x1 = 1;
+            y1 = 390;
+            x2 = 1;
+            y2 = 390;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1143
+        {
+            name = "text_143";
+            x1 = 1;
+            y1 = 389;
+            x2 = 1;
+            y2 = 389;
+            string = "text-align:left;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1144
+        {
+            name = "text_144";
+            x1 = 1;
+            y1 = 388;
+            x2 = 1;
+            y2 = 388;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1145
+        {
+            name = "text_145";
+            x1 = 1;
+            y1 = 387;
+            x2 = 1;
+            y2 = 387;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1146
+        {
+            name = "text_146";
+            x1 = 1;
+            y1 = 386;
+            x2 = 1;
+            y2 = 386;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1147
+        {
+            name = "text_147";
+            x1 = 1;
+            y1 = 385;
+            x2 = 1;
+            y2 = 385;
+            string = "border-left:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1148
+        {
+            name = "text_148";
+            x1 = 1;
+            y1 = 384;
+            x2 = 1;
+            y2 = 384;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1149
+        {
+            name = "text_149";
+            x1 = 1;
+            y1 = 383;
+            x2 = 1;
+            y2 = 383;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1150
+        {
+            name = "text_150";
+            x1 = 1;
+            y1 = 382;
+            x2 = 1;
+            y2 = 382;
+            string = ".xl28";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1151
+        {
+            name = "text_151";
+            x1 = 1;
+            y1 = 381;
+            x2 = 1;
+            y2 = 381;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1152
+        {
+            name = "text_152";
+            x1 = 1;
+            y1 = 380;
+            x2 = 1;
+            y2 = 380;
+            string = "font-size:10.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1153
+        {
+            name = "text_153";
+            x1 = 1;
+            y1 = 379;
+            x2 = 1;
+            y2 = 379;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1154
+        {
+            name = "text_154";
+            x1 = 1;
+            y1 = 378;
+            x2 = 1;
+            y2 = 378;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1155
+        {
+            name = "text_155";
+            x1 = 1;
+            y1 = 377;
+            x2 = 1;
+            y2 = 377;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1156
+        {
+            name = "text_156";
+            x1 = 1;
+            y1 = 376;
+            x2 = 1;
+            y2 = 376;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1157
+        {
+            name = "text_157";
+            x1 = 1;
+            y1 = 374;
+            x2 = 1;
+            y2 = 374;
+            string = "border:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1158
+        {
+            name = "text_158";
+            x1 = 1;
+            y1 = 373;
+            x2 = 1;
+            y2 = 373;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1159
+        {
+            name = "text_159";
+            x1 = 1;
+            y1 = 372;
+            x2 = 1;
+            y2 = 372;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1160
+        {
+            name = "text_160";
+            x1 = 1;
+            y1 = 371;
+            x2 = 1;
+            y2 = 371;
+            string = ".xl29";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1161
+        {
+            name = "text_161";
+            x1 = 1;
+            y1 = 370;
+            x2 = 1;
+            y2 = 370;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1162
+        {
+            name = "text_162";
+            x1 = 1;
+            y1 = 369;
+            x2 = 1;
+            y2 = 369;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1163
+        {
+            name = "text_163";
+            x1 = 1;
+            y1 = 368;
+            x2 = 1;
+            y2 = 368;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1164
+        {
+            name = "text_164";
+            x1 = 1;
+            y1 = 367;
+            x2 = 1;
+            y2 = 367;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1165
+        {
+            name = "text_165";
+            x1 = 1;
+            y1 = 366;
+            x2 = 1;
+            y2 = 366;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1166
+        {
+            name = "text_166";
+            x1 = 1;
+            y1 = 364;
+            x2 = 1;
+            y2 = 364;
+            string = "border:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1167
+        {
+            name = "text_167";
+            x1 = 1;
+            y1 = 363;
+            x2 = 1;
+            y2 = 363;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1168
+        {
+            name = "text_168";
+            x1 = 1;
+            y1 = 362;
+            x2 = 1;
+            y2 = 362;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1169
+        {
+            name = "text_169";
+            x1 = 1;
+            y1 = 361;
+            x2 = 1;
+            y2 = 361;
+            string = ".xl30";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1170
+        {
+            name = "text_170";
+            x1 = 1;
+            y1 = 360;
+            x2 = 1;
+            y2 = 360;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1171
+        {
+            name = "text_171";
+            x1 = 1;
+            y1 = 359;
+            x2 = 1;
+            y2 = 359;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1172
+        {
+            name = "text_172";
+            x1 = 1;
+            y1 = 358;
+            x2 = 1;
+            y2 = 358;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1173
+        {
+            name = "text_173";
+            x1 = 1;
+            y1 = 357;
+            x2 = 1;
+            y2 = 357;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1174
+        {
+            name = "text_174";
+            x1 = 1;
+            y1 = 356;
+            x2 = 1;
+            y2 = 356;
+            string = "border-left:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1175
+        {
+            name = "text_175";
+            x1 = 1;
+            y1 = 355;
+            x2 = 1;
+            y2 = 355;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1176
+        {
+            name = "text_176";
+            x1 = 1;
+            y1 = 354;
+            x2 = 1;
+            y2 = 354;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1177
+        {
+            name = "text_177";
+            x1 = 1;
+            y1 = 353;
+            x2 = 1;
+            y2 = 353;
+            string = ".xl31";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1178
+        {
+            name = "text_178";
+            x1 = 1;
+            y1 = 352;
+            x2 = 1;
+            y2 = 352;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1179
+        {
+            name = "text_179";
+            x1 = 1;
+            y1 = 351;
+            x2 = 1;
+            y2 = 351;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1180
+        {
+            name = "text_180";
+            x1 = 1;
+            y1 = 350;
+            x2 = 1;
+            y2 = 350;
+            string = "border-right:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1181
+        {
+            name = "text_181";
+            x1 = 1;
+            y1 = 349;
+            x2 = 1;
+            y2 = 349;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1182
+        {
+            name = "text_182";
+            x1 = 1;
+            y1 = 348;
+            x2 = 1;
+            y2 = 348;
+            string = "border-left:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1183
+        {
+            name = "text_183";
+            x1 = 1;
+            y1 = 347;
+            x2 = 1;
+            y2 = 347;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1184
+        {
+            name = "text_184";
+            x1 = 1;
+            y1 = 346;
+            x2 = 1;
+            y2 = 346;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1185
+        {
+            name = "text_185";
+            x1 = 1;
+            y1 = 345;
+            x2 = 1;
+            y2 = 345;
+            string = ".xl32";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1186
+        {
+            name = "text_186";
+            x1 = 1;
+            y1 = 344;
+            x2 = 1;
+            y2 = 344;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1187
+        {
+            name = "text_187";
+            x1 = 1;
+            y1 = 343;
+            x2 = 1;
+            y2 = 343;
+            string = "mso-number-format:\"0\\.0\";}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1188
+        {
+            name = "text_188";
+            x1 = 1;
+            y1 = 342;
+            x2 = 1;
+            y2 = 342;
+            string = ".xl33";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1189
+        {
+            name = "text_189";
+            x1 = 1;
+            y1 = 341;
+            x2 = 1;
+            y2 = 341;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1190
+        {
+            name = "text_190";
+            x1 = 1;
+            y1 = 340;
+            x2 = 1;
+            y2 = 340;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1191
+        {
+            name = "text_191";
+            x1 = 1;
+            y1 = 339;
+            x2 = 1;
+            y2 = 339;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1192
+        {
+            name = "text_192";
+            x1 = 1;
+            y1 = 338;
+            x2 = 1;
+            y2 = 338;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1193
+        {
+            name = "text_193";
+            x1 = 1;
+            y1 = 337;
+            x2 = 1;
+            y2 = 337;
+            string = "border-bottom:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1194
+        {
+            name = "text_194";
+            x1 = 1;
+            y1 = 336;
+            x2 = 1;
+            y2 = 336;
+            string = "border-left:none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1195
+        {
+            name = "text_195";
+            x1 = 1;
+            y1 = 335;
+            x2 = 1;
+            y2 = 335;
+            string = ".xl34";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1196
+        {
+            name = "text_196";
+            x1 = 1;
+            y1 = 334;
+            x2 = 1;
+            y2 = 334;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1197
+        {
+            name = "text_197";
+            x1 = 1;
+            y1 = 333;
+            x2 = 1;
+            y2 = 333;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1198
+        {
+            name = "text_198";
+            x1 = 1;
+            y1 = 332;
+            x2 = 1;
+            y2 = 332;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1199
+        {
+            name = "text_199";
+            x1 = 1;
+            y1 = 331;
+            x2 = 1;
+            y2 = 331;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1200
+        {
+            name = "text_200";
+            x1 = 1;
+            y1 = 330;
+            x2 = 1;
+            y2 = 330;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1201
+        {
+            name = "text_201";
+            x1 = 1;
+            y1 = 329;
+            x2 = 1;
+            y2 = 329;
+            string = "border-left:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1202
+        {
+            name = "text_202";
+            x1 = 1;
+            y1 = 328;
+            x2 = 1;
+            y2 = 328;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1203
+        {
+            name = "text_203";
+            x1 = 1;
+            y1 = 327;
+            x2 = 1;
+            y2 = 327;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1204
+        {
+            name = "text_204";
+            x1 = 1;
+            y1 = 326;
+            x2 = 1;
+            y2 = 326;
+            string = ".xl35";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1205
+        {
+            name = "text_205";
+            x1 = 1;
+            y1 = 325;
+            x2 = 1;
+            y2 = 325;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1206
+        {
+            name = "text_206";
+            x1 = 1;
+            y1 = 324;
+            x2 = 1;
+            y2 = 324;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1207
+        {
+            name = "text_207";
+            x1 = 1;
+            y1 = 323;
+            x2 = 1;
+            y2 = 323;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1208
+        {
+            name = "text_208";
+            x1 = 1;
+            y1 = 322;
+            x2 = 1;
+            y2 = 322;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1209
+        {
+            name = "text_209";
+            x1 = 1;
+            y1 = 321;
+            x2 = 1;
+            y2 = 321;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1210
+        {
+            name = "text_210";
+            x1 = 1;
+            y1 = 320;
+            x2 = 1;
+            y2 = 320;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1211
+        {
+            name = "text_211";
+            x1 = 1;
+            y1 = 318;
+            x2 = 1;
+            y2 = 318;
+            string = "border:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1212
+        {
+            name = "text_212";
+            x1 = 1;
+            y1 = 317;
+            x2 = 1;
+            y2 = 317;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1213
+        {
+            name = "text_213";
+            x1 = 1;
+            y1 = 316;
+            x2 = 1;
+            y2 = 316;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1214
+        {
+            name = "text_214";
+            x1 = 1;
+            y1 = 315;
+            x2 = 1;
+            y2 = 315;
+            string = ".xl36";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1215
+        {
+            name = "text_215";
+            x1 = 1;
+            y1 = 314;
+            x2 = 1;
+            y2 = 314;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1216
+        {
+            name = "text_216";
+            x1 = 1;
+            y1 = 313;
+            x2 = 1;
+            y2 = 313;
+            string = "color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1217
+        {
+            name = "text_217";
+            x1 = 1;
+            y1 = 312;
+            x2 = 1;
+            y2 = 312;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1218
+        {
+            name = "text_218";
+            x1 = 1;
+            y1 = 311;
+            x2 = 1;
+            y2 = 311;
+            string = "mso-font-charset:238;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1219
+        {
+            name = "text_219";
+            x1 = 1;
+            y1 = 310;
+            x2 = 1;
+            y2 = 310;
+            string = ".xl37";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1220
+        {
+            name = "text_220";
+            x1 = 1;
+            y1 = 309;
+            x2 = 1;
+            y2 = 309;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1221
+        {
+            name = "text_221";
+            x1 = 1;
+            y1 = 308;
+            x2 = 1;
+            y2 = 308;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1222
+        {
+            name = "text_222";
+            x1 = 1;
+            y1 = 307;
+            x2 = 1;
+            y2 = 307;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1223
+        {
+            name = "text_223";
+            x1 = 1;
+            y1 = 306;
+            x2 = 1;
+            y2 = 306;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1224
+        {
+            name = "text_224";
+            x1 = 1;
+            y1 = 305;
+            x2 = 1;
+            y2 = 305;
+            string = "text-align:right;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1225
+        {
+            name = "text_225";
+            x1 = 1;
+            y1 = 304;
+            x2 = 1;
+            y2 = 304;
+            string = ".xl38";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1226
+        {
+            name = "text_226";
+            x1 = 1;
+            y1 = 303;
+            x2 = 1;
+            y2 = 303;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1227
+        {
+            name = "text_227";
+            x1 = 1;
+            y1 = 302;
+            x2 = 1;
+            y2 = 302;
+            string = "mso-number-format:Fixed;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1228
+        {
+            name = "text_228";
+            x1 = 1;
+            y1 = 301;
+            x2 = 1;
+            y2 = 301;
+            string = "text-align:left;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1229
+        {
+            name = "text_229";
+            x1 = 1;
+            y1 = 300;
+            x2 = 1;
+            y2 = 300;
+            string = ".xl39";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1230
+        {
+            name = "text_230";
+            x1 = 1;
+            y1 = 299;
+            x2 = 1;
+            y2 = 299;
+            string = "{mso-style-parent:style18;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1231
+        {
+            name = "text_231";
+            x1 = 1;
+            y1 = 298;
+            x2 = 1;
+            y2 = 298;
+            string = "color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1232
+        {
+            name = "text_232";
+            x1 = 1;
+            y1 = 297;
+            x2 = 1;
+            y2 = 297;
+            string = "text-decoration:underline;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1233
+        {
+            name = "text_233";
+            x1 = 1;
+            y1 = 296;
+            x2 = 1;
+            y2 = 296;
+            string = "text-underline-style:single;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1234
+        {
+            name = "text_234";
+            x1 = 1;
+            y1 = 295;
+            x2 = 1;
+            y2 = 295;
+            string = ".xl40";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1235
+        {
+            name = "text_235";
+            x1 = 1;
+            y1 = 294;
+            x2 = 1;
+            y2 = 294;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1236
+        {
+            name = "text_236";
+            x1 = 1;
+            y1 = 293;
+            x2 = 1;
+            y2 = 293;
+            string = "text-align:left;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1237
+        {
+            name = "text_237";
+            x1 = 1;
+            y1 = 292;
+            x2 = 1;
+            y2 = 292;
+            string = ".xl41";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1238
+        {
+            name = "text_238";
+            x1 = 1;
+            y1 = 291;
+            x2 = 1;
+            y2 = 291;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1239
+        {
+            name = "text_239";
+            x1 = 1;
+            y1 = 290;
+            x2 = 1;
+            y2 = 290;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1240
+        {
+            name = "text_240";
+            x1 = 1;
+            y1 = 289;
+            x2 = 1;
+            y2 = 289;
+            string = "border-top:1.0pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1241
+        {
+            name = "text_241";
+            x1 = 1;
+            y1 = 288;
+            x2 = 1;
+            y2 = 288;
+            string = "border-right:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1242
+        {
+            name = "text_242";
+            x1 = 1;
+            y1 = 287;
+            x2 = 1;
+            y2 = 287;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1243
+        {
+            name = "text_243";
+            x1 = 1;
+            y1 = 286;
+            x2 = 1;
+            y2 = 286;
+            string = "border-left:.5pt solid windowtext;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1244
+        {
+            name = "text_244";
+            x1 = 1;
+            y1 = 285;
+            x2 = 1;
+            y2 = 285;
+            string = ".xl42";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1245
+        {
+            name = "text_245";
+            x1 = 1;
+            y1 = 284;
+            x2 = 1;
+            y2 = 284;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1246
+        {
+            name = "text_246";
+            x1 = 1;
+            y1 = 283;
+            x2 = 1;
+            y2 = 283;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1247
+        {
+            name = "text_247";
+            x1 = 1;
+            y1 = 282;
+            x2 = 1;
+            y2 = 282;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1248
+        {
+            name = "text_248";
+            x1 = 1;
+            y1 = 281;
+            x2 = 1;
+            y2 = 281;
+            string = "border-top:1.0pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1249
+        {
+            name = "text_249";
+            x1 = 1;
+            y1 = 280;
+            x2 = 1;
+            y2 = 280;
+            string = "border-right:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1250
+        {
+            name = "text_250";
+            x1 = 1;
+            y1 = 279;
+            x2 = 1;
+            y2 = 279;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1251
+        {
+            name = "text_251";
+            x1 = 1;
+            y1 = 278;
+            x2 = 1;
+            y2 = 278;
+            string = "border-left:.5pt solid windowtext;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1252
+        {
+            name = "text_252";
+            x1 = 1;
+            y1 = 277;
+            x2 = 1;
+            y2 = 277;
+            string = ".xl43";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1253
+        {
+            name = "text_253";
+            x1 = 1;
+            y1 = 276;
+            x2 = 1;
+            y2 = 276;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1254
+        {
+            name = "text_254";
+            x1 = 1;
+            y1 = 275;
+            x2 = 1;
+            y2 = 275;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1255
+        {
+            name = "text_255";
+            x1 = 1;
+            y1 = 274;
+            x2 = 1;
+            y2 = 274;
+            string = "border-top:1.0pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1256
+        {
+            name = "text_256";
+            x1 = 1;
+            y1 = 273;
+            x2 = 1;
+            y2 = 273;
+            string = "border-right:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1257
+        {
+            name = "text_257";
+            x1 = 1;
+            y1 = 272;
+            x2 = 1;
+            y2 = 272;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1258
+        {
+            name = "text_258";
+            x1 = 1;
+            y1 = 271;
+            x2 = 1;
+            y2 = 271;
+            string = "border-left:.5pt solid windowtext;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1259
+        {
+            name = "text_259";
+            x1 = 1;
+            y1 = 270;
+            x2 = 1;
+            y2 = 270;
+            string = ".xl44";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1260
+        {
+            name = "text_260";
+            x1 = 1;
+            y1 = 269;
+            x2 = 1;
+            y2 = 269;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1261
+        {
+            name = "text_261";
+            x1 = 1;
+            y1 = 268;
+            x2 = 1;
+            y2 = 268;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1262
+        {
+            name = "text_262";
+            x1 = 1;
+            y1 = 267;
+            x2 = 1;
+            y2 = 267;
+            string = "text-align:center;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1263
+        {
+            name = "text_263";
+            x1 = 1;
+            y1 = 266;
+            x2 = 1;
+            y2 = 266;
+            string = "border-top:1.0pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1264
+        {
+            name = "text_264";
+            x1 = 1;
+            y1 = 265;
+            x2 = 1;
+            y2 = 265;
+            string = "border-right:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1265
+        {
+            name = "text_265";
+            x1 = 1;
+            y1 = 264;
+            x2 = 1;
+            y2 = 264;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1266
+        {
+            name = "text_266";
+            x1 = 1;
+            y1 = 263;
+            x2 = 1;
+            y2 = 263;
+            string = "border-left:.5pt solid windowtext;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1267
+        {
+            name = "text_267";
+            x1 = 1;
+            y1 = 262;
+            x2 = 1;
+            y2 = 262;
+            string = ".xl45";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1268
+        {
+            name = "text_268";
+            x1 = 1;
+            y1 = 261;
+            x2 = 1;
+            y2 = 261;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1269
+        {
+            name = "text_269";
+            x1 = 1;
+            y1 = 260;
+            x2 = 1;
+            y2 = 260;
+            string = "font-weight:700;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1270
+        {
+            name = "text_270";
+            x1 = 1;
+            y1 = 259;
+            x2 = 1;
+            y2 = 259;
+            string = "font-family:Arial, sans-serif;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1271
+        {
+            name = "text_271";
+            x1 = 1;
+            y1 = 258;
+            x2 = 1;
+            y2 = 258;
+            string = "mso-font-charset:238;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1272
+        {
+            name = "text_272";
+            x1 = 1;
+            y1 = 257;
+            x2 = 1;
+            y2 = 257;
+            string = "text-align:left;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1273
+        {
+            name = "text_273";
+            x1 = 1;
+            y1 = 256;
+            x2 = 1;
+            y2 = 256;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1274
+        {
+            name = "text_274";
+            x1 = 1;
+            y1 = 255;
+            x2 = 1;
+            y2 = 255;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1275
+        {
+            name = "text_275";
+            x1 = 1;
+            y1 = 254;
+            x2 = 1;
+            y2 = 254;
+            string = "border-bottom:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1276
+        {
+            name = "text_276";
+            x1 = 1;
+            y1 = 253;
+            x2 = 1;
+            y2 = 253;
+            string = "border-left:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1277
+        {
+            name = "text_277";
+            x1 = 1;
+            y1 = 252;
+            x2 = 1;
+            y2 = 252;
+            string = "background:silver;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1278
+        {
+            name = "text_278";
+            x1 = 1;
+            y1 = 251;
+            x2 = 1;
+            y2 = 251;
+            string = "mso-pattern:auto none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1279
+        {
+            name = "text_279";
+            x1 = 1;
+            y1 = 250;
+            x2 = 1;
+            y2 = 250;
+            string = ".xl46";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1280
+        {
+            name = "text_280";
+            x1 = 1;
+            y1 = 249;
+            x2 = 1;
+            y2 = 249;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1281
+        {
+            name = "text_281";
+            x1 = 1;
+            y1 = 248;
+            x2 = 1;
+            y2 = 248;
+            string = "color:blue;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1282
+        {
+            name = "text_282";
+            x1 = 1;
+            y1 = 247;
+            x2 = 1;
+            y2 = 247;
+            string = "font-size:8.0pt;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1283
+        {
+            name = "text_283";
+            x1 = 1;
+            y1 = 246;
+            x2 = 1;
+            y2 = 246;
+            string = "border-top:.5pt solid windowtext;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1284
+        {
+            name = "text_284";
+            x1 = 1;
+            y1 = 245;
+            x2 = 1;
+            y2 = 245;
+            string = "border-right:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1285
+        {
+            name = "text_285";
+            x1 = 1;
+            y1 = 244;
+            x2 = 1;
+            y2 = 244;
+            string = "border-bottom:none;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1286
+        {
+            name = "text_286";
+            x1 = 1;
+            y1 = 243;
+            x2 = 1;
+            y2 = 243;
+            string = "border-left:none;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1287
+        {
+            name = "text_287";
+            x1 = 1;
+            y1 = 242;
+            x2 = 1;
+            y2 = 242;
+            string = ".xl47";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1288
+        {
+            name = "text_288";
+            x1 = 1;
+            y1 = 241;
+            x2 = 1;
+            y2 = 241;
+            string = "{mso-style-parent:style0;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1289
+        {
+            name = "text_289";
+            x1 = 1;
+            y1 = 240;
+            x2 = 1;
+            y2 = 240;
+            string = "color:red;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1290
+        {
+            name = "text_290";
+            x1 = 1;
+            y1 = 239;
+            x2 = 1;
+            y2 = 239;
+            string = "mso-number-format:\"0\\.0\";";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1291
+        {
+            name = "text_291";
+            x1 = 1;
+            y1 = 238;
+            x2 = 1;
+            y2 = 238;
+            string = "text-align:center;}";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1292
+        {
+            name = "text_292";
+            x1 = 1;
+            y1 = 237;
+            x2 = 1;
+            y2 = 237;
+            string = "-->";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1293
+        {
+            name = "text_293";
+            x1 = 1;
+            y1 = 236;
+            x2 = 1;
+            y2 = 236;
+            string = "</style>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1294
+        {
+            name = "text_294";
+            x1 = 1;
+            y1 = 235;
+            x2 = 1;
+            y2 = 235;
+            string = "<!--[if gte mso 9]><xml>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1295
+        {
+            name = "text_295";
+            x1 = 1;
+            y1 = 234;
+            x2 = 1;
+            y2 = 234;
+            string = " <x:ExcelWorkbook>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1296
+        {
+            name = "text_296";
+            x1 = 1;
+            y1 = 233;
+            x2 = 1;
+            y2 = 233;
+            string = "  <x:ExcelWorksheets>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1297
+        {
+            name = "text_297";
+            x1 = 1;
+            y1 = 232;
+            x2 = 1;
+            y2 = 232;
+            string = "   <x:ExcelWorksheet>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1298
+        {
+            name = "text_298";
+            x1 = 1;
+            y1 = 231;
+            x2 = 1;
+            y2 = 231;
+            string = "    <x:Name>Raport BOM</x:Name>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1299
+        {
+            name = "text_299";
+            x1 = 1;
+            y1 = 230;
+            x2 = 1;
+            y2 = 230;
+            string = "    <x:WorksheetOptions>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1300
+        {
+            name = "text_300";
+            x1 = 1;
+            y1 = 229;
+            x2 = 1;
+            y2 = 229;
+            string = "<!--     <x:FitToPage/>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1301
+        {
+            name = "text_301";
+            x1 = 1;
+            y1 = 228;
+            x2 = 1;
+            y2 = 228;
+            string = "     <x:FitToPage/>-->";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1302
+        {
+            name = "text_302";
+            x1 = 1;
+            y1 = 227;
+            x2 = 1;
+            y2 = 227;
+            string = "     <x:Print>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1303
+        {
+            name = "text_303";
+            x1 = 1;
+            y1 = 226;
+            x2 = 1;
+            y2 = 226;
+            string = "      <x:ValidPrinterInfo/>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1304
+        {
+            name = "text_304";
+            x1 = 1;
+            y1 = 225;
+            x2 = 1;
+            y2 = 225;
+            string = "      <x:PaperSizeIndex>9</x:PaperSizeIndex>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1305
+        {
+            name = "text_305";
+            x1 = 1;
+            y1 = 224;
+            x2 = 1;
+            y2 = 224;
+            string = "      <x:Scale>86</x:Scale>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1306
+        {
+            name = "text_306";
+            x1 = 1;
+            y1 = 223;
+            x2 = 1;
+            y2 = 223;
+            string = "      <x:HorizontalResolution>600</x:HorizontalResolution>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1307
+        {
+            name = "text_307";
+            x1 = 1;
+            y1 = 222;
+            x2 = 1;
+            y2 = 222;
+            string = "      <x:VerticalResolution>600</x:VerticalResolution>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1308
+        {
+            name = "text_308";
+            x1 = 1;
+            y1 = 221;
+            x2 = 1;
+            y2 = 221;
+            string = "     </x:Print>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1309
+        {
+            name = "text_309";
+            x1 = 1;
+            y1 = 220;
+            x2 = 1;
+            y2 = 220;
+            string = "     <x:Selected/>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1310
+        {
+            name = "text_310";
+            x1 = 1;
+            y1 = 219;
+            x2 = 1;
+            y2 = 219;
+            string = "     <x:Panes>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1311
+        {
+            name = "text_311";
+            x1 = 1;
+            y1 = 218;
+            x2 = 1;
+            y2 = 218;
+            string = "      <x:Pane>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1312
+        {
+            name = "text_312";
+            x1 = 1;
+            y1 = 217;
+            x2 = 1;
+            y2 = 217;
+            string = "       <x:Number>1</x:Number>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1313
+        {
+            name = "text_313";
+            x1 = 1;
+            y1 = 216;
+            x2 = 1;
+            y2 = 216;
+            string = "       <x:ActiveRow>18</x:ActiveRow>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1314
+        {
+            name = "text_314";
+            x1 = 1;
+            y1 = 215;
+            x2 = 1;
+            y2 = 215;
+            string = "      </x:Pane>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1315
+        {
+            name = "text_315";
+            x1 = 1;
+            y1 = 214;
+            x2 = 1;
+            y2 = 214;
+            string = "     </x:Panes>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1316
+        {
+            name = "text_316";
+            x1 = 1;
+            y1 = 213;
+            x2 = 1;
+            y2 = 213;
+            string = "     <x:ProtectContents>False</x:ProtectContents>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1317
+        {
+            name = "text_317";
+            x1 = 1;
+            y1 = 212;
+            x2 = 1;
+            y2 = 212;
+            string = "     <x:ProtectObjects>False</x:ProtectObjects>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1318
+        {
+            name = "text_318";
+            x1 = 1;
+            y1 = 211;
+            x2 = 1;
+            y2 = 211;
+            string = "     <x:ProtectScenarios>False</x:ProtectScenarios>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1319
+        {
+            name = "text_319";
+            x1 = 1;
+            y1 = 210;
+            x2 = 1;
+            y2 = 210;
+            string = "    </x:WorksheetOptions>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1338
+        {
+            name = "text_338";
+            x1 = 1;
+            y1 = 209;
+            x2 = 1;
+            y2 = 209;
+            string = "  <x:WindowHeight>15870</x:WindowHeight>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1339
+        {
+            name = "text_339";
+            x1 = 1;
+            y1 = 208;
+            x2 = 1;
+            y2 = 208;
+            string = "  <x:WindowWidth>21900</x:WindowWidth>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1340
+        {
+            name = "text_340";
+            x1 = 1;
+            y1 = 207;
+            x2 = 1;
+            y2 = 207;
+            string = "  <x:WindowTopX>30</x:WindowTopX>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1341
+        {
+            name = "text_341";
+            x1 = 1;
+            y1 = 206;
+            x2 = 1;
+            y2 = 206;
+            string = "  <x:WindowTopY>75</x:WindowTopY>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1342
+        {
+            name = "text_342";
+            x1 = 1;
+            y1 = 205;
+            x2 = 1;
+            y2 = 205;
+            string = "  <x:ProtectStructure>False</x:ProtectStructure>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1343
+        {
+            name = "text_343";
+            x1 = 1;
+            y1 = 204;
+            x2 = 1;
+            y2 = 204;
+            string = "  <x:ProtectWindows>False</x:ProtectWindows>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1344
+        {
+            name = "text_344";
+            x1 = 1;
+            y1 = 203;
+            x2 = 1;
+            y2 = 203;
+            string = " </x:ExcelWorkbook>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1345
+        {
+            name = "text_345";
+            x1 = 1;
+            y1 = 194;
+            x2 = 1;
+            y2 = 194;
+            string = "</xml><![endif]--><!--[if gte mso 9]><xml>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1346
+        {
+            name = "text_346";
+            x1 = 1;
+            y1 = 193;
+            x2 = 1;
+            y2 = 193;
+            string = " <o:shapedefaults v:ext=\"edit\" spidmax=\"2049\"/>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1347
+        {
+            name = "text_347";
+            x1 = 1;
+            y1 = 192;
+            x2 = 1;
+            y2 = 192;
+            string = "</xml><![endif]--><!--[if gte mso 9]><xml>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1348
+        {
+            name = "text_348";
+            x1 = 1;
+            y1 = 191;
+            x2 = 1;
+            y2 = 191;
+            string = " <o:shapelayout v:ext=\"edit\">";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1349
+        {
+            name = "text_349";
+            x1 = 1;
+            y1 = 190;
+            x2 = 1;
+            y2 = 190;
+            string = "  <o:idmap v:ext=\"edit\" data=\"1\"/>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1350
+        {
+            name = "text_350";
+            x1 = 1;
+            y1 = 189;
+            x2 = 1;
+            y2 = 189;
+            string = " </o:shapelayout></xml><![endif]-->";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1351
+        {
+            name = "text_351";
+            x1 = 1;
+            y1 = 188;
+            x2 = 1;
+            y2 = 188;
+            string = "</head>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1352
+        {
+            name = "text_352";
+            x1 = 1;
+            y1 = 187;
+            x2 = 1;
+            y2 = 187;
+            string = "<body link=blue vlink=purple>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1353
+        {
+            name = "text_353";
+            x1 = 1;
+            y1 = 186;
+            x2 = 1;
+            y2 = 186;
+            string = "<table x:str border=0 cellpadding=0 cellspacing=0 width=1153 style='border-collapse:";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1354
+        {
+            name = "text_354";
+            x1 = 1;
+            y1 = 185;
+            x2 = 1;
+            y2 = 185;
+            string = " collapse;table-layout:fixed;width:866pt'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1539
+        {
+            name = "text_539";
+            x1 = 1;
+            y1 = 14;
+            x2 = 1;
+            y2 = 14;
+            string = " </tr>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1540
+        {
+            name = "text_540";
+            x1 = 1;
+            y1 = 13;
+            x2 = 1;
+            y2 = 13;
+            string = " <tr height=17 style='height:12.75pt'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1541
+        {
+            name = "text_541";
+            x1 = 1;
+            y1 = 12;
+            x2 = 1;
+            y2 = 12;
+            string = "  <td height=17 class=xl28 style='height:12.75pt'>Zespol</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1542
+        {
+            name = "text_542";
+            x1 = 1;
+            y1 = 11;
+            x2 = 1;
+            y2 = 11;
+            string = "  <td class=xl29 style='border-left:none'>Pozycja</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1543
+        {
+            name = "text_543";
+            x1 = 1;
+            y1 = 10;
+            x2 = 1;
+            y2 = 10;
+            string = "  <td class=xl29 style='border-left:none'>Ilosc</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1544
+        {
+            name = "text_544";
+            x1 = 1;
+            y1 = 9;
+            x2 = 1;
+            y2 = 9;
+            string = "  <td class=xl29 style='border-left:none'>Profil</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1546
+        {
+            name = "text_546";
+            x1 = 1;
+            y1 = 7;
+            x2 = 1;
+            y2 = 7;
+            string = "  <td class=xl29 style='border-left:none'>Materia³</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1547
+        {
+            name = "text_547";
+            x1 = 1;
+            y1 = 6;
+            x2 = 1;
+            y2 = 6;
+            string = "  <td class=xl29 style='border-left:none; white-space:normal'>Dl_1szt_(mm)</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1548
+        {
+            name = "text_548";
+            x1 = 1;
+            y1 = 5;
+            x2 = 1;
+            y2 = 5;
+            string = "  <td class=xl35 style='border-left:none; white-space:normal'>Ciezar_1szt_(kg)</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1549
+        {
+            name = "text_549";
+            x1 = 1;
+            y1 = 4;
+            x2 = 1;
+            y2 = 4;
+            string = "  <td class=xl35 style='border-left:none; white-space:normal'>Calk_ciezar_(kg)</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1550
+        {
+            name = "text_550";
+            x1 = 1;
+            y1 = 3;
+            x2 = 1;
+            y2 = 3;
+            string = "  <td class=xl29 style='border-left:none'>Uwaga</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_1552
+        {
+            name = "text_552";
+            x1 = 1;
+            y1 = 1;
+            x2 = 1;
+            y2 = 1;
+            string = " </tr>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_14
+        {
+            name = "text_336";
+            x1 = 2;
+            y1 = 200;
+            x2 = 2;
+            y2 = 200;
+            string = " <x:SheetIndex>1</x:SheetIndex>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_16
+        {
+            name = "text_337";
+            x1 = 2;
+            y1 = 199;
+            x2 = 2;
+            y2 = 199;
+            string = " <x:Formula>='Raport BOM'!$1:$16</x:Formula>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_18
+        {
+            name = "text_447";
+            x1 = 1;
+            y1 = 198;
+            x2 = 1;
+            y2 = 198;
+            string = " </x:ExcelName>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_24
+        {
+            name = "text_448";
+            x1 = 1;
+            y1 = 319;
+            x2 = 1;
+            y2 = 319;
+            string = "vertical-align:middle;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_26
+        {
+            name = "text_449";
+            x1 = 1;
+            y1 = 365;
+            x2 = 1;
+            y2 = 365;
+            string = "vertical-align:middle;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_28
+        {
+            name = "text_450";
+            x1 = 1;
+            y1 = 375;
+            x2 = 1;
+            y2 = 375;
+            string = "vertical-align:middle;";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+    };
+
+    row _tmp_2015
+    {
+        name = "PART";
+        height = 26;
+        visibility = TRUE;
+        usecolumns = FALSE;
+        rule = "";
+        contenttype = "PART";
+        sorttype = COMBINE;
+
+        text _tmp_2055
+        {
+            name = "Text";
+            x1 = 1;
+            y1 = 25;
+            x2 = 1;
+            y2 = 25;
+            string = " <tr height=17 style='height:12.75pt'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2057
+        {
+            name = "Text_2";
+            x1 = 1;
+            y1 = 23;
+            x2 = 1;
+            y2 = 23;
+            string = "  <td class=xl41 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2058
+        {
+            name = "Text_3";
+            x1 = 1;
+            y1 = 21;
+            x2 = 1;
+            y2 = 21;
+            string = "  <td class=xl41 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2059
+        {
+            name = "Text_4";
+            x1 = 1;
+            y1 = 20;
+            x2 = 1;
+            y2 = 20;
+            string = "  <td class=xl41 style='border-top:none;border-left:none'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2060
+        {
+            name = "Text_5";
+            x1 = 1;
+            y1 = 19;
+            x2 = 1;
+            y2 = 19;
+            string = "  <td class=xl41 style='border-top:none;border-left:none'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2062
+        {
+            name = "Text_7";
+            x1 = 1;
+            y1 = 17;
+            x2 = 1;
+            y2 = 17;
+            string = "  <td class=xl41 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2063
+        {
+            name = "Text_8";
+            x1 = 1;
+            y1 = 16;
+            x2 = 1;
+            y2 = 16;
+            string = "  <td class=xl42 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2064
+        {
+            name = "Text_9";
+            x1 = 1;
+            y1 = 15;
+            x2 = 1;
+            y2 = 15;
+            string = "  <td class=xl42 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2065
+        {
+            name = "Text_10";
+            x1 = 1;
+            y1 = 14;
+            x2 = 1;
+            y2 = 14;
+            string = "  <td class=xl41 style='border-top:none;border-left:none'>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        valuefield _tmp_2238
+        {
+            name = "PART_POS_field";
+            location = (113, 22);
+            formula = "GetValue(\"PART_POS\")";
+            maxnumoflines = 1;
+            datatype = STRING;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 20;
+            decimals = 0;
+            sortdirection = ASCENDING;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            aligncontenttotop = FALSE;
+        };
+
+        valuefield _tmp_2239
+        {
+            name = "NUMBER_field_1";
+            location = (109, 21);
+            formula = "GetValue(\"NUMBER\")";
+            maxnumoflines = 1;
+            datatype = INTEGER;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 5;
+            decimals = 0;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = SUM;
+            aligncontenttotop = FALSE;
+        };
+
+        valuefield _tmp_2240
+        {
+            name = "PROFILE_field";
+            location = (102, 20);
+            formula = "GetValue(\"PROFILE\")";
+            maxnumoflines = 1;
+            datatype = STRING;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 30;
+            decimals = 0;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            aligncontenttotop = FALSE;
+        };
+
+        valuefield _tmp_2241
+        {
+            name = "MATERIAL_field";
+            location = (102, 18);
+            formula = "GetValue(\"MATERIAL\")";
+            maxnumoflines = 1;
+            datatype = STRING;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 40;
+            decimals = 0;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            aligncontenttotop = FALSE;
+        };
+
+        valuefield _tmp_2242
+        {
+            name = "LENGTH_field";
+            location = (113, 17);
+            formula = "GetValue(\"LENGTH\")";
+            maxnumoflines = 1;
+            datatype = DOUBLE;
+            class = "Length";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = RIGHT;
+            visibility = TRUE;
+            angle = 0;
+            length = 8;
+            decimals = 0;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            unit = "mm";
+        };
+
+        valuefield _tmp_2243
+        {
+            name = "WEIGHT_field_2";
+            location = (113, 16);
+            formula = "GetValue(\"WEIGHT\")";
+            maxnumoflines = 1;
+            datatype = DOUBLE;
+            class = "Weight";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = RIGHT;
+            visibility = TRUE;
+            angle = 0;
+            length = 8;
+            decimals = 1;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            unit = "kg";
+        };
+
+        valuefield _tmp_2244
+        {
+            name = "WEIGHT_field_3";
+            location = (113, 15);
+            formula = "GetValue(\"WEIGHT\")";
+            maxnumoflines = 1;
+            datatype = DOUBLE;
+            class = "Weight";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = RIGHT;
+            visibility = TRUE;
+            angle = 0;
+            length = 8;
+            decimals = 1;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = SUM;
+            unit = "kg";
+        };
+
+        text _tmp_2246
+        {
+            name = "Text_22";
+            x1 = 143;
+            y1 = 14;
+            x2 = 143;
+            y2 = 14;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2247
+        {
+            name = "Text_23";
+            x1 = 126;
+            y1 = 15;
+            x2 = 126;
+            y2 = 15;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2248
+        {
+            name = "Text_24";
+            x1 = 126;
+            y1 = 16;
+            x2 = 126;
+            y2 = 16;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2249
+        {
+            name = "Text_25";
+            x1 = 126;
+            y1 = 17;
+            x2 = 126;
+            y2 = 17;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2250
+        {
+            name = "Text_26";
+            x1 = 143;
+            y1 = 18;
+            x2 = 143;
+            y2 = 18;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2251
+        {
+            name = "Text_27";
+            x1 = 133;
+            y1 = 20;
+            x2 = 133;
+            y2 = 20;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2253
+        {
+            name = "Text_29";
+            x1 = 133;
+            y1 = 21;
+            x2 = 133;
+            y2 = 21;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_2254
+        {
+            name = "Text_30";
+            x1 = 133;
+            y1 = 22;
+            x2 = 133;
+            y2 = 22;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        valuefield _tmp_20
+        {
+            name = "COMMENT";
+            location = (113, 14);
+            formula = "GetValue(\"USERDEFINED.comment\")";
+            maxnumoflines = 1;
+            datatype = STRING;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 30;
+            decimals = 1;
+            sortdirection = NONE;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            aligncontenttotop = FALSE;
+        };
+
+        text _tmp_3
+        {
+            name = "Text_6";
+            x1 = 1;
+            y1 = 22;
+            x2 = 1;
+            y2 = 22;
+            string = "  <td class=xl41 style='border-top:none;border-left:none' x:num>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        text _tmp_7
+        {
+            name = "Text_28";
+            x1 = 123;
+            y1 = 23;
+            x2 = 123;
+            y2 = 23;
+            string = "</td>";
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 2.5;
+            fontratio = 1;
+            fontslant = 0;
+            fontstyle = 0;
+            angle = 0;
+            justify = LEFT;
+            pen = -1;
+        };
+
+        valuefield _tmp_9
+        {
+            name = "ASSEMBLY_POS_field_1";
+            location = (103, 23);
+            formula = "GetValue(\"ASSEMBLY_POS\")";
+            maxnumoflines = 1;
+            datatype = STRING;
+            class = "";
+            cacheable = TRUE;
+            formatzeroasempty = FALSE;
+            justify = LEFT;
+            visibility = TRUE;
+            angle = 0;
+            length = 20;
+            decimals = 0;
+            sortdirection = ASCENDING;
+            fontname = "Arial";
+            fontcolor = 153;
+            fonttype = 2;
+            fontsize = 5;
+            fontratio = 1.5;
+            fontstyle = 0;
+            fontslant = 0;
+            pen = -1;
+            oncombine = NONE;
+            aligncontenttotop = FALSE;
+        };
+    };
+};

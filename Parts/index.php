@@ -12,41 +12,24 @@
     <tr>
       <th scope="col">Projekt</th>
       <th scope="col">Zespoły</th>
-      <th scope="col">Pozycja</th>
+      <th scope="col">Funkcja</th>
       <th scope="col">Ilosc</th>
-      <th scope="col">Ilosc Zrobiona</th>
-      <th scope="col">Machine</th>
-      <th scope="col">Profil</th>
+      <th scope="col">Ilosc Zrealizowana</th>
+      <th scope="col">Maszyna</th>
+      <th scope="col">Wymiar</th>
       <th scope="col">Materiał</th>
       <th scope="col">Długość</th>
-      <th scope="col">Długość zrobiona</th>
+      <th scope="col">Długość Zrealizowana</th>
       <th scope="col">Ciężar</th>
       <th scope="col">Całkowity Ciężar</th>
       <th scope="col">Uwaga</th>
-      <th scope="col">Data Modyfikacji</th>
+      <th scope="col">Data Operacji</th>
     </tr>
   </thead>
   <tbody>
     <?php 
-    require_once("dbconnect.php");
-    $sql = "Select Distinct 
-		b.[ProjectName]
-	   ,STRING_AGG(p.[Zespol],', ') as zespol
-	   ,b.[Name]
-      ,Sum(p.[Ilosc]) as ilosc
-	  ,b.[AmountDone] 
-	  ,		'V630' as machine
-	  ,p.[Profil]
-      ,p.[Material]
-      ,p.[Dlugosc]
-	  ,b.[SawLength]
-      ,p.[Ciezar]
-      ,p.[Calk_ciez]
-      ,p.[Uwaga]
-	  ,b.[ModificationDate]
-       from [PartCheck].[dbo].[Product_back] as b LEFT JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja] 
-	   group by b.[AmountDone],b.[Name],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Calk_ciez],p.[Uwaga],b.[ModificationDate],b.[SawLength],b.[ProjectName]";
-    $datas = sqlsrv_query($conn, $sql); ?>
+    require_once("v630.php");
+    ?>
     <?php
      while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     ?>
@@ -66,10 +49,26 @@
         <td><?php echo $data['Uwaga']; ?></td>
         <td><?php echo $data['ModificationDate']->format('Y-m-d H:i:s') ; ?></td>
   </tr>
-  <?php }
-  
-  
-  ?>
+  <?php } ?>
+
+<?php 
+require_once("messer.php");
+
+ while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
+?>
+<tr>
+    <td><?php echo $datamesser['Projekt']; ?></td>
+    <td><?php echo $datamesser['PartName']; ?></td>
+    <td><?php echo $datamesser['program']; ?></td>
+
+    <td><?php echo $datamesser['zapotrzebowanie']; ?></td>
+    <td><?php echo $datamesser['Complet']; ?></td>
+    <td><?php echo $datamesser['machine']; ?></td>
+    <td><?php echo $datamesser['grubosc']; ?></td>
+    <td colspan="3"><?php echo $datamesser['material']; ?></td>
+    <td colspan="4" style="text-align:right;"><?php if($datamesser['DataWykonania'] != "") {echo $datamesser['DataWykonania']->format('Y-m-d H:i:s');} ?></td>
+</tr>
+<?php } ?>
   </tbody>
 </table>
 </div>
@@ -77,40 +76,41 @@
 <script>
 
 document.getElementById("searchInput").addEventListener("keyup", function() {
-  let input = this.value.toLowerCase().trim();
+  let input = this.value.toLowerCase();
   let table = document.getElementById("myTable");
   let rows = table.getElementsByTagName("tr");
 
+  if (input === "") {
+    for (let i = 1; i < rows.length; i++) {
+      rows[i].style.display = "";
+    }
+    return;
+  }
+
   for (let i = 1; i < rows.length; i++) {
     let rowData = rows[i].getElementsByTagName("td");
-    let found = false;
+    let inputs = input.split(",").map(value => value.trim());
+    let foundCount = 0;
 
     for (let j = 0; j < rowData.length; j++) {
       let cellText = rowData[j].textContent.toLowerCase();
 
-      if (input.includes("-")) {
-
-        let range = input.split("-");
-        let fromValue = range[0].trim();
-        let toValue = range[1].trim();
-
-        if (cellText >= fromValue && cellText <= toValue) {
-          found = true;
-          break;
-        }
-      } else {
-    
-        if (cellText.indexOf(input) !== -1) {
-          found = true;
+      for (let k = 0; k < inputs.length; k++) {
+        let currentInput = inputs[k];
+        if (cellText.indexOf(currentInput) !== -1) {
+          foundCount++;
           break;
         }
       }
     }
 
-    rows[i].style.display = found ? "" : "none";
+    if (foundCount === inputs.length) {
+      rows[i].style.display = "";
+    } else {
+      rows[i].style.display = "none";
+    }
   }
 });
-
 
 const headers = document.querySelectorAll("#myTable th");
 

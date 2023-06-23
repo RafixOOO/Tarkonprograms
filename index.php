@@ -17,6 +17,6 @@
   <br />
   <h1><b>Tarkon <i>programs</i></b></h1>
   <br /><br /><br /><br /><br /><br />
-    <a class="btn btn-outline-primary" href="messer/main.php">Messer</a><a class="btn btn-outline-warning" href="parts/main.php">Parts</a>
+    <a class="btn btn-outline-primary" href="messer/index.php" target="_blank">Messer</a><a class="btn btn-outline-warning" href="parts/index.php" target="_blank">Parts</a>
   </div>
 </html>

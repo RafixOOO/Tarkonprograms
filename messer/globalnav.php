@@ -12,12 +12,12 @@
             }
 
             ?>
-              <a href="/programs/Tarkonprograms/index.php" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-center"><h1><b>Tarkon <i>programs</i></b></h1></a>
+              <h1 class="text-center"><b>Messer</b></h1>
               <br/>
          <div>
              <ul style="float:left;" class="nav nav-tabs" id="myTab" role="tablist">
                  <li class="nav-item">
-                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="main.php" role="tab" aria-selected="true">Aktualne</a>
+                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="index.php" role="tab" aria-selected="true">Aktualne</a>
                  </li>
                  <li class="nav-item ">
                      <a class="nav-link active" id="profile-tab" data-toggle="tab" href="wykonane.php" role="tab" aria-controls="profile" aria-selected="true">Wykonane

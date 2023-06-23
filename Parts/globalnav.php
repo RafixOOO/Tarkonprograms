@@ -1,11 +1,10 @@
 
 
 <br />
-<a href="/programs/Tarkonprograms/index.php" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-center"><h1><b>Tarkon <i>programs</i></b></h1></a>
+<h1 class="text-center"><b>Parts</b></h1>
               <br/>
-              
-     <a href="upload.php"><button type="button" class="btn btn-warning float-end">Upload</button></a>
-     <div class="col-sm-1">
+     <a href="upload.php"><button type="button" class="btn btn-warning float-end">Wyślij</button></a>
+     <div class="col-sm-2">
               <input type="text" id="searchInput"  class="form-control"  placeholder="Wyszukaj..."> 
               </div>
               <br />

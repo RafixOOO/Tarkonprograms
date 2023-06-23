@@ -57,7 +57,7 @@ function login($username, $password)
             </div>
             <br />
             <button type="submit" class="btn btn-primary">Zaloguj</button>
-            <a href="main.php" class="btn btn-primary">Anuluj</a>
+            <a href="index.php" class="btn btn-primary">Anuluj</a>
         </form>
         
 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (login($username, $password)) {
-        header('Location: main.php');
+        header('Location: index.php');
         exit();
     } else {
         echo "<script>toastr.error('Błędne dane logowania!!!')</script>";

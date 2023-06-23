@@ -1,5 +1,5 @@
 <?php
-require 'C:\xampp\htdocs\programs\Tarkonprograms\vendor\autoload.php';
+require 'vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 ?>
@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
         <input type="file" class="form-control" id="customFile"  name="excelFile" accept=".xlsx, .xls"/>
         <p class="text-muted"><h6>Akceptowalne roszerzenie .xls i .xlsx</h6></p>
         <button type="submit" name="submit" class="btn btn-outline-warning text-dark">Wyślij</button>
-        <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Anuluj</a>
+        <a class="btn btn-outline-warning text-dark" href="index.php" role="button">Wróć</a>
     </form>
     </div>
     <?php
@@ -32,7 +32,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                 die("Niewłaściwy format pliku. Akceptowane rozszerzenia to .xlsx i .xls.");
             }
 
-            $targetDirectory = "C:/xampp/htdocs/programs/Tarkonprograms/Files/";
+            $targetDirectory = "Files/";
             $targetFile = $targetDirectory . basename($file['name']);
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
                 echo "Plik został przesłany i zapisany na serwerze.";
@@ -49,7 +49,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                         }
                         $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
                         $result = sqlsrv_query($conn, $sql);
-                        if (sqlsrv_num_rows($result)>0) {
+                        if (sqlsrv_has_rows($result)) {
                             $sql = "UPDATE Parts SET [Zespol] = '{$row['A']}', [Pozycja] = '{$row['B']}', [Ilosc] = {$row['C']}, [Profil] = '{$row['D']}', [Material] = '{$row['E']}', [Dlugosc] = '{$row['F']}', [Ciezar] = '{$row['G']}', [Calk_ciez] = '{$row['H']}', [Uwaga] = '{$row['I']}' WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
                             sqlsrv_query($conn, $sql);
                             continue;
