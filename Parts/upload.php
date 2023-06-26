@@ -47,15 +47,16 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                             $isFirstRow = false;
                             continue;
                         }
-                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
+                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
                         $result = sqlsrv_query($conn, $sql);
                         if (sqlsrv_has_rows($result)) {
-                            $sql = "UPDATE Parts SET [Zespol] = '{$row['A']}', [Pozycja] = '{$row['B']}', [Ilosc] = {$row['C']}, [Profil] = '{$row['D']}', [Material] = '{$row['E']}', [Dlugosc] = '{$row['F']}', [Ciezar] = '{$row['G']}', [Calk_ciez] = '{$row['H']}', [Uwaga] = '{$row['I']}' WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
+                            $sql = "UPDATE Parts SET [Zespol] = '{$row['B']}', [Pozycja] = '{$row['C']}', [Ilosc] = {$row['D']}, [Profil] = '{$row['E']}', [Material] = '{$row['F']}', [Dlugosc] = '{$row['G']}', [Ciezar] = '{$row['H']}', [Calk_ciez] = '{$row['I']}', [Uwaga] = '{$row['J']}',
+                            [Projekt] = '{$row['A']}'  WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
                             sqlsrv_query($conn, $sql);
                             continue;
                         }
 
-                        $sql = "INSERT INTO Parts ([Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga]) VALUES ('{$row['A']}', '{$row['B']}', {$row['C']}, '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}')";
+                        $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga]) VALUES ('{$row['A']}', '{$row['B']}', {$row['C']}, '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}')";
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();
                         }

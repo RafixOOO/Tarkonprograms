@@ -12,7 +12,7 @@
     <tr>
       <th scope="col">Projekt</th>
       <th scope="col">Zespoły</th>
-      <th scope="col">Funkcja</th>
+      <th scope="col">Detal</th>
       <th scope="col">Ilosc</th>
       <th scope="col">Ilosc Zrealizowana</th>
       <th scope="col">Maszyna</th>
@@ -57,9 +57,8 @@ require_once("messer.php");
  while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 ?>
 <tr>
-    <td><?php echo $datamesser['Projekt']; ?></td>
-    <td><?php echo $datamesser['PartName']; ?></td>
-    <td><?php echo $datamesser['program']; ?></td>
+    <td colspan="2"><?php echo $datamesser['Projekt']; ?></td>
+    <td ><?php echo $datamesser['PartName']; ?></td>
 
     <td><?php echo $datamesser['zapotrzebowanie']; ?></td>
     <td><?php echo $datamesser['Complet']; ?></td>
