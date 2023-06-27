@@ -16,7 +16,6 @@
       <th scope="col">Zespoły</th>
       <th scope="col">Detal</th>
       <th scope="col">Ilosc</th>
-      <th scope="col">Ilosc Zrealizowana</th>
       <th scope="col">Maszyna</th>
       <th scope="col">Wymiar</th>
       <th scope="col">Materiał</th>
@@ -45,13 +44,12 @@
         <td><?php echo $data['ProjectName']; ?></td>
         <td><?php echo $data['zespol']; ?></td>
         <td><?php echo $data['Name']; ?></td>
-        <td><?php echo $data['ilosc']; ?></td>
         <td>
         <div class="progress">
         <?php if($szer <= 100){ ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc']."/".$data['AmountDone']; ?></div>
         <?php } else{ ?>
-          <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+          <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc']."/".$data['AmountDone']; ?></div>
         <?php } 
         ?>
       </td>
@@ -81,13 +79,12 @@ require_once("messer.php");
     <td colspan="2"><?php echo $datamesser['Projekt']; ?></td>
     <td ><?php echo $datamesser['PartName']; ?></td>
 
-    <td><?php echo $datamesser['zapotrzebowanie']; ?></td>
     <td >
       <div class="progress">
         <?php if($szermesser<=100){ ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser['Complet']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser["zapotrzebowanie"]."/".$datamesser['Complet']; ?></div>
         <?php } else { ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser['Complet']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser["zapotrzebowanie"]."/".$datamesser['Complet']; ?></div>
       <?php  } 
         ?>
   </div>

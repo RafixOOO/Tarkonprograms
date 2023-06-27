@@ -197,7 +197,7 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
 
 $sql = "Select Distinct 
     b.[ProjectName]
-   ,STRING_AGG(p.[Zespol],' / ') as zespol
+   ,STRING_AGG(p.[Zespol],' | ') as zespol
    ,b.[Name]
   ,Sum(p.[Ilosc]) as ilosc
   ,b.[AmountDone] 
