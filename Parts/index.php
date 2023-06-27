@@ -8,6 +8,8 @@
     <div class="container-fluid">
     <?php require_once('globalnav.php') ?>
 <table id="myTable" class="table table-striped table-bordered">
+
+
   <thead>
     <tr>
       <th scope="col">Projekt</th>
@@ -32,13 +34,27 @@
     ?>
     <?php
      while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
+      if($data['ilosc']==0 or $data['ilosc']==''){
+        $szer = 0;
+      }else{
+        $szer = $data['AmountDone']/$data['ilosc'] *100;
+      }
+      
     ?>
   <tr>
         <td><?php echo $data['ProjectName']; ?></td>
         <td><?php echo $data['zespol']; ?></td>
         <td><?php echo $data['Name']; ?></td>
         <td><?php echo $data['ilosc']; ?></td>
-        <td><?php echo $data['AmountDone']; ?></td>
+        <td>
+        <div class="progress">
+        <?php if($szer <= 100){ ?>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+        <?php } else{ ?>
+          <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+        <?php } 
+        ?>
+      </td>
         <td><?php echo $data['machine']; ?></td>
         <td><?php echo $data['Profil']; ?></td>
         <td><?php echo $data['Material']; ?></td>
@@ -55,13 +71,27 @@
 require_once("messer.php");
 
  while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
+  if($datamesser['zapotrzebowanie']==0 or $datamesser['zapotrzebowanie']==''){
+    $szermesser = 0;
+  }else{
+    $szermesser = $datamesser['Complet']/$datamesser['zapotrzebowanie'] *100;
+  }
 ?>
 <tr>
     <td colspan="2"><?php echo $datamesser['Projekt']; ?></td>
     <td ><?php echo $datamesser['PartName']; ?></td>
 
     <td><?php echo $datamesser['zapotrzebowanie']; ?></td>
-    <td><?php echo $datamesser['Complet']; ?></td>
+    <td >
+      <div class="progress">
+        <?php if($szermesser<=100){ ?>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser['Complet']; ?></div>
+        <?php } else { ?>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser['Complet']; ?></div>
+      <?php  } 
+        ?>
+  </div>
+  </td>
     <td><?php echo $datamesser['machine']; ?></td>
     <td><?php echo $datamesser['grubosc']; ?></td>
     <td colspan="3"><?php echo $datamesser['material']; ?></td>
