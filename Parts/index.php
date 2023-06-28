@@ -15,7 +15,7 @@
       <th scope="col">Projekt</th>
       <th scope="col">Zespoły</th>
       <th scope="col">Detal</th>
-      <th scope="col">Ilosc</th>
+      <th scope="col">Ilosc Wymagana/Zrealizowana</th>
       <th scope="col">Maszyna</th>
       <th scope="col">Wymiar</th>
       <th scope="col">Materiał</th>
@@ -61,9 +61,10 @@
         <td><?php echo $data['Ciezar']; ?></td>
         <td><?php echo $data['Calk_ciez']; ?></td>
         <td><?php echo $data['Uwaga']; ?></td>
-        <td><?php echo $data['ModificationDate']->format('Y-m-d H:i:s') ; ?></td>
+        <td><?php if($data['ModificationDate'] != "") {echo $data['ModificationDate']->format('Y-m-d H:i:s');} ?>
+</td>
   </tr>
-  <?php } ?>
+  <?php }  ?>
 
 <?php 
 require_once("messer.php");
@@ -76,7 +77,8 @@ require_once("messer.php");
   }
 ?>
 <tr>
-    <td colspan="2"><?php echo $datamesser['Projekt']; ?></td>
+    <td ><?php echo $datamesser['Projekt']; ?></td>
+    <td><?php echo $datamesser['Zespol']; ?></td>
     <td ><?php echo $datamesser['PartName']; ?></td>
 
     <td >
@@ -93,6 +95,33 @@ require_once("messer.php");
     <td><?php echo $datamesser['grubosc']; ?></td>
     <td colspan="3"><?php echo $datamesser['material']; ?></td>
     <td colspan="4" style="text-align:right;"><?php if($datamesser['DataWykonania'] != "") {echo $datamesser['DataWykonania']->format('Y-m-d H:i:s');} ?></td>
+</tr>
+<?php } ?>
+
+<?php 
+require_once("othersql.php");
+
+ while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
+?>
+<tr>
+    <td ><?php echo $dataot['ProjectName']; ?></td>
+    <td><?php echo $dataot['aggregated_zespol']; ?></td>
+    <td ><?php echo $dataot['Name']; ?></td>
+    <td >
+      <div class="progress">
+          <div class='progress-bar bg-success' role='progressbar' style='width:0%;' aria-valuenow="0" aria-valuemin='0' aria-valuemax=''></div>
+       </div>
+  </div>
+  </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
 </tr>
 <?php } ?>
   </tbody>

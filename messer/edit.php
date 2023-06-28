@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         sqlsrv_query($conn, $sql1);
     }
     sqlsrv_close($conn);
-    header("location: main.php");
+    header("location: index.php");
     exit();
 }
 

@@ -196,9 +196,9 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
 
 
 $sql = "Select Distinct 
-    b.[ProjectName]
+    p.[Projekt] as ProjectName
    ,STRING_AGG(p.[Zespol],' | ') as zespol
-   ,b.[Name]
+   ,p.[Pozycja] as Name
   ,Sum(p.[Ilosc]) as ilosc
   ,b.[AmountDone] 
   ,		'V630' as machine
@@ -210,6 +210,8 @@ $sql = "Select Distinct
   ,Sum(p.[Calk_ciez]) as Calk_ciez
   ,p.[Uwaga]
   ,Max(b.[ModificationDate]) as ModificationDate
-   from [PartCheck].[dbo].[Product_V630] as b LEFT JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja] 
-   group by b.[AmountDone],b.[Name],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],b.[ProjectName]";
-$datas = sqlsrv_query($conn, $sql); ?>
+   from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja] 
+   group by b.[AmountDone],p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt]";
+$datas = sqlsrv_query($conn, $sql); 
+
+?>

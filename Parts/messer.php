@@ -103,7 +103,7 @@ try {
 
 
 
-$sqlmesser = "Select m.Projekt as Projekt,m.[PartName] as PartName,m.grubosc as grubosc,SUM(p.Ilosc) zapotrzebowanie,m.Complet as Complet,m.machine as machine,m.material as material,m.DataWykonania as DataWykonania
+$sqlmesser = "Select p.Projekt as Projekt,p.[Pozycja] as PartName,STRING_AGG(p.[Zespol],' | ') as Zespol,m.grubosc as grubosc,SUM(p.Ilosc) zapotrzebowanie,m.Complet as Complet,m.machine as machine,m.material as material,m.DataWykonania as DataWykonania
 from (SELECT 
 [WoNumber] AS Projekt,
 [PartName],
@@ -120,8 +120,8 @@ STUFF((
 MAX([ArcDateTime]) AS DataWykonania
 FROM [PartCheck].[dbo].[PartArchive_Messer]
 GROUP BY [WoNumber], [PartName], [Thickness], [QtyOrdered], [Material]) as m 
-LEFT JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
-GROUP BY m.Projekt,m.[PartName],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania ";
+Inner JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
+GROUP BY p.Projekt,p.[Pozycja],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania ";
 $datasmesser = sqlsrv_query($conn, $sqlmesser); 
 
 ?>
