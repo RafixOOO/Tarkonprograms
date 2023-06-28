@@ -3,7 +3,7 @@
 
 <?php
 
-require_once('C:\xampp\htdocs\programs\Tarkonprograms\auth.php');
+require_once('../auth.php');
 
 function isUserAdmin()
                 {

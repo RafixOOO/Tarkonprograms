@@ -30,7 +30,7 @@
                  </li>
              </ul>
              <form style="float:right;">
-                 <a href="http://10.100.101.131/programs/Tarkonprograms/index.php" class="btn btn-outline-success my-2 my-sm-0 btn-sm" value="Strona główna">Strona główna</a>
+                 <a href="../index.php" class="btn btn-outline-success my-2 my-sm-0 btn-sm" value="Strona główna">Strona główna</a>
         </form>
              
          </div>
