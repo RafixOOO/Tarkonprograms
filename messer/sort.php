@@ -1,5 +1,5 @@
 <?php
-require_once('auth.php');
+require_once('C:\xampp\htdocs\programs\Tarkonprograms\auth.php');
 require_once('dbconnect.php');
 $allData = $_POST['allData'];
 $i = "0A";

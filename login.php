@@ -36,7 +36,8 @@ function login($username, $password)
 <html>
 
 <head>
-    <?php include 'globalhead.php'; ?>
+    <?php include 'messer/globalhead.php'; ?>
+    <title>Login</title>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark">
@@ -56,8 +57,8 @@ function login($username, $password)
                 <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Zaloguj</button>
-            <a href="index.php" class="btn btn-primary">Anuluj</a>
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Zaloguj</button>
+            <a href="index.php" class="btn btn-outline-success my-2 my-sm-0 ">Anuluj</a>
         </form>
         
 

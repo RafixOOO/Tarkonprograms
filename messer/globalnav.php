@@ -29,17 +29,9 @@
                      </a>
                  </li>
              </ul>
-             <?php if (isUserAdmin()){ ?>
-                
-                 </form>
-                <form style="float:right;" class="form-inline my-2 my-lg-0" method="POST" action="logout.php">
-                 <input class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Wyloguj">
-                 </form>
-                 <?php } else{ ?>
-                    <form style="float:right;" class="form-inline my-2 my-lg-0" action="login.php">
-                 <input class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Zaloguj">
-                 </form>
-             <?php } ?>
+             <form style="float:right;">
+                 <a href="http://localhost/programs/Tarkonprograms/index.php" class="btn btn-outline-success my-2 my-sm-0 btn-sm" value="Wyloguj">Strona główna</a>
+        </form>
              
          </div>
          <div style="clear:both;"></div>

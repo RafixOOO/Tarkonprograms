@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<?php 
+
+require_once('auth.php');
+function isUserAdmin()
+{
+    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+}
+?>
 <html lang="en">
 <head>
     <title>Tarkonprograms</title>
@@ -13,10 +21,24 @@
 </head>
 <body>
 </body>
+<br />
 <div class="container">
+<?php if (isUserAdmin()){ ?>
+                
+                </form>
+               <form class="form-inline my-2 my-lg-0" method="POST" action="logout.php">
+                <input style="width:10%; padding: 0; font-size: 1vw; float:right;" class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Wyloguj">
+                </form>
+                <?php } else{ ?>
+                   <form class="form-inline my-2 my-lg-0" action="login.php">
+                <input style="width:10%; padding: 0; font-size: 1vw; float:right;" class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit" value="Zaloguj">
+                </form>
+            <?php } ?>
   <br />
   <h1><b>Tarkon <i>programs</i></b></h1>
+  <br />
+                 
   <br /><br /><br /><br /><br /><br />
-    <a class="btn btn-outline-primary" href="messer/index.php" target="_blank">Messer</a><a class="btn btn-outline-warning" href="parts/index.php" target="_blank">Parts</a>
+    <a class="btn btn-outline-primary" href="messer/index.php" name="link">Messer</a><a class="btn btn-outline-warning" href="parts/index.php" name="link">Parts</a>
   </div>
 </html>

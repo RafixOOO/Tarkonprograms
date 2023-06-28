@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once('auth.php');
+require_once('C:\xampp\htdocs\programs\Tarkonprograms\auth.php');
 
             function isUserAdmin()
                 {

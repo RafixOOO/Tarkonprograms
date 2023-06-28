@@ -1,6 +1,6 @@
 <?php
 
-require_once('auth.php');
+require_once('C:\xampp\htdocs\programs\Tarkonprograms\auth.php');
 
 $serverName = '10.100.100.48,49827';
 $connectionOptions = array(
