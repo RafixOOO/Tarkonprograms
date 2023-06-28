@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+
+<?php
+require_once('C:\xampp\htdocs\programs\Tarkonprograms\auth.php');
+
+function isUserAdmin()
+                {
+                    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+                }
+?>
 <html>
 <head>
     
@@ -157,8 +166,15 @@ require_once("othersql.php");
                     <br />
                     <input class="form-control" type="number" placeholder="Długość" name="dlugosc">
                     <br />
-                    <select class="form-control" name="osoba" required>
-                        <option value=" " selected>Wykonał</option>
+                    <?php if(isUserAdmin()){ ?>
+                      <select class="form-control" name="osoba">
+                  <?php } else{ ?>
+
+                        <select class="form-control" name="osoba" required>
+
+                  <?php }
+                    ?>
+                        <option value="" disabled selected>Wykonał</option>
                         <option value="SYLWESTER WOZNIAK">SYLWESTER WOZNIAK</option>
                         <option value="MARCIN MICHAS">MARCIN MICHAS</option>
                         <option value="LUKASZ PASEK">LUKASZ PASEK</option>
@@ -174,7 +190,12 @@ require_once("othersql.php");
                 <div class="modal-footer">
                     <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
                     <button  type="Submit" name="save" class="btn btn-default" value='all'>Zakończ</button >
-                    <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Status</button >
+                    <?php
+                    if(isUserAdmin()){ ?>
+                      <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Status</button >
+                  <?php }
+                    ?>
+                    
                     
                 </div>
                 </form>

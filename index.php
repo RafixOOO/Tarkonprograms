@@ -39,6 +39,6 @@ function isUserAdmin()
   <br />
                  
   <br /><br /><br /><br /><br /><br />
-    <a class="btn btn-outline-primary" href="messer/index.php" name="link">Messer</a><a class="btn btn-outline-warning" href="parts/index.php" name="link">Parts</a>
+    <a class="btn btn-outline-primary" href="messer/index.php">Messer</a><a class="btn btn-outline-warning" href="parts/index.php" >Parts</a>
   </div>
 </html>
