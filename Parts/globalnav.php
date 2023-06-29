@@ -1,11 +1,12 @@
 
+<?php
+require_once('..\auth.php');
 
-
-
-
-
-
-
+        function isUserAdmin()
+                        {
+                            return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+                        }
+?>
               <h1 class="text-center"><b>Parts</b></h1>
               <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
     <div class="offcanvas-header">
@@ -38,7 +39,18 @@
                     <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
                 </ul>
             </li>
-            <li>
+                    </li>
+                    <li class="nav-item">
+                
+                <?php if(!isUserAdmin()){ ?>
+                    <a href="..\login.php" class="nav-link text-success">
+                <i class="fs-5 bi bi-person"></i><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
+                <?php } else { ?>
+                    <a href="..\logout.php" class="nav-link text-success">
+                    <i class="fs-5 bi bi-person"></i><span class="ms-1 d-none d-sm-inline">Wyloguj się</span>
+                    <?php } ?>
+            </a>
+        </li>
         </ul>
     </div>
 </div>

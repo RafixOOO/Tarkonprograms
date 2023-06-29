@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+requireLogin();
 function isLoggedIn()
 {
     return isset($_SESSION['username']);
@@ -51,7 +51,7 @@ function login($username, $password)
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Tarkon programs</title>
 </head>
-<body>
+<body class="p-3 mb-2 bg-light bg-gradient text-dark">
 <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
     <div class="offcanvas-header">
         <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs</h6>
@@ -110,13 +110,6 @@ function login($username, $password)
             <br />
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Zaloguj</button>
             <button type="reset" class="btn btn-outline-success my-2 my-sm-0">Wyczyść</button>
-        
-    
-
-
-
-    
-       
         </form>
             </div>
             </div>
@@ -135,8 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (login($username, $password)) {
-        header('Location: index.php');
-        exit();
+        echo "<script>toastr.success('Zalogowano się pomyślnie!!!')</script>";
+        echo '<meta http-equiv="refresh" content="2; URL=index.php">';
     } else {
         echo "<script>toastr.error('Błędne dane logowania!!!')</script>";
     }

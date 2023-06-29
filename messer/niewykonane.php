@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once('../auth.php');
 
-            function isUserAdmin()
-                {
-                    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
-                }
 function czyCiągZawieraLiczbyPHP($ciąg)
 {
     $pattern = '/-?\d+(?:\.\d+)?(?:e-?\d+)?/';

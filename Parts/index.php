@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 
-<?php
-require_once('../auth.php');
-
-function isUserAdmin()
-                {
-                    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
-                }
-?>
 <html>
 <head>
     
