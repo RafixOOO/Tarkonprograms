@@ -81,7 +81,7 @@
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
             <br /><br /><br /><br /><br /><br /><br /><br />
-            <h1 style="text-align: center; font-size: 5.5em;"><b>Tarkon<i>programs</i></b></h1>
+            <h1 style="text-align: center; font-size: 8.5em;"><b>Tarkon <i>programs</i></b></h1>
 </div>
 </div>
 </div>

@@ -185,15 +185,15 @@ require_once("othersql.php");
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
                     <?php
                     if(isUserAdmin()){ ?>
-                      <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Status</button >
-                      <button  type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj</button >
+                    <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt</button >
+                      <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Zmień Status</button >
+                      
                       <?php }
                     ?>
                     
-                  
+                    <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
                     
                     
                 </div>
