@@ -21,30 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: index.php');
 
-    } elseif ($save === 'all') {
-        require_once("dbconnect.php");
-        $sql = "Select distinct sum(Ilosc_zrealizowana) as ilosc, sum(Dlugosc_zrealizowana) as dlugosc from dbo.Product_Recznie where Projekt='$projekt' and Pozycja='$detal'";
-        $result = sqlsrv_query($conn, $sql);
-        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-            $ilosc=$row['ilosc'];
-            $dlugosc= $row['dlugosc'];
-        }
-
-        $sql = "Select Ilosc as ilosc, Dlugosc as dlugosc from dbo.Parts where Projekt='$projekt' and Pozycja='$detal' ";
-        $result = sqlsrv_query($conn, $sql);
-        if ($result === false) {
-            die(print_r(sqlsrv_errors(), true));
-        }
-        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-            $ilosc = $row['ilosc']-$ilosc;
-            $dlugosc= $row['dlugosc']-$dlugosc;
-            $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', '{$maszyna}')";
-
-        sqlsrv_query($conn, $sqlinsert);
-        }
-        
-        header('Location: index.php');
-
     } elseif ($save === 'pilne') {
 
         require_once("dbconnect.php");

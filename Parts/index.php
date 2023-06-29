@@ -186,7 +186,6 @@ require_once("othersql.php");
                 </div>
                 <div class="modal-footer">
                     <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
-                    <button  type="Submit" name="save" class="btn btn-default" value='all'>Zakończ</button >
                     <?php
                     if(isUserAdmin()){ ?>
                       <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Status</button >
@@ -205,7 +204,9 @@ require_once("othersql.php");
                     </div>
                     </div>
                     </div>
-                    <button onclick="sendSelectedRowsToPHP()" id="backToTopButton">Zakończ</button>
+                    <button  onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
+                    <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
+                    
 
 </body>
 <script>
@@ -385,6 +386,26 @@ function sendSelectedRowsToPHP() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       // Odpowiedź z serwera
       console.log(xhr.responseText);
+      location.reload();
+    }
+  };
+
+  xhr.send(params);
+}
+
+function sendSelectedRowsToPHP1() {
+  var xhr = new XMLHttpRequest();
+  var url = 'zakoncz1.php';
+  var params = 'selectedrow=' + JSON.stringify(selectedrow);
+
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Odpowiedź z serwera
+      console.log(xhr.responseText);
+      location.reload();
     }
   };
 
