@@ -1,45 +1,44 @@
-         <?php
-            require_once('dbconnect.php');
 
-            $sq6 = "SELECT
-                Count([ArchivePacketID]) as suma
-                FROM [SNDBASE_PROD].[dbo].[Program]
-                 where [Comment]='nie znaleziono arkusza' or [Comment]='zla jakosc otworow' or [Comment]='DARIUSZ MALEK' or [Comment]='zla jakosc faz' or [Comment]='inne' ";
-            $datas3 = sqlsrv_query($conn, $sq6);
-            $max3 = "";
-            while ($row4 = sqlsrv_fetch_array($datas3, SQLSRV_FETCH_ASSOC)) {
-                $max3 = $row4["suma"];
-            }
-
-            ?>
               <h1 class="text-center"><b>Messer</b></h1>
-              <br/>
-         <div>
-             <ul style="float:left;" class="nav nav-tabs" id="myTab" role="tablist">
-                 <li class="nav-item">
-                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="index.php" role="tab" aria-selected="true">Aktualne</a>
-                 </li>
-                 <li class="nav-item ">
-                     <a class="nav-link active" id="profile-tab" data-toggle="tab" href="wykonane.php" role="tab" aria-controls="profile" aria-selected="true">Wykonane
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link active" id="contact-tab" data-toggle="tab" href="niewykonane.php" role="tab" aria-controls="Nie wykonane" aria-selected="true">Nie wykonane
-                     <?php if($max3!=0){ echo "<sup><span class='badge rounded-pill badge-notification bg-danger'><span class='visually-hidden'>New alerts</span></span></sup>"; } ?>
-                     </a>
-                 </li>
-             </ul>
-             <form style="float:right;">
-                 <a href="../index.php" class="btn btn-outline-success my-2 my-sm-0 btn-sm" value="Strona główna">Strona główna</a>
-        </form>
-             
-         </div>
-         <div style="clear:both;"></div>
+              <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+                <a href="..\index.php" class="nav-link text-success">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Strona główna</span>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" href="index.php">Aktualne</a></li>
+                    <li><a class="dropdown-item" href="wykonane.php">Wykonane</a></li>
+                    <li><a class="dropdown-item" href="niewykonane.php">Niewykonane</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
+                    <li><a class="dropdown-item" href="../parts/index.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="../parts/upload.php">Wyślij</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col min-vh-100 py-3">
+            <!-- toggler -->
+            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            </button>
 
-         <button
-        type="button"
-        class="btn btn-danger btn-floating"
-        id="btn-back-to-top"
-        >
-  <i class="bi bi-arrow-up"></i>
-</button>

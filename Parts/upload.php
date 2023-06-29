@@ -42,6 +42,13 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                     $worksheet = $spreadsheet->getActiveSheet();
                     $rows = $worksheet->toArray(null, true, true, true);
                     $isFirstRow = true;
+
+                    $sqlimport="Select Max(Id_import) as import from dbo.Parts";
+                        $resultimport = sqlsrv_query($conn, $sqlimport);
+                    while ($row = sqlsrv_fetch_array($resultimport, SQLSRV_FETCH_ASSOC)) {
+                        $id_import=$row['import'];
+                    }
+                    $id_import++;
                     
                     foreach ($rows as $row) {
                         if ($isFirstRow) {
@@ -70,8 +77,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                             continue;
                         }
                 
-                        $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga])
-                                VALUES ('{$row['A']}', '{$row['B']}', '{$row['C']}', '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}')";
+                        $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga], [Id_import])
+                                VALUES ('{$row['A']}', '{$row['B']}', '{$row['C']}', '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}', '{$id_import}')";
                                 
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();

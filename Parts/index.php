@@ -22,7 +22,7 @@ function isUserAdmin()
   <thead>
     <tr>
       <th scope="col">Projekt</th>
-      <th scope="col">Zespoły</th>
+      <th scope="col" style="width:10em;" >Zespoły</th>
       <th scope="col">Detal</th>
       <th scope="col">Ilosc Wymagana/Zrealizowana</th>
       <th scope="col">Maszyna</th>
@@ -162,9 +162,9 @@ require_once("othersql.php");
                 Detal: <label id="detalName" name="detalName"></label>
                 <input type="hidden" name="detal">
                     <br />
-                    <input class="form-control" type="number" placeholder="Ilość" name="ilosc">
+                    <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
                     <br />
-                    <input class="form-control" type="number" placeholder="Długość" name="dlugosc">
+                    <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
                     <br />
                     <?php if(isUserAdmin()){ ?>
                       <select class="form-control" name="osoba">
@@ -193,8 +193,11 @@ require_once("othersql.php");
                     <?php
                     if(isUserAdmin()){ ?>
                       <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Status</button >
-                  <?php }
+                      <button  type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj</button >
+                      <?php }
                     ?>
+                    
+                  
                     
                     
                 </div>
@@ -202,8 +205,22 @@ require_once("othersql.php");
             </div>
         </div>
     </div>
+                    </div>
+                    </div>
+                    </div>
 </body>
 <script>
+
+function showConfirmation() {
+  var form = document.getElementById("myForm");
+  var result = confirm("Czy na pewno chcesz usunąć cały projekt?");
+  if (result) {
+    alert("Potwierdzono!");
+    form.submit();
+  } else {
+    alert("Anulowano!");
+  }
+}
 
 document.getElementById("searchInput").addEventListener("keyup", function() {
   let input = this.value.toLowerCase();

@@ -8,8 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $wykonawca = $_POST["osoba"];
     $maszyna = $_POST["maszyna"];
     $status;
+    try{
+        $save = $_POST['save'];
+    }catch(Exception $e){
+    }
     
-    if ($_POST['save'] === 'piece') {
+    if ($save === 'piece') {
 
         require_once("dbconnect.php");
         $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Osoba, Maszyna) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', '{$wykonawca}', '{$maszyna}')";
@@ -18,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: index.php');
 
-    } elseif ($_POST['save'] === 'all') {
+    } elseif ($save === 'all') {
         require_once("dbconnect.php");
         $sql = "Select distinct sum(Ilosc_zrealizowana) as ilosc, sum(Dlugosc_zrealizowana) as dlugosc from dbo.Product_Recznie where Projekt='$projekt' and Pozycja='$detal'";
         $result = sqlsrv_query($conn, $sql);
@@ -42,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         header('Location: index.php');
 
-    } elseif ($_POST['save'] === 'pilne') {
+    } elseif ($save === 'pilne') {
 
         require_once("dbconnect.php");
         
@@ -68,6 +72,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       header('Location: index.php');
       
+    } else {
+        
+        require_once("dbconnect.php");
+        try{
+            
+            $sql = "Select [Id_import] as import from dbo.Parts where Projekt='$projekt' and Pozycja='$detal'";
+        $resultdelete = sqlsrv_query($conn, $sql);
+        if ($resultdelete === false) {
+            throw new Exception("Błąd wykonania zapytania SQL.".sqlsrv_errors());
+        }
+
+        while ($row = sqlsrv_fetch_array($resultdelete, SQLSRV_FETCH_ASSOC)) {
+          $import=$row['import'];
+        }
+
+        $sqldelete = "DELETE FROM [dbo].[Parts]
+        WHERE Id_import=$import";
+        sqlsrv_query($conn, $sqldelete);
+
+        header('Location: index.php');
+
+        }catch (Exception $e) {
+    // Obsługa wyjątku
+    echo "Wystąpił błąd: " . $e->getMessage();
+}
+        
     }
 }
 ?>

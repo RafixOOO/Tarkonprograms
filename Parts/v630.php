@@ -199,9 +199,13 @@ $sql = "Select Distinct
     p.[Projekt] as ProjectName
    ,STRING_AGG(p.[Zespol],' | ') as zespol
    ,p.[Pozycja] as Name
-  ,Sum(p.[Ilosc]) as ilosc
-  ,b.[AmountDone] 
-  ,		'V630' as machine
+  ,Sum(p.[Ilosc]) as ilosc,
+  (
+    SELECT SUM(p2.[AmountDone])
+    FROM [PartCheck].[dbo].[Product_V630] p2
+    WHERE p2.[Name] = p.[Pozycja]
+) AS AmountDone,
+  	'V630' as machine
   ,p.[Profil]
   ,p.[Material]
   ,p.[Dlugosc]
@@ -211,7 +215,7 @@ $sql = "Select Distinct
   ,p.[Uwaga]
   ,Max(b.[ModificationDate]) as ModificationDate
    from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja] 
-   group by b.[AmountDone],p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt]";
+   group by p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt]";
 $datas = sqlsrv_query($conn, $sql); 
 
 ?>

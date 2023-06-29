@@ -63,10 +63,8 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 ?>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark">
+<?php include 'globalnav.php'; ?>
     <div class="container">
-        <br />
-        <?php include 'globalnav.php'; ?>
-        <br />
         <h3 class="text-uppercase">Programy Aktualne</h3><br>
         <div class="table-responsive">
             <table class="table table-hover" id="mytable">
@@ -166,6 +164,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             </table>
         </div>
     </div>
+    </div>
+    </div>
+</div>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -173,26 +174,8 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
-<script>
 
-function scrollFunction() {
-  if (
-    document.body.scrollTop > 20 ||
-    document.documentElement.scrollTop > 20
-  ) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
 
-mybutton.addEventListener("click", backToTop);
-
-function backToTop() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
-</script>
 <?php
 
 if (isUserAdmin()) {
