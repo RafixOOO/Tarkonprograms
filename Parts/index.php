@@ -4,6 +4,26 @@
 <head>
     
     <?php require_once('globalhead.php') ?>
+<style>
+  #backToTopButton {
+  display: block; /* Przycisk jest domyślnie ukryty */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 16px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+#backToTopButton:hover {
+  background-color: #555;
+}
+</style>
 </head>
 <body class = "bg-secondary p-2 text-dark bg-opacity-25">
     <div class="container-fluid">
@@ -112,9 +132,9 @@ require_once("othersql.php");
 <?php if($szermesser>=100){ ?>
   <tr>
 <?php } else { ?>
-  <tr ondblclick="openLoginDialog(this)">
+  <tr id="myRow" onclick="handleClick(this);">
   <?php } ?>
-    <td id="project"><?php echo $dataot['ProjectName']; ?></i></td>
+    <td id="project" ><?php echo $dataot['ProjectName']; ?></i></td>
     <td id="zespol"><?php if($dataot['status']==1){ echo $dataot['aggregated_zespol']." <i class='bi bi-exclamation-triangle-fill text-danger'>";} else{echo $dataot['aggregated_zespol'];} ?></td>
     <td id="detal"><?php echo $dataot['Name']; ?></td>
     <td >
@@ -134,7 +154,7 @@ require_once("othersql.php");
     <td><?php echo $dataot['dlugosc_zrea']; ?></td>
     <td><?php echo $dataot['ciezar']; ?></td>
     <td><?php echo $dataot['calk']; ?></td>
-    <td><?php echo $dataot['uwaga']; ?>, <?php echo $dataot['wykonal']; ?></td>
+    <td><?php echo $dataot['uwaga']; ?></td>
     <td><?php if($dataot['data'] != "") {echo $dataot['data']->format('Y-m-d H:i:s');} ?></td>
 </tr>
 <?php } ?>
@@ -158,22 +178,7 @@ require_once("othersql.php");
                     <br />
                     <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
                     <br />
-                    <?php if(isUserAdmin()){ ?>
-                      <select class="form-control" name="osoba">
-                  <?php } else{ ?>
-
-                        <select class="form-control" name="osoba" required>
-
-                  <?php }
-                    ?>
-                        <option value="" disabled selected>Wykonał</option>
-                        <option value="SYLWESTER WOZNIAK">SYLWESTER WOZNIAK</option>
-                        <option value="MARCIN MICHAS">MARCIN MICHAS</option>
-                        <option value="LUKASZ PASEK">LUKASZ PASEK</option>
-                        <option value="ARTUR BEDNARZ">ARTUR BEDNARZ</option>
-                        <option value="DARIUSZ MALEK">DARIUSZ MALEK</option>
-                    </select>
-                    <br />
+                    
                     <select class="form-control" name="maszyna" required>
                         <option value="Recznie" selected>Recznie</option>
                         <option value="Kooperacyjnie">Kooperacyjnie</option>
@@ -200,6 +205,8 @@ require_once("othersql.php");
                     </div>
                     </div>
                     </div>
+                    <button onclick="sendSelectedRowsToPHP()" id="backToTopButton">Zakończ</button>
+
 </body>
 <script>
 
@@ -298,25 +305,91 @@ headers.forEach(header => {
   });
 });
 
-function openLoginDialog(row) {
-            var projectName = row.querySelector('#project').innerHTML;
-            var zespolName = row.querySelector('#zespol').innerHTML;
-            var detalName = row.querySelector('#detal').innerHTML;
 
-            var projectNameDiv = document.querySelector('#mymodal #projectName');
-            var zespolNameDiv = document.querySelector('#mymodal #zespolName');
-            var detalNameDiv = document.querySelector('#mymodal #detalName');
-            
-            projectNameDiv.innerHTML =  projectName;
-            zespolNameDiv.innerHTML =  zespolName;
-            detalNameDiv.innerHTML =  detalName;
 
-            document.getElementById("myForm").elements.namedItem("project").setAttribute("value", projectName);
-            document.getElementById("myForm").elements.namedItem("detal").setAttribute("value", detalName);
-            
-            $('#mymodal').modal('show');
-        }
+var clicks = 0;
+var timeout;
 
+function handleClick(row) {
+  clicks++;
+
+  if (clicks === 1) {
+    timeout = setTimeout(function() {
+      singleClickAction(row);
+      clicks = 0;
+    }, 200);
+  } else if (clicks === 2) {
+    clearTimeout(timeout);
+    doubleClickAction(row);
+    clicks = 0;
+  }
+}
+
+var selectedrow = [];
+
+function singleClickAction(row) {
+  var hasClass = row.classList.contains("table-warning");
+  if (hasClass) {
+    row.classList.remove("table-warning");
+    removeRowFromSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal"));
+  } else {
+    row.classList.add("table-warning");
+    addRowToSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal"));
+  }
+}
+
+function addRowToSelected(row) {
+  selectedrow.push(row);
+}
+
+function getColumnData(row, columnId) {
+  var columnElement = row.querySelector('#' + columnId);
+  return columnElement.innerText;
+}
+
+function removeRowFromSelected(row) {
+  var index = selectedrow.indexOf(row);
+  if (index !== -1) {
+    selectedrow.splice(index, 1);
+  }
+}
+
+function doubleClickAction(row) {
+  var projectName = row.querySelector('#project').innerHTML;
+  var zespolName = row.querySelector('#zespol').innerHTML;
+  var detalName = row.querySelector('#detal').innerHTML;
+
+  var projectNameDiv = document.querySelector('#mymodal #projectName');
+  var zespolNameDiv = document.querySelector('#mymodal #zespolName');
+  var detalNameDiv = document.querySelector('#mymodal #detalName');
+
+  projectNameDiv.innerHTML = projectName;
+  zespolNameDiv.innerHTML = zespolName;
+  detalNameDiv.innerHTML = detalName;
+
+  document.getElementById("myForm").elements.namedItem("project").setAttribute("value", projectName);
+  document.getElementById("myForm").elements.namedItem("detal").setAttribute("value", detalName);
+
+  $('#mymodal').modal('show');
+}
+
+function sendSelectedRowsToPHP() {
+  var xhr = new XMLHttpRequest();
+  var url = 'zakoncz.php';
+  var params = 'selectedrow=' + JSON.stringify(selectedrow);
+
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Odpowiedź z serwera
+      console.log(xhr.responseText);
+    }
+  };
+
+  xhr.send(params);
+}
 
 </script>
 </html>

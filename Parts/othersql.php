@@ -38,13 +38,7 @@ MAX(r.Maszyna) AS machine,
 MAX(r.Data) AS data,
 p.[Profil] AS profil,
 p.[Material] AS material,
-p.Uwaga AS uwaga,
-(
-    SELECT DISTINCT [Osoba] + ','
-    FROM dbo.Product_Recznie r2
-    WHERE p.[Pozycja] = r2.[Pozycja]
-    FOR XML PATH('')
-) AS wykonal
+p.Uwaga AS uwaga
 FROM
 dbo.Parts p
 LEFT JOIN
