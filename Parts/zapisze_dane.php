@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ilosc = $_POST["ilosc"];
     $dlugosc = $_POST["dlugosc"];
     $maszyna = $_POST["maszyna"];
+    $wykonawca = $_POST["numer"];
     $status;
     try{
         $save = $_POST['save'];
@@ -13,41 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if ($save === 'piece') {
+      require_once("dbconnect.php");
+      $osoba;
+      $sql = "SELECT imie_nazwisko FROM dbo.Persons WHERE identyfikator = $wykonawca";
+      $result = sqlsrv_query($conn, $sql);
+      while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        $osoba=$row['imie_nazwisko'];
+    }
 
-        require_once("dbconnect.php");
-        $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', '{$maszyna}')";
+        
+        $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna, Osoba) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', '{$maszyna}', '{$osoba}')";
 
         sqlsrv_query($conn, $sqlinsert);
 
         header('Location: index.php');
 
-    } elseif ($save === 'pilne') {
-
-        require_once("dbconnect.php");
-        
-        $sql = "Select [Status] from [dbo].[Parts]
-      WHERE Projekt='$projekt' and Pozycja='$detal'";
-      $result = sqlsrv_query($conn, $sql);
-      while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        $status=$row['Status'];
-      }
-      echo $status;
-        if($status==0){
-        $sql = "UPDATE [dbo].[Parts]
-        SET 
-           [Status] = 1
-      WHERE Projekt='$projekt' and Pozycja='$detal'";
-      $result = sqlsrv_query($conn, $sql);
-      }else{
-        $sql = "UPDATE [dbo].[Parts]
-        SET 
-           [Status] = 0
-      WHERE Projekt='$projekt' and Pozycja='$detal'";
-      $result = sqlsrv_query($conn, $sql);
-      }
-      header('Location: index.php');
-      
-    } else {
+    }  else {
         
         require_once("dbconnect.php");
         try{

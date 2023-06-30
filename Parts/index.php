@@ -23,6 +23,21 @@
 #backToTopButton:hover {
   background-color: #555;
 }
+
+#color-button {
+  bottom: 20px;
+  background-color: black;
+  transition: background-color 1s linear;
+  display: block; /* Przycisk jest domyślnie ukryty */
+  position: fixed;
+  left: 20px;
+  z-index: 99;
+  font-size: 16px;
+  padding: 10px 15px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
 </style>
 </head>
 <body class = "bg-secondary p-2 text-dark bg-opacity-25">
@@ -154,7 +169,7 @@ require_once("othersql.php");
     <td><?php echo $dataot['dlugosc_zrea']; ?></td>
     <td><?php echo $dataot['ciezar']; ?></td>
     <td><?php echo $dataot['calk']; ?></td>
-    <td><?php echo $dataot['uwaga']; ?></td>
+    <td><?php echo $dataot['uwaga'].",".$dataot['wykonal']; ?></td>
     <td><?php if($dataot['data'] != "") {echo $dataot['data']->format('Y-m-d H:i:s');} ?></td>
 </tr>
 <?php } ?>
@@ -171,9 +186,12 @@ require_once("othersql.php");
                 Nazwa projektu: <label id="projectName" name="projectName"></label><br />
                 <input type="hidden" name="project">
                 Zespół: <label id="zespolName" name="zespolName"></label><br />
-                Detal: <label id="detalName" name="detalName"></label>
+                Detal: <label id="detalName" name="detalName"></label><br />
                 <input type="hidden" name="detal">
+                <label id="numerName" name="numerName"></label>
+                <input type="hidden" name="numer">
                     <br />
+                    <?php if(!isUserAdmin()) { ?>
                     <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
                     <br />
                     <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
@@ -183,18 +201,19 @@ require_once("othersql.php");
                         <option value="Recznie" selected>Recznie</option>
                         <option value="Kooperacyjnie">Kooperacyjnie</option>
                     </select>
+                    <?php } ?>
                 </div>
                 <div class="modal-footer">
                     <?php
                     if(isUserAdmin()){ ?>
-                    <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt</button >
-                      <button  type="Submit" name="save" class="btn btn-default" value='pilne'>Zmień Status</button >
-                      
+                    <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt</button >          
                       <?php }
                     ?>
-                    
+                    <?php
+                    if(!isUserAdmin()){ ?>
                     <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
-                    
+                    <?php }
+                    ?>
                     
                 </div>
                 </form>
@@ -204,9 +223,34 @@ require_once("othersql.php");
                     </div>
                     </div>
                     </div>
+                    <div class="modal" id="user-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Weryfikacja użytkownika</h5>
+      </div>
+      <div class="modal-body">
+        <form id="user-form">
+          <div class="form-group">
+            <label for="user-number">Wprowadź swój numer:</label>
+            <input type="text" class="form-control" id="user-number" name="user-number">
+          </div>
+        </form>
+        <div class="modal-footer">
+        <a  href="..\index.php"  class="btn btn-default">Strona główna</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php if(!isUserAdmin()) { ?>
                     <button  onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
                     <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
-                    
+                    <button onclick="localStorage.removeItem('number1'); location.reload();" id="color-button">Wyjdź</button>
+                    <?php } ?>
+                    <?php if(isUserAdmin()) { ?>
+                    <button style="bottom: 65px;" onclick="status()" id="backToTopButton">Status</button>
+                    <?php } ?>
 
 </body>
 <script>
@@ -332,10 +376,10 @@ function singleClickAction(row) {
   var hasClass = row.classList.contains("table-warning");
   if (hasClass) {
     row.classList.remove("table-warning");
-    removeRowFromSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal"));
+    removeRowFromSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal")+","+localStorage.getItem('number1'));
   } else {
     row.classList.add("table-warning");
-    addRowToSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal"));
+    addRowToSelected(getColumnData(row, "project") +","+ getColumnData(row, "detal")+","+localStorage.getItem('number1'));
   }
 }
 
@@ -363,13 +407,16 @@ function doubleClickAction(row) {
   var projectNameDiv = document.querySelector('#mymodal #projectName');
   var zespolNameDiv = document.querySelector('#mymodal #zespolName');
   var detalNameDiv = document.querySelector('#mymodal #detalName');
+  var numerNameDiv = document.querySelector('#mymodal #numerName');
 
   projectNameDiv.innerHTML = projectName;
   zespolNameDiv.innerHTML = zespolName;
   detalNameDiv.innerHTML = detalName;
+  numerNameDiv.innerHTML = localStorage.getItem('number1');
 
   document.getElementById("myForm").elements.namedItem("project").setAttribute("value", projectName);
   document.getElementById("myForm").elements.namedItem("detal").setAttribute("value", detalName);
+  document.getElementById("myForm").elements.namedItem("numer").setAttribute("value", localStorage.getItem('number1'));
 
   $('#mymodal').modal('show');
 }
@@ -412,5 +459,130 @@ function sendSelectedRowsToPHP1() {
   xhr.send(params);
 }
 
+function status() {
+  var xhr = new XMLHttpRequest();
+  var url = 'status.php';
+  var params = 'selectedrow=' + JSON.stringify(selectedrow);
+
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Odpowiedź z serwera
+      console.log(xhr.responseText);
+      location.reload();
+    }
+  };
+
+  xhr.send(params);
+}
+
+var colorButton = document.getElementById('color-button');
+var percent = 0;
+
+function changeColor() {
+  percent += 1;
+  colorButton.style.background = `linear-gradient(to right, red ${percent}%, black ${percent}%)`;
+
+  if (percent < 100) {
+    setTimeout(changeColor, 1000); // Powtórz co 0.5 sekundy (500 milisekund)
+  } else {
+    var stored = localStorage.getItem('number1');
+    if (stored !== null) {
+      localStorage.removeItem('number1');
+      location.reload();
+    }
+  }
+}
+
+setTimeout(changeColor, 5000);
+
+setTimeout(changeColor, 1000); // Rozpocznij po 5 sekundach
 </script>
+<?php if(!isUserAdmin()) { ?>
+<script>
+  var stored;
+$(document).ready(function() {
+  stored = localStorage.getItem('number1')
+  if (stored) {
+    // Numer został już poprawnie sprawdzony, nie wyświetlamy okna dialogowego
+    console.log('Numer został już sprawdzony: ' + stored);
+    toastr.success('Weryfikacja przebiegła pomyślnie!!!')
+  } else {
+    // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
+    $('#user-modal').modal({ backdrop: 'static', keyboard: false });
+    $('#user-modal').modal('show');
+    $('#user-number').focus();
+  
+
+  $('#user-modal').on('shown.bs.modal', function() {
+    selectInput();
+  });
+
+
+
+  $('#user-number').on('input', function() {
+    var userNumber = $(this).val();
+
+    
+    $('#user-number').on('keypress', function(e) {
+    if (e.which === 13) {
+      e.preventDefault();
+      var userNumber = $(this).val();
+      if (userNumber.length === 10) {
+        sendForm(userNumber);
+      } else {
+        console.log('Wprowadź dokładnie 10 cyfr.');
+      }
+    }
+  });
+});
+
+  function sendForm(userNumber) {
+    $.ajax({
+      url: 'check_person.php',
+      type: 'POST',
+      data: { number: userNumber },
+      success: function(response) {
+        if (response === 'true') {
+          console.log('Twój numer znajduje się w bazie danych!');
+          localStorage.setItem('number1', userNumber);
+          location.reload();
+        } else {
+          console.log('Twój numer nie został odnaleziony w bazie danych.');
+          location.reload();
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log('Wystąpił błąd podczas sprawdzania numeru w bazie danych.');
+        location.reload();
+        console.log(jqXHR.responseText);
+      },
+      complete: function() {
+        $('#user-modal').modal('hide');
+      }
+    });
+  }
+
+  var input = document.getElementById("user-number");
+
+  function selectInput() {
+    input.select();
+  }
+
+  input.addEventListener("mouseup", function(event) {
+    event.preventDefault();
+  });
+
+  input.addEventListener("blur", function() {
+    setTimeout(function() {
+      input.select();
+    }, 0);
+  });
+}
+});
+
+</script>
+<?php } ?>
 </html>
