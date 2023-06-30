@@ -477,7 +477,8 @@ function status() {
 
   xhr.send(params);
 }
-
+var stored = localStorage.getItem('number1');
+if (stored !== null) {
 var colorButton = document.getElementById('color-button');
 var percent = 0;
 
@@ -488,8 +489,6 @@ function changeColor() {
   if (percent < 100) {
     setTimeout(changeColor, 1000); // Powtórz co 0.5 sekundy (500 milisekund)
   } else {
-    var stored = localStorage.getItem('number1');
-    if (stored !== null) {
       localStorage.removeItem('number1');
       location.reload();
     }
