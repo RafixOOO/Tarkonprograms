@@ -110,20 +110,47 @@
   <tbody>
     <?php 
     
-        $sql = "Select * from dbo.Persons";
+        $sql = "Select * from dbo.Persons where [user] is not NULL";
         $stmt = sqlsrv_query($conn, $sql);
         while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {           
     ?>
     <tr>
-      <th><?php echo $data['Id'] ?></th>
-      <td><?php echo $data['identyfikator'] ?></td>
-      <td><?php echo $data['imie_nazwisko'] ?></td>
-      <form>
-      <td><button type="Submit" class="btn btn-info"><?php echo $data['role_messer'] ?></button></td>
-      <td><button type="Submit" class="btn btn-info"><?php echo $data['role_parts'] ?></button></td>
-      <td><button type="Submit" class="btn btn-info"><?php echo $data['role_admin'] ?></button></td>
-      <td><button type="Submit" class="btn btn-info">Usuń hasło</button> <button type="Submit" class="btn btn-danger">Usuń konto</button></td>
-      </form>
+    <th><?php echo $data['Id'] ?></th>
+        <td><?php echo $data['identyfikator'] ?></td>
+        <td><?php echo $data['imie_nazwisko'] ?></td>
+        <td>
+            <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="role_messer">
+                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_messer'] ?></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="role_parts">
+                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_parts'] ?></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="role_admin">
+                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_admin'] ?></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="usun_haslo.php" style="float: left;">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <button type="submit" name="usun_haslo" class="btn btn-info">Usuń hasło</button>
+            </form>
+            <form method="post" action="usun_konto.php" style="float: left; margin-left:2%;">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <button type="submit" name="usun_konto" class="btn btn-danger">Usuń konto</button>
+            </form>
+            <div style="clear:both;"></div>
+        </td>
+    </tr>
     </tr>
     <?php } ?>
   </tbody>
@@ -133,4 +160,5 @@
 </div>
 </div>
 </body>
+<?php ?>
 </html>
