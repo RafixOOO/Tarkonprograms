@@ -88,7 +88,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <td>
                                     <?php
-                                    if (isUserAdmin()) {
+                                    if (isUserMesser()) {
                                         echo "
                                         <details>
                                 <summary>Rozwiń</summary><form id='myForm' action='update.php' method='POST'>
@@ -163,7 +163,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 <?php
 
-if (isUserAdmin()) {
+if (isUserMesser()) {
 
 
     echo "<script type='text/javascript'>

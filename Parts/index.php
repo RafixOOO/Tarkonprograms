@@ -83,7 +83,8 @@
         <td>
         <div class="progress">
         <?php if($szer <= 100){ ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc']."/".$data['AmountDone']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+          <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szer<0){ echo 0; } else { echo 100-$szer; } ?>%;'><?php echo $data['ilosc']-$data['AmountDone']; ?> </span>
         <?php } else{ ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc']."/".$data['AmountDone']; ?></div>
         <?php } 
@@ -119,8 +120,10 @@ require_once("messer.php");
 
     <td >
       <div class="progress">
+        
+      <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $datamesser["zapotrzebowanie"]-$datamesser['Complet']; ?> </span>
         <?php if($szermesser<=100){ ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser["zapotrzebowanie"]."/".$datamesser['Complet']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser['Complet']; ?></div>
         <?php } else { ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser["zapotrzebowanie"]."/".$datamesser['Complet']; ?></div>
       <?php  } 
@@ -154,10 +157,12 @@ require_once("othersql.php");
     <td id="detal"><?php echo $dataot['Name']; ?></td>
     <td >
       <div class="progress">
+      <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $dataot['ilosc']-$dataot['complet']; ?> </span>
       <?php if($szermesser<=100){ ?>
-          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $dataot['complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $$dataot['ilosc']; ?>'><?php echo $dataot['ilosc']."/".$dataot['complet']; ?></div>
+          <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $dataot['complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $$dataot['ilosc']; ?>'><?php echo $dataot['complet']; ?></div>
         <?php } else { ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $dataot['complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $dataot['ilosc']; ?>'><?php echo $dataot['ilosc']."/".$dataot['complet']; ?></div>
+          
        </div>
   </div>
   <?php } ?>
@@ -191,7 +196,7 @@ require_once("othersql.php");
                 <label id="numerName" name="numerName"></label>
                 <input type="hidden" name="numer">
                     <br />
-                    <?php if(!isUserAdmin()) { ?>
+                    <?php if(!isUserParts()) { ?>
                     <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
                     <br />
                     <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
@@ -205,12 +210,12 @@ require_once("othersql.php");
                 </div>
                 <div class="modal-footer">
                     <?php
-                    if(isUserAdmin()){ ?>
+                    if(isUserParts()){ ?>
                     <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt</button >          
                       <?php }
                     ?>
                     <?php
-                    if(!isUserAdmin()){ ?>
+                    if(!isUserParts()){ ?>
                     <button  type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button >
                     <?php }
                     ?>
@@ -243,12 +248,12 @@ require_once("othersql.php");
     </div>
   </div>
 </div>
-<?php if(!isUserAdmin()) { ?>
+<?php if(!isUserParts()) { ?>
                     <button  onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
                     <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
                     <button onclick="localStorage.removeItem('number1'); location.reload();" id="color-button">Wyjdź</button>
                     <?php } ?>
-                    <?php if(isUserAdmin()) { ?>
+                    <?php if(isUserParts()) { ?>
                     <button style="bottom: 65px;" onclick="status()" id="backToTopButton">Status</button>
                     <?php } ?>
 
@@ -499,7 +504,7 @@ setTimeout(changeColor, 5000);
 
 setTimeout(changeColor, 1000); // Rozpocznij po 5 sekundach
 </script>
-<?php if(!isUserAdmin()) { ?>
+<?php if(!isUserParts()) { ?>
 <script>
   var stored;
 $(document).ready(function() {
