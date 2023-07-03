@@ -57,6 +57,9 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
+                    <?php if(isUserAdmin()) { ?>
+                    <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
+                    <?php } ?>
                     <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
                 </ul>
             </li>

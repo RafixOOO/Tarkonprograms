@@ -37,6 +37,7 @@ function login($username, $password)
             $_SESSION['username'] = $row['user'];
             $_SESSION['role_messer'] = $row['role_messer'];
             $_SESSION['role_parts'] = $row['role_parts'];
+            $_SESSION['role_admin'] = $row['role_admin'];
             $_SESSION['imie_nazwisko'] = $row['imie_nazwisko'];
             return true;
         }

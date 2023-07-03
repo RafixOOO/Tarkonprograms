@@ -8,6 +8,11 @@ function isUserMesser()
 {
     return isset($_SESSION['username']) && $_SESSION['role_messer'] == 1;
 }
+
+function isUserAdmin()
+{
+    return isset($_SESSION['username']) && $_SESSION['role_admin'] == 1;
+}
 function isUserParts()
 {
     return isset($_SESSION['username']) && $_SESSION['role_parts'] == 1;
