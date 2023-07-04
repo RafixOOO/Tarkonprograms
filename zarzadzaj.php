@@ -121,6 +121,7 @@
         <td><?php echo $data['identyfikator'] ?></td>
         <td><?php echo $data['imie_nazwisko'] ?></td>
         <td><?php echo $data['user'] ?></td>
+        <?php if($data['user']!=""){ ?>
         <td>
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
@@ -143,12 +144,15 @@
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_admin">
+                
                 <?php if( $data['role_admin']==1){ ?>
                 <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
                     <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>
         </td>
+        <?php }  ?>
         <td>
+            <?php if($data['user']!=""){ ?>
             <form method="post" action="usun_haslo.php" style="float: left;">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <button type="submit" name="usun_haslo" class="btn btn-info">Usuń hasło</button>
@@ -158,6 +162,17 @@
                 <button type="submit" name="usun_konto" class="btn btn-danger">Usuń konto</button>
             </form>
             <div style="clear:both;"></div>
+            <?php } else{ ?>
+                <td></td>
+                <td></td>
+                <td>
+                <form method="post" action="usun_konto.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <button type="submit" name="usun_konto" class="btn btn-danger">Usuń konto</button>
+            </form>
+                </td>
+                <?php } ?>
+            
         </td>
     </tr>
     
