@@ -51,7 +51,7 @@
       <th scope="col">Projekt</th>
       <th scope="col" style="width:10em;" >Zespoły</th>
       <th scope="col">Detal</th>
-      <th scope="col">Ilosc Wymagana/Zrealizowana</th>
+      <th scope="col">Ilosc Zrealizowana/Wymagana</th>
       <th scope="col">Maszyna</th>
       <th scope="col">Wymiar</th>
       <th scope="col">Materiał</th>
@@ -80,11 +80,11 @@
         <td><?php echo $data['ProjectName']; ?></td>
         <td><?php echo $data['zespol']; ?></td>
         <td><?php echo $data['Name']; ?></td>
-        <td>
-        <div class="progress">
+        <td >
+        <div class="progress" style="height:25px;font-size: 16px;">
         <?php if($szer <= 100){ ?>
           <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
-          <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szer<0){ echo 0; } else { echo 100-$szer; } ?>%;'><?php echo $data['ilosc']-$data['AmountDone']; ?> </span>
+          <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szer<0){ echo 0; } else { echo 100-$szer; } ?>%;'><?php echo $data['ilosc']; ?> </span>
         <?php } else{ ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc']."/".$data['AmountDone']; ?></div>
         <?php } 
@@ -119,11 +119,12 @@ require_once("messer.php");
     <td ><?php echo $datamesser['PartName']; ?></td>
 
     <td >
-      <div class="progress">
+      <div class="progress" style="height:25px;font-size: 16px;">
         
-      <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $datamesser["zapotrzebowanie"]-$datamesser['Complet']; ?> </span>
+      
         <?php if($szermesser<=100){ ?>
           <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser['Complet']; ?></div>
+          <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $datamesser["zapotrzebowanie"]; ?> </span>
         <?php } else { ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser["zapotrzebowanie"]."/".$datamesser['Complet']; ?></div>
       <?php  } 
@@ -156,10 +157,11 @@ require_once("othersql.php");
     <td id="zespol"><?php if($dataot['status']==1){ echo $dataot['aggregated_zespol']." <i class='bi bi-exclamation-triangle-fill text-danger'>";} else{echo $dataot['aggregated_zespol'];} ?></td>
     <td id="detal"><?php echo $dataot['Name']; ?></td>
     <td >
-      <div class="progress">
-      <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $dataot['ilosc']-$dataot['complet']; ?> </span>
+      <div class="progress" style="height:25px;font-size: 16px;">
+      
       <?php if($szermesser<=100){ ?>
           <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $dataot['complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $$dataot['ilosc']; ?>'><?php echo $dataot['complet']; ?></div>
+          <span class='progress-bar bg-white text-dark' style='width:<?php if(100-$szermesser<0){ echo 0; } else { echo 100-$szermesser; } ?>%;'><?php echo $dataot['ilosc']; ?> </span>
         <?php } else { ?>
           <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $dataot['complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $dataot['ilosc']; ?>'><?php echo $dataot['ilosc']."/".$dataot['complet']; ?></div>
           

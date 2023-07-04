@@ -101,10 +101,12 @@
       <th scope="col">#</th>
       <th scope="col">Identyfikator</th>
       <th scope="col">Imię i nazwisko</th>
+      <th scope="col">Login</th>
       <th scope="col">Messer</th>
       <th scope="col">Parts</th>
       <th scope="col">Admin</th>
       <th scope="col">Zarządzaj</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -118,25 +120,32 @@
     <th><?php echo $data['Id'] ?></th>
         <td><?php echo $data['identyfikator'] ?></td>
         <td><?php echo $data['imie_nazwisko'] ?></td>
+        <td><?php echo $data['user'] ?></td>
         <td>
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_messer">
-                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_messer'] ?></button>
+                <?php if( $data['role_messer']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>
         </td>
         <td>
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_parts">
-                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_parts'] ?></button>
+                <?php if( $data['role_parts']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>
         </td>
         <td>
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_admin">
-                <button type="submit" name="change_status" class="btn btn-info"><?php echo $data['role_admin'] ?></button>
+                <?php if( $data['role_admin']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>
         </td>
         <td>
@@ -151,7 +160,7 @@
             <div style="clear:both;"></div>
         </td>
     </tr>
-    </tr>
+    
     <?php } ?>
   </tbody>
 </table>

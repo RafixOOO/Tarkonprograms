@@ -19,6 +19,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      background-image: url('tarkon.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('tarkon.jpg'); /* Kolor zamazania */
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 36px;
+    }
+  </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark">
@@ -92,8 +128,15 @@
             <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
-            <br /><br /><br /><br /><br /><br /><br /><br />
-            <h1 style="text-align: center; font-size: 8.5em;"><b>Tarkon <i>programs</i></b></h1>
+            <div class="content">
+            <img src="tarkon.jpg" alt="Obrazek">
+            <div class="content">
+            <h1 style="text-align: center; font-size: 8.5em; ">
+            <span style="display: block;color: darkblue;"><b>Tarkon</span>
+            <span style="margin-top: 20%; display: block;color: yellow;"><i>programs</i></b></span>
+            </h1>
+
+            </div>
 </div>
 </div>
 </div>
