@@ -7,6 +7,17 @@
 
   <?php require_once('globalhead.php') ?>
   <style>
+    .bottom-banner {
+  background-color: orange;
+  position: fixed;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+  width:8%;
+  text-align: center;
+border-radius: 10px;
+}
+
     #backToTopButton {
       display: block;
       /* Przycisk jest domyślnie ukryty */
@@ -305,11 +316,12 @@
     </div>
   </div>
 </div>
+<div id="myElement" class="bottom-banner"></div>
 <?php if (!isUserParts()) { ?>
   <button onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
   <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
   <?php if (isUserPartsKier()) { ?>
-    <button style="bottom: 65px;" onclick="localStorage.removeItem('number1'); location.reload();" id="color-button"><div id="myElement"></div></button>
+    <button style="bottom: 65px;" onclick="localStorage.removeItem('number1'); location.reload();" id="color-button" >Przełącz</button>
     <form method="POST" action="statuschange.php">
       <button type="Submit" onclick="localStorage.removeItem('number1')"  id="color-button" name="role" value="role_parts">Wyjdź</button>
     </form>
@@ -590,7 +602,7 @@
         // Numer został już poprawnie sprawdzony, nie wyświetlamy okna dialogowego
         console.log('Numer został już sprawdzony: ' + stored);
         toastr.success('Weryfikacja przebiegła pomyślnie!!!');
-        document.getElementById('myElement').innerHTML = "Przełącz z "+localStorage.getItem('nazwa');
+        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście "+localStorage.getItem('nazwa');
       } else {
         // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
         $('#user-modal').modal({
