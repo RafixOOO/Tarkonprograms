@@ -155,11 +155,11 @@
             <?php if($data['user']!=""){ ?>
             <form method="post" action="usun_haslo.php" style="float: left;">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
-                <button type="submit" name="usun_haslo" class="btn btn-info">Usuń hasło</button>
+                <button type="submit" name="usun_haslo" class="btn btn-warning">Usuń hasło</button>
             </form>
             <form method="post" action="usun_konto.php" style="float: left; margin-left:2%;">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
-                <button type="submit" name="usun_konto" class="btn btn-danger">Usuń konto</button>
+                <button type="submit" name="usun_konto" class="btn btn-warning">Usuń konto</button>
             </form>
             <div style="clear:both;"></div>
             <?php } else{ ?>
@@ -168,7 +168,7 @@
                 <td>
                 <form method="post" action="usun_konto.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
-                <button type="submit" name="usun_konto" class="btn btn-danger">Usuń konto</button>
+                <button type="submit" name="usun_konto" class="btn btn-warning">Usuń konto</button>
             </form>
                 </td>
                 <?php } ?>
