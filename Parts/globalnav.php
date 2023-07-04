@@ -42,7 +42,7 @@ require_once('..\auth.php');
                     <div class="offcanvas-footer" style="margin-top: auto; margin-left:10px; margin-bottom:10px">
         <?php if(!isLoggedIn()){ ?>
             <li class="nav-item">
-                <a href="login.php" class="nav-link text-success">
+                <a href="../login.php" class="nav-link text-success">
                     <i class="fs-5 bi bi-person"></i><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
                 </a>
             </li>
