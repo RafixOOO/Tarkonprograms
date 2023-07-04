@@ -100,7 +100,6 @@
             <table class="table table-sm">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Identyfikator</th>
       <th scope="col">Imię i nazwisko</th>
       <th scope="col">Login</th>
@@ -114,12 +113,11 @@
   <tbody>
     <?php 
     
-        $sql = "Select * from dbo.Persons where [user] is not NULL";
+        $sql = "Select * from dbo.Persons";
         $stmt = sqlsrv_query($conn, $sql);
         while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {           
     ?>
     <tr>
-    <th><?php echo $data['Id'] ?></th>
         <td><?php echo $data['identyfikator'] ?></td>
         <td><?php echo $data['imie_nazwisko'] ?></td>
         <td><?php echo $data['user'] ?></td>

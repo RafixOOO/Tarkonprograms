@@ -69,7 +69,6 @@ require_once('dbconnect.php');
 
                 if ($stmt === false) {
                     die(print_r(sqlsrv_errors(), true));
-                    echo "<script>toastr.error('Nie udało się dodać nowego użytkownika!!!')</script>";
                 }
 
                 echo "<script>toastr.success('Pomyślnie dodano użytkownika!!!')</script>";
