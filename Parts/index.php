@@ -316,7 +316,9 @@ border-radius: 10px;
     </div>
   </div>
 </div>
+<?php if (isUserPartsKier()) { ?>
 <div id="myElement" class="bottom-banner"></div>
+<?php } ?>
 <?php if (!isUserParts()) { ?>
   <button onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
   <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
