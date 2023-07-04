@@ -132,8 +132,8 @@
             <img src="tarkon.jpg" alt="Obrazek">
             <div class="content">
             <h1 style="text-align: center; font-size: 8.5em; ">
-            <span style="display: block;color: #1a4585;"><b>Tarkon</span>
-            <span style="margin-top: 20%; display: block;color: #ffda07;"><i>programs</i></b></span>
+            <span style="display: block;color: #1a4585;border-width: 2px; text-shadow: 2px 2px 2px black;"><b>Tarkon</span>
+            <span style="margin-top: 20%; display: block;color: #ffda07; text-shadow: 2px 2px 2px black"><i>programs</i></b></span>
             </h1>
 
             </div>
@@ -142,3 +142,4 @@
 </div>
 </body>
 </html>
+  
