@@ -94,7 +94,9 @@
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
             <div class="container">
+            <div class="table-responsive">
             <a href="dodaj.php" class="btn btn-success float-end">Dodaj</a>
+            
             <table class="table table-sm">
   <thead>
     <tr>
@@ -179,6 +181,7 @@
     <?php } ?>
   </tbody>
 </table>
+</div>
         </div>
 </div>
 </div>
