@@ -17,6 +17,10 @@ function isUserParts()
 {
     return isset($_SESSION['username']) && $_SESSION['role_parts'] == 1;
 }
+function isUserPartsKier()
+{
+    return isset($_SESSION['username']) && $_SESSION['role_parts_kier'] == 1;
+}
 
 function logout()
 {

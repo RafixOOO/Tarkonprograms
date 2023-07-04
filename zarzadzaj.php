@@ -105,6 +105,7 @@
       <th scope="col">Login</th>
       <th scope="col">Messer</th>
       <th scope="col">Parts</th>
+      <th scope="col">Parts Kierownik</th>
       <th scope="col">Admin</th>
       <th scope="col">Zarządzaj</th>
       
@@ -141,6 +142,16 @@
             </form>
         </td>
         <td>
+        <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="role_parts_kier">
+                
+                <?php if( $data['role_parts_kier']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
+            </form>
+        </td>
+        <td>
             <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_admin">
@@ -150,6 +161,7 @@
                     <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>
         </td>
+        
         <?php }  ?>
         <td>
             <?php if($data['user']!=""){ ?>
@@ -163,6 +175,7 @@
             </form>
             <div style="clear:both;"></div>
             <?php } else{ ?>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>
