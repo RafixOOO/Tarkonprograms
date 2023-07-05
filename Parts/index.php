@@ -598,13 +598,15 @@ border-radius: 10px;
 <?php if (!isUserParts()) { ?>
   <script>
     var stored;
+    var $nazwa;
     $(document).ready(function() {
-      stored = localStorage.getItem('number1')
+      stored = localStorage.getItem('number1');
+      $nazwa= localStorage.getItem('nazwa');
       if (stored) {
         // Numer został już poprawnie sprawdzony, nie wyświetlamy okna dialogowego
         console.log('Numer został już sprawdzony: ' + stored);
-        toastr.success('Weryfikacja przebiegła pomyślnie!!!');
-        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście "+localStorage.getItem('nazwa');
+        toastr.success('Weryfikacja przebiegła pomyślnie!!!<br/> Witaj '+$nazwa);
+        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście "+$nazwa;
       } else {
         // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
         $('#user-modal').modal({
@@ -641,7 +643,6 @@ border-radius: 10px;
         $('#submit-button').on('click', function(e) {
           e.preventDefault(); // Zapobiegamy domyślnemu zachowaniu przycisku (np. przeładowaniu strony)
           var userNumber = $('#user-number').val();
-          localStorage.setItem('nazwa', $('#user-number option:selected').data('imie-nazwisko'));
           if (userNumber.length === 10) {
             sendForm(userNumber);
           } else {
@@ -657,9 +658,12 @@ border-radius: 10px;
               number: userNumber
             },
             success: function(response) {
-              if (response === 'true') {
+              var czesci = response.split(",")
+              console.log(response);
+              if (czesci[0] === 'true') {
                 console.log('Twój numer znajduje się w bazie danych!');
                 localStorage.setItem('number1', userNumber);
+                localStorage.setItem('nazwa',czesci[1]);
                 location.reload();
               } else {
                 console.log('Twój numer nie został odnaleziony w bazie danych.');
