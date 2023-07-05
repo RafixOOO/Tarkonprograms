@@ -565,25 +565,29 @@ border-radius: 10px;
     xhr.send(params);
   }
 </script>
-<?php if (!isUserPartskier()) { ?>
+<?php if (!isUserPartskier() and !isLoggedIn()) { ?>
   <script>
     var stored = localStorage.getItem('number1');
-    if (stored !== null) {
-      var colorButton = document.getElementById('color-button');
-      var percent = 0;
+if (stored !== null) {
+  var colorButton = document.getElementById('color-button');
+  var percent = parseInt(localStorage.getItem('czas')) || 0; // Jeśli 'czas' nie istnieje, użyj wartości 0
 
-      function changeColor() {
-        percent += 1;
-        colorButton.style.background = `linear-gradient(to right, red ${percent}%, black ${percent}%)`;
+  function changeColor() {
+    percent += 1;
+    colorButton.style.background = `linear-gradient(to right, red ${percent}%, black ${percent}%)`;
 
-        if (percent < 100) {
-          setTimeout(changeColor, 1000); // Powtórz co 0.5 sekundy (500 milisekund)
-        } else {
-          localStorage.removeItem('number1');
-          location.reload();
-        }
-      }
+    if (percent < 100) {
+      setTimeout(changeColor, 1000); // Powtórz co 1 sekundę (1000 milisekund)
+      localStorage.setItem('czas', percent);
+    } else {
+      localStorage.removeItem('number1');
+      localStorage.removeItem('czas');
+      location.reload();
     }
+  }
+
+  changeColor(); // Wywołaj funkcję changeColor() po załadowaniu strony
+}
 
     setTimeout(changeColor, 5000);
 
@@ -598,15 +602,15 @@ border-radius: 10px;
 <?php if (!isUserParts()) { ?>
   <script>
     var stored;
-    var $nazwa;
+    var nazwa;
     $(document).ready(function() {
       stored = localStorage.getItem('number1');
-      $nazwa= localStorage.getItem('nazwa');
+      nazwa= localStorage.getItem('nazwa');
       if (stored) {
         // Numer został już poprawnie sprawdzony, nie wyświetlamy okna dialogowego
         console.log('Numer został już sprawdzony: ' + stored);
-        toastr.success('Weryfikacja przebiegła pomyślnie!!!<br/> Witaj '+$nazwa);
-        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście "+$nazwa;
+        toastr.success('Weryfikacja przebiegła pomyślnie!!!<br/> Witaj '+nazwa);
+        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście <br>"+nazwa;
       } else {
         // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
         $('#user-modal').modal({
@@ -664,6 +668,7 @@ border-radius: 10px;
                 console.log('Twój numer znajduje się w bazie danych!');
                 localStorage.setItem('number1', userNumber);
                 localStorage.setItem('nazwa',czesci[1]);
+                localStorage.setItem('czas', 0);
                 location.reload();
               } else {
                 console.log('Twój numer nie został odnaleziony w bazie danych.');

@@ -3,15 +3,16 @@ session_start();
 
 function login($username, $password)
 {
-    require_once('dbconnect.php');
+    require('dbconnect.php');
 
     $tsql = "SELECT * FROM dbo.Persons WHERE [user] = ?";
     $params = array($username);
     $getResults = sqlsrv_query($conn, $tsql, $params);
-
     $row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
-    if($row['password']==""){
-        require_once('dbconnect.php');
+    if(sqlsrv_fetch($getResults)=== false){
+        return "brak";
+    }
+    else if($row['password']===""){
     // Haszowanie nowego hasła
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -21,8 +22,10 @@ function login($username, $password)
     $stmt = sqlsrv_query($conn, $tsql, $params);
 
     if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
+        die(print_r(sqlsrv_errors(), false));
     }
+
+    
 
     $_SESSION['username'] = $row['user'];
             $_SESSION['role_messer'] = $row['role_messer'];
@@ -30,8 +33,8 @@ function login($username, $password)
             $_SESSION['role_admin'] = $row['role_admin'];
             $_SESSION['role_parts_kier'] = $row['role_parts_kier'];
             $_SESSION['imie_nazwisko'] = $row['imie_nazwisko'];
-
-    return true;
+        return true;
+    
     }
     else if ($row) {
         $hashedPassword = $row['password'];
@@ -44,9 +47,11 @@ function login($username, $password)
             $_SESSION['imie_nazwisko'] = $row['imie_nazwisko'];
             return true;
         }
+    }else{
+        return false;
     }
-
-    return false;
+    
+    
 }
 ?>
 <!DOCTYPE html>
@@ -78,12 +83,12 @@ function login($username, $password)
             <div class="form-group">
                 <label for="username">Nazwa użytkownika</label>
                 <input type="text" class="form-control" id="username" name="username"
-                    placeholder="Wpisz nazwę użytkownika">
+                    placeholder="Wpisz nazwę użytkownika" required>
             </div>
             <br />
             <div class="form-group">
                 <label for="password">Hasło</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Hasło" required>
             </div>
             <br />
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Zaloguj</button>
@@ -101,9 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if (login($username, $password)) {
+    if (login($username, $password)===true) {
         echo "<script>toastr.success('Zalogowano się pomyślnie!!!')</script>";
         echo '<meta http-equiv="refresh" content="2; URL=index.php">';
+    } else if(login($username, $password)==="brak"){
+        echo "<script>toastr.error('Brak użytkownika!!!')</script>";
     } else {
         echo "<script>toastr.error('Błędne dane logowania!!!')</script>";
     }

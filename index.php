@@ -70,7 +70,7 @@
                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Strona główna</span>
                 </a>
             </li>
-            <?php if(isUserMesser() || !isLoggedIn()){ ?>
+
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     
@@ -82,8 +82,7 @@
                     <li><a class="dropdown-item" href="messer/niewykonane.php">Niewykonane</a></li>
                 </ul>
             </li>
-            <?php } ?>
-            <?php if(isUserParts() || !isLoggedIn() ){ ?>
+ 
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
@@ -95,7 +94,7 @@
                 
                 
             </li>
-            <?php } ?>
+
             </div>
     <div class="offcanvas-footer" style="margin-top: auto; margin-left:10px; margin-bottom:10px">
         <?php if(!isLoggedIn()){ ?>
