@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -542,7 +543,7 @@ if (stored !== null) {
     colorButton.style.width = `${percent}%`;
 
     if (percent < 100) {
-      setTimeout(changeColor, 250); // Powtórz co 1 sekundę (1000 milisekund)
+      setTimeout(changeColor, 200); // Powtórz co 1 sekundę (1000 milisekund)
       localStorage.setItem('czas', percent);
     } else {
       localStorage.removeItem('number1');
