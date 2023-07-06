@@ -9,7 +9,7 @@ function login($username, $password)
     $params = array($username);
     $getResults = sqlsrv_query($conn, $tsql, $params);
     $row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
-    if(sqlsrv_fetch($getResults)=== 0){
+    if(sqlsrv_fetch($getResults)=== false){
         return "brak";
     }
     else if($row['password']==""){
