@@ -386,6 +386,7 @@ $(document).ready(function() {
       $('#myTable_wrapper .dataTables_length select').addClass('form-select');
       $('#myTable_wrapper .dataTables_filter input').addClass('form-control');
       $('#myTable_wrapper .dataTables_paginate .pagination').addClass('pagination');
+      
     }
   });
 });
@@ -542,7 +543,7 @@ if (stored !== null) {
     colorButton.style.width = `${percent}%`;
 
     if (percent < 100) {
-      setTimeout(changeColor, 200); // Powtórz co 1 sekundę (1000 milisekund)
+      setTimeout(changeColor, 250); // Powtórz co 1 sekundę (1000 milisekund)
       localStorage.setItem('czas', percent);
     } else {
       localStorage.removeItem('number1');
