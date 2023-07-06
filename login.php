@@ -9,10 +9,10 @@ function login($username, $password)
     $params = array($username);
     $getResults = sqlsrv_query($conn, $tsql, $params);
     $row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
-    if(sqlsrv_fetch($getResults)=== false){
+    if(sqlsrv_fetch($getResults)=== 0){
         return "brak";
     }
-    else if($row['password']===""){
+    else if($row['password']==""){
     // Haszowanie nowego hasła
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 

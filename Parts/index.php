@@ -43,7 +43,7 @@ border-radius: 10px;
   <div class="container-fluid">
     <?php if(!isLoggedIn()){ ?>
   <div class="progress verticalrotate">
-  <div class=" progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
 </div>
     <?php } ?>
 
@@ -56,7 +56,8 @@ border-radius: 10px;
           <th scope="col">Projekt</th>
           <th scope="col" style="width:10em;">Zespoły</th>
           <th scope="col">Detal</th>
-          <th scope="col">Ilosc Zrealizowana/Wymagana</th>
+          <th scope="col">Ilosc Wymagana/Zrealizowana</th>
+          <th scope="col">V200</th>
           <th scope="col">Maszyna</th>
           <th scope="col">Wymiar</th>
           <th scope="col">Materiał</th>
@@ -70,6 +71,7 @@ border-radius: 10px;
       </thead>
       <tbody>
         <?php
+        require_once("v620.php");
         require_once("v630.php");
         ?>
         <?php
@@ -100,6 +102,7 @@ border-radius: 10px;
                 <?php }
                 ?>
             </td>
+            <td><?php echo $data['AmountNeeded']."/".$data['completev620']; ?></td>
             <td><?php echo $data['machine']; ?></td>
             <td><?php echo $data['Profil']; ?></td>
             <td><?php echo $data['Material']; ?></td>
@@ -148,6 +151,7 @@ border-radius: 10px;
                 ?>
               </div>
             </td>
+            <td><?php echo $datamesser['AmountNeeded']."/".$datamesser['completev620']; ?></td>
             <td><?php echo $datamesser['machine']; ?></td>
             <td><?php echo $datamesser['grubosc']; ?></td>
             <td><?php echo $datamesser['material']; ?></td>
@@ -203,6 +207,7 @@ border-radius: 10px;
   </div>
 <?php } ?>
 </td>
+<td></td>
 <td><?php echo $dataot['machine']; ?></td>
 <td><?php echo $dataot['profil']; ?></td>
 <td><?php echo $dataot['material']; ?></td>
@@ -219,37 +224,40 @@ border-radius: 10px;
 </tbody>
 </table>
 
-<div class="btn-group position-fixed bottom-0 start-50 translate-middle-x" role="group" aria-label="Button group with nested dropdown">
-<?php if (!isUserParts()) { ?>
+
+<div class="btn-toolbar position-fixed start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+
+    <?php if (!isUserParts()) { ?>
   <?php if (!isUserPartsKier()) { ?>
-  <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning">Wyjdź</button>
+  <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
   <?php } ?>
   <?php if (isUserPartsKier()) { ?>
     <form method="POST" action="statuschange.php">
-  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning" name="role" value="role_parts">Wyjdź</button>
+  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź</button>
         </form>
-        <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning">Przełącz</button>
+        <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Przełącz</button>
 <?php }} ?>
 <?php if (isUserPartsKier() && isUserParts()) { ?>
   <form method="POST" action="statuschange.php">
-  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning" name="role" value="role_parts">Przełącz</button>
+  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz</button>
         </form>
         <?php } ?>
-  <div class="btn-group" role="group">
-    <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Narzędzia
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Second group">
     <?php if (!isUserParts()) { ?>
-      <li><button onclick="sendSelectedRowsToPHP()" class="dropdown-item">Recznie</button></li>
-      <li><button onclick="sendSelectedRowsToPHP1()" class="dropdown-item">Kooperacyjnie</button></li>
+      <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie</button>
+      <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Kooperacyjnie</button>
       <?php } ?>
       <?php if (isUserParts()) { ?>
-      <li><button onclick="status()" class="dropdown-item">Status</button></li>
+      <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
       <?php } ?>
-    </ul>
   </div>
 </div>
+
+
 
 
 <div class="modal fade" id="mymodal" role="dialog">
