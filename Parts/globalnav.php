@@ -70,7 +70,3 @@ require_once('..\auth.php');
             <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3"  data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
-            <div class="col-sm-2 float-end">
-              <input type="text" id="searchInput"  class="form-control float-start"  placeholder="Wyszukaj...">
-              
-              </div>

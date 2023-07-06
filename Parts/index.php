@@ -5,9 +5,12 @@
 
 <head>
 
-  <?php require_once('globalhead.php') ?>
+  <?php require_once('globalhead.php') ;
+  require_once('../auth.php');
+  ?>
   <style>
-    .bottom-banner {
+
+    .bottom-banner1 {
   background-color: orange;
   position: fixed;
   top: 8px;
@@ -18,46 +21,32 @@
 border-radius: 10px;
 }
 
-    #backToTopButton {
-      display: block;
-      /* Przycisk jest domyślnie ukryty */
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 99;
-      font-size: 16px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      background-color: #333;
-      color: #fff;
-      cursor: pointer;
-    }
+.verticalrotate{
+  position:fixed;
+  bottom:50%;
+  left:84.5%;
+  width: 30%;
+  transform: rotate(-90deg);
+}
 
-    #backToTopButton:hover {
-      background-color: #555;
-    }
-
-    #color-button {
-      bottom: 20px;
-      background-color: black;
-      transition: background-color 1s linear;
-      display: block;
-      /* Przycisk jest domyślnie ukryty */
-      position: fixed;
-      left: 20px;
-      z-index: 99;
-      font-size: 16px;
-      padding: 10px 15px;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-    }
   </style>
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+<script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 </head>
 
-<body class="bg-secondary p-2 text-dark bg-opacity-25">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark">
+
+
   <div class="container-fluid">
+    <?php if(!isLoggedIn()){ ?>
+  <div class="progress verticalrotate">
+  <div class=" progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
+</div>
+    <?php } ?>
+
     <?php require_once('globalnav.php') ?>
     <table id="myTable" class="table table-striped table-bordered">
 
@@ -161,8 +150,13 @@ border-radius: 10px;
             </td>
             <td><?php echo $datamesser['machine']; ?></td>
             <td><?php echo $datamesser['grubosc']; ?></td>
-            <td colspan="3"><?php echo $datamesser['material']; ?></td>
-            <td colspan="4" style="text-align:right;">
+            <td><?php echo $datamesser['material']; ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="text-align:right;">
               <?php if ($datamesser['DataWykonania'] != "") {
                 echo $datamesser['DataWykonania']->format('Y-m-d H:i:s');
               } ?></td>
@@ -224,6 +218,40 @@ border-radius: 10px;
 <?php } ?>
 </tbody>
 </table>
+
+<div class="btn-group position-fixed bottom-0 start-50 translate-middle-x" role="group" aria-label="Button group with nested dropdown">
+<?php if (!isUserParts()) { ?>
+  <?php if (!isUserPartsKier()) { ?>
+  <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning">Wyjdź</button>
+  <?php } ?>
+  <?php if (isUserPartsKier()) { ?>
+    <form method="POST" action="statuschange.php">
+  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning" name="role" value="role_parts">Wyjdź</button>
+        </form>
+        <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning">Przełącz</button>
+<?php }} ?>
+<?php if (isUserPartsKier() && isUserParts()) { ?>
+  <form method="POST" action="statuschange.php">
+  <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning" name="role" value="role_parts">Przełącz</button>
+        </form>
+        <?php } ?>
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Narzędzia
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+    <?php if (!isUserParts()) { ?>
+      <li><button onclick="sendSelectedRowsToPHP()" class="dropdown-item">Recznie</button></li>
+      <li><button onclick="sendSelectedRowsToPHP1()" class="dropdown-item">Kooperacyjnie</button></li>
+      <?php } ?>
+      <?php if (isUserParts()) { ?>
+      <li><button onclick="status()" class="dropdown-item">Status</button></li>
+      <?php } ?>
+    </ul>
+  </div>
+</div>
+
+
 <div class="modal fade" id="mymodal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -317,31 +345,46 @@ border-radius: 10px;
   </div>
 </div>
 <?php if (isUserPartsKier()) { ?>
-<div id="myElement" class="bottom-banner"></div>
-<?php } ?>
-<?php if (!isUserParts()) { ?>
-  <button onclick="sendSelectedRowsToPHP1()" id="backToTopButton">Kooperacyjnie</button>
-  <button style="bottom: 65px;" onclick="sendSelectedRowsToPHP()" id="backToTopButton">Recznie</button>
-  <?php if (isUserPartsKier()) { ?>
-    <button style="bottom: 65px;" onclick="localStorage.removeItem('number1'); location.reload();" id="color-button" >Przełącz</button>
-    <form method="POST" action="statuschange.php">
-      <button type="Submit" onclick="localStorage.removeItem('number1')"  id="color-button" name="role" value="role_parts">Wyjdź</button>
-    </form>
-    
-  <?php } else if (!isUserPartsKier()) { ?>
-    <button onclick="localStorage.removeItem('number1'); location.reload();" id="color-button">Wyjdź</button>
-  <?php } ?>
-<?php } ?>
-<?php if (isUserParts()) { ?>
-  <button onclick="status()" id="backToTopButton">Status</button>
-  <?php if (isUserPartsKier()) { ?>
-    <form method="POST" action="statuschange.php">
-      <button type="Submit" onclick="localStorage.removeItem('number1')" id="color-button" name="role" value="role_parts">Przełącz</button>
-    </form>
-  <?php } ?>
+<div id="myElement" class="bottom-banner1"></div>
 <?php } ?>
 </body>
 <script>
+
+$(document).ready(function() {
+  $('#myTable').DataTable({
+    "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>' +
+           '<"row"<"col-sm-12"tr>>' +
+           '<"row"<"col-sm-5"i><"col-sm-7"p>>',
+    "language": {
+      "processing": "Przetwarzanie...",
+      "search": "Szukaj: ",
+      "lengthMenu": "Pokaż _MENU_ pozycji",
+      "info": "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+      "infoEmpty": "Pozycji 0 z 0 dostępnych",
+      "infoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+      "infoPostFix": "",
+      "loadingRecords": "Wczytywanie...",
+      "zeroRecords": "Nie znaleziono pasujących pozycji",
+      "emptyTable": "Brak danych",
+      "paginate": {
+        "first": "Pierwsza",
+        "previous": "&laquo;",
+        "next": "&raquo;",
+        "last": "Ostatnia"
+      },
+    },
+    "initComplete": function () {
+      // Dodaj klasy Bootstrap do przycisków i inputów
+      $('#myTable_wrapper .dataTables_length select').addClass('form-select');
+      $('#myTable_wrapper .dataTables_filter input').addClass('form-control');
+      $('#myTable_wrapper .dataTables_paginate .pagination').addClass('pagination');
+    }
+  });
+});
+
+
+
+
   function showConfirmation() {
     var form = document.getElementById("myForm");
     var result = confirm("Czy na pewno chcesz usunąć cały projekt?");
@@ -352,92 +395,6 @@ border-radius: 10px;
       alert("Anulowano!");
     }
   }
-
-  document.getElementById("searchInput").addEventListener("keyup", function() {
-    let input = this.value.toLowerCase();
-    let table = document.getElementById("myTable");
-    let rows = table.getElementsByTagName("tr");
-
-    if (input === "") {
-      for (let i = 1; i < rows.length; i++) {
-        rows[i].style.display = "";
-      }
-      return;
-    }
-
-    for (let i = 1; i < rows.length; i++) {
-      let rowData = rows[i].getElementsByTagName("td");
-      let inputs = input.split(",").map(value => value.trim());
-      let foundCount = 0;
-
-      for (let j = 0; j < rowData.length; j++) {
-        let cellText = rowData[j].textContent.toLowerCase();
-
-        for (let k = 0; k < inputs.length; k++) {
-          let currentInput = inputs[k];
-          if (cellText.indexOf(currentInput) !== -1) {
-            foundCount++;
-            break;
-          }
-        }
-      }
-
-      if (foundCount === inputs.length) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
-      }
-    }
-  });
-
-  const headers = document.querySelectorAll("#myTable th");
-
-
-  headers.forEach(header => {
-    header.addEventListener("click", () => {
-      const table = header.closest("table");
-      const tbody = table.querySelector("tbody");
-      const rows = Array.from(tbody.querySelectorAll("tr"));
-
-
-      const columnIndex = Array.from(header.parentNode.children).indexOf(header);
-
-
-      const sortDirection = header.getAttribute("data-sort");
-
-
-      const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
-
-
-      header.setAttribute("data-sort", newSortDirection);
-
-
-      headers.forEach(h => h.textContent = h.textContent.replace(" ▲", "").replace(" ▼", ""));
-
-
-      header.textContent += newSortDirection === "asc" ? " ▲" : " ▼";
-
-
-      const sortedRows = rows.sort((a, b) => {
-        const cellA = a.querySelectorAll("td")[columnIndex].textContent.toLowerCase();
-        const cellB = b.querySelectorAll("td")[columnIndex].textContent.toLowerCase();
-
-        if (newSortDirection === "asc") {
-          return cellA.localeCompare(cellB);
-        } else {
-          return cellB.localeCompare(cellA);
-        }
-      });
-
-
-      rows.forEach(row => tbody.removeChild(row));
-
-
-      sortedRows.forEach(row => tbody.appendChild(row));
-    });
-  });
-
-
 
   var clicks = 0;
   var timeout;
@@ -569,15 +526,15 @@ border-radius: 10px;
   <script>
     var stored = localStorage.getItem('number1');
 if (stored !== null) {
-  var colorButton = document.getElementById('color-button');
+  var colorButton = document.getElementById('time');
   var percent = parseInt(localStorage.getItem('czas')) || 0; // Jeśli 'czas' nie istnieje, użyj wartości 0
 
   function changeColor() {
-    percent += 1;
-    colorButton.style.background = `linear-gradient(to right, red ${percent}%, black ${percent}%)`;
+    percent += 0.1;
+    colorButton.style.width = `${percent}%`;
 
     if (percent < 100) {
-      setTimeout(changeColor, 1000); // Powtórz co 1 sekundę (1000 milisekund)
+      setTimeout(changeColor, 200); // Powtórz co 1 sekundę (1000 milisekund)
       localStorage.setItem('czas', percent);
     } else {
       localStorage.removeItem('number1');
