@@ -29,18 +29,37 @@ border-radius: 10px;
   transform: rotate(-90deg);
 }
 
+#loader-wrapper{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #ECF0F1;
+   display: none; 
+}
+
+.js .load, .js #loader-wrapper {
+  display: block;
+}
   </style>
 
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
 <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
-<body class="p-3 mb-2 bg-light bg-gradient text-dark">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;">
+<div id="loader-wrapper">
+<div  class="spinner-grow position-absolute top-50 start-50 translate-middle" role="status">
+  <span class="sr-only"></span>
+</div></div>
 
-
-  <div class="container-fluid">
+  <div class="container-xl">
     <?php if(!isLoggedIn()){ ?>
   <div class="progress verticalrotate">
   <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
@@ -48,6 +67,7 @@ border-radius: 10px;
     <?php } ?>
 
     <?php require_once('globalnav.php') ?>
+    <div class="table-responsive">
     <table id="myTable" class="table table-striped table-bordered">
 
 
@@ -56,7 +76,7 @@ border-radius: 10px;
           <th scope="col">Projekt</th>
           <th scope="col" style="width:10em;">Zespoły</th>
           <th scope="col">Detal</th>
-          <th scope="col">Ilosc Wymagana/Zrealizowana</th>
+          <th scope="col">Ilosc Wymagana / Zrealizowana</th>
           <th scope="col">V200</th>
           <th scope="col">Maszyna</th>
           <th scope="col">Wymiar</th>
@@ -71,7 +91,6 @@ border-radius: 10px;
       </thead>
       <tbody>
         <?php
-        require_once("v620.php");
         require_once("v630.php");
         ?>
         <?php
@@ -355,8 +374,18 @@ border-radius: 10px;
 <?php if (isUserPartsKier()) { ?>
 <div id="myElement" class="bottom-banner1"></div>
 <?php } ?>
+</div>
 </body>
 <script>
+$('html').addClass('js');
+
+
+$(window).on("load", function() {
+    $("#loader-wrapper").fadeOut();
+});
+
+
+
 
 $(document).ready(function() {
   $('#myTable').DataTable({

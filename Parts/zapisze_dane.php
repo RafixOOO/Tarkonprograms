@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         sqlsrv_query($conn, $sqlinsert);
 
-        header('Location: index.php');
+        header('Location: main.php');
 
     }  else {
         
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         WHERE Id_import=$import";
         sqlsrv_query($conn, $sqldelete);
 
-        header('Location: index.php');
+        header('Location: main.php');
 
         }catch (Exception $e) {
     // Obsługa wyjątku

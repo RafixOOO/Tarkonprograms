@@ -77,7 +77,7 @@
                     <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="messer/index.php">Aktualne</a></li>
+                    <li><a class="dropdown-item" href="messer/main.php">Aktualne</a></li>
                     <li><a class="dropdown-item" href="messer/wykonane.php">Wykonane</a></li>
                     <li><a class="dropdown-item" href="messer/niewykonane.php">Niewykonane</a></li>
                 </ul>
@@ -88,7 +88,7 @@
                     <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
-                    <li><a class="dropdown-item" href="parts/index.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
                     <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
                 </ul>
                 

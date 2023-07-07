@@ -7,7 +7,7 @@ require_once('../auth.php');
         $_SESSION['role_parts']=1;
 
     }
-    header("Location: index.php");
+    header("Location: main.php");
     exit();
 
 ?>

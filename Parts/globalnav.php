@@ -22,26 +22,26 @@ require_once('..\auth.php');
                     <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="../messer/index.php">Aktualne</a></li>
+                    <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
                     <li><a class="dropdown-item" href="../messer/wykonane.php">Wykonane</a></li>
                     <li><a class="dropdown-item" href="../messer/niewykonane.php">Niewykonane</a></li>
                 </ul>
             </li>
             <?php } ?>
             <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
                 </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
-                    <li><a class="dropdown-item" href="index.php">Programy</a></li>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" href="main.php">Programy</a></li>
                     <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
                 </ul>
             </li>
-                    </li>
+                    
                     </div>
                     <div class="offcanvas-footer" style="margin-top: auto; margin-left:10px; margin-bottom:10px">
         <?php if(!isLoggedIn()){ ?>
-            <li class="nav-item">
+            <li class="nav-item" style="">
                 <a href="../login.php" class="nav-link text-success">
                     <i class="fs-5 bi bi-person"></i><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
                 </a>
@@ -58,7 +58,7 @@ require_once('..\auth.php');
                     <?php } ?>
                     <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
                 </ul>
-            </li>
+                    </ul>
         <?php } ?>  
     </div>
 </div>
