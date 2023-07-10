@@ -1,6 +1,7 @@
 {
     "require": {
-        "ext-sqlsrv": "*"
+        "ext-sqlsrv": "*",
+        "pagerfanta/pagerfanta": "^4.1"
     } 
 }
 
