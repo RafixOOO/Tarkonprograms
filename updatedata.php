@@ -37,7 +37,6 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             $data['Id'],
             $data['ProjectName'],
             $data['Name'],
-            $data['ProfileId'],
             $data['AssignmentNumber'],
             $data['Material'],
             $data['AmountNeeded'],

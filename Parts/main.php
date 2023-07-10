@@ -1,4 +1,93 @@
+<?php 
+require_once 'vendor/autoload.php';
 
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\View\TwitterBootstrap4View;
+
+
+
+require_once 'othersql.php';
+
+$dataresult = array();
+
+while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
+  $dataresult[] = $dataot;
+}
+
+require_once 'messer.php';
+
+while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
+  $dataresult[] = $datamesser;
+}
+
+require_once 'v630.php';
+
+while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
+  $dataresult[] = $data;
+}
+
+$keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+$keywordArray = explode(' ', $keywords);
+$dataFrom = isset($_GET['dataFrom']) ? $_GET['dataFrom'] : '';
+$dataTo = isset($_GET['dataTo']) ? $_GET['dataTo'] : '';
+$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo) {
+  foreach ($keywordArray as $keyword) {
+    $keyword = trim($keyword);
+    if ($keyword !== '') {
+      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna']; // Dodaj więcej kolumn, jeśli jest potrzebne
+      $matchesKeyword = false;
+      foreach ($columnsToSearch as $column) {
+        $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+        if (stripos($columnValue, $keyword) !== false) {
+          $matchesKeyword = true;
+          break;
+        }
+      }
+      if (!$matchesKeyword) {
+        return false;
+      }
+    }
+  }
+
+  if ($dataFrom !== '') {
+    $dataFrom = new DateTime($dataFrom);
+    $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
+    if ($itemData < $dataFrom) {
+      return false;
+    }
+  }
+
+  if ($dataTo !== '') {
+    $dataTo = new DateTime($dataTo);
+    $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
+    if ($itemData > $dataTo) {
+      return false;
+    }
+  }
+
+  return true;
+});
+
+$pageSizeOptions = [25, 100, 500, 1000, count($filteredData)];
+$pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 25;
+$pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
+$showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
+
+if ($showAll) {
+  $pageSize = count($filteredData);
+} else {
+  $pageSize = (int)$pageSize;
+  $pageSize = max(1, $pageSize); // Upewniamy się, że $pageSize jest większe lub równe 1
+}
+$adapter = new ArrayAdapter($filteredData);
+$pagerfanta = new Pagerfanta($adapter);
+$pagerfanta->setMaxPerPage($pageSize);
+$pagerfanta->setCurrentPage($pageNumber);
+
+$currentPageResults = $pagerfanta->getCurrentPageResults();
+
+?>
 <!DOCTYPE html>
 
 <html>
@@ -45,12 +134,6 @@ border-radius: 10px;
 }
   </style>
 
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
-<script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;">
@@ -67,7 +150,28 @@ border-radius: 10px;
     <?php } ?>
 
     <?php require_once('globalnav.php') ?>
-    <div class="table-responsive">
+    
+<div class="mb-3" style="float:right;">
+
+        <form method="get" action="">
+          <div class="input-group">
+            <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Wyszukaj..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+          </div>
+          od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
+          </div>
+          <div class="form-group" style="float:left;">
+          <label for="pageSizeSelect">Liczba wyników na stronie:</label>
+          <select class="form-control" id="pageSizeSelect" name="page_size">
+          <?php foreach ($pageSizeOptions as $option): ?>
+            <option value="<?php echo $option; ?>" <?php echo $pageSize === $option ? 'selected' : ''; ?>>
+              <?php echo $option; ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+        </div>
+        </form>
+      
+      <div style="clear:both;"></div>
     <table id="myTable" class="table table-striped table-bordered">
 
 
@@ -75,8 +179,9 @@ border-radius: 10px;
         <tr>
           <th scope="col">Projekt</th>
           <th scope="col" style="width:10em;">Zespoły</th>
+          <th scope="col">A</th>
           <th scope="col">Detal</th>
-          <th scope="col">Ilosc Wymagana / Zrealizowana</th>
+          <th scope="col">Amount Need / Done</th>
           <th scope="col">V200</th>
           <th scope="col">Maszyna</th>
           <th scope="col">Wymiar</th>
@@ -90,26 +195,31 @@ border-radius: 10px;
         </tr>
       </thead>
       <tbody>
-        <?php
-        require_once("v630.php");
-        ?>
-        <?php
-        while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
-          if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
+      <?php foreach ($currentPageResults as $data): 
+        if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
             $szer = 0;
           } else {
-            $szer = $data['AmountDone'] / $data['ilosc'] * 100;
+            $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
           }
 
-        ?>
-          <tr>
-            <td><?php echo $data['ProjectName']; ?></td>
-            <td><?php echo $data['zespol']; ?></td>
-            <td><?php echo $data['Name']; ?></td>
-            <td>
+          if ($szer >= 100) {
+            echo "<tr>";
+             } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+           echo '<tr id="myRow" onclick="handleClick(this);">';
+             }
+          ?>
+        <td id="project"><?php echo $data['ProjectName']; ?></td>
+            <td id="zespol"><?php if ($data['status'] == 1) {
+                              echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
+                            } else {
+                              echo $data['zespol'];
+                            } ?></td>
+                            <td><center><?php echo $data['liczba_zespoly']; ?></center></td>
+            <td id="detal"><?php echo $data['Detal']; ?></td>
+            <td >
               <div class="progress" style="height:25px;font-size: 16px;">
                 <?php if ($szer <= 100) { ?>
-                  <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['AmountDone']; ?></div>
+                  <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc_zrealizowana']; ?></div>
                   <span class='progress-bar bg-white text-dark' style='width:
                   <?php if (100 - $szer < 0) {
                     echo 0;
@@ -117,132 +227,47 @@ border-radius: 10px;
                     echo 100 - $szer;
                   } ?>%;'><?php echo $data['ilosc']; ?> </span>
                 <?php } else { ?>
-                  <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['AmountDone']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc'] . "/" . $data['AmountDone']; ?></div>
+                  <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo  $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana']; ?></div>
                 <?php }
                 ?>
             </td>
-            <td><?php echo $data['AmountNeeded']."/".$data['completev620']; ?></td>
-            <td><?php echo $data['machine']; ?></td>
-            <td><?php echo $data['Profil']; ?></td>
-            <td><?php echo $data['Material']; ?></td>
-            <td><?php echo $data['Dlugosc']; ?></td>
-            <td><?php echo $data['SawLength']; ?></td>
+            <td><?php echo $data['ilosc_v200']."/".$data['ilosc_v200_zre']; ?></td>
+            <td><?php echo $data['maszyna']; ?></td>
+            <td><?php echo $data['profil']; ?></td>
+            <td><?php echo $data['material']; ?></td>
+            <td><?php echo $data['dlugosc']; ?></td>
+            <td><?php echo $data['dlugosc_zre']; ?></td>
             <td><?php echo $data['Ciezar']; ?></td>
             <td><?php echo $data['Calk_ciez']; ?></td>
-            <td><?php echo $data['Uwaga']; ?></td>
-            <td><?php if ($data['ModificationDate'] != "") {
-                  echo $data['ModificationDate']->format('Y-m-d H:i:s');
+            <td><?php echo $data['uwaga'] . "," . $data['wykonal']; ?></td>
+            <td><?php if ($data['data'] != "") {
+                  echo $data['data']->format('Y-m-d H:i:s');
                 } ?>
             </td>
           </tr>
-        <?php }  ?>
-
-        <?php
-        require_once("messer.php");
-
-        while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
-          if ($datamesser['zapotrzebowanie'] == 0 or $datamesser['zapotrzebowanie'] == '') {
-            $szermesser = 0;
-          } else {
-            $szermesser = $datamesser['Complet'] / $datamesser['zapotrzebowanie'] * 100;
-          }
-        ?>
-          <tr>
-            <td><?php echo $datamesser['Projekt']; ?></td>
-            <td><?php echo $datamesser['Zespol']; ?></td>
-            <td><?php echo $datamesser['PartName']; ?></td>
-
-            <td>
-              <div class="progress" style="height:25px;font-size: 16px;">
-
-
-                <?php if ($szermesser <= 100) { ?>
-                  <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $datamesser['Complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $datamesser['zapotrzebowanie']; ?>'><?php echo $datamesser['Complet']; ?></div>
-                  <span class='progress-bar bg-white text-dark' style='width:
-                  <?php if (100 - $szermesser < 0) {
-                    echo 0;
-                  } else {
-                    echo 100 - $szermesser;
-                  } ?>%;'><?php echo $datamesser["zapotrzebowanie"]; ?> </span>
-                <?php } else { ?>
-                  <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $datamesser['Complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $datamesser["zapotrzebowanie"]; ?>'><?php echo $datamesser["zapotrzebowanie"] . "/" . $datamesser['Complet']; ?></div>
-                <?php  }
-                ?>
-              </div>
-            </td>
-            <td><?php echo $datamesser['AmountNeeded']."/".$datamesser['completev620']; ?></td>
-            <td><?php echo $datamesser['machine']; ?></td>
-            <td><?php echo $datamesser['grubosc']; ?></td>
-            <td><?php echo $datamesser['material']; ?></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td style="text-align:right;">
-              <?php if ($datamesser['DataWykonania'] != "") {
-                echo $datamesser['DataWykonania']->format('Y-m-d H:i:s');
-              } ?></td>
-          </tr>
-        <?php } ?>
-
-        <?php
-        require_once("othersql.php");
-
-        while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
-          if ($dataot['complet'] == 0 or $dataot['complet'] == '') {
-            $szermesser = 0;
-          } else {
-            $szermesser = $dataot['complet'] / $dataot['ilosc'] * 100;
-          }
-        ?>
-          <?php if ($szermesser >= 100) { ?>
-            <tr>
-            <?php } else { ?>
-            <tr id="myRow" onclick="handleClick(this);">
-            <?php } ?>
-            <td id="project"><?php echo $dataot['ProjectName']; ?></i></td>
-            <td id="zespol"><?php if ($dataot['status'] == 1) {
-                              echo $dataot['aggregated_zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
-                            } else {
-                              echo $dataot['aggregated_zespol'];
-                            } ?></td>
-            <td id="detal"><?php echo $dataot['Name']; ?></td>
-            <td>
-              <div class="progress" style="height:25px;font-size: 16px;">
-
-                <?php if ($szermesser <= 100) { ?>
-                  <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow="<?php echo  $dataot['complet']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $$dataot['ilosc']; ?>'><?php echo $dataot['complet']; ?></div>
-                  <span class='progress-bar bg-white text-dark' style='width:
-                  <?php if (100 - $szermesser < 0) {
-                    echo 0;
-                  } else {
-                    echo 100 - $szermesser;
-                  } ?>%;'><?php echo $dataot['ilosc']; ?> </span>
-                <?php } else { ?>
-                  <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szermesser; ?>%;' aria-valuenow='<?php echo  $dataot['complet']; ?>' aria-valuemin='0' aria-valuemax='<?php echo $dataot['ilosc']; ?>'><?php echo $dataot['ilosc'] . "/" . $dataot['complet']; ?></div>
-
-              </div>
-  </div>
-<?php } ?>
-</td>
-<td></td>
-<td><?php echo $dataot['machine']; ?></td>
-<td><?php echo $dataot['profil']; ?></td>
-<td><?php echo $dataot['material']; ?></td>
-<td><?php echo $dataot['dlugosc']; ?></td>
-<td><?php echo $dataot['dlugosc_zrea']; ?></td>
-<td><?php echo $dataot['ciezar']; ?></td>
-<td><?php echo $dataot['calk']; ?></td>
-<td><?php echo $dataot['uwaga'] . "," . $dataot['wykonal']; ?></td>
-<td><?php if ($dataot['data'] != "") {
-            echo $dataot['data']->format('Y-m-d H:i:s');
-          } ?></td>
-</tr>
-<?php } ?>
+        <?php endforeach; ?>
 </tbody>
 </table>
+<div class="table-responsive">
+      <div style="float:right;">
+<?php 
 
+$view = new TwitterBootstrap4View();
+$options = array(
+    'prev_message' => '<',
+    'next_message' => '>',
+    'routeGenerator' => function ($page) {
+        $queryString = $_SERVER['QUERY_STRING'];
+        parse_str($queryString, $queryParams);
+        $queryParams['page'] = $page;
+        $newQueryString = http_build_query($queryParams);
+        $url = $_SERVER['PHP_SELF'] . '?' . $newQueryString;
+        return $url;
+    },
+);
+echo $view->render($pagerfanta, $options['routeGenerator'], $options);
+ ?>
+</div>
 
 <div class="btn-toolbar position-fixed start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
   <div class="btn-group me-2" role="group" aria-label="First group">
@@ -361,7 +386,7 @@ border-radius: 10px;
           <div class="modal-footer">
             <?php
             if (isUserPartsKier()) { ?>
-              <button id="submit-button" class="btn btn-default">Wyślij</button>
+              <button id="submit-button" class="btn btn-default">Przejdź</button>
             <?php } else if (!isUserPartsKier()) { ?>
               <a href="..\index.php" class="btn btn-default">Strona główna</a>
             <?php } ?>
@@ -385,43 +410,16 @@ $(window).on("load", function() {
 });
 
 
+var currentPage = <?php echo isset($_GET['page']) ? $_GET['page'] : 1; ?>;
 
+const pageItems = document.querySelectorAll('.pagination li');
 
-$(document).ready(function() {
-  $('#myTable').DataTable({
-    "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>' +
-           '<"row"<"col-sm-12"tr>>' +
-           '<"row"<"col-sm-5"i><"col-sm-7"p>>',
-    "language": {
-      "processing": "Przetwarzanie...",
-      "search": "Szukaj: ",
-      "lengthMenu": "Pokaż _MENU_ pozycji",
-      "info": "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
-      "infoEmpty": "Pozycji 0 z 0 dostępnych",
-      "infoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
-      "infoPostFix": "",
-      "loadingRecords": "Wczytywanie...",
-      "zeroRecords": "Nie znaleziono pasujących pozycji",
-      "emptyTable": "Brak danych",
-      "paginate": {
-        "first": "Pierwsza",
-        "previous": "&laquo;",
-        "next": "&raquo;",
-        "last": "Ostatnia"
-      },
-    },
-    "initComplete": function () {
-      // Dodaj klasy Bootstrap do przycisków i inputów
-      $('#myTable_wrapper .dataTables_length select').addClass('form-select');
-      $('#myTable_wrapper .dataTables_filter input').addClass('form-control');
-      $('#myTable_wrapper .dataTables_paginate .pagination').addClass('pagination');
-      
+  // Iteracja przez każdy element li i usunięcie słowa "Current"
+  pageItems.forEach(function(item) {
+    if (item.classList.contains('active')) {
+      item.querySelector('.page-link').innerHTML = currentPage;
     }
   });
-});
-
-
-
 
   function showConfirmation() {
     var form = document.getElementById("myForm");
@@ -565,7 +563,7 @@ $(document).ready(function() {
     var stored = localStorage.getItem('number1');
 if (stored !== null) {
   var colorButton = document.getElementById('time');
-  var percent = parseInt(localStorage.getItem('czas')) || 0; // Jeśli 'czas' nie istnieje, użyj wartości 0
+  var percent =  0;
 
   function changeColor() {
     percent += 0.1;
