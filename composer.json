@@ -1,0 +1,5 @@
+{
+    "require": {
+        "pagerfanta/pagerfanta": "^4.1"
+    }
+}
