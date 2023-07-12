@@ -51,8 +51,9 @@ if ($conn === false) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Tarkon programs</title>
+    <script src="blad.js"></script>
 </head>
-<body class="p-3 mb-2 bg-light bg-gradient text-dark">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
             <div class="container">
         <h2 class="text-uppercase">Zmiana hasła</h2>
         <br />

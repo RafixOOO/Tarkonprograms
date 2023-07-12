@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
     <title>Parts</title>
     <?php require_once('globalhead.php') ?>
 </head>
-<body class = "p-3 mb-2 bg-light bg-gradient text-dark">
+<body class = "p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <br />
     <div class="container">
     <form action="" method="POST" enctype="multipart/form-data">

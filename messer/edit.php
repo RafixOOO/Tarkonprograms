@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     <?php include 'globalhead.php'; ?>
 </head>
 
-<body class="p-3 mb-2 bg-light bg-gradient text-dark">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <div class="container">
         <br />
         <h2 class="text-uppercase">Edycja</h2>

@@ -2,7 +2,8 @@
 require_once("dbconnect.php");
 
 $sqlother = "SELECT
-Count(p.[Zespol]) as liczba_zespoly,
+p.Id_import as import
+,Count(p.[Zespol]) as liczba_zespoly,
 '' as ilosc_v200,
 '' as ilosc_v200_zre,
 p.[Pozycja] AS Detal,
@@ -65,6 +66,6 @@ AND NOT EXISTS (
     WHERE p.Pozycja = v.Name
 )
 GROUP BY
-p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status]";
+p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import";
 $dataother = sqlsrv_query($conn, $sqlother);
 ?>

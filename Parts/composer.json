@@ -4,6 +4,7 @@
         "phpoffice/phpspreadsheet": "^1.28",
         "ext-sqlsrv": "*",
         "pagerfanta/pagerfanta": "^4.1"
-    } 
+    }
+    
 }
 

@@ -5,7 +5,7 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\TwitterBootstrap4View;
 
-
+// Now you can use the Utils class
 
 require_once 'othersql.php';
 
@@ -35,7 +35,7 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
   foreach ($keywordArray as $keyword) {
     $keyword = trim($keyword);
     if ($keyword !== '') {
-      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna']; // Dodaj więcej kolumn, jeśli jest potrzebne
+      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal' ]; // Dodaj więcej kolumn, jeśli jest potrzebne
       $matchesKeyword = false;
       foreach ($columnsToSearch as $column) {
         $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
@@ -68,7 +68,6 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
 
   return true;
 });
-
 $pageSizeOptions = [25, 100, 500, 1000, count($filteredData)];
 $pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 25;
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -86,6 +85,104 @@ $pagerfanta->setMaxPerPage($pageSize);
 $pagerfanta->setCurrentPage($pageNumber);
 
 $currentPageResults = $pagerfanta->getCurrentPageResults();
+
+$sumaIlosc = array_sum(array_column($filteredData, 'ilosc'));
+$sumaIloscZrealizowana = array_sum(array_column($filteredData, 'ilosc_zrealizowana'));
+
+$jsonData = json_encode($filteredData);
+
+
+$sumaZrealizowanaMiesiace = array();
+
+// Iteruj po danych i sumuj wartości 'ilość_zrealizowana' dla poszczególnych miesięcy
+$sumaZrealizowanaTygodnie = [];
+$sumaZrealizowanaMiesiace = [];
+$sumaZrealizowanaDni = [];
+
+foreach ($filteredData as $row) {
+    $dateTime = $row['data'];
+    if ($dateTime instanceof DateTime) {
+        $weekNumber = $dateTime->format('W');
+        $year = $dateTime->format('Y');
+        $weekYear = $year . ' W' . $weekNumber;
+
+        if (!isset($sumaZrealizowanaTygodnie[$weekYear])) {
+            $sumaZrealizowanaTygodnie[$weekYear] = 0;
+        }
+
+        $sumaZrealizowanaTygodnie[$weekYear] += $row['ilosc_zrealizowana'];
+
+        $monthYear = $dateTime->format('M Y');
+
+        if (!isset($sumaZrealizowanaMiesiace[$monthYear])) {
+            $sumaZrealizowanaMiesiace[$monthYear] = 0;
+        }
+
+        $sumaZrealizowanaMiesiace[$monthYear] += $row['ilosc_zrealizowana'];
+
+        $date = $dateTime->format('Y-m-d');
+
+        if (!isset($sumaZrealizowanaDni[$date])) {
+            $sumaZrealizowanaDni[$date] = 0;
+        }
+
+        $sumaZrealizowanaDni[$date] += $row['ilosc_zrealizowana'];
+    }
+}
+
+
+if (count($sumaZrealizowanaMiesiace) > 1) {
+    // Wykres miesięcy
+    $data = array(
+        'labels' => array_keys($sumaZrealizowanaMiesiace),
+        'datasets' => array(
+            array(
+                'label' => 'Suma ilość na miesiąc',
+                'data' => array_values($sumaZrealizowanaMiesiace),
+                'borderColor' => 'red', // Dostarcz ręcznie odpowiedni kolor
+                'backgroundColor' => 'rgba(255, 0, 0, 0.5)', // Dostarcz ręcznie odpowiedni kolor z przezroczystością
+                'pointStyle' => 'circle',
+                'pointRadius' => 10,
+                'pointHoverRadius' => 15
+            )
+        )
+    );
+  }else if (count($sumaZrealizowanaTygodnie) > 1) {
+      // Wykres tygodni
+      $data = array(
+          'labels' => array_keys($sumaZrealizowanaTygodnie),
+          'datasets' => array(
+              array(
+                  'label' => 'Suma ilość na tydzień',
+                  'data' => array_values($sumaZrealizowanaTygodnie),
+                  'borderColor' => 'red', // Dostarcz ręcznie odpowiedni kolor
+                  'backgroundColor' => 'rgba(255, 0, 0, 0.5)', // Dostarcz ręcznie odpowiedni kolor z przezroczystością
+                  'pointStyle' => 'circle',
+                  'pointRadius' => 10,
+                  'pointHoverRadius' => 15
+              )
+          )
+      );
+} else {
+    // Wykres dni
+    $data = array(
+        'labels' => array_keys($sumaZrealizowanaDni),
+        'datasets' => array(
+            array(
+                'label' => 'Suma ilość na dzień',
+                'data' => array_values($sumaZrealizowanaDni),
+                'borderColor' => 'red', // Dostarcz ręcznie odpowiedni kolor
+                'backgroundColor' => 'rgba(255, 0, 0, 0.5)', // Dostarcz ręcznie odpowiedni kolor z przezroczystością
+                'pointStyle' => 'circle',
+                'pointRadius' => 10,
+                'pointHoverRadius' => 15
+            )
+        )
+    );
+}
+
+$jsonData1 = json_encode($data);
+
 
 ?>
 <!DOCTYPE html>
@@ -105,7 +202,7 @@ $currentPageResults = $pagerfanta->getCurrentPageResults();
   top: 8px;
   right: 16px;
   font-size: 18px;
-  width:8%;
+  width:15%;
   text-align: center;
 border-radius: 10px;
 }
@@ -132,11 +229,26 @@ border-radius: 10px;
 .js .load, .js #loader-wrapper {
   display: block;
 }
+
+#myChart, #myChart1 {
+   width: 50%;
+   height: 350px;
+}
+.label {/*from  w  ww. ja  v  a 2  s  .  co  m*/
+   text-align: center;
+   width: 600px;
+   font-size: 20px;
+   font-weight: bold;
+   margin: 20px;
+}
+.chart_container {
+   float: left;
+}
   </style>
 
 </head>
 
-<body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
 <div id="loader-wrapper">
 <div  class="spinner-grow position-absolute top-50 start-50 translate-middle" role="status">
   <span class="sr-only"></span>
@@ -191,7 +303,7 @@ border-radius: 10px;
           <th scope="col">Ciężar</th>
           <th scope="col">Całkowity Ciężar</th>
           <th scope="col">Uwaga</th>
-          <th scope="col">Data Operacji</th>
+          <th scope="col">Data</th>
         </tr>
       </thead>
       <tbody>
@@ -239,7 +351,7 @@ border-radius: 10px;
             <td><?php echo $data['dlugosc_zre']; ?></td>
             <td><?php echo $data['Ciezar']; ?></td>
             <td><?php echo $data['Calk_ciez']; ?></td>
-            <td><?php echo $data['uwaga'] . "," . $data['wykonal']; ?></td>
+            <td><?php echo $data['import'].$data['uwaga'] . "," . $data['wykonal']; ?></td>
             <td><?php if ($data['data'] != "") {
                   echo $data['data']->format('Y-m-d H:i:s');
                 } ?>
@@ -248,7 +360,6 @@ border-radius: 10px;
         <?php endforeach; ?>
 </tbody>
 </table>
-<div class="table-responsive">
       <div style="float:right;">
 <?php 
 
@@ -265,11 +376,12 @@ $options = array(
         return $url;
     },
 );
+
 echo $view->render($pagerfanta, $options['routeGenerator'], $options);
  ?>
-</div>
 
-<div class="btn-toolbar position-fixed start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
+</div>
+<div class="btn-toolbar position-sticky" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
   <div class="btn-group me-2" role="group" aria-label="First group">
 
     <?php if (!isUserParts()) { ?>
@@ -300,6 +412,76 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
       <?php } ?>
   </div>
 </div>
+<br /><br />
+<?php if(isUserPartsKier()){ ?>
+<div class="chart_container"> 
+            <canvas id="myChart"></canvas> 
+         </div> 
+         <div class="chart_container"> 
+            <canvas id="myChart1"></canvas> 
+         </div> 
+
+         <script>
+          var jsonData1 = <?php echo $jsonData1; ?>; // Przekazanie danych JSON do JavaScriptu
+// Utwórz wykres
+var ctx = document.getElementById('myChart1').getContext('2d');
+const config = {
+  type: 'line',
+  data: jsonData1,
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: (ctx) => 'Ilość na dany miesiąc',
+      }
+    }
+  }
+};
+
+var myChart = new Chart(ctx, config);
+
+
+var jsonData = <?php echo $jsonData; ?>;
+    
+    var sumaIlosc = <?php echo $sumaIlosc; ?>;
+
+    var sumaIloscZrealizowana = <?php echo $sumaIloscZrealizowana; ?>;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Ilość do zrobienia', 'Ilość zrealizowana'],
+        datasets: [{
+          label: 'Dane',
+          data: [sumaIlosc-sumaIloscZrealizowana, sumaIloscZrealizowana],
+          backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
+          borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Stopień ukończenia'
+          }
+        },
+        scales: {
+          y: {
+            max: sumaIlosc // Ustaw maksymalną wartość na sumę 'ilosc'
+          }
+        }
+      }
+    });
+         </script>
+<?php } ?>
+
 
 
 
@@ -401,6 +583,9 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
 <?php } ?>
 </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 $('html').addClass('js');
 
@@ -423,7 +608,7 @@ const pageItems = document.querySelectorAll('.pagination li');
 
   function showConfirmation() {
     var form = document.getElementById("myForm");
-    var result = confirm("Czy na pewno chcesz usunąć cały projekt?");
+    var result = confirm("Czy na pewno chcesz usunąć projekt z danym ID?");
     if (result) {
       alert("Potwierdzono!");
       form.submit();
@@ -590,6 +775,8 @@ if (stored !== null) {
       usernumber = document.getElementById('user-number');
       sendForm(userNumber);
     }
+
+    
   </script>
 <?php } ?>
 <?php if (!isUserParts()) { ?>
@@ -603,7 +790,12 @@ if (stored !== null) {
         // Numer został już poprawnie sprawdzony, nie wyświetlamy okna dialogowego
         console.log('Numer został już sprawdzony: ' + stored);
         toastr.success('Weryfikacja przebiegła pomyślnie!!!<br/> Witaj '+nazwa);
-        document.getElementById('myElement').innerHTML = "Pracujesz w kontekście <br>"+nazwa;
+        try {
+          document.getElementById('myElement').innerHTML = "Pracujesz w kontekście <br>"+nazwa;
+} catch (error) {
+  console.error();
+}
+        
       } else {
         // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
         $('#user-modal').modal({

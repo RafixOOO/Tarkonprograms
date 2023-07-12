@@ -7,7 +7,8 @@ require_once('../auth.php');
         $_SESSION['role_parts']=1;
 
     }
-    header("Location: main.php");
+    $previousPage = $_SERVER['HTTP_REFERER'];
+    header("Location: $previousPage");
     exit();
 
 ?>

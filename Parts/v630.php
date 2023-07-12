@@ -3,7 +3,8 @@ require_once("dbconnect.php");
 
 
 $sql = "Select Distinct 
-'' as wykonal,
+p.Id_import as import
+,'' as wykonal,
 p.[Status] as status,
 p.[Projekt] as ProjectName
 ,(SELECT STRING_AGG(p2.[Zespol],' | ')
@@ -34,7 +35,7 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 ,Max(b.[ModificationDate]) as data
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
 INNER JOIN [PartCheck].[dbo].[Product_V620] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
-group by p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt],v.[AmountNeeded], p.[Status], b.[Name]
+group by p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import
 ";
 $datas = sqlsrv_query($conn, $sql); 
 

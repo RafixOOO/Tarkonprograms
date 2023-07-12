@@ -22,7 +22,8 @@ require_once('dbconnect.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Tarkon programs</title>
-</head>
+    <script src="blad.js"></script>
+</head id="error-container">
 <body class="p-3 mb-2 bg-light bg-gradient text-dark">
             <div class="container">
         <h2 class="text-uppercase">Dodaj</h2>

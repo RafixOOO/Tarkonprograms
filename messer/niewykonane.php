@@ -22,7 +22,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 </head>
 
-<body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark">
+<body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <?php include 'globalnav.php'; ?>
     <div class="container">
     <div>

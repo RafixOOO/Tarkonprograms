@@ -86,12 +86,10 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
 
 try {
     if ($conn) {
-        $sqlcheck = "SELECT * FROM [VACAM].[dbo].[Product]
+        $sqlcheck = "SELECT * FROM [serwer_v200].[VACAM].[dbo].[Product]
         EXCEPT
         SELECT * FROM [PartCheck].[dbo].[Product_V630]";
-
         $datas1 = sqlsrv_query($conn, $sqlcheck);
-
         if ($datas1 !== false) {
 
 while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
@@ -221,7 +219,7 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
            ,[AutoProduct]
            ,[NestedProduct])
            VALUES
-           (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+           (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         ";
 
         $params = array(
