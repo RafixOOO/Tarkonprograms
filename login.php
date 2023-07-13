@@ -56,7 +56,7 @@ function login($username, $password)
 
 function logUserActivity($username, $operation) {
     $logFilePath = 'dziennik.log';
-    $logMessage = "[" . date('Y-m-d H:i:s') . "] Użytkownik $username wykonał operację: $operation" . PHP_EOL;
+    $logMessage = "[" . date('Y-m-d H:i:s') . "],$username,$operation" . PHP_EOL;
 
     // Otwarcie pliku dziennika w trybie dołączania
     $file = fopen($logFilePath, 'a');

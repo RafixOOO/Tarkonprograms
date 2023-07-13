@@ -18,8 +18,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <script src="blad.js"></script>
+  
+
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
@@ -97,20 +102,45 @@
 if(isUserAdmin()){
 $logFilePath = 'dziennik.log';
 
-// Metoda 1: file_get_contents()
 $logLines = file($logFilePath);
 $logLines = array_reverse($logLines);
 
+echo "<table id='example' class='table table-stripped'>";
+echo "<thead><tr>
+<th style='width:15em;'>Data</th>
+<th style='width:15em;'>Użytkownik</th>
+<th>Operacja</th>
+</tr></thead><tbody>";
+
 foreach ($logLines as $line) {
-    echo $line . "<br>";
+    $logData = explode(",", $line);
+    $date = $logData[0];
+    $username = $logData[1];
+    $operation = implode(",", array_slice($logData, 2));
+
+    echo "<tr>
+    <td>$date</td>
+    <td>$username</td>
+    <td>$operation</td>
+    </tr>";
 }
+
+echo "</tbody></table>";
 }
 ?>
-
 </div>
 </div>
-
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#example').DataTable();
+    });
+</script>
 
 </html>
   
