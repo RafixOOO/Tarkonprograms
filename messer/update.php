@@ -21,8 +21,8 @@ $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
         SET [Comment]='$let$myField'
         where [ArchivePacketID]=$id";
 sqlsrv_query($conn, $sql1);
-
 sqlsrv_close($conn);
+logUserActivity($_SESSION['imie_nazwisko'],'dodania komentarza w aplikacji messer: '.$myField);
 header('Location: main.php');
 exit();
 ?>

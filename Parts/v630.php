@@ -25,7 +25,7 @@ WHERE p2.[Name] = p.[Pozycja]
 ,p.[Dlugosc] as dlugosc
 ,v.[AmountNeeded] as ilosc_v200,(
 SELECT SUM(v1.[AmountDone])
-FROM [PartCheck].[dbo].[Product_V620] v1
+FROM [PartCheck].[dbo].[Product_V200] v1
 WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 ) as ilosc_v200_zre  
 ,b.[SawLength] as dlugosc_zre
@@ -34,7 +34,7 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 ,p.[Uwaga] as uwaga
 ,Max(b.[ModificationDate]) as data
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
-INNER JOIN [PartCheck].[dbo].[Product_V620] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
+LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 group by p.[Pozycja],p.[Profil],p.[Material],p.[Dlugosc],p.[Ciezar],p.[Uwaga],b.[SawLength],p.[Projekt],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import
 ";
 $datas = sqlsrv_query($conn, $sql); 

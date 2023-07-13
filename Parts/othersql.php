@@ -3,9 +3,13 @@ require_once("dbconnect.php");
 
 $sqlother = "SELECT
 p.Id_import as import
-,Count(p.[Zespol]) as liczba_zespoly,
-'' as ilosc_v200,
-'' as ilosc_v200_zre,
+,Count(p.[Zespol]) as liczba_zespoly
+,v.[AmountNeeded] as ilosc_v200
+,(
+SELECT SUM(v1.[AmountDone])
+FROM [PartCheck].[dbo].[Product_V200] v1
+WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
+) as ilosc_v200_zre , 
 p.[Pozycja] AS Detal,
 p.[Projekt] AS ProjectName,
 p.[Status] as status,
@@ -54,6 +58,7 @@ FROM
 dbo.Parts p
 LEFT JOIN
 dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
+LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 WHERE
 NOT EXISTS (
     SELECT 1
@@ -66,6 +71,6 @@ AND NOT EXISTS (
     WHERE p.Pozycja = v.Name
 )
 GROUP BY
-p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import";
+p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded]";
 $dataother = sqlsrv_query($conn, $sqlother);
 ?>

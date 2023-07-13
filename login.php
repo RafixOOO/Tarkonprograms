@@ -53,6 +53,21 @@ function login($username, $password)
     
     
 }
+
+function logUserActivity($username, $operation) {
+    $logFilePath = 'dziennik.log';
+    $logMessage = "[" . date('Y-m-d H:i:s') . "] Użytkownik $username wykonał operację: $operation" . PHP_EOL;
+
+    // Otwarcie pliku dziennika w trybie dołączania
+    $file = fopen($logFilePath, 'a');
+
+    // Zapisanie komunikatu do pliku dziennika
+    fwrite($file, $logMessage);
+
+    // Zamknięcie pliku dziennika
+    fclose($file);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,8 +123,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (login($username, $password)===true) {
+        logUserActivity($_SESSION['imie_nazwisko'],'Logowanie');
         echo "<script>toastr.success('Zalogowano się pomyślnie!!!')</script>";
         echo '<meta http-equiv="refresh" content="2; URL=index.php">';
+        
     } else if(login($username, $password)==="brak"){
         echo "<script>toastr.error('Brak użytkownika!!!')</script>";
     } else {

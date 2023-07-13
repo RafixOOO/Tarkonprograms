@@ -19,42 +19,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-    body {
-      margin: 0;
-      padding: 0;
-      position: relative;
-      background-image: url('tarkon.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url('tarkon.jpg'); /* Kolor zamazania */
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      filter: blur(10px);
-      z-index: -1;
-    }
-
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .content h1 {
-      font-size: 36px;
-    }
-  </style>
   <script src="blad.js"></script>
 </head>
 
@@ -112,9 +76,7 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
-                    <?php if(isLoggedin()){ ?>
                     <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
-                    <?php } ?>
                 </ul>
                 
                 
@@ -122,39 +84,33 @@
 
             </div>
 </div>
-
-<div class="container-fluid">
+<button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            </button>
+<div class="container">
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
-                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
-            </button>
-            <div class="content">
-            <img src="tarkon.jpg" alt="Obrazek">
-            <div class="content">
-            <h1 style="text-align: center; font-size: 8.5em; ">
-            <span style="display: block;color: #1a4585;border-width: 2px; text-shadow: 2px 2px 2px black;"><b>Tarkon</span>
-            <span style="margin-top: 20%; display: block;color: #ffda07; text-shadow: 2px 2px 2px black"><i>programs</i></b></span>
-            </h1>
+            
 
-            </div>
+            <?php
+if(isUserAdmin()){
+$logFilePath = 'dziennik.log';
+
+// Metoda 1: file_get_contents()
+$logLines = file($logFilePath);
+$logLines = array_reverse($logLines);
+
+foreach ($logLines as $line) {
+    echo $line . "<br>";
+}
+}
+?>
+
 </div>
 </div>
-</div>
-<h1 style=" position: absolute;
-      bottom: 2%;
-      right: 0;
-      color: white;
-      padding: 10px;">Wersja: 1.24</h1>
+
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var offcanvas = new bootstrap.Offcanvas(document.getElementById("offcanvas"));
-        offcanvas.show();
-    });
-
-</script>
 
 </html>
   

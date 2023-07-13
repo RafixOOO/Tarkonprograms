@@ -10,7 +10,7 @@
              <h1 class="text-center"><b>Messer</b></h1>
               <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" style = "max-width: 300px" data-bs-keyboard="false" data-bs-backdrop="false">
     <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs <sup>1.14</sup></h6>
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs <sup>1.24</sup></h6>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-0">
@@ -28,6 +28,7 @@
     <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
     <?php if(isUserAdmin()) { ?>
     <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
+    <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
     <?php } ?>
     <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
 </ul>

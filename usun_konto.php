@@ -1,6 +1,6 @@
 <?php
 require_once('dbconnect.php');
-
+require_once('auth.php');
 if (isset($_POST['usun_konto'])) {
     $personId = $_POST['person_id'];
 
@@ -9,7 +9,7 @@ if (isset($_POST['usun_konto'])) {
     // Przykładowy kod, który usuwa konto
     $sql = "DELETE FROM dbo.Persons WHERE Id = $personId";
     $stmt = sqlsrv_query($conn, $sql);
-
+    logUserActivity($_SESSION['imie_nazwisko'],'Usunięcię konta użytkownikowi o ID:'.$personId);
     if ($stmt) {
         // Usunięcie konta powiodło się
         // Możesz wyświetlić komunikat lub przekierować użytkownika na inną stronę

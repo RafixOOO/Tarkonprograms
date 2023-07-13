@@ -1,5 +1,19 @@
 <?php
 session_start();
+function logUserActivity($username, $operation) {
+    $logFilePath = 'C:\xampp\htdocs\programs\Tarkonprograms\dziennik.log';
+    $logMessage = "[" . date('Y-m-d H:i:s') . "] Użytkownik $username wykonał operację: $operation" . PHP_EOL;
+
+    // Otwarcie pliku dziennika w trybie dołączania
+    $file = fopen($logFilePath, 'a');
+
+    // Zapisanie komunikatu do pliku dziennika
+    fwrite($file, $logMessage);
+
+    // Zamknięcie pliku dziennika
+    fclose($file);
+}
+
 function isLoggedIn()
 {
     return isset($_SESSION['imie_nazwisko']);

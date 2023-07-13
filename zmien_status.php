@@ -1,6 +1,6 @@
 <?php
 require_once('dbconnect.php');
-
+require_once('auth.php');
 if (isset($_POST['change_status'])) {
     $personId = $_POST['person_id'];
     $role = $_POST['role'];
@@ -11,7 +11,7 @@ if (isset($_POST['change_status'])) {
     $stmt = sqlsrv_query($conn, $sql);
 
     if ($stmt) {
-        
+        logUserActivity($_SESSION['imie_nazwisko'],'Zmiana statusu użytkownikowi o ID:'.$personId);
         header("Location: zarzadzaj.php");
         exit();
     } else {

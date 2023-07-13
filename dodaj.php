@@ -1,6 +1,6 @@
 <?php 
 require_once('dbconnect.php');
-
+require_once('auth.php');
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ require_once('dbconnect.php');
                 if ($stmt === false) {
                     die(print_r(sqlsrv_errors(), true));
                 }
-
+                logUserActivity($_SESSION['imie_nazwisko'],'Dodanie użytkownika:'.$_POST['nazwa']);
                 echo "<script>toastr.success('Pomyślnie dodano użytkownika!!!')</script>";
                     echo '<meta http-equiv="refresh" content="2; URL=zarzadzaj.php">';
                 sqlsrv_close($conn);

@@ -1,5 +1,5 @@
 <?php
-
+require_once('../auth.php');
 if (isset($_POST['selectedrow'])) {
   $selectedRows = json_decode($_POST['selectedrow'], true);
   require_once("dbconnect.php");
@@ -29,8 +29,10 @@ if (isset($_POST['selectedrow'])) {
       WHERE Projekt='$projekt' and Pozycja='$detal'";
       sqlsrv_query($conn, $sql);
       }
-    
+      logUserActivity($_SESSION['imie_nazwisko'],'Zmienił status detalu: '.$detal);
    
   }
+    
+  
 }
 ?>

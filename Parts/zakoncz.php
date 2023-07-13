@@ -1,5 +1,5 @@
 <?php
-
+require_once('../auth.php');
 if (isset($_POST['selectedrow'])) {
   $selectedRows = json_decode($_POST['selectedrow'], true);
   require_once("dbconnect.php");
@@ -33,6 +33,11 @@ if (isset($_POST['selectedrow'])) {
             $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna, Osoba) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', 'Recznie', '{$wykonawca}')";
 
         sqlsrv_query($conn, $sqlinsert);
+        }
+        if($_SESSION['imie_nazwisko']==""){
+          logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$detal);
+        }else{
+          logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$detal);
         }
   }
 }

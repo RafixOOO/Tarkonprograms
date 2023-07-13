@@ -112,6 +112,15 @@ foreach ($filteredData as $row) {
 
         $sumaZrealizowanaTygodnie[$weekYear] += $row['ilosc_zrealizowana'];
 
+        uksort($sumaZrealizowanaTygodnie, function($a, $b) {
+          $weekA = substr($a, strpos($a, 'W') + 1);
+          $weekB = substr($b, strpos($b, 'W') + 1);
+          $yearA = substr($a, 0, strpos($a, ' W'));
+          $yearB = substr($b, 0, strpos($b, ' W'));
+      
+          return ($yearA <=> $yearB) ?: ($weekA <=> $weekB);
+      });
+
         $monthYear = $dateTime->format('M Y');
 
         if (!isset($sumaZrealizowanaMiesiace[$monthYear])) {
@@ -120,6 +129,17 @@ foreach ($filteredData as $row) {
 
         $sumaZrealizowanaMiesiace[$monthYear] += $row['ilosc_zrealizowana'];
 
+        uksort($sumaZrealizowanaMiesiace, function($a, $b) {
+          $dateTimeA = DateTime::createFromFormat('M Y', $a);
+          $dateTimeB = DateTime::createFromFormat('M Y', $b);
+      
+          if ($dateTimeA instanceof DateTime && $dateTimeB instanceof DateTime) {
+              return $dateTimeA <=> $dateTimeB; // Porównanie dat
+          }
+      
+          return 0; // W przypadku błędnych danych, zachowaj oryginalną kolejność
+      });
+
         $date = $dateTime->format('Y-m-d');
 
         if (!isset($sumaZrealizowanaDni[$date])) {
@@ -127,6 +147,19 @@ foreach ($filteredData as $row) {
         }
 
         $sumaZrealizowanaDni[$date] += $row['ilosc_zrealizowana'];
+
+        uksort($sumaZrealizowanaDni, function($a, $b) {
+          $dateA = new DateTime($a);
+          $dateB = new DateTime($b);
+          
+          if ($dateA < $dateB) {
+              return -1;
+          } elseif ($dateA > $dateB) {
+              return 1;
+          } else {
+              return 0;
+          }
+      });
     }
 }
 
@@ -360,6 +393,78 @@ border-radius: 10px;
         <?php endforeach; ?>
 </tbody>
 </table>
+
+
+
+
+<table id="myTablereport" hidden>
+<caption id="tableTitle"><?php echo $_GET['keywords']." (od: ".$_GET['dataFrom']." do: ".$_GET['dataTo'].") Ilość: ".$_GET['page_size']; ?></caption>
+<thead>
+  <tr>
+    <th scope="col">Project</th>
+    <th scope="col" style="width:10em;">Zespoly</th>
+    <th scope="col">A</th>
+    <th scope="col">Detal</th>
+    <th scope="col">Amount Need / Done</th>
+    <th scope="col">V200</th>
+    <th scope="col">Machine</th>
+    <th scope="col">Wymiar</th>
+    <th scope="col">Material</th>
+    <th scope="col">Length</th>
+    <th scope="col">Length Done</th>
+    <th scope="col">weight</th>
+    <th scope="col">Total Weight</th>
+    <th scope="col">Uwaga</th>
+    <th scope="col">Data</th>
+  </tr>
+</thead>
+<tbody>
+<?php foreach ($currentPageResults as $data): 
+  if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
+      $szer = 0;
+    } else {
+      $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
+    }
+
+    if ($szer >= 100) {
+      echo "<tr>";
+       } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+     echo '<tr id="myRow" onclick="handleClick(this);">';
+       }
+    ?>
+  <td id="project"><?php echo $data['ProjectName']; ?></td>
+      <td id="zespol"><?php if ($data['status'] == 1) {
+                        echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
+                      } else {
+                        echo $data['zespol'];
+                      } ?></td>
+                      <td><center><?php echo $data['liczba_zespoly']; ?></center></td>
+      <td id="detal"><?php echo $data['Detal']; ?></td>
+      <td >
+        
+      <?php if($data['ilosc_zrealizowana']==""){ echo $data['ilosc']."/0"; } else{ echo $data['ilosc']."/".$data['ilosc_zrealizowana']; } ?>
+      </td>
+      <td><?php echo $data['ilosc_v200']."/".$data['ilosc_v200_zre']; ?></td>
+      <td><?php echo $data['maszyna']; ?></td>
+      <td><?php echo $data['profil']; ?></td>
+      <td><?php echo $data['material']; ?></td>
+      <td><?php echo $data['dlugosc']; ?></td>
+      <td><?php echo $data['dlugosc_zre']; ?></td>
+      <td><?php echo $data['Ciezar']; ?></td>
+      <td><?php echo $data['Calk_ciez']; ?></td>
+      <td><?php echo $data['import'].$data['uwaga'] . "," . $data['wykonal']; ?></td>
+      <td><?php if ($data['data'] != "") {
+            echo $data['data']->format('Y-m-d H:i:s');
+          } ?>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+</tbody>
+</table>
+
+
+
+
       <div style="float:right;">
 <?php 
 
@@ -409,11 +514,12 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
       <?php } ?>
       <?php if (isUserParts()) { ?>
       <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
+      <button type="submit" onclick="generatePDF()" class="btn btn-warning btn-lg" onclick='obrazek()' >Raport</button>
       <?php } ?>
   </div>
 </div>
 <br /><br />
-<?php if(isUserPartsKier()){ ?>
+<?php if(isUserParts()){ ?>
 <div class="chart_container"> 
             <canvas id="myChart"></canvas> 
          </div> 
@@ -433,7 +539,7 @@ const config = {
     plugins: {
       title: {
         display: true,
-        text: (ctx) => 'Ilość na dany miesiąc',
+        text: (ctx) => 'Ilość zrobienia',
       }
     }
   }
@@ -490,7 +596,7 @@ var jsonData = <?php echo $jsonData; ?>;
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Edycja projektu</h4>
+        <h4 class="modal-title">Edycja Detalu</h4>
       </div>
       <form method="POST" action="zapisze_dane.php" id="myForm">
         <div class="modal-body">
@@ -581,9 +687,11 @@ var jsonData = <?php echo $jsonData; ?>;
 <?php if (isUserPartsKier()) { ?>
 <div id="myElement" class="bottom-banner1"></div>
 <?php } ?>
+
 </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -594,6 +702,68 @@ $(window).on("load", function() {
     $("#loader-wrapper").fadeOut();
 });
 
+
+function generatePDF() {
+  var doc = new jsPDF({
+    orientation: 'landscape'
+  });
+
+  doc.setFont('Helvetica');
+  var tableTitleElement = document.getElementById('tableTitle');
+    var tableTitle = tableTitleElement.innerText;
+
+    tableTitle = tableTitle.replace(/<br\s*\/?>/gi, '\n');
+  var table = document.getElementById('myTablereport');
+
+  var tableData = doc.autoTableHtmlToJson(table);
+
+
+  var pageWidth = doc.internal.pageSize.width;
+  var textWidth = doc.getTextWidth(tableTitle);
+  var textX = (pageWidth - textWidth) / 2;
+  var textY = 20; // Ustal wartość Y, aby umieścić tekst na górze strony
+
+  doc.setFontSize(18);
+  doc.setFontStyle('bold');
+  doc.text(tableTitle, textX, textY, { align: 'center' });
+
+  doc.autoTable({
+    head: [tableData.columns],
+    body: tableData.data,
+    startY: 30,
+    margin: { top: 10, bottom: 10 },
+    styles: {
+      fontSize: 8 // Rozmiar czcionki
+    }
+  });
+
+
+
+  var chartContainers = document.querySelectorAll('.chart_container');
+  var imgWidth = doc.internal.pageSize.height * 0.7; // Szerokość obrazka na połowę szerokości strony PDF
+  var imgHeight = 90; // Wysokość obrazka
+  var positionX = 70; // Pozycja X obrazka
+  var positionY = 10; // Pozycja Y obrazka
+  doc.addPage();
+  chartContainers.forEach(function (chartContainer, index) {
+
+      
+
+
+    html2canvas(chartContainer).then(function (canvas) {
+      var imgData = canvas.toDataURL('image/jpeg');
+
+      doc.addImage(imgData, 'JPEG', positionX, positionY, imgWidth, imgHeight);
+
+        positionY += imgHeight + 10;
+
+
+      if (index === chartContainers.length - 1) {
+        doc.save('Raport.pdf');
+      }
+    });
+  });
+}
 
 var currentPage = <?php echo isset($_GET['page']) ? $_GET['page'] : 1; ?>;
 

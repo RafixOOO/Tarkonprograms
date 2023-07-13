@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $maszyna = $_POST["maszyna"];
     $wykonawca = $_POST["numer"];
     $status;
+    require_once('../auth.php');
     try{
         $save = $_POST['save'];
     }catch(Exception $e){
@@ -47,7 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sqldelete = "DELETE FROM [dbo].[Parts]
         WHERE Id_import=$import";
         sqlsrv_query($conn, $sqldelete);
-
+        if($_SESSION['imie_nazwisko']==""){
+            logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$detal);
+          }else{
+            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$detal);
+          }
         header('Location: main.php');
 
         }catch (Exception $e) {
