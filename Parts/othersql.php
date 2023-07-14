@@ -3,7 +3,6 @@ require_once("dbconnect.php");
 
 $sqlother = "SELECT
 p.Id_import as import
-,Count(p.[Zespol]) as liczba_zespoly
 ,v.[AmountNeeded] as ilosc_v200
 ,(
 SELECT SUM(v1.[AmountDone])
@@ -13,10 +12,14 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 p.[Pozycja] AS Detal,
 p.[Projekt] AS ProjectName,
 p.[Status] as status,
-STUFF((SELECT ' | ' + Zespol
-       FROM dbo.Parts
-       WHERE [Projekt] = p.[Projekt] AND [Pozycja] = p.[Pozycja]
-       FOR XML PATH('')), 1, 3, '') AS zespol,
+(SELECT STRING_AGG(CONCAT(p2.[Zespol], '(', p3.[Ilosc],'*', CASE
+    WHEN p3.[Ilosc] IS NOT NULL AND p3.[Ilosc] <> 0 THEN p2.[Ilosc]/p3.[Ilosc]
+    ELSE p2.[Ilosc]
+    END,') '), ' | ')
+FROM [PartCheck].[dbo].[Parts] p2
+LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozycja] = ''
+WHERE p.[Pozycja] = p2.[Pozycja]
+) AS zespol,
  (SELECT SUM(p2.Ilosc)
     FROM dbo.Parts p2
     WHERE p.[Pozycja] = p2.[Pozycja]
@@ -70,6 +73,7 @@ AND NOT EXISTS (
     FROM dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
 )
+and p.[Pozycja]!=''
 GROUP BY
 p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded]";
 $dataother = sqlsrv_query($conn, $sqlother);

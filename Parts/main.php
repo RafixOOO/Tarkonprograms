@@ -324,7 +324,6 @@ border-radius: 10px;
         <tr>
           <th scope="col">Projekt</th>
           <th scope="col" style="width:10em;">Zespoły</th>
-          <th scope="col">A</th>
           <th scope="col">Detal</th>
           <th scope="col">Amount Need / Done</th>
           <th scope="col">V200</th>
@@ -359,7 +358,6 @@ border-radius: 10px;
                             } else {
                               echo $data['zespol'];
                             } ?></td>
-                            <td><center><?php echo $data['liczba_zespoly']; ?></center></td>
             <td id="detal"><?php echo $data['Detal']; ?></td>
             <td >
               <div class="progress" style="height:25px;font-size: 16px;">
@@ -403,7 +401,6 @@ border-radius: 10px;
   <tr>
     <th scope="col">Project</th>
     <th scope="col" style="width:10em;">Zespoly</th>
-    <th scope="col">A</th>
     <th scope="col">Detal</th>
     <th scope="col">Amount Need / Done</th>
     <th scope="col">V200</th>
@@ -438,7 +435,6 @@ border-radius: 10px;
                       } else {
                         echo $data['zespol'];
                       } ?></td>
-                      <td><center><?php echo $data['liczba_zespoly']; ?></center></td>
       <td id="detal"><?php echo $data['Detal']; ?></td>
       <td >
         

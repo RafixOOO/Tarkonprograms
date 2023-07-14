@@ -2,16 +2,16 @@
 require_once("dbconnect.php");
 
 
-$sql = "Select Distinct 
+$sql = "SELECT Distinct 
 p.Id_import as import
 ,'' as wykonal,
 p.[Status] as status,
 p.[Projekt] as ProjectName
-,(SELECT STRING_AGG(p2.[Zespol],' | ')
+,(SELECT STRING_AGG(CONCAT(p2.[Zespol], '(', p3.[Ilosc],'*',p2.[Ilosc]/p3.[Ilosc],') '), ' | ')
 FROM [PartCheck].[dbo].[Parts] p2
-where b.[Name] = p2.[Pozycja]
+LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozycja] = ''
+WHERE b.[Name] = p2.[Pozycja]
 ) AS zespol
-,Count(p.[Zespol]) as liczba_zespoly
 ,p.[Pozycja] as Detal
 ,Sum(p.[Ilosc]) as ilosc,
 (
