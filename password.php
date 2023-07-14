@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($row && password_verify($currentPassword, $row['password'])) {
             // Aktualizacja hasła
             if (updatePassword($username, $newPassword)) {
+                logUserActivity($_SESSION['imie_nazwisko'],'Zmienił hasło');
                 echo "<script>toastr.success('Hasło zostało zmienione!!!')</script>";
                 echo '<meta http-equiv="refresh" content="2; URL=index.php">';
             } else {
