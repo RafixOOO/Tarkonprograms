@@ -80,12 +80,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                         $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga], [Id_import])
                                 VALUES ('{$row['A']}', '{$row['B']}', '{$row['C']}', '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}', '{$id_import}')";
 
-                                if($_SESSION['imie_nazwisko']==""){
-                                    logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania');
-                                  }else{
-                                    logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania');
-                                  }
-
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();
                         }
@@ -100,6 +94,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
         
         sqlsrv_close($conn);
     }
+    if($_SESSION['imie_nazwisko']==""){
+        logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania');
+      }else{
+        logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania');
+      }
     ?>
 </body>
 </html>
