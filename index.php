@@ -61,7 +61,7 @@
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" style = "max-width: 300px" data-bs-keyboard="false" data-bs-backdrop="false">
     <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs <sup>1.24</sup></h6>
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs <sup>1.25</sup></h6>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-0">
@@ -146,7 +146,7 @@
       bottom: 2%;
       right: 0;
       color: white;
-      padding: 10px;">Wersja: 1.24</h1>
+      padding: 10px;">Wersja: 1.25</h1>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
