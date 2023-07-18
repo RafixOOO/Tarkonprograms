@@ -2,6 +2,8 @@
 require 'vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+
+require_once('../auth.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +25,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
     <?php
     if (isset($_POST['submit'])) {
         require_once('dbconnect.php');
-        require_once('../auth.php');
+        
         if (isset($_FILES['excelFile'])) {
             $file = $_FILES['excelFile'];
 
