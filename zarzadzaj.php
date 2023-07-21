@@ -21,6 +21,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="blad.js"></script>
+<style>
+    #button-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px;
+    }
+    </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
@@ -77,6 +85,7 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="parts/dozrobienia.php">Do zrobienia</a></li>
                     <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
                 </ul>
                 
@@ -90,7 +99,7 @@
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
             <div class="container">

@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Kto wykonał? / Powód nie wykonania</label>
-                <div class="col-sm-6">
+                <div class="col-sm-6" for="input-lg">
                     <select class="form-control" name="comment">
                         <option value="<?php echo $comment; ?>" selected>
                         </option>
@@ -74,10 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
             <div class="row mb-3">
                 <div class="offset-sm-3 col-sm-3 d-grid">
-                    <button class="btn btn-outline-primary" type="Submit">Zapisz</button>
+                    <button class="btn btn-outline-primary btn-lg" type="Submit">Zapisz</button>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="main.php" role="button">Anuluj</a>
+                    <a class="btn btn-outline-primary btn-lg" href="main.php" role="button">Anuluj</a>
                 </div>
             </div>
 

@@ -93,14 +93,14 @@ require_once('../auth.php');
                 echo "Wystąpił błąd podczas przesyłania pliku na serwer.";
             }
         }
+        if($_SESSION['imie_nazwisko']==""){
+            logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania');
+          }else{
+            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania');
+          }
         
         sqlsrv_close($conn);
     }
-    if($_SESSION['imie_nazwisko']==""){
-        logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania');
-      }else{
-        logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania');
-      }
     ?>
 </body>
 </html>

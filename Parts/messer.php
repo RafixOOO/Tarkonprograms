@@ -26,7 +26,6 @@ from (SELECT
 [WoNumber] AS Projekt,
 [PartName],
 [Thickness] AS grubosc,
-[QtyOrdered] AS zapotrzebowanie,
 SUM([QtyProgram]) AS Complet,
 'Messer' AS machine,
 [Material] AS material,
@@ -37,7 +36,7 @@ STUFF((
     FOR XML PATH('')), 1, 1, '') AS program,
 MAX([ArcDateTime]) AS DataWykonania
 FROM [PartCheck].[dbo].[PartArchive_Messer]
-GROUP BY [WoNumber], [PartName], [Thickness], [QtyOrdered], [Material]) as m 
+GROUP BY [WoNumber], [PartName], [Thickness], [Material]) as m 
 Inner JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
 LEFT Join [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=m.PartName COLLATE Latin1_General_CS_AS
 GROUP BY p.Projekt,p.[Pozycja],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import";

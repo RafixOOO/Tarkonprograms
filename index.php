@@ -19,43 +19,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-    body {
-      margin: 0;
-      padding: 0;
-      position: relative;
-      background-image: url('tarkon.jpg');
-      background-size: cover;
-      background-position: center;
-    }
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    body::before {
-      content: '';
-      position: absolute;
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+  
+    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+  <script src="blad.js"></script>
+  <style>
+    #button-container {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url('tarkon.jpg'); /* Kolor zamazania */
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      filter: blur(10px);
-      z-index: -1;
+      padding: 10px;
     }
-
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .content h1 {
-      font-size: 36px;
-    }
-  </style>
-  <script src="blad.js"></script>
+    </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
@@ -112,6 +100,7 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="parts/dozrobienia.php">Do zrobienia</a></li>
                     <?php if(isLoggedin()){ ?>
                     <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
                     <?php } ?>
@@ -127,18 +116,12 @@
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
-            <div class="content">
-            <img src="tarkon.jpg" alt="Obrazek">
-            <div class="content">
-            <h1 style="text-align: center; font-size: 8.5em; ">
-            <span style="display: block;color: #1a4585;border-width: 2px; text-shadow: 2px 2px 2px black;"><b>Tarkon</span>
-            <span style="margin-top: 20%; display: block;color: #ffda07; text-shadow: 2px 2px 2px black"><i>programs</i></b></span>
-            </h1>
 
-            </div>
+    <div id='calendar'></div>
+
 </div>
 </div>
 </div>
@@ -148,13 +131,77 @@
       color: white;
       padding: 10px;">Wersja: 1.25</h1>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var offcanvas = new bootstrap.Offcanvas(document.getElementById("offcanvas"));
-        offcanvas.show();
+
+<script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src='fullcalendar/packages/core/main.js'></script>
+    <script src='fullcalendar/packages/interaction/main.js'></script>
+    <script src='fullcalendar/packages/daygrid/main.js'></script>
+
+    <script>
+        function getCurrentDate() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Dodajemy +1, ponieważ styczeń jest oznaczony jako 0, luty jako 1, itd.
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+      document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        header: {
+      left: 'title',
+      center: '',
+      right: 'addEventButton prev,next'
+    },
+      plugins: [ 'interaction', 'dayGrid' ],
+      defaultDate: getCurrentDate(),
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        //{
+         // title: 'Test1',
+       //   start: '2023-07-01',
+        //  end: '2023-07-05'
+       // },
+        //{
+        //  title: 'Test2',
+         // url: 'http://messer.local/parts/main.php',
+        //  start: '2023-07-01',
+         // end: '2023-07-03'
+        //}
+    ],
+      firstDay: 1
     });
 
-</script>
+    calendar.setOption('customButtons', {
+        addEventButton: {
+        text: 'Dodaj', // Tekst na przycisku
+        click: function() {
+          // Tu możesz umieścić kod obsługujący akcję po kliknięciu przycisku "Dodaj"
+          // Na przykład otwarcie okna modalnego z formularzem do dodawania nowego wydarzenia
+          // lub wywołanie innych funkcji odpowiednich dla Twojego przypadku użycia.
+          alert('Kliknięto przycisk "Dodaj"');
+        }
+      },
+    today: {
+      text: 'today',
+      click: function() {
+        // Pusta funkcja - nic nie robi, dlatego przycisk jest niewidoczny
+      }
+    }
+  });
+
+    calendar.render();
+  });
+
+    </script>
+
+    <script src="js/main.js"></script>
 
 </html>
   

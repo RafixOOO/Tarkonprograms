@@ -325,7 +325,7 @@ border-radius: 10px;
           <th scope="col">Projekt</th>
           <th scope="col" style="width:10em;">Zespoły</th>
           <th scope="col">Detal</th>
-          <th scope="col">Amount Need / Done</th>
+          <th scope="col">Amount Done / Need</th>
           <th scope="col">V200</th>
           <th scope="col">Maszyna</th>
           <th scope="col">Wymiar</th>

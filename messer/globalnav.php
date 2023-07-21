@@ -59,6 +59,7 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="../parts/dozrobienia.php">Do zrobienia</a></li>
                     <li><a class="dropdown-item" href="../parts/upload.php">Wyślij</a></li>
                 </ul>
             </li>

@@ -56,6 +56,7 @@ require_once('..\auth.php');
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                     <li><a class="dropdown-item" href="main.php">Programy</a></li>
+                    <li><a class="dropdown-item" href="dozrobienia.php">Do zrobienia</a></li>
                     <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
                 </ul>
             </li>
