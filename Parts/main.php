@@ -345,20 +345,31 @@ border-radius: 10px;
           } else {
             $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
           }
-
-          if ($szer >= 100) {
-            echo "<tr>";
-             } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
-           echo '<tr id="myRow" onclick="handleClick(this);">';
-             }
+            if ($szer >= 100) {
+              echo "<tr>";
+               } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+             echo '<tr id="myRow" onclick="handleClick(this);">';
+               }
+          
           ?>
         <td id="project"><?php echo $data['ProjectName']; ?></td>
-            <td id="zespol"><?php if ($data['status'] == 1) {
+                <td id="zespol">
+                
+              <?php
+               ?><?php if ($data['status'] == 1) {
                               echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
                             } else {
                               echo $data['zespol'];
                             } ?></td>
-            <td id="detal"><?php echo $data['Detal']; ?></td>
+
+            <?php $ciag = "rev";
+              if (strpos($data['Detal'],$ciag) !== false) { ?>
+            <td id="detal" class="text-white bg-dark">
+              <?php } else { ?>
+            <td id="detal">
+            <?php } ?>
+              
+            <?php echo $data['Detal']; ?></td>
             <td >
               <div class="progress" style="height:25px;font-size: 16px;">
                 <?php if ($szer <= 100) { ?>

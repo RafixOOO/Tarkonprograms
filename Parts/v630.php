@@ -13,7 +13,9 @@ LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozy
 WHERE b.[Name] = p2.[Pozycja]
 ) AS zespol
 ,p.[Pozycja] as Detal
-,Sum(p.[Ilosc]) as ilosc,
+,(select sum(p1.[Ilosc])
+from [PartCheck].[dbo].[Parts] p1
+where p1.[Pozycja]=b.[Name]) as ilosc,
 (
 SELECT SUM(p2.[AmountDone])
 FROM [PartCheck].[dbo].[Product_V630] p2

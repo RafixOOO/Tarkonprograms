@@ -49,6 +49,15 @@ require_once('..\auth.php');
                     <li><a class="dropdown-item" href="../messer/niewykonane.php">Niewykonane</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown2" data-bs-toggle="dropdown" aria-expanded="false">
+                    
+                    <i class="fs-5 bi-dice-2"></i><span class="ms-1 d-none d-sm-inline">V200</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown2">
+                    <li><a class="dropdown-item" href="../v200/main.php">Otwory</a></li>
+                </ul>
+            </li>
             <?php } ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">

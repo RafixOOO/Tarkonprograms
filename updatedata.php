@@ -268,6 +268,122 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
+try {
+    if ($conn) {
+        $sqlcheck = "SELECT * FROM [serwer_v200].[VACAM].[dbo].[Hole]
+        EXCEPT
+        SELECT * FROM [PartCheck].[dbo].[Hole_V200]";
+
+        $datas1 = sqlsrv_query($conn, $sqlcheck);
+
+        if ($datas1 !== false) {
+
+while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+    $sqlcheck2 = "SELECT * FROM [PartCheck].[dbo].[Hole_V200] WHERE Id = ?";
+    $params = array($data['Id']);
+    $result = sqlsrv_query($conn, $sqlcheck2, $params);
+
+    if (sqlsrv_has_rows($result)) {
+        $update = "
+            UPDATE [PartCheck].[dbo].[Hole_V200]
+            SET
+            [ProductId] = ?
+            ,[View]= ?
+            ,[X]= ?
+            ,[Y]= ?
+            ,[Measurement]= ?
+            ,[HoleType]= ?
+            ,[Diameter]= ?
+            ,[Depth]= ?
+            ,[Width]= ?
+            ,[Height]= ?
+            ,[Angle]= ?
+            ,[Operation]= ?
+            ,[RecordStatus]= ?
+            ,[SlottedHoleId]= ?
+            WHERE Id = ?
+        ";
+        $params = array(
+            $data['ProductId'],
+            $data['View'],
+            $data['X'],
+            $data['Y'],
+            $data['Measurement'],
+            $data['HoleType'],
+            $data['Diameter'],
+            $data['Depth'],
+            $data['Width'],
+            $data['Height'],
+            $data['Angle'],
+            $data['Operation'],
+            $data['RecordStatus'],
+            $data['SlottedHoleId'],
+            $data['Id'],
+        );
+
+        $stmt = sqlsrv_prepare($conn, $update, $params);
+
+        if (sqlsrv_execute($stmt) === false) {
+            echo "Error updating data: " . print_r(sqlsrv_errors(), true);
+        } else {
+            continue;
+        }
+    } else {
+        $insert = "
+        INSERT INTO [dbo].[Hole_V200]
+           ([Id]
+           ,[ProductId]
+           ,[View]
+           ,[X]
+           ,[Y]
+           ,[Measurement]
+           ,[HoleType]
+           ,[Diameter]
+           ,[Depth]
+           ,[Width]
+           ,[Height]
+           ,[Angle]
+           ,[Operation]
+           ,[RecordStatus]
+           ,[SlottedHoleId])
+           VALUES
+           (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ";
+
+        $params = array(
+            $data['Id'],
+            $data['ProductId'],
+            $data['View'],
+            $data['X'],
+            $data['Y'],
+            $data['Measurement'],
+            $data['HoleType'],
+            $data['Diameter'],
+            $data['Depth'],
+            $data['Width'],
+            $data['Height'],
+            $data['Angle'],
+            $data['Operation'],
+            $data['RecordStatus'],
+            $data['SlottedHoleId'],
+
+
+        );
+
+        $stmt = sqlsrv_prepare($conn, $insert, $params);
+
+        if (sqlsrv_execute($stmt) === false) {
+            echo "Error inserting data: " . print_r(sqlsrv_errors(), true);
+        } else {
+            continue;
+        }
+    }
+}
+} 
+}
+} catch (Exception $e) {
+}
+
 $currentDateTime = date('Y-m-d H:i:s');
 
 echo $currentDateTime." - Dane zaktualizowane";
