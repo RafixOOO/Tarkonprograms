@@ -279,15 +279,15 @@ try {
         if ($datas1 !== false) {
 
 while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
-    $sqlcheck2 = "SELECT * FROM [PartCheck].[dbo].[Hole_V200] WHERE Id = ?";
-    $params = array($data['Id']);
+    $sqlcheck2 = "SELECT * FROM [PartCheck].[dbo].[Hole_V200] WHERE Id = ? and ProductId = ?";
+    $params = array($data['Id'],$data['ProductId']);
     $result = sqlsrv_query($conn, $sqlcheck2, $params);
 
     if (sqlsrv_has_rows($result)) {
         $update = "
             UPDATE [PartCheck].[dbo].[Hole_V200]
             SET
-            [ProductId] = ?
+            
             ,[View]= ?
             ,[X]= ?
             ,[Y]= ?
@@ -301,10 +301,9 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             ,[Operation]= ?
             ,[RecordStatus]= ?
             ,[SlottedHoleId]= ?
-            WHERE Id = ?
+            WHERE Id = ? and [ProductId] = ?
         ";
         $params = array(
-            $data['ProductId'],
             $data['View'],
             $data['X'],
             $data['Y'],
@@ -319,6 +318,7 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             $data['RecordStatus'],
             $data['SlottedHoleId'],
             $data['Id'],
+            $data['ProductId'],
         );
 
         $stmt = sqlsrv_prepare($conn, $update, $params);
