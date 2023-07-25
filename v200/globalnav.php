@@ -38,6 +38,7 @@
                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Strona główna</span>
                 </a>
             </li>
+            <?php if(isUserMesser()){ ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
@@ -48,7 +49,7 @@
                     <li><a class="dropdown-item" href="../messer/niewykonane.php">Niewykonane</a></li>
                 </ul>
             </li>
-            <?php if(isUserParts()){ ?>
+            <?php } ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown2" data-bs-toggle="dropdown" aria-expanded="false">
                     
@@ -58,6 +59,7 @@
                     <li><a class="dropdown-item" href="../v200/main.php">Otwory</a></li>
                 </ul>
             </li>
+            <?php if(isUserParts()){ ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
