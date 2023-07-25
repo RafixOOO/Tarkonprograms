@@ -6,7 +6,7 @@ require_once("dbconnect.php");
 
 
 
-$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, p.Projekt as ProjectName,
+$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, p.Projekt as ProjectName,p.lock as lok,
 (SELECT SUM(v1.[AmountNeeded])
     FROM [PartCheck].[dbo].[Product_V200] v1
     WHERE v1.[Name]=m.PartName COLLATE Latin1_General_CS_AS
@@ -39,7 +39,7 @@ FROM [PartCheck].[dbo].[PartArchive_Messer]
 GROUP BY [WoNumber], [PartName], [Thickness], [Material]) as m 
 Inner JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
 LEFT Join [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=m.PartName COLLATE Latin1_General_CS_AS
-GROUP BY p.Projekt,p.[Pozycja],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import";
+GROUP BY p.Projekt,p.[Pozycja],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import,p.lock";
 $datasmesser = sqlsrv_query($conn, $sqlmesser); 
 
 ?>

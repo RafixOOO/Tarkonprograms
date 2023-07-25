@@ -4,6 +4,7 @@ require_once("dbconnect.php");
 $sqlother = "SELECT
 p.Id_import as import
 ,v.[AmountNeeded] as ilosc_v200
+,p.lock as lok
 ,(
 SELECT SUM(v1.[AmountDone])
 FROM [PartCheck].[dbo].[Product_V200] v1
@@ -75,6 +76,6 @@ AND NOT EXISTS (
 )
 and p.[Pozycja]!=''
 GROUP BY
-p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded]";
+p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock";
 $dataother = sqlsrv_query($conn, $sqlother);
 ?>

@@ -57,6 +57,29 @@ require_once('../auth.php');
                             $isFirstRow = false;
                             continue;
                         }
+
+                        if (strpos($row['C'], 'rev') !== false) {
+                            $dlugoscCiągu = strlen($row['C']);
+                            $tekstBezOstatnichCyfr = substr($row['C'], 0, $dlugoscCiągu - 5);
+                            $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                            $result = sqlsrv_query($conn, $sql);
+                            if (!sqlsrv_has_rows($result)) {
+                                $tekst=$tekstBezOstatnichCyfr.'%';
+                                $sql1 = "UPDATE [PartCheck].[dbo].[Parts] SET
+                                    [lock] = 1
+                                    WHERE Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+                                    
+                                sqlsrv_query($conn, $sql1);
+
+                                $sqlinsert = "INSERT INTO [PartCheck].[dbo].[Product_Recznie] (Projekt, Pozycja)
+                                SELECT Projekt, Pozycja
+                                FROM [PartCheck].[dbo].[Parts]
+                                where Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+
+                                sqlsrv_query($conn, $sqlinsert);
+                                
+                            }
+                        }
                         
                         $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
                         $result = sqlsrv_query($conn, $sql);

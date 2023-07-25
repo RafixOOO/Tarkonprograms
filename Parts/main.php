@@ -88,6 +88,17 @@ $currentPageResults = $pagerfanta->getCurrentPageResults();
 
 $sumaIlosc = array_sum(array_column($filteredData, 'ilosc'));
 $sumaIloscZrealizowana = array_sum(array_column($filteredData, 'ilosc_zrealizowana'));
+try{
+$sumaKolumnyJeden = 0;
+foreach ($filteredData as $row) {
+  if ($row['lok'] == 1) {
+    // Sumowanie kolumny gdy kolumna 'lok' jest równa 1
+    $sumaKolumnyJeden=$sumaKolumnyJeden + $row['ilosc_zrealizowana'];
+}
+}
+}catch(error){
+  $sumaKolumnyJeden=0;
+}
 
 $jsonData = json_encode($filteredData);
 
@@ -345,31 +356,25 @@ border-radius: 10px;
           } else {
             $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
           }
-            if ($szer >= 100) {
+
+          if ($data['lok'] == 1 or $szer >= 100) {
+            if($data['lok'] == 1){
+              echo "<tr class='table-danger'>";
+            }else{
               echo "<tr>";
-               } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
-             echo '<tr id="myRow" onclick="handleClick(this);">';
-               }
-          
+            }
+            
+             } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+           echo '<tr id="myRow" onclick="handleClick(this);">';
+             }
           ?>
         <td id="project"><?php echo $data['ProjectName']; ?></td>
-                <td id="zespol">
-                
-              <?php
-               ?><?php if ($data['status'] == 1) {
+            <td id="zespol"><?php if ($data['status'] == 1) {
                               echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
                             } else {
                               echo $data['zespol'];
                             } ?></td>
-
-            <?php $ciag = "rev";
-              if (strpos($data['Detal'],$ciag) !== false) { ?>
-            <td id="detal" class="text-white bg-dark">
-              <?php } else { ?>
-            <td id="detal">
-            <?php } ?>
-              
-            <?php echo $data['Detal']; ?></td>
+            <td id="detal"><?php echo $data['Detal']; ?></td>
             <td >
               <div class="progress" style="height:25px;font-size: 16px;">
                 <?php if ($szer <= 100) { ?>
@@ -413,7 +418,7 @@ border-radius: 10px;
     <th scope="col">Project</th>
     <th scope="col" style="width:10em;">Zespoly</th>
     <th scope="col">Detal</th>
-    <th scope="col">Amount Need / Done</th>
+    <th scope="col">Amount Done / Need</th>
     <th scope="col">V200</th>
     <th scope="col">Machine</th>
     <th scope="col">Wymiar</th>
@@ -434,7 +439,7 @@ border-radius: 10px;
       $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
     }
 
-    if ($szer >= 100) {
+    if ($szer >= 100  ) {
       echo "<tr>";
        } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
      echo '<tr id="myRow" onclick="handleClick(this);">';
@@ -531,7 +536,7 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
             <canvas id="myChart"></canvas> 
          </div> 
          <div class="chart_container"> 
-            <canvas id="myChart1"></canvas> 
+            <canvas style="margin-left:40px;" id="myChart1"></canvas> 
          </div> 
 
          <script>
@@ -558,19 +563,19 @@ var myChart = new Chart(ctx, config);
 var jsonData = <?php echo $jsonData; ?>;
     
     var sumaIlosc = <?php echo $sumaIlosc; ?>;
-
+    
     var sumaIloscZrealizowana = <?php echo $sumaIloscZrealizowana; ?>;
-
+    var sumaKolumnyJeden = <?php echo $sumaKolumnyJeden; ?>;
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Ilość do zrobienia', 'Ilość zrealizowana'],
+        labels: ['Ilość do zrobienia', 'Ilość zrealizowana', 'Ilość z przed rewizji'],
         datasets: [{
           label: 'Dane',
-          data: [sumaIlosc-sumaIloscZrealizowana, sumaIloscZrealizowana],
-          backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
-          borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+          data: [sumaIlosc-sumaIloscZrealizowana-sumaKolumnyJeden, sumaIloscZrealizowana-sumaKolumnyJeden,sumaKolumnyJeden],
+          backgroundColor: ['rgba(54, 162, 235, 0.6)','rgba(255, 205, 86, 0.6)','rgba(255, 99, 132, 0.6)'],
+          borderColor: ['rgba(54, 162, 235, 1)','rgba(255, 205, 86, 1)','rgba(255, 99, 132, 1)'],
           borderWidth: 1
         }]
       },
