@@ -382,6 +382,7 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
 } 
 }
 } catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
 
 $currentDateTime = date('Y-m-d H:i:s');
