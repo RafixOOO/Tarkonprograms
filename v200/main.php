@@ -41,6 +41,39 @@ group by a.[Diameter]
  ,b.[Name],b.[AmountNeeded],b.[AmountDone]";
 }
  $datas = sqlsrv_query($conn, $sql);
+ $datas1 = sqlsrv_query($conn, $sql);
+ $sumNeedByDiameter = array();
+ $sumDoneByDiameter = array();
+ 
+ // Inicjalizacja zmiennych do przechowywania sumy otowry pomnożonej przez sumę need i done dla tych samych wartości Diameter
+ $sumOtowryTimesNeedByDiameter = array();
+ $sumOtowryTimesDoneByDiameter = array();
+ 
+ // Sumowanie wartości dla tych samych wartości Diameter
+ while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+  $diameter = $row['Diameter'];
+
+  if (!isset($sumNeedByDiameter[$diameter])) {
+      $sumNeedByDiameter[$diameter] = 0;
+  }
+  $sumNeedByDiameter[$diameter] += $row['need'];
+
+  if (!isset($sumDoneByDiameter[$diameter])) {
+      $sumDoneByDiameter[$diameter] = 0;
+  }
+  $sumDoneByDiameter[$diameter] += $row['done'];
+
+  if (!isset($sumOtowryTimesNeedByDiameter[$diameter])) {
+      $sumOtowryTimesNeedByDiameter[$diameter] = 0;
+  }
+  $sumOtowryTimesNeedByDiameter[$diameter] += $row['need'] * $row['otowry'];
+
+  if (!isset($sumOtowryTimesDoneByDiameter[$diameter])) {
+      $sumOtowryTimesDoneByDiameter[$diameter] = 0;
+  }
+  $sumOtowryTimesDoneByDiameter[$diameter] += $row['done'] * $row['otowry'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +114,20 @@ group by a.[Diameter]
     </tr>
     <?php } ?>
   </tbody>
+  <tfoot class='table-info'>
+  <?php
+                foreach ($sumNeedByDiameter as $diameter => $sumNeed) {
+               
+                ?>
+  <tr>
+    <center><td colspan='2'>SUMA</td></center>
+    <td><?php  echo $sumNeed . ' / ' . $sumDoneByDiameter[$diameter]; ?></td>
+    <td><?php  echo $diameter; ?></td>
+    <td><?php  echo $sumOtowryTimesNeedByDiameter[$diameter] . ' / ' . $sumOtowryTimesDoneByDiameter[$diameter]; ?></td>
+        </tr>
+  <?php } ?>
+
+  </tfoot>
 </table>
 </div>
     </div>
