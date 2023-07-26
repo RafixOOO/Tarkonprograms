@@ -8,20 +8,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+<script defer src="static/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="static/toastr.min.css">
+<link rel="stylesheet" href="static/bootstrap-icons.css">
+<script src="static/jquery.min.js"></script>
+<script src="static/jquery-ui.min.js"></script>
+<script src="static/toastr.min.js"></script>
+<script src="static/jquery-3.6.0.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
 
     
     <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -57,11 +52,11 @@
     <?php if(!isLoggedIn()){ ?>
 
 <a href="login.php" class="nav-link text-success">
-    <i class="fs-5 bi bi-person"><br /></i><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
+<img src="static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
 </a>
 <?php } else { ?>
 <a href="#" class="nav-link dropdown-toggle text-success" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fs-5 bi bi-person"><br /></i><span class="ms-1 d-none d-sm-inline"><?php echo $_SESSION['imie_nazwisko']; ?></span>
+<img src="static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline"><?php echo $_SESSION['imie_nazwisko']; ?></span>
 </a>
 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
     <li><a class="dropdown-item" href="password.php">Zmień hasło</a></li>
@@ -78,14 +73,14 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item">
                 <a href="index.php" class="nav-link text-success">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Strona główna</span>
+                <img src="static/house.svg"></img><span class="ms-1 d-none d-sm-inline">Strona główna</span>
                 </a>
             </li>
 
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     
-                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
+                <img src="static/table.svg"></img><span class="ms-1 d-none d-sm-inline">Messer</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                     <li><a class="dropdown-item" href="messer/main.php">Aktualne</a></li>
@@ -96,7 +91,7 @@
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown2" data-bs-toggle="dropdown" aria-expanded="false">
                     
-                    <i class="fs-5 bi-dice-2"></i><span class="ms-1 d-none d-sm-inline">V200</span>
+                    <img src="static/dice-2.svg"></img><span class="ms-1 d-none d-sm-inline">V200</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown2">
                     <li><a class="dropdown-item" href="v200/main.php">Otwory</a></li>
@@ -105,14 +100,12 @@
  
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
+                <img src="static/person.svg"></img><span class="ms-1 d-none d-sm-inline">Parts</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
                     <li><a class="dropdown-item" href="parts/dozrobienia.php">Do zrobienia</a></li>
-                    <?php if(isLoggedin()){ ?>
                     <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
-                    <?php } ?>
                 </ul>
                 
                 
@@ -126,7 +119,7 @@
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
             <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
-                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            <img src="static/arrow-right-square-fill.svg" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></img>
             </button>
 
     <div id='calendar'></div>

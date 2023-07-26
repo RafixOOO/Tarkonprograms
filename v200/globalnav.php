@@ -14,11 +14,11 @@
     <?php if(!isLoggedIn()){ ?>
 
 <a href="../login.php" class="nav-link text-success">
-    <i class="fs-5 bi bi-person"></i><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
+<img src="../static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
 </a>
 <?php } else { ?>
 <a href="#" class="nav-link dropdown-toggle text-success" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fs-5 bi bi-person"><br /></i><span class="ms-1 d-none d-sm-inline"><?php echo $_SESSION['imie_nazwisko']; ?></span>
+<img src="../static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline"><?php echo $_SESSION['imie_nazwisko']; ?></span>
 </a>
 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
     <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
@@ -35,13 +35,13 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item">
                 <a href="..\index.php" class="nav-link text-success">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Strona główna</span>
+                <img src="../static/house.svg"></img><span class="ms-1 d-none d-sm-inline">Strona główna</span>
                 </a>
             </li>
             <?php if(isUserMesser()){ ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Messer</span>
+                <img src="../static/table.svg"></img><span class="ms-1 d-none d-sm-inline">Messer</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                     <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
@@ -53,7 +53,7 @@
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown2" data-bs-toggle="dropdown" aria-expanded="false">
                     
-                    <i class="fs-5 bi-dice-2"></i><span class="ms-1 d-none d-sm-inline">V200</span>
+                <img src="../static/dice-2.svg"></img><span class="ms-1 d-none d-sm-inline">V200</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown2">
                     <li><a class="dropdown-item" href="../v200/main.php">Otwory</a></li>
@@ -62,7 +62,7 @@
             <?php if(isUserParts()){ ?>
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Parts</span>
+                    <img src="../static/grid.svg"></img><span class="ms-1 d-none d-sm-inline">Parts</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
@@ -78,6 +78,6 @@
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
             <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
-                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            <img src="../static/arrow-right-square-fill.svg" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></img>
             </button>
 

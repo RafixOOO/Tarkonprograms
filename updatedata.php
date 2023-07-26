@@ -288,7 +288,7 @@ while ($data = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             UPDATE [PartCheck].[dbo].[Hole_V200]
             SET
             
-            ,[View]= ?
+            [View]= ?
             ,[X]= ?
             ,[Y]= ?
             ,[Measurement]= ?
