@@ -8,7 +8,7 @@
     <center>
     <?php if(!isLoggedIn()){ ?>
 
-<a href="../login.php" class="nav-link text-success"><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
+        <a href="../login.php" class="nav-link text-success"><span class="ms-1 d-none d-sm-inline"><img src="static/person.svg"></img><br />Zaloguj się</span>
 </a>
 <?php } else { ?>
 <a href="#" class="nav-link dropdown-toggle text-success" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">

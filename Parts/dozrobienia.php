@@ -153,16 +153,21 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
           </tr>
         </thead>
         <tbody>
-  <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)): ?>
-    <tr class="accordion-toggle collapsed"
+  <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)): 
+    $orange= 0;
+    $green = 0;
+    $dark=0;
+    ?>
+    <tr class="accordion-toggle collapsed "
       data-bs-toggle="collapse"
       data-bs-target="<?php echo '#collapse'.$data['id']; ?>"
       aria-controls="<?php echo 'collapse'.$data['id']; ?>"
     >
       <td class="expand-button"></td>
-      <td><?php echo $data['zespol']; ?></td>
+      <td id="<?php echo 'collapse1'.$data['id']; ?>"><?php echo $data['zespol']; ?></td>
       <td><?php echo $data['ilosc']; ?></td>
     </tr>
+    </div>
     <tr class="hide-table-padding">
       <td></td>
       <td colspan="2">
@@ -170,6 +175,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
           <?php foreach ($dataresult1 as $data1): ?>
             <?php if($data['zespol']==$data1['zespol']): 
               if($data1['ilosc_full']<=$data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana']!=''){
+                $green=$green+1;
               ?>
               <div class="row text-success">
               <div class="col-2"><?php echo $data1['Detal']; ?></div>
@@ -177,17 +183,20 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
               </div>
             <?php 
               } else if($data1['ilosc']<=$data1['ilosc_zrealizowana']and $data1['ilosc_zrealizowana']!=''){
+                $orange=$orange+1;
               ?>
               <div class="row text-warning">
                 <div class="col-2"><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></div>
                 <div class="col-6"><?php echo $data1['ilosc']; ?></div>
               </div>
-            <?php } else if($data1['ilosc']>$data1['ilosc_zrealizowana']){ ?>
+            <?php } else if($data1['ilosc']>$data1['ilosc_zrealizowana']){ 
+              $dark=$dark+1;
+              ?>
               <div class="row">
               <div class="col-2"><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></div>
               <div class="col-6"><?php echo $data1['ilosc']; ?></div>
             </div>
-            <?php
+            <?php 
             }
             endif;
             ?>
@@ -195,7 +204,28 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         </div>
       </td>
     </tr>
-  <?php endwhile; ?>
+  <?php 
+        if($dark==0 and $orange==0){
+          $id = 'collapse1' . $data['id'];
+          echo "<script>";
+          echo "var row6 = document.getElementById('" . $id . "');";
+          echo "if (row6) {";
+          echo "  row6.classList.add('text-success');";
+          echo "}";
+          echo "</script>";
+        } else if($orange>1 and $dark==0){
+          $id = 'collapse1' . $data['id'];
+          echo "<script>";
+          echo "var row6 = document.getElementById('" . $id . "');";
+          echo "if (row6) {";
+          echo "  row6.classList.add('text-warning');";
+          echo "}";
+          echo "</script>";
+        } 
+        else if($dark>1){
+          continue;
+        }
+  endwhile; ?>
 </tbody>
       </table>
 </div>
