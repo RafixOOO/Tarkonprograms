@@ -65,7 +65,9 @@ $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 
 
 $sqlproject = "SELECT Distinct
-max(p.[Id]) as id,
+(select max(p1.[Id])
+from [PartCheck].[dbo].[Parts] p1
+where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[Projekt]='$projekt') as id,
 p.[Projekt] as ProjectName,
 p.[Zespol] AS zespol
 ,(select p1.[Ilosc]
