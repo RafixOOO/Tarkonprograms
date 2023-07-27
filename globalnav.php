@@ -56,7 +56,7 @@
  
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="static/person.svg"></img><span class="ms-1 d-none d-sm-inline">Parts</span>
+                <img src="static/grid.svg"></img><span class="ms-1 d-none d-sm-inline">Parts</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
                     <li><a class="dropdown-item" href="parts/main.php">Programy</a></li>
