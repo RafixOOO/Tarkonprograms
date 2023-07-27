@@ -17,7 +17,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[PartName] COLLATE Latin1_General_CS_AS) as ilosc_full
 ,sum(b.[QtyProgram]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[PartArchive_Messer] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[PartName] = p.[Pozycja] COLLATE Latin1_General_CS_AS
-where p.[Pozycja] !='' and p.[Projekt]='$projekt'
+where p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[PartName],p.Zespol,p.[Ilosc]";
 $datasmesser = sqlsrv_query($conn, $sqlmesser);
 
@@ -33,7 +33,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc_full
 ,sum(b.[AmountDone]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
-where p.[Pozycja] !='' and p.[Projekt]='$projekt'
+where p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Name],p.Zespol,p.[Ilosc]
 ";
 $datasv630 = sqlsrv_query($conn, $sqlv630);
@@ -58,7 +58,7 @@ AND NOT EXISTS (
     SELECT 1
     FROM dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
-) and p.[Pozycja] !='' and p.[Projekt]='$projekt'
+) and p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Pozycja],p.Zespol,p.[Ilosc]";
 $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 
