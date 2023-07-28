@@ -97,4 +97,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
+<script src="static/dark.js"></script>
 </html>

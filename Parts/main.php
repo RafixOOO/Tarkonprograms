@@ -297,15 +297,15 @@ border-radius: 10px;
 <div  class="spinner-grow position-absolute top-50 start-50 translate-middle" role="status">
   <span class="sr-only"></span>
 </div></div>
-
-  <div class="container-xl">
+<?php require_once('globalnav.php') ?>
+  <div class="container-fluid">
     <?php if(!isLoggedIn()){ ?>
   <div class="progress verticalrotate">
   <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
 </div>
     <?php } ?>
 
-    <?php require_once('globalnav.php') ?>
+    
     
 <div class="mb-3" style="float:right;">
 

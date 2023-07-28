@@ -105,6 +105,25 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   ?>
 
 <style>
+
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tooltip:hover .tooltip-content {
+  display: block;
+}
     tr.hide-table-padding td {
   padding: 0;
   }
@@ -165,7 +184,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
       data-bs-target="<?php echo '#collapse'.$data['id']; ?>"
       aria-controls="<?php echo 'collapse'.$data['id']; ?>"
     >
-      <td class="expand-button"></td>
+      <td class="expand-button" style='background-color: transparent;'></td>
       <td id="<?php echo 'collapse1'.$data['id']; ?>"><?php echo $data['zespol']; ?></td>
       <td><?php echo $data['ilosc']; ?></td>
     </tr>
@@ -180,23 +199,23 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                 $green=$green+1;
               ?>
               <div class="row text-success">
-              <div class="col-2"><?php echo $data1['Detal']; ?></div>
-                <div class="col-6"><?php echo $data1['ilosc']; ?></div>
+              <div class="col-2"><span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span></div>
+                <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
               </div>
             <?php 
               } else if($data1['ilosc']<=$data1['ilosc_zrealizowana']and $data1['ilosc_zrealizowana']!=''){
                 $orange=$orange+1;
               ?>
               <div class="row text-warning">
-                <div class="col-2"><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></div>
-                <div class="col-6"><?php echo $data1['ilosc']; ?></div>
+                <div class="col-2"><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><span title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span></div>
+                <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
               </div>
             <?php } else if($data1['ilosc']>$data1['ilosc_zrealizowana']){ 
               $dark=$dark+1;
               ?>
               <div class="row">
               <div class="col-2"><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></div>
-              <div class="col-6"><?php echo $data1['ilosc']; ?></div>
+              <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
             </div>
             <?php 
             }

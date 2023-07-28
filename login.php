@@ -97,7 +97,7 @@ function logUserActivity($username, $operation) {
         </form>
             </div>
 </body>
-
+<script src="dark.js"></script>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];

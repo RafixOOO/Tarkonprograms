@@ -1,83 +1,97 @@
+<?php require_once '../auth.php'; ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Container wrapper -->
+  <a class="navbar-brand" href="#" style="margin-left:2%;">Tarkon programs <sup>2.0</sup></a>
+  <button style="margin-right:2%;" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <img src="static/menu.svg"></img>
+    </button>
+  <div class="container-xxl">
+    <!-- Navbar brand -->
 
-             <?php 
-             require_once('../auth.php');
-             ?>
-             
-             <h1 class="text-center"><b>V200</b></h1>
-              <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" style = "max-width: 300px" data-bs-keyboard="false" data-bs-backdrop="false">
-    <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Tarkon programs <sup>1.47</sup></h6>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" aria-current="page" href="../index.php">
+            Strona główna
+          </a>
+        </li>
+        <?php if(isUserMesser()){ ?>
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Messer
+          </a>
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
+            <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
+            <li><a class="dropdown-item" href="../messer/wykonane.php">Wykonane</a></li>
+            <li><a class="dropdown-item" href="../messer/niewykonane.php">Niewykonane</a></li>
+          </ul>
+        </li>
+        <?php } ?>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link active" aria-current="page" href="main.php">
+            V200
+          </a>
+        </li>
+        <?php if(isUserParts()){ ?>
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Parts
+          </a>
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
+            <li><a class="dropdown-item" href="../parts/dozrobienia.php">Do zrobienia</a></li>
+            <li><a class="dropdown-item" href="../parts/upload.php">Wyślij</a></li>
+          </ul>
+        </li>
+        <?php } ?>
+      </ul>
+      <!-- Left links -->
+
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+          <?php if(isLoggedIn()) { ?>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+          <?php } else { ?>
+          <a class="nav-link" href="login.php" id="dropdown" role="button"
+            aria-expanded="false">
+          <?php } ?>  
+            <?php if(isLoggedIn()) { ?>
+              <?php echo $_SESSION['imie_nazwisko']; ?>
+            <?php } else { ?>
+              Zaloguj się
+            <?php } ?> 
+          </a>
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu dropdown-menu-dark" style="left: -25%;" aria-labelledby="navbarDropdown">
+            <?php if(isLoggedIn()) { ?>
+            <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
+            <?php if(isUserAdmin()) { ?>
+            <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
+            <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
+            <?php } ?>
+            <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
+            <?php } ?> 
+          </ul>
+          
+        </li>
+      </ul>
+      <!-- Right links -->
     </div>
-    <div class="offcanvas-body px-0">
-    <center>
-    <?php if(!isLoggedIn()){ ?>
-
-<a href="../login.php" class="nav-link text-success">
-<img src="../static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline">Zaloguj się</span>
-</a>
-<?php } else { ?>
-<a href="#" class="nav-link dropdown-toggle text-success" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-<img src="../static/person.svg"><br /></img><span class="ms-1 d-none d-sm-inline"><?php echo $_SESSION['imie_nazwisko']; ?></span>
-</a>
-<ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
-    <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
-    <?php if(isUserAdmin()) { ?>
-    <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
-    <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
-    <?php } ?>
-    <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
-</ul>
-    
-<?php } ?>  
-</center>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
 <br />
-        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-            <li class="nav-item">
-                <a href="..\index.php" class="nav-link text-success">
-                <img src="../static/house.svg"></img><span class="ms-1 d-none d-sm-inline">Strona główna</span>
-                </a>
-            </li>
-            <?php if(isUserMesser()){ ?>
-            <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../static/table.svg"></img><span class="ms-1 d-none d-sm-inline">Messer</span>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
-                    <li><a class="dropdown-item" href="../messer/wykonane.php">Wykonane</a></li>
-                    <li><a class="dropdown-item" href="../messer/niewykonane.php">Niewykonane</a></li>
-                </ul>
-            </li>
-            <?php } ?>
-            <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown2" data-bs-toggle="dropdown" aria-expanded="false">
-                    
-                <img src="../static/dice-2.svg"></img><span class="ms-1 d-none d-sm-inline">V200</span>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown2">
-                    <li><a class="dropdown-item" href="../v200/main.php">Otwory</a></li>
-                </ul>
-            </li>
-            <?php if(isUserParts()){ ?>
-            <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-success " id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../static/grid.svg"></img><span class="ms-1 d-none d-sm-inline">Parts</span>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown1">
-                    <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
-                    <li><a class="dropdown-item" href="../parts/dozrobienia.php">Do zrobienia</a></li>
-                    <li><a class="dropdown-item" href="../parts/upload.php">Wyślij</a></li>
-                </ul>
-            </li>
-            <?php } ?>
-            </div>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col min-vh-100 py-3">
-            <!-- toggler -->
-            <button class="btn" data-bs-toggle="offcanvas" id="button-container" data-bs-target="#offcanvas" role="button">
-            <img src="../static/arrow-right-square-fill.svg" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></img>
-            </button>
-
+<!-- Navbar -->

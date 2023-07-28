@@ -11,6 +11,13 @@
 <script src="../static/toastr.min.js"></script>
 <script src="../static/jquery-3.6.0.min.js"></script>
 <script src="../blad.js"></script>
+<script src="../static/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+    new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
 <style>
 #button-container {
       position: fixed;
