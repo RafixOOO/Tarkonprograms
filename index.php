@@ -26,11 +26,6 @@
 </div>
 </div>
 </div>
-<h1 style=" position: absolute;
-      bottom: 2%;
-      right: 0;
-      color: white;
-      padding: 10px;">Wersja: 1.25</h1>
 </body>
 
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -80,15 +75,6 @@
     });
 
     calendar.setOption('customButtons', {
-        addEventButton: {
-        text: 'Dodaj', // Tekst na przycisku
-        click: function() {
-          // Tu możesz umieścić kod obsługujący akcję po kliknięciu przycisku "Dodaj"
-          // Na przykład otwarcie okna modalnego z formularzem do dodawania nowego wydarzenia
-          // lub wywołanie innych funkcji odpowiednich dla Twojego przypadku użycia.
-          alert('Kliknięto przycisk "Dodaj"');
-        }
-      },
     today: {
       text: 'today',
       click: function() {
