@@ -91,14 +91,15 @@ group by a.[Diameter]
           </div>
 </form>
 <br />
-<table class="table table-sm">
+<div class="table-responsive">
+            <table class="table table-sm table-hover table-striped table-bordered" id="mytable">
   <thead>
     <tr>
-      <th scope="col">Projekt</th>
+      <th scope="col">Project</th>
       <th scope="col">Detal</th>
       <th scope="col">Detale need / done</th>
-      <th scope="col">Średnica</th>
-      <th scope="col">Liczba Otworów</th>
+      <th scope="col">Diameter</th>
+      <th scope="col">Number of holes</th>
     </tr>
   </thead>
   <tbody>
@@ -114,7 +115,7 @@ group by a.[Diameter]
     </tr>
     <?php } ?>
   </tbody>
-  <tfoot class='table-info'>
+  <tfoot class='table-success'>
   <?php
                 foreach ($sumNeedByDiameter as $diameter => $sumNeed) {
                

@@ -12,6 +12,7 @@
 <script src="..\blad.js"></script>
 <script src="../static/chart.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
+<script src="../static/popper.min.js"></script>
 <script>
   function addDarkmodeWidget() {
     new Darkmode().showWidget();

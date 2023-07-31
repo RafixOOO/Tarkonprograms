@@ -285,9 +285,6 @@ border-radius: 10px;
    font-weight: bold;
    margin: 20px;
 }
-.chart_container {
-   float: left;
-}
   </style>
 
 </head>
@@ -328,25 +325,26 @@ border-radius: 10px;
         </form>
       
       <div style="clear:both;"></div>
-    <table id="myTable" class="table table-striped table-bordered">
+      <div class="table-responsive">
+    <table id="myTable" class="table table-sm table-hover table-striped table-bordered">
 
 
       <thead>
         <tr>
-          <th scope="col">Projekt</th>
-          <th scope="col" style="width:10em;">Zespoły</th>
+          <th scope="col">Project</th>
+          <th scope="col" style="width:10em;">Assembly</th>
           <th scope="col">Detal</th>
           <th scope="col">Amount Done / Need</th>
           <th scope="col">V200</th>
-          <th scope="col">Maszyna</th>
-          <th scope="col">Wymiar</th>
-          <th scope="col">Materiał</th>
-          <th scope="col">Długość</th>
-          <th scope="col">Długość Zrealizowana</th>
-          <th scope="col">Ciężar</th>
-          <th scope="col">Całkowity Ciężar</th>
-          <th scope="col">Uwaga</th>
-          <th scope="col">Data</th>
+          <th scope="col">Machine</th>
+          <th scope="col">Dimension</th>
+          <th scope="col">Material</th>
+          <th scope="col">Length</th>
+          <th scope="col">Length Done</th>
+          <th scope="col">Weight</th>
+          <th scope="col">Weight Done</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date</th>
         </tr>
       </thead>
       <tbody>
@@ -477,7 +475,7 @@ border-radius: 10px;
 
 
 
-      <div style="float:right;">
+      <div style="float:right; margin-right: 5%;">
 <?php 
 
 $view = new TwitterBootstrap4View();
@@ -498,7 +496,7 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
  ?>
 
 </div>
-<div class="btn-toolbar position-sticky" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
+<div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
   <div class="btn-group me-2" role="group" aria-label="First group">
 
     <?php if (!isUserParts()) { ?>
@@ -526,20 +524,66 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
       <?php } ?>
       <?php if (isUserParts()) { ?>
       <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
-      <button type="submit" onclick="generatePDF()" class="btn btn-warning btn-lg" onclick='obrazek()' >Raport</button>
+      <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#chartmodal">Raport</button>
       <?php } ?>
   </div>
 </div>
 <br /><br />
 <?php if(isUserParts()){ ?>
-<div class="chart_container"> 
-            <canvas id="myChart"></canvas> 
-         </div> 
-         <div class="chart_container"> 
-            <canvas style="margin-left:40px;" id="myChart1"></canvas> 
-         </div> 
+  <div class="modal" id="chartmodal">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; height: 90%;">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Raport</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+<center>
+    <div class="carousel-item active">
+    <div class="chart_containers d-block w-100" style="position: relative; height:40vh; width:80vw;">
+  <canvas id="myChart1"></canvas>
+</div>
+    </div>
+    <div class="carousel-item">
+    <div class="chart_containers d-block w-100" style="position: relative; height:40vh; width:80vw">
+  <canvas id="myChart"></canvas>
+</div>
+    </div>
+    </center>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+          <!-- Tutaj umieść swoje wykresy -->
+          
+
+
+          
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" onclick="generatePDF()" class="btn btn-danger" onclick='obrazek()' >Generuj</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
          <script>
+
+
+
           var jsonData1 = <?php echo $jsonData1; ?>; // Przekazanie danych JSON do JavaScriptu
 // Utwórz wykres
 var ctx = document.getElementById('myChart1').getContext('2d');
@@ -751,7 +795,7 @@ function generatePDF() {
 
 
 
-  var chartContainers = document.querySelectorAll('.chart_container');
+  var chartContainers = document.querySelectorAll('.carousel-inner');
   var imgWidth = doc.internal.pageSize.height * 0.7; // Szerokość obrazka na połowę szerokości strony PDF
   var imgHeight = 90; // Wysokość obrazka
   var positionX = 70; // Pozycja X obrazka

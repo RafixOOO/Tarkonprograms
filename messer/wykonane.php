@@ -48,17 +48,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         $datas = sqlsrv_query($conn, $sql);
 
         ?>
-        <table class="table table-hover" id="mytable">
+         <div class="table-responsive">
+            <table class="table table-sm table-hover table-striped table-bordered" id="mytable">
             <thead>
-                <th>Imię i Nazwisko</th>
-                <th>Nazwa programu</th>
-                <th>Nazwa arkusza</th>
-                <th>Nazwa maszyny</th>
-                <th>Materiał</th>
-                <th>Grubość</th>
-                <th>Długość arkusza</th>
-                <th>Szerokość arkusza</th>
-                <th>Czas spalania</th>
+                <th>Person</th>
+                <th>Program name</th>
+                    <th>Sheet name</th>
+                    <th>Material</th>
+                    <th>Thickness</th>
+                    <th>sheet length</th>
+                    <th>width length</th>
+                    <th>Burning time</th>
             </thead>
             <tbody class="row_position">
                 <?php
@@ -76,9 +76,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             </td>
                             <td>
                                 <?php echo "$data[SheetName]"; ?>
-                            </td>
-                            <td>
-                                <?php echo "$data[MachineName]"; ?>
                             </td>
                             <td>
                                 <?php echo "$data[Material]"; ?>

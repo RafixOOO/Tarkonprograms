@@ -103,52 +103,6 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   require_once('globalhead.php') ;
   require_once('../auth.php');
   ?>
-
-<style>
-
-.tooltip {
-  position: relative;
-  cursor: pointer;
-}
-
-.tooltip-content {
-  display: none;
-  position: absolute;
-  background-color: #333;
-  color: #fff;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.tooltip:hover .tooltip-content {
-  display: block;
-}
-    tr.hide-table-padding td {
-  padding: 0;
-  }
-
-  .expand-button {
-    position: relative;
-  }
-
-  .accordion-toggle .expand-button:after
-  {
-    position: absolute;
-    left:.75rem;
-    top: 50%;
-    transform: translate(0, -50%);
-    content: '-';
-  }
-  .accordion-toggle.collapsed .expand-button:after
-  {
-    content: '+';
-  }
-
-    .btn-group {
-      float: right;
-    }
-    </style>
 </head> 
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
@@ -159,127 +113,96 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
             <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Nazwa projektu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
           </form>
-            <br /><br />
-            <div class="btn-group">
-            <button id="toggleButton" class="btn btn-primary" onclick="toggleAll()">Rozwiń</button>
+          <br />
+          <?php if($projekt!=""){ ?>
+          <button class='btn btn-primary float-end' onclick="otworzIFC()">Otwórz projekt</button>
+            <?php } ?>
+<script>
+  var projekt = '<?php echo $projekt; ?>';
+        var sciezkaDoIFC = 'C:/Users/rafal.pezda/Downloads/' + projekt + '.ifc';
+    function otworzIFC() {
+
+        // Utwórz link URI z plikiem IFC
+        var linkURI = 'bimvision://' + encodeURIComponent(sciezkaDoIFC);
+
+        // Otwórz BIMvision przez przekierowanie na link URI
+        window.location.href = linkURI;
+    }
+</script>
 </div>
-<div style="clear:both;"></div>
-            <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Zespół</th>
-            <th scope="col">Ilość</th>
-          </tr>
-        </thead>
-        <tbody>
-  <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)): 
-    $orange= 0;
-    $green = 0;
-    $dark=0;
+<div class="container mt-5">
+  <div class="row" id="masonry-grid">
+    <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)): 
+      $orange = 0;
+      $dark = 0;
     ?>
-    <tr class="accordion-toggle collapsed "
-      data-bs-toggle="collapse"
-      data-bs-target="<?php echo '#collapse'.$data['id']; ?>"
-      aria-controls="<?php echo 'collapse'.$data['id']; ?>"
-    >
-      <td class="expand-button" style='background-color: transparent;'></td>
-      <td id="<?php echo 'collapse1'.$data['id']; ?>"><?php echo $data['zespol']; ?></td>
-      <td><?php echo $data['ilosc']; ?></td>
-    </tr>
-    </div>
-    <tr class="hide-table-padding">
-      <td></td>
-      <td colspan="2">
-        <div id="<?php echo 'collapse'.$data['id']; ?>" class="collapse p-3">
-          <?php foreach ($dataresult1 as $data1): ?>
-            <?php if($data['zespol']==$data1['zespol']): 
-              if($data1['ilosc_full']<=$data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana']!=''){
-                $green=$green+1;
-              ?>
-              <div class="row text-success">
-              <div class="col-2"><span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span></div>
-                <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
-              </div>
-            <?php 
-              } else if($data1['ilosc']<=$data1['ilosc_zrealizowana']and $data1['ilosc_zrealizowana']!=''){
+    <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
+      <div id="<?php echo 'collapse'.$data['id']; ?>" class="card bg-light mb-3">
+        <div class="card-header"><?php echo $data['zespol'].' '.$data['ilosc']; ?></div>
+        <div class="card-body">
+          <p class="card-text">
+            <?php foreach ($dataresult1 as $data1): ?>
+              <?php if ($data['zespol'] == $data1['zespol']): ?>
+                <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''): ?>
+                  <div class="text-success">
+                    <div><span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
+                      <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
+                  </div>
+                <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''):
                 $orange=$orange+1;
-              ?>
-              <div class="row text-warning">
-                <div class="col-2"><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><span title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span></div>
-                <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
-              </div>
-            <?php } else if($data1['ilosc']>$data1['ilosc_zrealizowana']){ 
-              $dark=$dark+1;
-              ?>
-              <div class="row">
-              <div class="col-2"><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol']; ?>+<?php echo $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></div>
-              <div class="col-6"><span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
-            </div>
-            <?php 
+                  ?>
+                  <div class="text-warning">
+                    <div><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                    <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
+                  </div>
+                <?php else: 
+                $dark=$dark+1;
+                  ?>
+                  <div>
+                    <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></span>
+                    <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
+                  </div>
+                <?php endif; ?>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </p>
+          <?php 
+            if ($dark == 0 and $orange == 0) {
+              $id = 'collapse'.$data['id'];
+              echo "<script>";
+              echo "var row6 = document.getElementById('" . $id . "');";
+              echo "if (row6) {";
+              echo "  row6.classList.add('border-success');";
+              echo "}";
+              echo "</script>";
+            } elseif ($orange > 1 and $dark == 0) {
+              $id = 'collapse'.$data['id'];
+              echo "<script>";
+              echo "var row6 = document.getElementById('" . $id . "');";
+              echo "if (row6) {";
+              echo "  row6.classList.add('border-warning');";
+              echo "}";
+              echo "</script>";
             }
-            endif;
-            ?>
-          <?php endforeach; ?>
+          ?>
         </div>
-      </td>
-    </tr>
-  <?php 
-        if($dark==0 and $orange==0){
-          $id = 'collapse1' . $data['id'];
-          echo "<script>";
-          echo "var row6 = document.getElementById('" . $id . "');";
-          echo "if (row6) {";
-          echo "  row6.classList.add('text-success');";
-          echo "}";
-          echo "</script>";
-        } else if($orange>1 and $dark==0){
-          $id = 'collapse1' . $data['id'];
-          echo "<script>";
-          echo "var row6 = document.getElementById('" . $id . "');";
-          echo "if (row6) {";
-          echo "  row6.classList.add('text-warning');";
-          echo "}";
-          echo "</script>";
-        } 
-        else if($dark>1){
-          continue;
-        }
-  endwhile; ?>
-</tbody>
-      </table>
+      </div>
+    </div>
+    <?php endwhile; ?>
+  </div>
 </div>
+  
+
 </div>
 </body>
+<script src="../static/masonry.pkgd.min.js"></script>
 <script>
   function convertToUppercase(inputElement) {
       inputElement.value = inputElement.value.toUpperCase();
     }
 
-    function toggleAll() {
-      var collapseElements = document.querySelectorAll('.collapse');
-      var expanded = false;
-
-      // Sprawdź, czy którykolwiek z elementów jest rozwinięty
-      collapseElements.forEach(function(element) {
-        if (element.classList.contains('show')) {
-          expanded = true;
-        }
-      });
-
-      // Zmiana stanu wszystkich elementów w zależności od wartości zmiennej "expanded"
-      if (expanded) {
-        collapseElements.forEach(function(element) {
-          element.classList.remove('show');
-        });
-        document.getElementById('toggleButton').innerText = 'Rozwiń';
-      } else {
-        collapseElements.forEach(function(element) {
-          element.classList.add('show');
-        });
-        document.getElementById('toggleButton').innerText = 'Zwiń';
-      }
-    }
+    var masonryGrid = new Masonry('#masonry-grid', {
+      gutter: 47
+    });
 </script>
 </html>

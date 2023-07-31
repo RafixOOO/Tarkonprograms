@@ -21,9 +21,61 @@
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
   
 <?php require_once("globalnav.php"); ?>
+<button class="btn btn-primary float-end" onclick="searchByGroupId()">Szukaj</button>
+<select class="form-control w-25 float-end" name="evens" id="groupIdInput">
+  <option value="v630">v630</option>
+  <option value="messer">messer</option>
+</select>
+    <br /><br />
 <div style="width:85%;margin-left:auto;margin-right:auto;" id='calendar'></div>
 <br />
 <script src='dist/index.global.js'></script>
+<script>
+      var calendar;
+  var eventsarray=[];
+
+  function searchByGroupId() {
+      var groupIdInput = document.getElementById('groupIdInput').value;
+      var filteredEvents = eventsarray.filter(function(event) {
+        return event.groupId === groupIdInput;
+      });
+      calendar.removeAllEvents();
+      calendar.addEventSource(filteredEvents);
+    }
+  </script>
+<?php
+          require_once('dbconnect.php');
+          $sqlv="SELECT p.[ProjectName],
+          CAST(p.ModificationDate AS DATE) AS ModificationDate
+   FROM dbo.Product_V630 p
+   GROUP BY p.[ProjectName], CAST(p.ModificationDate AS DATE);";
+          $datas1 = sqlsrv_query($conn, $sqlv);
+          echo "<script>";
+          while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+            echo 'eventsarray.push({
+              "groupId": "v630",
+              "title": "'.$row["ProjectName"].'",
+              "start": "'.date_format($row["ModificationDate"], 'Y-m-d').'",
+              "color": "#227525"
+            });';
+          }
+        $sqlm="SELECT p.[WoNumber],
+        CAST(p.ArcDateTime AS DATE) AS ModificationDate
+ FROM dbo.PartArchive_Messer p
+ GROUP BY p.[WoNumber], CAST(p.ArcDateTime AS DATE);";
+         $datas2 = sqlsrv_query($conn, $sqlm);
+         while ($row = sqlsrv_fetch_array($datas2, SQLSRV_FETCH_ASSOC)) {
+        
+          echo 'eventsarray.push({
+            "groupId": "messer",
+            "title": "'.$row["WoNumber"].'",
+            "start": "'.date_format($row["ModificationDate"], 'Y-m-d').'",
+            "color": "#1b1b63"
+          });';
+            
+        } 
+        echo "</script>";
+        ?>
 <script>
 
 const currentDate = new Date();
@@ -36,11 +88,11 @@ const formattedDate = `${year}-${month}-${day}`;
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: 'prev,next',
         center: 'title',
-        right: 'dayGridMonth'
+        right: 'dayGridMonth',
       },
       initialDate: formattedDate,
       firstDay: 1,
@@ -48,125 +100,13 @@ const formattedDate = `${year}-${month}-${day}`;
       businessHours: true, // display business hours
       editable: true,
       selectable: true,
-      events: [
-        {
-          title: 'Business Lunch',
-          start: '2023-01-03T13:00:00',
-          constraint: 'businessHours'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-13T11:00:00',
-          constraint: 'availableForMeeting', // defined below
-          color: '#257e4a'
-        },
-        {
-          title: 'Conference',
-          start: '2023-01-18',
-          end: '2023-01-20'
-        },
-        {
-          title: 'Party',
-          start: '2023-01-29T20:00:00'
-        },
-
-        // areas where "Meeting" must be dropped
-        {
-          groupId: 'availableForMeeting',
-          start: '2023-01-11T10:00:00',
-          end: '2023-01-11T16:00:00',
-          display: 'background'
-        },
-        {
-          groupId: 'availableForMeeting',
-          start: '2023-01-13T10:00:00',
-          end: '2023-01-13T16:00:00',
-          display: 'background'
-        },
-
-        // red areas where no events can be dropped
-        {
-    start: year+'-01-01',
-    end: year+'-01-01',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-01-06',
-    end: year+'-01-06',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-04-04',
-    end: year+'-04-05',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-05-01',
-    end: year+'-05-01',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-05-03',
-    end: year+'-05-03',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-05-23',
-    end: year+'-05-23',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-08-15',
-    end: year+'-08-15',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-11-01',
-    end: year+'-11-01',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-11-11',
-    end: year+'-11-11',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-12-25',
-    end: year+'-12-25',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  },
-  {
-    start: year+'-12-26',
-    end: year+'-12-26',
-    overlap: false,
-    display: 'background',
-    color: '#ff9f89'
-  }
-      ]
+      dayMaxEvents: true,
+      events: eventsarray,
+      
     });
 
     calendar.render();
-  });
+    });
 
 </script>
 </body>
