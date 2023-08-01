@@ -31,84 +31,91 @@
 <br />
 <script src='dist/index.global.js'></script>
 <script>
-      var calendar;
-  var eventsarray=[];
+    var calendar;
+    var eventsarray = [];
 
-  function searchByGroupId() {
+    function searchByGroupId() {
       var groupIdInput = document.getElementById('groupIdInput').value;
-      var filteredEvents = eventsarray.filter(function(event) {
-        return event.groupId === groupIdInput;
-      });
+      var filteredEvents;
+
+      if (groupIdInput === 'all') {
+        // Wyświetl wszystkie wydarzenia
+        filteredEvents = eventsarray;
+      } else {
+        // Wyświetl wydarzenia tylko dla wybranego groupId
+        filteredEvents = eventsarray.filter(function(event) {
+          return event.groupId === groupIdInput;
+        });
+      }
+
       calendar.removeAllEvents();
       calendar.addEventSource(filteredEvents);
+      calendar.render();
     }
-  </script>
-<?php
-          require_once('dbconnect.php');
-          $sqlv="SELECT p.[ProjectName],
-          CAST(p.ModificationDate AS DATE) AS ModificationDate
-   FROM dbo.Product_V630 p
-   GROUP BY p.[ProjectName], CAST(p.ModificationDate AS DATE);";
-          $datas1 = sqlsrv_query($conn, $sqlv);
-          echo "<script>";
-          while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
-            echo 'eventsarray.push({
-              "groupId": "v630",
-              "title": "'.$row["ProjectName"].'",
-              "start": "'.date_format($row["ModificationDate"], 'Y-m-d').'",
-              "color": "#227525"
-            });';
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth',
+        },
+        initialDate: formattedDate,
+        firstDay: 1,
+        navLinks: true,
+        businessHours: true,
+        editable: true,
+        selectable: true,
+        dayMaxEvents: true,
+        events: eventsarray,
+        eventSources: [{
+          url: 'fetch_events.php', // Adres pliku do pobierania danych z bazy
+          method: 'GET', // Metoda żądania
+          extraParams: {
+            startDate: function() {
+              var view = calendar.view;
+              return view.activeStart.format('YYYY-MM-DD');
+            },
+            endDate: function() {
+              var view = calendar.view;
+              return view.activeEnd.format('YYYY-MM-DD');
+            },
+          },
+          failure: function(jqXHR, textStatus, errorThrown) {
+            alert('Wystąpił błąd podczas pobierania danych.');
+            console.log(jqXHR.responseText);
+          },
+          success: function(data) {
+            // Aktualizuj zawartość eventsarray
+            eventsarray = data;
+            // Wyświetl wszystkie wydarzenia na kalendarzu
+            calendar.removeAllEvents();
+            calendar.addEventSource(eventsarray);
+            calendar.render();
           }
-        $sqlm="SELECT p.[WoNumber],
-        CAST(p.ArcDateTime AS DATE) AS ModificationDate
- FROM dbo.PartArchive_Messer p
- GROUP BY p.[WoNumber], CAST(p.ArcDateTime AS DATE);";
-         $datas2 = sqlsrv_query($conn, $sqlm);
-         while ($row = sqlsrv_fetch_array($datas2, SQLSRV_FETCH_ASSOC)) {
-        
-          echo 'eventsarray.push({
-            "groupId": "messer",
-            "title": "'.$row["WoNumber"].'",
-            "start": "'.date_format($row["ModificationDate"], 'Y-m-d').'",
-            "color": "#1b1b63"
-          });';
-            
-        } 
-        echo "</script>";
-        ?>
-<script>
+        }],
+        dateClick: function(info) {
+          var selectedDate = info.date;
+          var year = selectedDate.getFullYear();
+          var month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+          var firstDay = year + '-' + month + '-01';
+          var lastDay = year + '-' + month + '-' + new Date(year, selectedDate.getMonth() + 1, 0).getDate();
+          calendar.refetchEvents(); // Odśwież dane w kalendarzu
+        }
+      });
 
-const currentDate = new Date();
-const year = currentDate.getFullYear();
-const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Dodanie zera z przodu, jeśli miesiąc jest jednocyfrowy
-const day = String(currentDate.getDate()).padStart(2, '0'); // Dodanie zera z przodu, jeśli dzień jest jednocyfrowy
-
-const formattedDate = `${year}-${month}-${day}`;
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'dayGridMonth',
-      },
-      initialDate: formattedDate,
-      firstDay: 1,
-      navLinks: true, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      editable: true,
-      selectable: true,
-      dayMaxEvents: true,
-      events: eventsarray,
-      
+      calendar.render();
     });
-
-    calendar.render();
-    });
-
-</script>
+  </script>
 </body>
 </html>
   
