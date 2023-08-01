@@ -50,6 +50,28 @@ while ($row1 = sqlsrv_fetch_array($stmtMesser, SQLSRV_FETCH_ASSOC)) {
     );
 }
 
+$sqlr="SELECT
+p.[Pozycja]
+,CAST(p.Data AS DATE) AS ModificationDate
+,p.[Osoba]
+FROM [PartCheck].[dbo].[Product_Recznie] p
+group by p.[Pozycja],CAST(p.Data AS DATE),p.[Osoba]";
+
+$stmtRecznie = sqlsrv_query($conn, $sqlr);
+
+if ($stmtRecznie === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+while ($row2 = sqlsrv_fetch_array($stmtRecznie, SQLSRV_FETCH_ASSOC)) {
+    $events[] = array(
+        "groupId" => $row2["Osoba"],
+        "title" => $row2["Pozycja"],
+        "start" => $row2["ModificationDate"]->format('Y-m-d'),
+        "color" => "#C13A1D"
+    );
+}
+
 // Zwróć dane jako odpowiedź w formacie JSON
 header('Content-Type: application/json');
 echo json_encode($events);

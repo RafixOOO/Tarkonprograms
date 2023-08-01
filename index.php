@@ -25,6 +25,7 @@
 <select class="form-control w-25 float-end" name="evens" id="groupIdInput">
   <option value="v630">v630</option>
   <option value="messer">messer</option>
+  <option value="Witold Bak">Witold Bak</option>
 </select>
     <br /><br />
 <div style="width:85%;margin-left:auto;margin-right:auto;" id='calendar'></div>
