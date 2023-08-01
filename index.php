@@ -99,8 +99,8 @@
             eventsarray = data;
             // Wyświetl wszystkie wydarzenia na kalendarzu
             calendar.removeAllEvents();
-            calendar.addEventSource(eventsarray);
-            calendar.render();
+            calendar.addEventSource();
+            calendar.render(eventsarray);
           }
         }],
         dateClick: function(info) {

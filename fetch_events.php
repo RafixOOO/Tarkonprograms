@@ -2,8 +2,8 @@
 // fetch_events.php
 
 // Odbierz dane od strony klienta (daty początkowa i końcowa jako parametry z URL-a)
-$startDate = ''.$_GET['start'];
-$endDate = ''.$_GET['end'];
+$startDate = $_GET['start'];
+$endDate = $_GET['end'];
 
 // Przygotuj zapytanie SQL w zależności od wybranego groupId
 require_once("dbconnect.php");
@@ -41,11 +41,11 @@ if ($stmtMesser === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-while ($row = sqlsrv_fetch_array($stmtMesser, SQLSRV_FETCH_ASSOC)) {
+while ($row1 = sqlsrv_fetch_array($stmtMesser, SQLSRV_FETCH_ASSOC)) {
     $events[] = array(
         "groupId" => "messer",
-        "title" => $row["ProgramName"],
-        "start" => $row["ModificationDate"]->format('Y-m-d'),
+        "title" => $row1["ProgramName"],
+        "start" => $row1["ModificationDate"]->format('Y-m-d'),
         "color" => "#1b1b63"
     );
 }
