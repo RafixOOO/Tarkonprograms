@@ -368,7 +368,7 @@ border-radius: 10px;
           ?>
         <td id="project"><?php echo $data['ProjectName']; ?></td>
             <td id="zespol"><?php if ($data['status'] == 1) {
-                              echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
+                              echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
                             } else {
                               echo $data['zespol'];
                             } ?></td>
@@ -445,7 +445,7 @@ border-radius: 10px;
     ?>
   <td id="project"><?php echo $data['ProjectName']; ?></td>
       <td id="zespol"><?php if ($data['status'] == 1) {
-                        echo $data['zespol'] . " <i class='bi bi-exclamation-triangle-fill text-danger'>";
+                        echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
                       } else {
                         echo $data['zespol'];
                       } ?></td>
