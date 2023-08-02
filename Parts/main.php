@@ -308,7 +308,7 @@ border-radius: 10px;
 
         <form method="get" action="">
           <div class="input-group">
-            <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Wyszukaj..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+            <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Wyszukaj..." autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
           od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
           </div>
