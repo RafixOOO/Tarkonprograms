@@ -119,7 +119,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
             <?php } ?>
 <script>
   var projekt = '<?php echo $projekt; ?>';
-        var sciezkaDoIFC = 'C:/Users/rafal.pezda/Downloads/' + projekt + '.ifc';
+        var sciezkaDoIFC = '//10.100.100.29/tekla-dane/Ifc/' + projekt + '.ifc';
     function otworzIFC() {
 
         // Utwórz link URI z plikiem IFC

@@ -54,7 +54,6 @@
         </li>
       </ul>
       <!-- Left links -->
-
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
@@ -62,7 +61,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
           <?php } else { ?>
-          <a class="nav-link" href="login.php" id="dropdown" role="button"
+          <a class="nav-link" href="../login.php" id="dropdown" role="button"
             aria-expanded="false">
           <?php } ?>  
             <?php if(isLoggedIn()) { ?>
@@ -91,5 +90,15 @@
   </div>
   <!-- Container wrapper -->
 </nav>
+
+<div class="offcanvas offcanvas-top" data-bs-theme="dark" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTopLabel">Zadania</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    
+  </div>
+</div>
 <br />
 <!-- Navbar -->

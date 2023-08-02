@@ -64,7 +64,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
           <?php } else { ?>
-          <a class="nav-link" href="login.php" id="dropdown" role="button"
+          <a class="nav-link" href="../login.php" id="dropdown" role="button"
             aria-expanded="false">
           <?php } ?>  
             <?php if(isLoggedIn()) { ?>

@@ -502,6 +502,8 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
     <?php if (!isUserParts()) { ?>
   <?php if (!isUserPartsKier()) { ?>
   <button type="button"  onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
+  <button type="button"></button>
+  <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Zadania</a>
   <?php } ?>
   <?php if (isUserPartsKier()) { ?>
     <form method="POST" action="statuschange.php">
