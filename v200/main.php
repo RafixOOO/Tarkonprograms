@@ -4,13 +4,13 @@ $projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if(empty($projekt)){
 
 
-$sql="SELECT
+$sql="SELECT distinct
 Count(b.[Name]) as otowry,
   a.[Diameter]
  ,b.[ProjectName]
  ,b.[Name]
- ,b.[AmountNeeded] as need
- ,b.[AmountDone] as done
+ ,max(b.[AmountNeeded]) as need
+ ,max(b.[AmountDone]) as done
 
 FROM [PartCheck].[dbo].[Hole_V200] a
 
@@ -20,25 +20,25 @@ inner JOIN [PartCheck].[dbo].[Product_V200] b on (a.ProductId = b.Id)
 
 group by a.[Diameter]
  ,b.[ProjectName]
- ,b.[Name],b.[AmountNeeded],b.[AmountDone]";
+ ,b.[Name]";
 }else{
-    $sql="SELECT
-Count(b.[Name]) as otowry,
-  a.[Diameter]
- ,b.[ProjectName]
- ,b.[Name]
- ,b.[AmountNeeded] as need
- ,b.[AmountDone] as done
-
-FROM [PartCheck].[dbo].[Hole_V200] a
-
-
-
-inner JOIN [PartCheck].[dbo].[Product_V200] b on (a.ProductId = b.Id)
-where b.[ProjectName]='$projekt'
-group by a.[Diameter]
- ,b.[ProjectName]
- ,b.[Name],b.[AmountNeeded],b.[AmountDone]";
+    $sql="SELECT distinct
+    Count(b.[Name]) as otowry,
+      a.[Diameter]
+     ,b.[ProjectName]
+     ,b.[Name]
+     ,max(b.[AmountNeeded]) as need
+     ,max(b.[AmountDone]) as done
+    
+    FROM [PartCheck].[dbo].[Hole_V200] a
+    
+    
+    
+    inner JOIN [PartCheck].[dbo].[Product_V200] b on (a.ProductId = b.Id)
+    where b.[ProjectName]='$projekt'
+    group by a.[Diameter]
+     ,b.[ProjectName]
+     ,b.[Name]";
 }
  $datas = sqlsrv_query($conn, $sql);
  $datas1 = sqlsrv_query($conn, $sql);
