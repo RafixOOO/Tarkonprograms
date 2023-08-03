@@ -333,7 +333,7 @@ border-radius: 10px;
         <tr>
           <th scope="col">Project</th>
           <th scope="col" style="width:10em;">Assembly</th>
-          <th scope="col">Detal</th>
+          <th scope="col">Part</th>
           <th scope="col">Amount Done / Need</th>
           <th scope="col">V200</th>
           <th scope="col">Machine</th>
@@ -413,20 +413,20 @@ border-radius: 10px;
 <caption id="tableTitle"><?php echo $_GET['keywords']." (od: ".$_GET['dataFrom']." do: ".$_GET['dataTo'].") Ilość: ".$_GET['page_size']; ?></caption>
 <thead>
   <tr>
-    <th scope="col">Project</th>
-    <th scope="col" style="width:10em;">Zespoly</th>
-    <th scope="col">Detal</th>
-    <th scope="col">Amount Done / Need</th>
-    <th scope="col">V200</th>
-    <th scope="col">Machine</th>
-    <th scope="col">Wymiar</th>
-    <th scope="col">Material</th>
-    <th scope="col">Length</th>
-    <th scope="col">Length Done</th>
-    <th scope="col">weight</th>
-    <th scope="col">Total Weight</th>
-    <th scope="col">Uwaga</th>
-    <th scope="col">Data</th>
+  <th scope="col">Project</th>
+          <th scope="col" style="width:10em;">Assembly</th>
+          <th scope="col">Part</th>
+          <th scope="col">Amount Done / Need</th>
+          <th scope="col">V200</th>
+          <th scope="col">Machine</th>
+          <th scope="col">Dimension</th>
+          <th scope="col">Material</th>
+          <th scope="col">Length</th>
+          <th scope="col">Length Done</th>
+          <th scope="col">Weight</th>
+          <th scope="col">Weight Done</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date</th>
   </tr>
 </thead>
 <tbody>
