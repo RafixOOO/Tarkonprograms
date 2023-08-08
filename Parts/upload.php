@@ -12,6 +12,7 @@ require_once('../auth.php');
     <?php require_once('globalhead.php') ?>
 </head>
 <body class = "p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<input type="hidden" id="darkModeButton" />
     <br />
     <div class="container">
     <form action="" method="POST" enctype="multipart/form-data">

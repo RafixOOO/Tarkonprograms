@@ -34,7 +34,7 @@ require_once('auth.php');
             <a href="zarzadzaj.php" type="button" class="btn btn-outline-success my-2 my-sm-0">Anuluj</a>
         </form>
             </div>
-    
+            <input type="hidden" id="darkModeButton" />
    
 </body>
 <?php 

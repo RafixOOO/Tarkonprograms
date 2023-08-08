@@ -96,8 +96,8 @@ function logUserActivity($username, $operation) {
             <a href="index.php" type="button" class="btn btn-outline-success my-2 my-sm-0">Anuluj</a>
         </form>
             </div>
+            <input type="hidden" id="darkModeButton" />
 </body>
-<script src="dark.js"></script>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
