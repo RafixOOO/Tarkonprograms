@@ -60,20 +60,19 @@
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <?php if(isLoggedIn()) { ?>
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-          <?php } else { ?>
-          <a class="nav-link" href="../login.php" id="dropdown" role="button"
-            aria-expanded="false">
-          <?php } ?>  
+
             <?php if(isLoggedIn()) { ?>
               <?php echo $_SESSION['imie_nazwisko']; ?>
             <?php } else { ?>
               Zaloguj się
+
             <?php } ?> 
           </a>
           <!-- Dropdown menu -->
+          
           <ul class="dropdown-menu dropdown-menu-dark" style="left: -25%;" aria-labelledby="navbarDropdown">
             <?php if(isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
@@ -81,9 +80,15 @@
             <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
             <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
             <?php } ?>
+            <li><a class="dropdown-item" id="../darkModeButton" href="#">Tryb ciemny</a></li>
             <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
-            <?php } ?> 
+            <?php } else{ ?> 
+              <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
+              <li><a class="dropdown-item" href="../login.php">Zaloguj się</a></li>
+              <?php } ?> 
           </ul>
+          
+        </li>
           
         </li>
       </ul>

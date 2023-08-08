@@ -13,10 +13,20 @@
 <script src="../blad.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
 <script>
-  function addDarkmodeWidget() {
-    new Darkmode().showWidget();
+ window.addEventListener('load', function() {
+  var darkModeButton = document.getElementById('darkModeButton');
+  var darkmode = new Darkmode();
+
+  darkModeButton.addEventListener('click', function() {
+    darkmode.toggle();
+  });
+
+  // Ukrycie przycisku dostarczanego przez bibliotekę Darkmode
+  var darkmodeToggleElement = document.querySelector('.darkmode-toggle');
+  if (darkmodeToggleElement) {
+    darkmodeToggleElement.style.display = 'none';
   }
-  window.addEventListener('load', addDarkmodeWidget);
+});
 </script>
 <style>
 #button-container {
