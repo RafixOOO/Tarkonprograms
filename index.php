@@ -66,16 +66,16 @@
 
       calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'dayGridMonth',
+          left: 'title',
+          center: '',
+          right: 'prev,next',
         },
         initialDate: formattedDate,
         firstDay: 1,
-        navLinks: true,
+        navLinks: false,
         businessHours: true,
         editable: true,
-        selectable: true,
+        selectable: false,
         dayMaxEvents: true,
         events: eventsarray,
         eventSources: [{
