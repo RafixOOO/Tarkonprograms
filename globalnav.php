@@ -59,7 +59,7 @@
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-auto-close="outside" data-bs-toggle="dropdown"
             aria-expanded="false">
 
             <?php if(isLoggedIn()) { ?>
@@ -71,17 +71,32 @@
           </a>
           <!-- Dropdown menu -->
           
-          <ul class="dropdown-menu dropdown-menu-dark" style="left: -25%;" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-dark" style="left: -35%;" aria-labelledby="navbarDropdown">
+            
+              <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" >Ustawienia</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
             <?php if(isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="password.php">Zmień hasło</a></li>
-            <?php if(isUserAdmin()) { ?>
-            <li><a class="dropdown-item" href="zarzadzaj.php">Zarządzaj</a></li>
-            <li><a class="dropdown-item" href="logi.php">Logi</a></li>
             <?php } ?>
             <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
+            </ul>
+            
+            <?php if(isUserAdmin()) { ?>
+              <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" >Panel admina</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
+            <li><a class="dropdown-item" href="zarzadzaj.php">Zarządzaj</a></li>
+            <li><a class="dropdown-item" href="logi.php">Logi</a></li>
+            </ul>
+          </li>
+            
+            <?php } ?>
+            <li class="dropdown-divider"></li>
+            <?php if(isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="logout.php">Wyloguj się</a></li>
-            <?php } else{ ?> 
-              <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
+            <?php } ?>
+            <?php if(!isLoggedIn()) { ?> 
               <li><a class="dropdown-item" href="login.php">Zaloguj się</a></li>
               <?php } ?> 
           </ul>
