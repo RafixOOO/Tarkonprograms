@@ -12,6 +12,7 @@
 <script src="../static/jquery-3.6.0.min.js"></script>
 <script src="../blad.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
+<link rel="shortcut icon" href="../static/clipboard-data.svg">
 <script>
  window.addEventListener('load', function() {
   var darkModeButton = document.getElementById('darkModeButton');

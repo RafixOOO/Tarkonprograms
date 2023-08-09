@@ -5,6 +5,7 @@
 <script defer src="../static/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="../static/toastr.min.css">
 <link rel="stylesheet" href="../static/bootstrap-icons.css">
+<link rel="shortcut icon" href="../static/clipboard-data.svg">
 <script src="../static/jquery.min.js"></script>
 <script src="../static/jquery-ui.min.js"></script>
 <script src="../static/toastr.min.js"></script>
