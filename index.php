@@ -74,7 +74,7 @@
         firstDay: 1,
         navLinks: false,
         businessHours: true,
-        editable: true,
+        editable: false,
         selectable: false,
         dayMaxEvents: true,
         events: eventsarray,
