@@ -289,7 +289,7 @@ border-radius: 10px;
 
 </head>
 
-<body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
+<body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <div id="loader-wrapper">
 <div  class="spinner-grow position-absolute top-50 start-50 translate-middle" role="status">
   <span class="sr-only"></span>
@@ -332,7 +332,7 @@ border-radius: 10px;
       <thead>
         <tr>
           <th scope="col">Project</th>
-          <th scope="col" style="width:10em;">Assembly</th>
+          <th scope="col">Assembly</th>
           <th scope="col">Part</th>
           <th scope="col">Amount Done / Need</th>
           <th scope="col">V200</th>
@@ -475,7 +475,7 @@ border-radius: 10px;
 
 
 
-      <div style="float:right; margin-right: 5%;">
+      <div style="float:right">
 <?php 
 
 $view = new TwitterBootstrap4View();
@@ -496,8 +496,8 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
  ?>
 
 </div>
-<div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:3%;">
-  <div class="btn-group me-2" role="group" aria-label="First group">
+<div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
+  <div class="btn-group me-2 " role="group" aria-label="First group">
 
     <?php if (!isUserParts()) { ?>
   <?php if (!isUserPartsKier()) { ?>

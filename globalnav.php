@@ -1,5 +1,5 @@
 <?php require_once 'auth.php'; ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <!-- Container wrapper -->
   <a class="navbar-brand" href="#" style="margin-left:2%;">Tarkon programs <sup>2.0</sup></a>
   <button style="margin-right:2%;" class="navbar-toggler" type="button" data-bs-toggle="collapse"
