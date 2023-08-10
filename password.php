@@ -59,7 +59,7 @@ if ($conn === false) {
         </form>
             </div>
     
-   
+            <input type="hidden" id="darkModeButton" />
 </body>
 <?php 
 

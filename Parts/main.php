@@ -326,13 +326,13 @@ border-radius: 10px;
       
       <div style="clear:both;"></div>
       <div class="table-responsive">
-    <table id="myTable" class="table table-sm table-hover table-striped table-bordered">
+    <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
 
 
       <thead>
         <tr>
           <th scope="col">Project</th>
-          <th scope="col">Assembly</th>
+          <th scope="col" style="width:10em;">Assembly</th>
           <th scope="col">Part</th>
           <th scope="col">Amount Done / Need</th>
           <th scope="col">V200</th>

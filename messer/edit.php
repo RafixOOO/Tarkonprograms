@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     <a class="btn btn-outline-primary btn-lg" href="main.php" role="button">Anuluj</a>
                 </div>
             </div>
+            <input type="hidden" id="darkModeButton" />
 
     </div>
     <input type="hidden" name="id" value="<?php echo $id ?>" />

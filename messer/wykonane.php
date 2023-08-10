@@ -49,7 +49,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
         ?>
          <div class="table-responsive">
-            <table class="table table-sm table-hover table-striped table-bordered" id="mytable">
+            <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
             <thead>
                 <th>Person</th>
                 <th>Program name</th>
