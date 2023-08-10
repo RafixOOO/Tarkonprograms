@@ -49,7 +49,6 @@ echo "</tbody></table>";
 <script src="static/jquery-3.7.0.js"></script>
 <script src="static/jquery.dataTables.min.js"></script>
 <script src="static/dataTables.bootstrap5.min.js"></script>
-<script src="dark.js"></script>
 <script>
     $(document).ready(function(){
         $('#example').DataTable();
