@@ -10,4 +10,4 @@ foreach ($allData as $key => $value) {
     sqlsrv_query($conn, $sql);
     $i++;
 }
-logUserActivity($_SESSION['imie_nazwisko'],'Srtowanie w aplikacji messer');
+logUserActivity($_SESSION['imie_nazwisko'],'Sortowanie w aplikacji messer');
