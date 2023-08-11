@@ -47,7 +47,7 @@
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="main.php">Programy</a></li>
-            <li><a class="dropdown-item" href="dozrobienia.php">Do zrobienia</a></li>
+            <li><a class="dropdown-item" href="dozrobienia.php">Gotowe</a></li>
             <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
           </ul>
         </li>
