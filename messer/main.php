@@ -5,23 +5,37 @@
     <?php include 'globalhead.php'; ?>
 </head>
 <?php require_once('dbconnect.php');
-$sql = "SELECT [ProgramName]
-,[ArchivePacketID]
-,[SheetName]
-,[MachineName]
-,[Material]
-,[Thickness]
-,[SheetLength]
-,[SheetWidth]
-,[ActualStartTime]
-,[ActualEndTime]
-,[ActualState]
-,[ActualTimeSyncNeeded]
-,[Comment]
-,PARSENAME(REPLACE([Comment], ',', '.'), 1) as part
-,CONVERT (CHAR(8),DATEADD(second, [CuttingTime],0) ,108) as czaspalenia
-FROM [SNDBASE_PROD].[dbo].[Program]
-ORDER BY [Comment]";
+$sql = "SELECT p.[ProgramName]
+,p.[ArchivePacketID]
+,p.[SheetName]
+,p.[MachineName]
+,p.[Material]
+,p.[Thickness]
+,p.[SheetLength]
+,p.[SheetWidth]
+,p.[ActualStartTime]
+,p.[ActualEndTime]
+,p.[ActualState]
+,p.[ActualTimeSyncNeeded]
+,p.[Comment]
+,Sum(q.[QtyInProcess]) as liczba
+,PARSENAME(REPLACE(p.[Comment], ',', '.'), 1) as part
+,CONVERT (CHAR(8),DATEADD(second, p.[CuttingTime],0) ,108) as czaspalenia
+FROM [SNDBASE_PROD].[dbo].[Program] p
+Left join [SNDBASE_PROD].[dbo].[PIP] q ON p.ProgramName=q.ProgramName
+group by p.[ProgramName]
+,p.[ArchivePacketID]
+,p.[SheetName]
+,p.[MachineName]
+,p.[Material]
+,p.[Thickness]
+,p.[SheetLength]
+,p.[SheetWidth]
+,p.[ActualStartTime]
+,p.[ActualEndTime]
+,p.[ActualState]
+,p.[ActualTimeSyncNeeded]
+,p.[Comment],p.[CuttingTime] ORDER BY [Comment]";
 $datas = sqlsrv_query($conn, $sql);
 
 $sql2 = "SELECT 
@@ -63,6 +77,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                     <th>sheet length</th>
                     <th>width length</th>
                     <th>Burning time</th>
+                    <th>Amount</th>
                     <th>Options</th>
 
 
@@ -132,6 +147,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
                                 <td>
                                     <?php echo "$data[czaspalenia]"; ?>
+                                </td>
+                                <td>
+                                    <?php echo "$data[liczba]"; ?>
                                 </td>
                                 <td>
                                     
