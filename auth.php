@@ -1,5 +1,4 @@
 <?php
-session_start();
 function logUserActivity($username, $operation) {
     $logFilePath = 'dziennik.log';
     $logMessage = "[" . date('Y-m-d H:i:s') . "],$username,$operation" . PHP_EOL;
