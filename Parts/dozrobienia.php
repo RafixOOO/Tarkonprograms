@@ -145,22 +145,24 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
               <?php if ($data['zespol'] == $data1['zespol']): ?>
                 <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''): ?>
                   <div class="text-light">
-                    <div><span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
-                      <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
-                  </div>
+                    <div>
+                      <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
+                  <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
+                </div>
+                </div>
                 <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''):
                 $orange=$orange+1;
                   ?>
                   <div class="text-dark">
                     <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
-                    <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
+                    <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
                   </div>
                 <?php else: 
                 $dark=$dark+1;
                   ?>
                   <div>
                     <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank"><?php echo $data1['Detal']; ?></a></span>
-                    <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
+                    <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
                   </div>
                 <?php endif; ?>
               <?php endif; ?>
