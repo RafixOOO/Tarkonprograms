@@ -38,7 +38,7 @@ require_once('../auth.php');
             $targetDirectory = "Files/";
             $targetFile = $targetDirectory . basename($file['name']);
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-                echo "Plik został przesłany i zapisany na serwerze.";
+                echo "Plik został przesłany i zapisany na serwerze."+$id_import;
 
                 try {
                     $spreadsheet = IOFactory::load($targetFile);
