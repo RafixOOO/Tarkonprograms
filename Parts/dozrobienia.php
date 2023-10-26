@@ -137,22 +137,22 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
       $dark = 0;
     ?>
     <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
-      <div id="<?php echo 'collapse'.$data['id']; ?>" class="card bg-light mb-3">
+      <div id="<?php echo 'collapse'.$data['id']; ?>" class="card mb-3">
         <div class="card-header"><?php echo $data['zespol'].' '.$data['ilosc']; ?></div>
         <div class="card-body">
           <p class="card-text">
             <?php foreach ($dataresult1 as $data1): ?>
               <?php if ($data['zespol'] == $data1['zespol']): ?>
                 <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''): ?>
-                  <div class="text-success">
+                  <div class="text-light">
                     <div><span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
                       <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span></div>
                   </div>
                 <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''):
                 $orange=$orange+1;
                   ?>
-                  <div class="text-warning">
-                    <div><a class='text-warning' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                  <div class="text-dark">
+                    <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
                     <span title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
                   </div>
                 <?php else: 
@@ -172,7 +172,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
               echo "<script>";
               echo "var row6 = document.getElementById('" . $id . "');";
               echo "if (row6) {";
-              echo "  row6.classList.add('border-success');";
+              echo "  row6.classList.add('text-bg-success');";
               echo "}";
               echo "</script>";
             } elseif ($orange > 1 and $dark == 0) {
@@ -180,7 +180,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
               echo "<script>";
               echo "var row6 = document.getElementById('" . $id . "');";
               echo "if (row6) {";
-              echo "  row6.classList.add('border-warning');";
+              echo "  row6.classList.add('text-bg-warning');";
               echo "}";
               echo "</script>";
             }
