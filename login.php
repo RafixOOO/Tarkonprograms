@@ -33,6 +33,7 @@ function login($username, $password)
             $_SESSION['role_admin'] = $row['role_admin'];
             $_SESSION['role_parts_kier'] = $row['role_parts_kier'];
             $_SESSION['imie_nazwisko'] = $row['imie_nazwisko'];
+            $_SESSION['role_cutlogic'] = $row['role_cutlogic'];
         return true;
     
     }
@@ -43,6 +44,7 @@ function login($username, $password)
             $_SESSION['role_messer'] = $row['role_messer'];
             $_SESSION['role_parts'] = $row['role_parts'];
             $_SESSION['role_admin'] = $row['role_admin'];
+            $_SESSION['role_cutlogic'] = $row['role_cutlogic'];
             $_SESSION['role_parts_kier'] = $row['role_parts_kier'];
             $_SESSION['imie_nazwisko'] = $row['imie_nazwisko'];
             return true;

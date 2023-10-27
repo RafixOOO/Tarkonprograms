@@ -21,6 +21,7 @@
       <th scope="col">Imię i nazwisko</th>
       <th scope="col">Login</th>
       <th scope="col">Messer</th>
+      <th scope="col">Cutlogic</th>
       <th scope="col">Parts</th>
       <th scope="col">Parts Kierownik</th>
       <th scope="col">Admin</th>
@@ -45,6 +46,15 @@
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="role_messer">
                 <?php if( $data['role_messer']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="role_cutlogic">
+                <?php if( $data['role_cutlogic']==1){ ?>
                 <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
                     <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
             </form>

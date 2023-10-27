@@ -23,6 +23,10 @@ function isUserMesser()
     return isset($_SESSION['username']) && $_SESSION['role_messer'] == 1;
 }
 
+function isUserCutlogic(){
+    return isset($_SESSION['username']) && $_SESSION['role_cutlogic'] == 1;
+}
+
 function isUserAdmin()
 {
     return isset($_SESSION['username']) && $_SESSION['role_admin'] == 1;

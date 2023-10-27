@@ -53,6 +53,13 @@
           </ul>
         </li>
         <?php } ?>
+        <?php if(isUserCutlogic()){ ?>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" aria-current="page" href="../cutlogic/main.php">
+            CutLogic
+          </a>
+        </li>
+        <?php } ?>
       </ul>
       <!-- Left links -->
 
