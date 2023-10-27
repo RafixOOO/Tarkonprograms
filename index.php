@@ -3,19 +3,6 @@
 <head>
 <?php require_once("globalhead.php"); ?>
 
-
-    
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-  
-    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
-    
-    
-    <!-- Bootstrap CSS -->
-
-    
-    <!-- Style -->
-
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
