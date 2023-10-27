@@ -41,20 +41,20 @@
         <?php } ?>
         <?php if(isUserParts()){ ?>
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="../Parts/main.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Parts
           </a>
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="main.php">Programy</a></li>
-            <li><a class="dropdown-item" href="dozrobienia.php">Gotowe</a></li>
-            <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
+            <li><a class="dropdown-item" href="../Parts/main.php">Programy</a></li>
+            <li><a class="dropdown-item" href="../Parts/dozrobienia.php">Gotowe</a></li>
+            <li><a class="dropdown-item" href="../Parts/upload.php">Wyślij</a></li>
           </ul>
         </li>
         <?php } ?>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link active" aria-current="page" href="../cutlogic/main.php">
+          <a class="nav-link active" aria-current="page" href="#">
             CutLogic
           </a>
         </li>
