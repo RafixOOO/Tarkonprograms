@@ -3,7 +3,7 @@
 require_once("dbconnect.php");
 
 
-$projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
+$projekt = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 
 
 $sqlmesser = "SELECT Distinct
@@ -99,112 +99,119 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 
 <head>
 
-  <?php 
-  require_once('globalhead.php') ;
+  <?php
+  require_once('globalhead.php');
   require_once('../auth.php');
   ?>
-</head> 
+</head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
-<?php require_once('globalnav.php'); ?>
+  <?php require_once('globalnav.php'); ?>
   <div class="container-xl">
-  <form method="get" action="">
-          <div class="input-group">
-            <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Nazwa projektu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
-          </div>
-          </form>
-          <br />
-          <?php if($projekt!=""){ ?>
-          <button class='btn btn-primary float-end' onclick="otworzIFC()">Otwórz projekt</button>
-            <?php } ?>
-<script>
-  var projekt = '<?php echo $projekt; ?>';
-        var sciezkaDoIFC = '//10.100.100.29/tekla-dane/Ifc/' + projekt + '.ifc';
-    function otworzIFC() {
+    <form method="get" action="">
+      <div class="input-group">
+        <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Nazwa projektu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+      </div>
+    </form>
+    <br />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <model-viewer
+        src="/programs/Tarkonprograms/Parts/ifc/PT111.gltf" 
+        alt="Opis modelu"
+        auto-rotate
+        camera-controls
+        style="width: 100%; height: 500px;"></model-viewer>
+    <script>
+      var projekt = '<?php echo $projekt; ?>';
 
-        // Utwórz link URI z plikiem IFC
-        var linkURI = 'bimvision://' + encodeURIComponent(sciezkaDoIFC);
+      function otworzIFC() {
+        const ifcFilePath = 'C:/xampp/htdocs/programs/Tarkonprograms/ifc/' + projekt + '.ifc';
+      }
+    </script>
 
-        // Otwórz BIMvision przez przekierowanie na link URI
-        window.location.href = linkURI;
-    }
+</body>
+
+</html>
 </script>
 </div>
 <div class="container mt-5">
   <div class="row" id="masonry-grid">
-    <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)): 
+    <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)) :
       $orange = 0;
       $dark = 0;
     ?>
-    <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
-      <div id="<?php echo 'collapse'.$data['id']; ?>" class="card mb-3">
-        <div class="card-header"><?php echo $data['zespol'].' '.$data['ilosc']; ?></div>
-        <div class="card-body">
-          <p class="card-text">
-            <?php foreach ($dataresult1 as $data1): ?>
-              <?php if ($data['zespol'] == $data1['zespol']): ?>
-                <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''): ?>
-                  <div class="text-light">
-                    <div>
-                      <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
-                  <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
-                </div>
-                </div>
-                <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != ''):
-                $orange=$orange+1;
-                  ?>
-                  <div class="text-dark">
-                    <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
-                    <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
-                  </div>
-                <?php else: 
-                $dark=$dark+1;
-                  ?>
-                  <div>
-                    <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank"><?php echo $data1['Detal']; ?></a></span>
-                    <span class="float-end" title="<?php echo "Aktualnie zrobione: ".$data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></div>
-                  </div>
-                <?php endif; ?>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </p>
-          <?php 
-            if ($dark == 0 and $orange == 0) {
-              $id = 'collapse'.$data['id'];
-              echo "<script>";
-              echo "var row6 = document.getElementById('" . $id . "');";
-              echo "if (row6) {";
-              echo "  row6.classList.add('text-bg-success');";
-              echo "}";
-              echo "</script>";
-            } elseif ($orange > 1 and $dark == 0) {
-              $id = 'collapse'.$data['id'];
-              echo "<script>";
-              echo "var row6 = document.getElementById('" . $id . "');";
-              echo "if (row6) {";
-              echo "  row6.classList.add('text-bg-warning');";
-              echo "}";
-              echo "</script>";
-            }
+      <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
+        <div id="<?php echo 'collapse' . $data['id']; ?>" class="card mb-3">
+          <div class="card-header"><?php echo $data['zespol'] . ' ' . $data['ilosc']; ?></div>
+          <div class="card-body">
+            <p class="card-text">
+              <?php foreach ($dataresult1 as $data1) : ?>
+                <?php if ($data['zespol'] == $data1['zespol']) : ?>
+                  <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') : ?>
+            <div class="text-light">
+              <div>
+                <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
+                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
+              </div>
+            </div>
+          <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') :
+                    $orange = $orange + 1;
           ?>
+            <div class="text-dark">
+              <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
+              </div>
+            </div>
+          <?php else :
+                    $dark = $dark + 1;
+          ?>
+            <div>
+              <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank"><?php echo $data1['Detal']; ?></a></span>
+                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
+              </div>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+      <?php endforeach; ?>
+      </p>
+      <?php
+      if ($dark == 0 and $orange == 0) {
+        $id = 'collapse' . $data['id'];
+        echo "<script>";
+        echo "var row6 = document.getElementById('" . $id . "');";
+        echo "if (row6) {";
+        echo "  row6.classList.add('text-bg-success');";
+        echo "}";
+        echo "</script>";
+      } elseif ($orange > 1 and $dark == 0) {
+        $id = 'collapse' . $data['id'];
+        echo "<script>";
+        echo "var row6 = document.getElementById('" . $id . "');";
+        echo "if (row6) {";
+        echo "  row6.classList.add('text-bg-warning');";
+        echo "}";
+        echo "</script>";
+      }
+      ?>
+          </div>
         </div>
       </div>
-    </div>
     <?php endwhile; ?>
   </div>
 </div>
-  
+
 
 </div>
 </body>
 <script src="../static/masonry.pkgd.min.js"></script>
 <script>
   function convertToUppercase(inputElement) {
-      inputElement.value = inputElement.value.toUpperCase();
-    }
+    inputElement.value = inputElement.value.toUpperCase();
+  }
 
-    var masonryGrid = new Masonry('#masonry-grid', {
-      gutter: 47
-    });
+  var masonryGrid = new Masonry('#masonry-grid', {
+    gutter: 47
+  });
 </script>
+
 </html>

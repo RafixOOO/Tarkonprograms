@@ -1,0 +1,82 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 36,
+      "type": "VEC3",
+      "max": [
+        11.9099979,
+        1.4,
+        0.0119999936
+      ],
+      "min": [
+        -1.87777391E-06,
+        -2.38395081E-09,
+        -6.62257662E-08
+      ],
+      "name": "Positions Accessor"
+    }
+  ],
+  "asset": {
+    "generator": "BIM Vision Web Plugin",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "uri": "PT111.bin",
+      "byteLength": 432
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 432,
+      "name": "Positions"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.121568628,
+          0.7921569,
+          0.6156863,
+          1.0
+        ],
+        "roughnessFactor": 0.5
+      },
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.4,
+      "doubleSided": true
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "material": 0,
+          "extras": {
+            "Attributes": "25IGvyQpP40Q17XDT577Wp"
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
