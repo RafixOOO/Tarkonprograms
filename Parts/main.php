@@ -290,10 +290,6 @@ border-radius: 10px;
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<div id="loader-wrapper">
-<div  class="spinner-grow position-absolute top-50 start-50 translate-middle" role="status">
-  <span class="sr-only"></span>
-</div></div>
 <?php require_once('globalnav.php') ?>
   <div class="container-fluid">
     <?php if(!isLoggedIn()){ ?>
