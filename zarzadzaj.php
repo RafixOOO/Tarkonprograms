@@ -112,6 +112,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>
                 <form method="post" action="usun_konto.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
