@@ -116,14 +116,13 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
     <br />
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <model-viewer
-        src="/programs/Tarkonprograms/Parts/ifc/<?php echo $projekt; ?>.gltf" 
+    id="color"
+        src="/programs/Tarkonprograms/Parts/ifc/<?php echo $projekt; ?>.glb" 
         alt="Opis modelu"
         auto-rotate
         camera-controls
         style="width: 100%; height: 500px;"></model-viewer>
-
 </body>
-
 </html>
 </script>
 </div>
