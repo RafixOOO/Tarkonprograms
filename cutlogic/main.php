@@ -6,5 +6,40 @@
 </head>
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <?php include 'globalnav.php'; ?>
+<?php 
+require_once 'cutlogic.php';
+?>
+
+<table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
+
+
+<thead>
+  <tr>
+    <th scope="col">Program</th>
+    <th scope="col">Projekt</th>
+    <th scope="col">Opis</th>
+    <th scope="col">Length</th>
+    <th scope="col">Resztki</th>
+    <th scope="col">Część</th>
+    <th scope="col">Długość Części</th>
+    <th scope="col">Liczba</th>
+  </tr>
+</thead>
+<tbody>
+<?php while ($row = sqlsrv_fetch_array($datacut, SQLSRV_FETCH_ASSOC)) {
+?>  
+<tr>
+<td><?php echo $row['PROGRAM']; ?></td>
+<td><?php echo $row['PROJEKT']; ?></td>
+<td><?php echo $row['OPIS']; ?></td>
+<td><?php echo $row['DLUGOSC']; ?></td>
+<td><?php echo $row['RESZTKI']; ?></td>
+<td><?php echo $row['CZESC']; ?></td>
+<td><?php echo $row['CZDLU']; ?></td>
+<td><?php echo $row['CNT']; ?></td>
+</tr>
+  <?php } ?>
+</tbody>
+</table>
 </body>
 </html>
