@@ -103,6 +103,14 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   require_once('globalhead.php');
   require_once('../auth.php');
   ?>
+  <style>
+    .green{
+      background-color: #daecd1;
+    }
+    .yellow{
+      background-color: #fdf5afb2;
+    }
+    </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
@@ -140,7 +148,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
               <?php foreach ($dataresult1 as $data1) : ?>
                 <?php if ($data['zespol'] == $data1['zespol']) : ?>
                   <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') : ?>
-            <div class="text-light">
+            <div class="text-success">
               <div>
                 <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
                 <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
@@ -149,8 +157,8 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
           <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') :
                     $orange = $orange + 1;
           ?>
-            <div class="text-dark">
-              <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+            <div style="color:#a88102">
+              <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
                 <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
               </div>
             </div>
@@ -172,7 +180,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         echo "<script>";
         echo "var row6 = document.getElementById('" . $id . "');";
         echo "if (row6) {";
-        echo "  row6.classList.add('text-bg-success');";
+        echo "  row6.classList.add('green');";
         echo "}";
         echo "</script>";
       } elseif ($orange > 1 and $dark == 0) {
@@ -180,7 +188,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         echo "<script>";
         echo "var row6 = document.getElementById('" . $id . "');";
         echo "if (row6) {";
-        echo "  row6.classList.add('text-bg-warning');";
+        echo "  row6.classList.add('yellow');";
         echo "}";
         echo "</script>";
       }

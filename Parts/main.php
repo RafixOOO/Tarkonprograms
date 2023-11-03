@@ -330,7 +330,7 @@ border-radius: 10px;
           <th scope="col">Project</th>
           <th scope="col" style="width:10em;">Assembly</th>
           <th scope="col">Part</th>
-          <th scope="col">Amount Done / Need</th>
+          <th scope="col">Amount Need / Done</th>
           <th scope="col">V200</th>
           <th scope="col">Machine</th>
           <th scope="col">Dimension</th>
@@ -412,7 +412,7 @@ border-radius: 10px;
   <th scope="col">Project</th>
           <th scope="col" style="width:10em;">Assembly</th>
           <th scope="col">Part</th>
-          <th scope="col">Amount Done / Need</th>
+          <th scope="col">Amount Need / Done</th>
           <th scope="col">V200</th>
           <th scope="col">Machine</th>
           <th scope="col">Dimension</th>
@@ -600,7 +600,7 @@ const config = {
 var myChart = new Chart(ctx, config);
 
 
-var jsonData = <?php echo $jsonData; ?>;
+var jsonData = '<?php echo $jsonData; ?>';
     
     var sumaIlosc = <?php echo $sumaIlosc; ?>;
     
