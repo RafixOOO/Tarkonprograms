@@ -76,6 +76,7 @@ AND NOT EXISTS (
 )
 and p.[Pozycja]!=''
 GROUP BY
-p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock";
+p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock
+order by p.Id_import desc";
 $dataother = sqlsrv_query($conn, $sqlother);
 ?>

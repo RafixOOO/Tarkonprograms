@@ -4,6 +4,11 @@ require 'vendor\autoload.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require_once('../auth.php');
+
+if(!isLoggedIn()){
+    header('Location: ../index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +43,7 @@ require_once('../auth.php');
             $targetDirectory = "Files/";
             $targetFile = $targetDirectory . basename($file['name']);
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-                echo "Plik został przesłany i zapisany na serwerze."+$id_import;
+                echo "Plik został przesłany i zapisany na serwerze.";
 
                 try {
                     $spreadsheet = IOFactory::load($targetFile);
@@ -52,7 +57,7 @@ require_once('../auth.php');
                         $id_import=$row['import'];
                     }
                     $id_import++;
-                    
+                    echo $id_import;
                     foreach ($rows as $row) {
                         if ($isFirstRow) {
                             $isFirstRow = false;
