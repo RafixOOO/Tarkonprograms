@@ -175,7 +175,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         echo "  row6.classList.add('green');";
         echo "}";
         echo "</script>";
-      } elseif ($orange > 1 and $dark == 0) {
+      } elseif ($orange >= 1 and $dark == 0) {
         $id = 'collapse' . $data['id'];
         echo "<script>";
         echo "var row6 = document.getElementById('" . $id . "');";
