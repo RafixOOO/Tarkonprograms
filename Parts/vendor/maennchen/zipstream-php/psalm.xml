@@ -18,6 +18,5 @@
         <!-- Turn off dead code warnings for externally called functions -->
         <PossiblyUnusedProperty errorLevel="suppress" />
         <PossiblyUnusedMethod errorLevel="suppress" />
-        <PossiblyUnusedReturnValue errorLevel="suppress" />
     </issueHandlers>
 </psalm>

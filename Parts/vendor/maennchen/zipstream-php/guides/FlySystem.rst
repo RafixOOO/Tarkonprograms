@@ -14,11 +14,12 @@ default one, and pass it to Flysystem ``putStream`` method.
     // the content is lost when closing the stream / opening another one
     $tempStream = fopen('php://memory', 'w+');
 
+    // Init Options
+    $zipStreamOptions = new Archive();
+    $zipStreamOptions->setOutputStream($tempStream);
+
     // Create Zip Archive
-    $zipStream = new ZipStream(
-        outputStream: $tempStream,
-        outputName: 'test.zip',
-    );
+    $zipStream = new ZipStream('test.zip', $zipStreamOptions);
     $zipStream->addFile('test.txt', 'text');
     $zipStream->finish();
 
@@ -28,7 +29,7 @@ default one, and pass it to Flysystem ``putStream`` method.
     $adapter = new Local(__DIR__.'/path/to/folder');
     $filesystem = new Filesystem($adapter);
 
-    $filesystem->writeStream('test.zip', $tempStream)
+    $filesystem->putStream('test.zip', $tempStream)
 
     // Close Stream
     fclose($tempStream);

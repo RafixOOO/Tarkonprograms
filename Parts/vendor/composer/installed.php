@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '88052d0ae0e23a2670c94a085f1bf85e9d25b260',
+        'reference' => '09bc5271458e0e91271317065634dd4dd8a60c79',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '88052d0ae0e23a2670c94a085f1bf85e9d25b260',
+            'reference' => '09bc5271458e0e91271317065634dd4dd8a60c79',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '3.1.0',
-            'version' => '3.1.0.0',
-            'reference' => 'b8174494eda667f7d13876b4a7bfef0f62a7c0d1',
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => 'b46726e666b5d2ad32959ae9492ee1034e798162',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
@@ -54,69 +54,6 @@
             'install_path' => __DIR__ . '/../markbaker/matrix',
             'aliases' => array(),
             'dev_requirement' => false,
-        ),
-        'pagerfanta/core' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/doctrine-collections-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/doctrine-dbal-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/doctrine-mongodb-odm-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/doctrine-orm-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/doctrine-phpcr-odm-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/elastica-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/pagerfanta' => array(
-            'pretty_version' => 'v4.2.0',
-            'version' => '4.2.0.0',
-            'reference' => 'f38141da47c7f909d6919ad3d1917a7fd873175c',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../pagerfanta/pagerfanta',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'pagerfanta/solarium-adapter' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
-        ),
-        'pagerfanta/twig' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => 'v4.2.0',
-            ),
         ),
         'phpoffice/phpspreadsheet' => array(
             'pretty_version' => '1.29.0',

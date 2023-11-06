@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+require_once('auth.php');
+
+function isUserAdmin()
+                {
+                    return isset($_SESSION['username']) && $_SESSION['role'] === 'admin';
+                }
 
 function czyCiągZawieraLiczbyPHP($ciąg)
 {
@@ -22,11 +28,12 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 </head>
 
-<body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
-    <div class="container-xxl">
-
-    <div>
+<body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark">
+    <div class="container">
+        <br />
+        <?php include 'globalnav.php'; ?>
+        <br />
+        <h3 class="text-uppercase">Programy wykonane</h3><br>
 
         <?php require_once('dbconnect.php');
         $sql = "SELECT [ProgramName]
@@ -48,17 +55,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         $datas = sqlsrv_query($conn, $sql);
 
         ?>
-         <div class="table-responsive">
-            <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
+        <table class="table table-hover" id="mytable">
             <thead>
-                <th>Person</th>
-                <th>Program name</th>
-                    <th>Sheet name</th>
-                    <th>Material</th>
-                    <th>Thickness</th>
-                    <th>sheet length</th>
-                    <th>width length</th>
-                    <th>Burning time</th>
+                <th>Imię i Nazwisko</th>
+                <th>Nazwa programu</th>
+                <th>Nazwa arkusza</th>
+                <th>Nazwa maszyny</th>
+                <th>Materiał</th>
+                <th>Grubość</th>
+                <th>Długość arkusza</th>
+                <th>Szerokość arkusza</th>
+                <th>Czas spalania</th>
             </thead>
             <tbody class="row_position">
                 <?php
@@ -76,6 +83,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             </td>
                             <td>
                                 <?php echo "$data[SheetName]"; ?>
+                            </td>
+                            <td>
+                                <?php echo "$data[MachineName]"; ?>
                             </td>
                             <td>
                                 <?php echo "$data[Material]"; ?>
@@ -103,10 +113,33 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             </tbody>
         </table>
     </div>
-    </div>
-    </div>
-</div>
+
 </body>
+<script>
+    let mybutton = document.getElementById("btn-back-to-top");
+
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
 </script>
 
 </html>
