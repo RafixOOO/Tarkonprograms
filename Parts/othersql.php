@@ -20,30 +20,29 @@ p.[Status] as status,
 FROM [PartCheck].[dbo].[Parts] p2
 LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozycja] = ''
 WHERE p.[Pozycja] = p2.[Pozycja]
-) AS zespol,
+)+ ' ' + COALESCE(NULLIF(c.[PROGRAM], ''), '') AS zespol,
  (SELECT SUM(p2.Ilosc)
-    FROM dbo.Parts p2
+    FROM [PartCheck].dbo.Parts p2
     WHERE p.[Pozycja] = p2.[Pozycja]
 ) AS ilosc,
 (
     SELECT SUM(p2.Dlugosc)
-    FROM dbo.Parts p2
+    FROM [PartCheck].dbo.Parts p2
     WHERE p.[Pozycja] = p2.[Pozycja]
 ) AS dlugosc,
-p.Ciezar AS Ciezar,
-(
+p.Ciezar AS Ciezar,(
     SELECT SUM(p2.Calk_ciez)
-    FROM dbo.Parts p2
+    FROM [PartCheck].dbo.Parts p2
     WHERE p.[Pozycja] = p2.[Pozycja]
 ) AS Calk_ciez,
 (
     SELECT SUM(r.Ilosc_zrealizowana)
-        FROM dbo.Product_Recznie r
+        FROM [PartCheck].dbo.Product_Recznie r
     WHERE p.[Pozycja] = r.[Pozycja]
 ) AS ilosc_zrealizowana,
  (
     SELECT SUM(r.Dlugosc_zrealizowana)
-from dbo.Product_Recznie r
+from [PartCheck].dbo.Product_Recznie r
     WHERE p.[Pozycja] = r.[Pozycja]
 ) AS dlugosc_zre,
 MAX(r.Maszyna) AS maszyna,
@@ -53,30 +52,31 @@ p.[Material] AS material,
 p.Uwaga AS uwaga,
 (
     SELECT DISTINCT [Osoba] + ','
-    FROM dbo.Product_Recznie r2
+    FROM [PartCheck].dbo.Product_Recznie r2
     WHERE p.[Pozycja] = r2.[Pozycja]
     FOR XML PATH('')
 ) AS wykonal,
 p.Uwaga AS uwaga
 FROM
-dbo.Parts p
+[PartCheck].dbo.Parts p
 LEFT JOIN
-dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
+[PartCheck].dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
 LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
+Left Join [PartCheck].[dbo].[cutlogic] c on p.[Pozycja]=c.[CZESC]
 WHERE
 NOT EXISTS (
     SELECT 1
-    FROM dbo.PartArchive_Messer m
+    FROM [PartCheck].dbo.PartArchive_Messer m
     WHERE p.Pozycja = m.PartName COLLATE Latin1_General_CS_AS
 )
 AND NOT EXISTS (
     SELECT 1
-    FROM dbo.Product_V630 v
+    FROM [PartCheck].dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
 )
 and p.[Pozycja]!=''
 GROUP BY
-p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock
+p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock,c.[PROGRAM]
 order by p.Id_import desc";
 $dataother = sqlsrv_query($conn, $sqlother);
 ?>

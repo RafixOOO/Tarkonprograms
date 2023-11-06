@@ -30,7 +30,7 @@ if (isset($_POST['selectedrow'])) {
         while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
             $ilosc = $row['ilosc']-$ilosc;
             $dlugosc= $row['dlugosc']-$dlugosc;
-            $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna, Osoba) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', 'Pila' , '{$wykonawca}')";
+            $sqlinsert = "INSERT INTO dbo.Product_Recznie (Projekt, Pozycja, Ilosc_zrealizowana, Dlugosc_zrealizowana, Maszyna, Osoba) VALUES ('{$projekt}', '{$detal}', '{$ilosc}', '{$dlugosc}', 'Kooperacyjnie' , '{$wykonawca}')";
 
         sqlsrv_query($conn, $sqlinsert);
         }

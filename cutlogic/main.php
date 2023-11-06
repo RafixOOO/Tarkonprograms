@@ -28,7 +28,6 @@ require_once 'cutlogic.php';
     <th scope="col">Część</th>
     <th scope="col">Długość Części</th>
     <th scope="col">Liczba</th>
-    <th scope="col">Opcje</th>
   </tr>
 </thead>
 <tbody>
@@ -43,7 +42,6 @@ require_once 'cutlogic.php';
 <td><?php echo $row['CZESC']; ?></td>
 <td><?php echo $row['CZDLU']; ?></td>
 <td><?php echo $row['CNT']; ?></td>
-<td><?php if($row['checkpr'] == 1) { ?><Button class='btn btn-success btn-sm' disabled>Zakończono</Button><?php } else { ?><?php if(isUserCutlogic()) { ?><Button class='btn btn-primary btn-sm'>Zakończ</Button><?php } ?><?php } ?></td>
 </tr>
   <?php } ?>
 </tbody>
@@ -55,23 +53,6 @@ require_once 'cutlogic.php';
 <script>
 
     $(document).ready(function() {
-    $('.btn-primary').on('click', function() {
-        var button = $(this);
-        var rowId = button.closest('tr').attr('value'); // Pobierz ID z atrybutu 'value' rodzica przycisku
-
-        // Wywołaj AJAX, aby zaktualizować dane w bazie danych
-        $.ajax({
-            url: 'updatecut.php', // Ścieżka do pliku PHP, który obsłuży aktualizację bazy danych
-            method: 'POST',
-            data: { rowId: rowId }, // Przesyłanie ID wiersza do serwera
-            success: function(response) {
-                console.log(response); // Wyświetl odpowiedź z serwera w konsoli przeglądarki
-                button.text('Zakończono'); // Zmień tekst przycisku na "Zakończono"
-                button.removeClass('btn-primary').addClass('btn-success'); // Zmień styl przycisku na zielony
-                button.prop('disabled', true); // Zablokuj przycisk, aby uniknąć kolejnych kliknięć
-            }
-        });
-    });
     $('#myTable').DataTable();
 });
 </script>

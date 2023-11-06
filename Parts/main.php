@@ -358,7 +358,7 @@ border-radius: 10px;
               echo "<tr>";
             }
             
-             } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+             } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie" or $data['maszyna']=="Pila") and $szer < 100) {
            echo '<tr id="myRow" onclick="handleClick(this);">';
              }
           ?>
@@ -435,7 +435,7 @@ border-radius: 10px;
 
     if ($szer >= 100  ) {
       echo "<tr>";
-       } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie") and $szer < 100) {
+       } else if(($data['maszyna']=="" or $data['maszyna']=="Recznie" or $data['maszyna']=="Kooperacyjnie" or $data['maszyna']=="Pila") and $szer < 100) {
      echo '<tr id="myRow" onclick="handleClick(this);">';
        }
     ?>
@@ -508,6 +508,7 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
 <?php if (isUserPartsKier() && isUserParts()) { ?>
   <form method="POST" action="statuschange.php">
   <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz</button>
+  <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">Kooperacyjnie</button>
         </form>
         <?php } ?>
 
@@ -516,7 +517,7 @@ echo $view->render($pagerfanta, $options['routeGenerator'], $options);
   <div class="btn-group me-2" role="group" aria-label="Second group">
     <?php if (!isUserParts()) { ?>
       <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie</button>
-      <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Kooperacyjnie</button>
+      <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila</button>
       <?php } ?>
       <?php if (isUserParts()) { ?>
       <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
@@ -669,7 +670,7 @@ var jsonData = '<?php echo $jsonData; ?>';
 
             <select class="form-control" name="maszyna" required>
               <option value="Recznie" selected>Recznie</option>
-              <option value="Kooperacyjnie">Kooperacyjnie</option>
+              <option value="Pila">Pila</option>
             </select>
           <?php } ?>
         </div>
@@ -719,7 +720,7 @@ var jsonData = '<?php echo $jsonData; ?>';
               </select> <?php
 
                       } else if (!isUserPartsKier()) { ?>
-              <input type="text" class="form-control" id="user-number" name="user-number">
+              <input type="number" class="form-control" id="user-number" name="user-number">
             <?php } ?>
           </div>
 
@@ -930,6 +931,25 @@ const pageItems = document.querySelectorAll('.pagination li');
   function sendSelectedRowsToPHP1() {
     var xhr = new XMLHttpRequest();
     var url = 'zakoncz1.php';
+    var params = 'selectedrow=' + JSON.stringify(selectedrow);
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // Odpowiedź z serwera
+        console.log(xhr.responseText);
+        location.reload();
+      }
+    };
+
+    xhr.send(params);
+  }
+
+  function sendSelectedRowsToPHP2() {
+    var xhr = new XMLHttpRequest();
+    var url = 'zakoncz2.php';
     var params = 'selectedrow=' + JSON.stringify(selectedrow);
 
     xhr.open('POST', url, true);
