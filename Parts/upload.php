@@ -2,6 +2,13 @@
 require 'vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+
+require_once('../auth.php');
+
+if(!isLoggedIn()){
+    header('Location: ../index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +16,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
     <title>Parts</title>
     <?php require_once('globalhead.php') ?>
 </head>
-<body class = "bg-secondary p-2 text-dark bg-opacity-25">
+<body class = "p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<input type="hidden" id="darkModeButton" />
     <br />
     <div class="container">
     <form action="" method="POST" enctype="multipart/form-data">
@@ -17,13 +25,13 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
         <input type="file" class="form-control" id="customFile"  name="excelFile" accept=".xlsx, .xls"/>
         <p class="text-muted"><h6>Akceptowalne roszerzenie .xls i .xlsx</h6></p>
         <button type="submit" name="submit" class="btn btn-outline-warning text-dark">Wyślij</button>
-        <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Anuluj</a>
+        <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Wróć</a>
     </form>
     </div>
     <?php
     if (isset($_POST['submit'])) {
         require_once('dbconnect.php');
-
+        
         if (isset($_FILES['excelFile'])) {
             $file = $_FILES['excelFile'];
 
@@ -42,20 +50,67 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                     $worksheet = $spreadsheet->getActiveSheet();
                     $rows = $worksheet->toArray(null, true, true, true);
                     $isFirstRow = true;
+
+                    $sqlimport="Select Max(Id_import) as import from dbo.Parts";
+                        $resultimport = sqlsrv_query($conn, $sqlimport);
+                    while ($row = sqlsrv_fetch_array($resultimport, SQLSRV_FETCH_ASSOC)) {
+                        $id_import=$row['import'];
+                    }
+                    $id_import++;
+                    echo $id_import;
                     foreach ($rows as $row) {
                         if ($isFirstRow) {
                             $isFirstRow = false;
                             continue;
                         }
-                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
+
+                        if (strpos($row['C'], 'rev') !== false) {
+                            $dlugoscCiągu = strlen($row['C']);
+                            $tekstBezOstatnichCyfr = substr($row['C'], 0, $dlugoscCiągu - 5);
+                            $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                            $result = sqlsrv_query($conn, $sql);
+                            if (!sqlsrv_has_rows($result)) {
+                                $tekst=$tekstBezOstatnichCyfr.'%';
+                                $sql1 = "UPDATE [PartCheck].[dbo].[Parts] SET
+                                    [lock] = 1
+                                    WHERE Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+                                    
+                                sqlsrv_query($conn, $sql1);
+
+                                $sqlinsert = "INSERT INTO [PartCheck].[dbo].[Product_Recznie] (Projekt, Pozycja)
+                                SELECT Projekt, Pozycja
+                                FROM [PartCheck].[dbo].[Parts]
+                                where Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+
+                                sqlsrv_query($conn, $sqlinsert);
+                                
+                            }
+                        }
+                        
+                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
                         $result = sqlsrv_query($conn, $sql);
+                        
                         if (sqlsrv_has_rows($result)) {
-                            $sql = "UPDATE Parts SET [Zespol] = '{$row['A']}', [Pozycja] = '{$row['B']}', [Ilosc] = {$row['C']}, [Profil] = '{$row['D']}', [Material] = '{$row['E']}', [Dlugosc] = '{$row['F']}', [Ciezar] = '{$row['G']}', [Calk_ciez] = '{$row['H']}', [Uwaga] = '{$row['I']}' WHERE Zespol = '{$row['A']}' AND Pozycja = '{$row['B']}'";
+                            $sql = "UPDATE Parts SET
+                                [Zespol] = '{$row['B']}',
+                                [Pozycja] = '{$row['C']}',
+                                [Ilosc] = '{$row['D']}',
+                                [Profil] = '{$row['E']}',
+                                [Material] = '{$row['F']}',
+                                [Dlugosc] = '{$row['G']}',
+                                [Ciezar] = '{$row['H']}',
+                                [Calk_ciez] = '{$row['I']}',
+                                [Uwaga] = '{$row['J']}',
+                                [Projekt] = '{$row['A']}'
+                                WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                                
                             sqlsrv_query($conn, $sql);
                             continue;
                         }
+                
+                        $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga], [Id_import])
+                                VALUES ('{$row['A']}', '{$row['B']}', '{$row['C']}', '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}', '{$id_import}')";
 
-                        $sql = "INSERT INTO Parts ([Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga]) VALUES ('{$row['A']}', '{$row['B']}', {$row['C']}, '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}')";
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();
                         }
@@ -67,7 +122,12 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
                 echo "Wystąpił błąd podczas przesyłania pliku na serwer.";
             }
         }
-
+        if($_SESSION['imie_nazwisko']==""){
+            logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania'. $id_import);
+          }else{
+            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania'. $id_import);
+          }
+        
         sqlsrv_close($conn);
     }
     ?>
