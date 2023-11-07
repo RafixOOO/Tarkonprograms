@@ -73,8 +73,8 @@ foreach ($differences as $difference) {
     $sqlInsertQuery = "INSERT INTO PartCheck.dbo.cutlogic (ID, PROGRAM, PROJEKT, OPIS, DLUGOSC, RESZTKI, CZESC, CZDLU, CNT) 
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = array(
-        $difference['id'], $difference['program'], $difference['projekt'], $difference['opis'], 
-        $difference['Dlugosc'], $difference['Resztki'], $difference['czesc'], $difference['czdlu'], $difference['CNT']
+        $difference['ID'], $difference['PROGRAM'], $difference['PROJEKT'], $difference['OPIS'], 
+        $difference['DLUGOSC'], $difference['RESZTKI'], $difference['CZESC'], $difference['CZDLU'], $difference['CNT']
     );
 
     $stmt = sqlsrv_query($conn1, $sqlInsertQuery, $params);
