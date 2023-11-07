@@ -49,7 +49,9 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
             <li><a class="dropdown-item" href="../parts/dozrobienia.php">Gotowe</a></li>
-            <li><a class="dropdown-item" href="../parts/upload.php">Wyślij</a></li>
+            <?php if(isUserParts()){ ?>
+            <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
+            <?php } ?>
           </ul>
         </li>
         <?php } ?>
