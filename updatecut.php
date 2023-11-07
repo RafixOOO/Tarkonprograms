@@ -7,10 +7,10 @@ $username = 'SYSDBA'; // Nazwa użytkownika bazy danych Firebird
 $password = 'masterkey'; // Hasło użytkownika bazy danych Firebird
 
 // Nawiąż połączenie z bazą danych Firebird
-$conn = odbc_connect($dsn, $username, $password);
+$conn1 = odbc_connect($dsn, $username, $password);
 
 // Sprawdź czy udało się nawiązać połączenie
-if (!$conn) {
+if (!$conn1) {
     die('Błąd połączenia z bazą danych: ' . odbc_errormsg());
 }
 
@@ -28,7 +28,7 @@ AND p2.DES1 != ''
 GROUP BY p.NAME, p.DES1, s.DES1, s.LEN*0.1, p2.DES1, p2.LEN*0.1, p2.CNT, p2.ID, p2.NUM, s.LEN 
 ORDER BY p2.ID DESC";
 
-$result = odbc_exec($conn, $sql);
+$result = odbc_exec($conn1, $sql);
 
 // Sprawdź czy udało się wykonać zapytanie
 if (!$result) {
@@ -77,15 +77,14 @@ foreach ($differences as $difference) {
         $difference['DLUGOSC'], $difference['RESZTKI'], $difference['CZESC'], $difference['CZDLU'], $difference['CNT']
     );
 
-    $stmt = sqlsrv_query($conn1, $sqlInsertQuery, $params);
+    $stmt = sqlsrv_query($conn, $sqlInsertQuery, $params);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
 }
 
 // Zamknij połączenia
-odbc_close($conn);
-sqlsrv_close($conn1);
+odbc_close($conn1);
 
 echo 'Różnice zostały dodane do bazy danych SQL Server.';
 ?>
