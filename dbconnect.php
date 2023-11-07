@@ -6,8 +6,8 @@ $connectionOptions = array(
     "PWD" => "Shark1445NE\$T"
 );
 
-$conn = sqlsrv_connect($serverName, $connectionOptions);
-if ($conn === false) {
+$conn1 = sqlsrv_connect($serverName, $connectionOptions);
+if ($conn1 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
