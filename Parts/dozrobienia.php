@@ -134,7 +134,10 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
     ?>
       <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
         <div id="<?php echo 'collapse' . $data['id']; ?>" class="card mb-3">
-          <div class="card-header"><?php echo $data['zespol'] . ' ' . $data['ilosc']; ?></div>
+          <div class="card-header">
+        <span><?php echo $data['zespol'] ?></span>
+        <span class="float-end"><?php echo $data['ilosc']; ?></span>
+        </div>
           <div class="card-body">
             <p class="card-text">
               <?php foreach ($dataresult1 as $data1) : ?>
