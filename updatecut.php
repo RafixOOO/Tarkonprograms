@@ -42,7 +42,7 @@ while ($row = odbc_fetch_array($result)) {
 }
 
 $sqlServerQuery = "SELECT ID, PROGRAM, PROJEKT, OPIS, DLUGOSC, RESZTKI, CZESC, CZDLU, CNT FROM PartCheck.dbo.cutlogic";
-$sqlServerResult = sqlsrv_query($conn1, $sqlServerQuery);
+$sqlServerResult = sqlsrv_query($conn, $sqlServerQuery);
 if ($sqlServerResult === false) {
     die(print_r(sqlsrv_errors(), true));
 }
