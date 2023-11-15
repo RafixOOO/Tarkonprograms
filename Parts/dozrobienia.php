@@ -3,7 +3,7 @@
 require_once("dbconnect.php");
 
 
-$projekt = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+$projekt = isset($_GET['keywords']) ? $_GET['keywords'] : 'Nazwa projektu lub detalu';
 
 
 $sqlmesser = "SELECT Distinct
@@ -17,7 +17,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[PartName] COLLATE Latin1_General_CS_AS) as ilosc_full
 ,sum(b.[QtyProgram]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[PartArchive_Messer] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[PartName] = p.[Pozycja] COLLATE Latin1_General_CS_AS
-where p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
+where p.[Pozycja] !='' and p.[Zespol] LIKE '$projekt%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[PartName],p.Zespol,p.[Ilosc]";
 $datasmesser = sqlsrv_query($conn, $sqlmesser);
 
@@ -33,7 +33,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc_full
 ,sum(b.[AmountDone]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
-where p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
+where p.[Pozycja] !='' and p.[Zespol] LIKE '$projekt%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Name],p.Zespol,p.[Ilosc]
 ";
 $datasv630 = sqlsrv_query($conn, $sqlv630);
@@ -58,7 +58,7 @@ AND NOT EXISTS (
     SELECT 1
     FROM dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
-) and p.[Pozycja] !='' and p.[Projekt]='$projekt' and p.lock is NULL
+) and p.[Pozycja] !='' and p.[Zespol] LIKE '$projekt%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Pozycja],p.Zespol,p.[Ilosc]";
 $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 
@@ -67,14 +67,14 @@ $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 $sqlproject = "SELECT Distinct
 (select max(p1.[Id])
 from [PartCheck].[dbo].[Parts] p1
-where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[Projekt]='$projekt') as id,
+where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[Zespol] LIKE '$projekt%') as id,
 p.[Projekt] as ProjectName,
 p.[Zespol] AS zespol
 ,(select p1.[Ilosc]
 from [PartCheck].[dbo].[Parts] p1
 where p.[Zespol]=p1.Zespol and p1.[Pozycja] ='') as ilosc
 from [PartCheck].[dbo].[Parts] as p
-where p.[Pozycja] !='' and p.[Projekt]='$projekt'
+where p.[Pozycja] !='' and p.[Zespol] LIKE '$projekt%'
 group by p.[Projekt], p.[Zespol],p.[Ilosc]";
 $datasproject = sqlsrv_query($conn, $sqlproject);
 
@@ -118,7 +118,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   <div class="container-xl">
     <form method="get" action="">
       <div class="input-group">
-        <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Nazwa projektu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>"> <button class="btn btn-primary" type="submit">Szukaj</button>
       </div>
     </form>
     <br />
