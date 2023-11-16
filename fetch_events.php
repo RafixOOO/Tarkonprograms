@@ -53,9 +53,9 @@ while ($row1 = sqlsrv_fetch_array($stmtMesser, SQLSRV_FETCH_ASSOC)) {
 $sqlr="SELECT
 p.[Pozycja]
 ,CAST(p.Data AS DATE) AS ModificationDate
-,p.[Osoba]
+,p.[Maszyna]
 FROM [PartCheck].[dbo].[Product_Recznie] p
-group by p.[Pozycja],CAST(p.Data AS DATE),p.[Osoba]";
+group by p.[Pozycja],CAST(p.Data AS DATE),p.[Maszyna]";
 
 $stmtRecznie = sqlsrv_query($conn, $sqlr);
 
@@ -65,7 +65,7 @@ if ($stmtRecznie === false) {
 
 while ($row2 = sqlsrv_fetch_array($stmtRecznie, SQLSRV_FETCH_ASSOC)) {
     $events[] = array(
-        "groupId" => $row2["Osoba"],
+        "groupId" => $row2["Maszyna"],
         "title" => $row2["Pozycja"],
         "start" => $row2["ModificationDate"]->format('Y-m-d'),
         "color" => "#C13A1D"
