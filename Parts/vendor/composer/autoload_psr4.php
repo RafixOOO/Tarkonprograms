@@ -6,11 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
-    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
-    'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
-    'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'Pagerfanta\\Twig\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Twig'),
     'Pagerfanta\\Solarium\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Solarium'),
     'Pagerfanta\\Elastica\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Elastica'),
@@ -20,6 +15,4 @@ return array(
     'Pagerfanta\\Doctrine\\DBAL\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/DBAL'),
     'Pagerfanta\\Doctrine\\Collections\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/Collections'),
     'Pagerfanta\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Core'),
-    'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
-    'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
 );

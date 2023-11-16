@@ -1,8 +1,6 @@
 <?php
 require 'vendor\autoload.php';
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
-
 require_once('../auth.php');
 
 if(!isLoggedIn()){
@@ -21,9 +19,9 @@ if(!isLoggedIn()){
     <br />
     <div class="container">
     <form action="" method="POST" enctype="multipart/form-data">
-        <label class="form-label" for="customFile">Przesyłanie pliku Excel</label>
-        <input type="file" class="form-control" id="customFile"  name="excelFile" accept=".xlsx, .xls"/>
-        <p class="text-muted"><h6>Akceptowalne roszerzenie .xls i .xlsx</h6></p>
+        <label class="form-label" for="customFile">Przesyłanie pliku CSV</label>
+        <input type="file" class="form-control" id="customFile" name="csvFile" accept=".csv"/>
+        <p class="text-muted"><h6>Akceptowalne rozszerzenie .csv</h6></p>
         <button type="submit" name="submit" class="btn btn-outline-warning text-dark">Wyślij</button>
         <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Wróć</a>
     </form>
@@ -32,12 +30,12 @@ if(!isLoggedIn()){
     if (isset($_POST['submit'])) {
         require_once('dbconnect.php');
         
-        if (isset($_FILES['excelFile'])) {
-            $file = $_FILES['excelFile'];
+        if (isset($_FILES['csvFile'])) {
+            $file = $_FILES['csvFile'];
 
             $fileType = pathinfo($file['name'], PATHINFO_EXTENSION);
-            if ($fileType != 'xlsx' && $fileType != 'xls') {
-                die("Niewłaściwy format pliku. Akceptowane rozszerzenia to .xlsx i .xls.");
+            if ($fileType != 'csv') {
+                die("Niewłaściwy format pliku. Akceptowane rozszerzenie to .csv.");
             }
 
             $targetDirectory = "Files/";
@@ -45,11 +43,7 @@ if(!isLoggedIn()){
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
                 echo "Plik został przesłany i zapisany na serwerze.";
 
-                try {
-                    $spreadsheet = IOFactory::load($targetFile);
-                    $worksheet = $spreadsheet->getActiveSheet();
-                    $rows = $worksheet->toArray(null, true, true, true);
-                    $isFirstRow = true;
+                
 
                     $sqlimport="Select Max(Id_import) as import from dbo.Parts";
                         $resultimport = sqlsrv_query($conn, $sqlimport);
@@ -57,77 +51,97 @@ if(!isLoggedIn()){
                         $id_import=$row['import'];
                     }
                     $id_import++;
+                    $isFirstRow = 0;
                     echo $id_import;
-                    foreach ($rows as $row) {
-                        if ($isFirstRow) {
-                            $isFirstRow = false;
+                    if (($handle = fopen($targetFile, "r")) !== FALSE) {
+                        while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+
+                            if (!empty($data[0])) {
+
+                        if ($isFirstRow==2) {
+                            $isFirstRow++;
                             continue;
                         }
 
-                        if (strpos($row['C'], 'rev') !== false) {
-                            $dlugoscCiągu = strlen($row['C']);
-                            $tekstBezOstatnichCyfr = substr($row['C'], 0, $dlugoscCiągu - 5);
-                            $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                        if (strpos($data[2], 'rev') !== false) {
+                            $dlugoscCiągu = strlen($data['2']);
+                            $tekstBezOstatnichCyfr = substr($data['2'], 0, $dlugoscCiągu - 5);
+                            $sql = "SELECT * FROM Parts WHERE Zespol = '{$data['1']}' AND Pozycja = '{$data['2']}'";
                             $result = sqlsrv_query($conn, $sql);
                             if (!sqlsrv_has_rows($result)) {
                                 $tekst=$tekstBezOstatnichCyfr.'%';
                                 $sql1 = "UPDATE [PartCheck].[dbo].[Parts] SET
                                     [lock] = 1
-                                    WHERE Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+                                    WHERE Zespol = '{$data['1']}' and Pozycja LIKE '{$tekst}'";
                                     
                                 sqlsrv_query($conn, $sql1);
 
                                 $sqlinsert = "INSERT INTO [PartCheck].[dbo].[Product_Recznie] (Projekt, Pozycja)
                                 SELECT Projekt, Pozycja
                                 FROM [PartCheck].[dbo].[Parts]
-                                where Zespol = '{$row['B']}' and Pozycja LIKE '{$tekst}'";
+                                where Zespol = '{$data['1']}' and Pozycja LIKE '{$tekst}'";
 
                                 sqlsrv_query($conn, $sqlinsert);
                                 
                             }
                         }
                         
-                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                        $sql = "SELECT * FROM Parts WHERE Zespol = '{$data['1']}' AND Pozycja = '{$data['2']}'";
                         $result = sqlsrv_query($conn, $sql);
                         
                         if (sqlsrv_has_rows($result)) {
                             $sql = "UPDATE Parts SET
-                                [Zespol] = '{$row['B']}',
-                                [Pozycja] = '{$row['C']}',
-                                [Ilosc] = '{$row['D']}',
-                                [Profil] = '{$row['E']}',
-                                [Material] = '{$row['F']}',
-                                [Dlugosc] = '{$row['G']}',
-                                [Ciezar] = '{$row['H']}',
-                                [Calk_ciez] = '{$row['I']}',
-                                [Uwaga] = '{$row['J']}',
-                                [Projekt] = '{$row['A']}'
-                                WHERE Zespol = '{$row['B']}' AND Pozycja = '{$row['C']}'";
+                                [Zespol] = '{$data['1']}',
+                                [Pozycja] = '{$data['2']}',
+                                [Ilosc] = '{$data['3']}',
+                                [Profil] = '{$data['4']}',
+                                [Material] = '{$data['5']}',
+                                [Dlugosc] = '{$data['6']}',
+                                [Ciezar] = '{$data['7']}',
+                                [Calk_ciez] = '{$data['8']}',
+                                [Uwaga] = '{$data['9']}',
+                                [Projekt] = '{$data['0']}'
+                                WHERE Zespol = '{$data['1']}' AND Pozycja = '{$data['2']}'";
                                 
                             sqlsrv_query($conn, $sql);
                             continue;
                         }
                 
                         $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga], [Id_import])
-                                VALUES ('{$row['A']}', '{$row['B']}', '{$row['C']}', '{$row['D']}', '{$row['E']}', '{$row['F']}', '{$row['G']}', '{$row['H']}', '{$row['I']}', '{$row['J']}', '{$id_import}')";
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                        $params = array(
+                            $data[0], // Projekt
+                            $data[1], // Zespol
+                            $data[2], // Pozycja
+                            $data[3], // Ilosc
+                            $data[4], // Profil
+                            $data[5], // Material
+                            $data[6], // Dlugosc
+                            $data[7], // Ciezar
+                            $data[8], // Calk_ciez
+                            $data[9], // Uwaga
+                            $id_import // Id_import
+                        );
+                        // Użyj prepared statement, aby uniknąć problemów z SQL Injection
+                        $stmt = sqlsrv_prepare($conn, $sql, $params);
+                    }
+                    }
 
                         if (sqlsrv_query($conn, $sql) === False) {
                             echo "Błąd podczas zapisywania danych do bazy danych: " . sqlsrv_errors();
                         }
                     }
-                } catch (Exception $e) {
-                    die('Wystąpił błąd podczas wczytywania pliku Excel: ' . $e->getMessage());
-                }
             } else {
                 echo "Wystąpił błąd podczas przesyłania pliku na serwer.";
             }
         }
         if($_SESSION['imie_nazwisko']==""){
-            logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania'. $id_import);
+            logUserActivity($wykonawca,'Zaktualizował aplikację parts dodając nowy plik do wczytania '. $id_import);
           }else{
-            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania'. $id_import);
+            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts dodając nowy plik do wczytania '. $id_import);
           }
-        
+          fclose($handle);
         sqlsrv_close($conn);
     }
     ?>
