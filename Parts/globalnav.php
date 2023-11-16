@@ -49,7 +49,7 @@
             <li><a class="dropdown-item" href="main.php">Programy</a></li>
             <li><a class="dropdown-item" href="dozrobienia.php">Gotowe</a></li>
             <?php if(isUserParts()){ ?>
-            <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
+            <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
             <?php } ?>
           </ul>
         </li>
