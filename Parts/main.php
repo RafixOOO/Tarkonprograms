@@ -313,7 +313,7 @@ border-radius: 10px;
     
 <div class="mb-3" style="float:right;">
 
-        <form method="get" action="">
+        <form id="myForm" method="get" action="">
           <div class="input-group">
             <input type="text" class="form-control" name="keywords" placeholder="<?php echo $keywords; ?>" autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
@@ -760,6 +760,21 @@ var jsonData = '<?php echo $jsonData; ?>';
 
 <script src="../static/html2canvas.min.js"></script>
 <script>
+
+$(document).ready(function () {
+        // Obsługa zdarzenia zmiany checkboxa
+        $('#checkbox').change(function () {
+            // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
+            $('#myForm').submit();
+        });
+
+        // Obsługa zdarzenia zmiany pola select
+        $('#pageSizeSelect').change(function () {
+            // Wyślij formularz po zmianie wartości w polu select
+            $('#myForm').submit();
+        });
+    });
+
 $('html').addClass('js');
 
 
