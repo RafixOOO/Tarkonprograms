@@ -79,7 +79,7 @@ if($myVariable == 0 and $keywordArray == ''){
 
   return true;
 });
-$pageSizeOptions = [25, 100, 500, 1000, count($filteredData)];
+$pageSizeOptions = [25, 100, 500, 1000];
 $pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 25;
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
 $showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
