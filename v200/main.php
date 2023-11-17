@@ -4,23 +4,7 @@ $projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if(empty($projekt)){
 
 
-$sql="SELECT distinct
-Count(b.[Name]) as otowry,
-  a.[Diameter]
- ,b.[ProjectName]
- ,b.[Name]
- ,max(b.[AmountNeeded]) as need
- ,max(b.[AmountDone]) as done
-
-FROM [PartCheck].[dbo].[Hole_V200] a
-
-
-
-inner JOIN [PartCheck].[dbo].[Product_V200] b on (a.ProductId = b.Id)
-
-group by a.[Diameter]
- ,b.[ProjectName]
- ,b.[Name]";
+$sql="";
 }else{
     $sql="SELECT distinct
     Count(b.[Name]) as otowry,
@@ -87,7 +71,8 @@ group by a.[Diameter]
 <div class="container">
 <form method="get" action="">
           <div class="input-group">
-            <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Projekt..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+            <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Projekt..."> 
+            <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
 </form>
 <br />
