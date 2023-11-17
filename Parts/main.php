@@ -27,17 +27,22 @@ while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
   $dataresult[] = $data;
 }
 
+$myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
 $dataFrom = isset($_GET['dataFrom']) ? $_GET['dataFrom'] : '';
 $dataTo = isset($_GET['dataTo']) ? $_GET['dataTo'] : '';
-$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo) {
+$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo, $myVariable) {
+  if ($keywordArray !== '') {
   foreach ($keywordArray as $keyword) {
     $keyword = trim($keyword);
-    if ($keyword !== '') {
+    
       $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal' ]; // Dodaj więcej kolumn, jeśli jest potrzebne
       $matchesKeyword = false;
       foreach ($columnsToSearch as $column) {
+        if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
+          continue;
+        }
         $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
         if (stripos($columnValue, $keyword) !== false) {
           $matchesKeyword = true;
@@ -47,8 +52,14 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
       if (!$matchesKeyword) {
         return false;
       }
-    }
   }
+}
+
+if($myVariable == 0 and $keywordArray == ''){
+  if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1)) {
+    return false;
+  }
+}
 
   if ($dataFrom !== '') {
     $dataFrom = new DateTime($dataFrom);
@@ -317,6 +328,8 @@ border-radius: 10px;
             </option>
           <?php endforeach; ?>
         </select>
+        <label for="checkbox">Pokaż zakończone: </label>
+          <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
         </div>
         </form>
       
@@ -789,32 +802,8 @@ function generatePDF() {
     }
   });
 
+  doc.save('Raport.pdf');
 
-
-  var chartContainers = document.querySelectorAll('.carousel-inner');
-  var imgWidth = doc.internal.pageSize.height * 0.7; // Szerokość obrazka na połowę szerokości strony PDF
-  var imgHeight = 90; // Wysokość obrazka
-  var positionX = 70; // Pozycja X obrazka
-  var positionY = 10; // Pozycja Y obrazka
-  doc.addPage();
-  chartContainers.forEach(function (chartContainer, index) {
-
-      
-
-
-    html2canvas(chartContainer).then(function (canvas) {
-      var imgData = canvas.toDataURL('image/jpeg');
-
-      doc.addImage(imgData, 'JPEG', positionX, positionY, imgWidth, imgHeight);
-
-        positionY += imgHeight + 10;
-
-
-      if (index === chartContainers.length - 1) {
-        doc.save('Raport.pdf');
-      }
-    });
-  });
 }
 
 var currentPage = <?php echo isset($_GET['page']) ? $_GET['page'] : 1; ?>;

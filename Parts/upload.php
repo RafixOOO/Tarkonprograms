@@ -108,23 +108,9 @@ if(!isLoggedIn()){
                         }
                 
                         $sql = "INSERT INTO Parts ([Projekt], [Zespol], [Pozycja], [Ilosc], [Profil], [Material], [Dlugosc], [Ciezar], [Calk_ciez], [Uwaga], [Id_import])
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                        $params = array(
-                            $data[0], // Projekt
-                            $data[1], // Zespol
-                            $data[2], // Pozycja
-                            $data[3], // Ilosc
-                            $data[4], // Profil
-                            $data[5], // Material
-                            $data[6], // Dlugosc
-                            $data[7], // Ciezar
-                            $data[8], // Calk_ciez
-                            $data[9], // Uwaga
-                            $id_import // Id_import
-                        );
+                                VALUES ('{$data['0']}', '{$data['1']}', '{$data['2']}', '{$data['3']}', '{$data['4']}', '{$data['5']}', '{$data['6']}', '{$data['7']}', '{$data['8']}', '{$data['9']}', '{$id_import}')";
                         // Użyj prepared statement, aby uniknąć problemów z SQL Injection
-                        $stmt = sqlsrv_prepare($conn, $sql, $params);
+                        sqlsrv_query($conn, $sql);
                     }
                     }
 
