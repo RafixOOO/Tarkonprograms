@@ -41,7 +41,7 @@ if(!isLoggedIn()){
             $targetDirectory = "Files/";
             $targetFile = $targetDirectory . basename($file['name']);
             if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-                echo "Plik został przesłany i zapisany na serwerze.";
+                echo "Plik został przesłany i zapisany na serwerze. Numer Importu: ";
 
                 
 
