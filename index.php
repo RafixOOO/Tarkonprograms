@@ -10,8 +10,8 @@
 <?php require_once("globalnav.php"); ?>
 <button class="btn btn-primary float-end" onclick="searchByGroupId()">Szukaj</button>
 <select class="form-control w-25 float-end" name="evens" id="groupIdInput">
-  <option value="v630">v630</option>
-  <option value="messer">messer</option>
+  <option value="v630">V630</option>
+  <option value="messer">Messer</option>
   <option value="Pila">Pila</option>
   <option value="Recznie">Recznie</option>
   <option value="Kooperacyjnie">Kooperacyjnie</option>
