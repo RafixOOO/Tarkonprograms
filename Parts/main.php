@@ -313,7 +313,7 @@ border-radius: 10px;
     
 <div class="mb-3" style="float:right;">
 
-        <form id="myForm" method="get" action="">
+        <form id="myForm1" method="get" action="">
           <div class="input-group">
             <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
@@ -671,7 +671,6 @@ var jsonData = '<?php echo $jsonData; ?>';
           Zespół: <label id="zespolName" name="zespolName"></label><br />
           Detal: <label id="detalName" name="detalName"></label><br />
           <input type="hidden" name="detal">
-          <input type="hidden" name="numer">
           <br />
 
           <?php if (!isUserParts()) { ?>
@@ -765,13 +764,13 @@ $(document).ready(function () {
         // Obsługa zdarzenia zmiany checkboxa
         $('#checkbox').change(function () {
             // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
-            $('#myForm').submit();
+            $('#myForm1').submit();
         });
 
         // Obsługa zdarzenia zmiany pola select
         $('#pageSizeSelect').change(function () {
             // Wyślij formularz po zmianie wartości w polu select
-            $('#myForm').submit();
+            $('#myForm1').submit();
         });
     });
 
