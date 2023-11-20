@@ -671,6 +671,8 @@ var jsonData = '<?php echo $jsonData; ?>';
           Zespół: <label id="zespolName" name="zespolName"></label><br />
           Detal: <label id="detalName" name="detalName"></label><br />
           <input type="hidden" name="detal">
+          Numer pracownika: <label id="numerName" name="numerName"></label>
+          <input type="hidden" name="numer">
           <br />
 
           <?php if (!isUserParts()) { ?>
@@ -897,13 +899,16 @@ const pageItems = document.querySelectorAll('.pagination li');
     var projectNameDiv = document.querySelector('#mymodal #projectName');
     var zespolNameDiv = document.querySelector('#mymodal #zespolName');
     var detalNameDiv = document.querySelector('#mymodal #detalName');
+    var numerNameDiv = document.querySelector('#mymodal #numerName');
 
     projectNameDiv.innerHTML = projectName;
     zespolNameDiv.innerHTML = zespolName;
     detalNameDiv.innerHTML = detalName;
+    numerNameDiv.innerHTML = localStorage.getItem('number1');
 
     document.getElementById("myForm").elements.namedItem("project").setAttribute("value", projectName);
     document.getElementById("myForm").elements.namedItem("detal").setAttribute("value", detalName);
+    document.getElementById("myForm").elements.namedItem("numer").setAttribute("value", localStorage.getItem('number1'));
 
     $('#mymodal').modal('show');
   }
