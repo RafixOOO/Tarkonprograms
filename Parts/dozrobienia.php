@@ -128,11 +128,10 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
       </div>
     </form>
     <br />
-</body>
-</html>
-</script>
+    <a class="float-end" href='https://hrappka.budhrd.eu/work-time-register/index/488a3e4adca6545878db8ec4163c15fd#/'><button class="btn btn-warning">Hrappka</button></a>
 </div>
 <div class="container mt-5">
+  <br />
   <div class="row" id="masonry-grid">
     <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)) :
       $orange = 0;
