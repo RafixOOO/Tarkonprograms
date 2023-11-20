@@ -3,6 +3,8 @@
 require_once("dbconnect.php");
 
 
+
+$myVariable = isset($_GET['myCheckbox']) ? "Zespol" : "Pozycja";
 $projekt = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if($projekt == ''){
   $pro='+_+';
@@ -21,7 +23,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[PartName] COLLATE Latin1_General_CS_AS) as ilosc_full
 ,sum(b.[QtyProgram]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[PartArchive_Messer] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[PartName] = p.[Pozycja] COLLATE Latin1_General_CS_AS
-where p.[Pozycja] !='' and p.[Pozycja] LIKE '$pro%' and p.lock is NULL
+where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[PartName],p.Zespol,p.[Ilosc]";
 $datasmesser = sqlsrv_query($conn, $sqlmesser);
 
@@ -39,7 +41,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc_full
 ,sum(b.[AmountDone]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
-where p.[Pozycja] !='' and p.[Pozycja] LIKE '$pro%' and p.lock is NULL
+where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Name],p.Zespol,p.[Ilosc]
 ";
 $datasv630 = sqlsrv_query($conn, $sqlv630);
@@ -64,7 +66,7 @@ AND NOT EXISTS (
     SELECT 1
     FROM dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
-) and p.[Pozycja] !='' and p.[Pozycja] LIKE '$pro%' and p.lock is NULL
+) and p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Pozycja],p.Zespol,p.[Ilosc]";
 $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 
@@ -73,14 +75,14 @@ $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 $sqlproject = "SELECT Distinct
 (select max(p1.[Id])
 from [PartCheck].[dbo].[Parts] p1
-where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[Pozycja] LIKE '$pro%') as id,
+where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[".$myVariable."] LIKE '$pro%') as id,
 p.[Projekt] as ProjectName,
 p.[Zespol] AS zespol
 ,(select p1.[Ilosc]
 from [PartCheck].[dbo].[Parts] p1
 where p.[Zespol]=p1.Zespol and p1.[Pozycja] ='') as ilosc
 from [PartCheck].[dbo].[Parts] as p
-where p.[Pozycja] !='' and p.[Pozycja] LIKE '$pro%'
+where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%'
 group by p.[Projekt], p.[Zespol],p.[Ilosc]";
 $datasproject = sqlsrv_query($conn, $sqlproject);
 
@@ -114,7 +116,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
       background-color: #daecd1;
     }
     .yellow{
-      background-color: #fdf5afb2;
+      background-color: #fff06ee8;
     }
     </style>
 </head>
@@ -126,6 +128,8 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
       <div class="input-group">
         <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" value="<?php echo $projekt; ?>" placeholder="Nazwa detalu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
       </div>
+      <label for="checkbox">Szukaj po assembly: </label>
+          <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?>>
     </form>
     <br />
     <a class="float-end" href='https://hrappka.budhrd.eu/work-time-register/index/488a3e4adca6545878db8ec4163c15fd#/'><button class="btn btn-warning">Hrappka</button></a>
