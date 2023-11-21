@@ -129,8 +129,20 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" value="<?php echo $projekt; ?>" placeholder="Nazwa detalu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
       </div>
       <label for="checkbox">Szukaj po assembly: </label>
-          <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?>>
+          <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()">
     </form>
+    <script>
+    function updatePlaceholder() {
+      var inputElement = document.getElementsByName("keywords")[0];
+      var checkboxElement = document.getElementById("checkbox");
+
+      // Zaktualizuj placeholder w zależności od stanu checkboxa
+      inputElement.placeholder = checkboxElement.checked ? "Nazwa assembly..." : "Nazwa detalu...";
+    }
+
+    // Wywołaj funkcję przy załadowaniu strony, aby zainicjować odpowiedni placeholder
+    window.onload = updatePlaceholder;
+  </script>
     <br />
     <a class="float-end" href='https://hrappka.budhrd.eu/work-time-register/index/488a3e4adca6545878db8ec4163c15fd#/'><button class="btn btn-warning">Hrappka</button></a>
 </div>
