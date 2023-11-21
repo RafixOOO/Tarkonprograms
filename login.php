@@ -95,11 +95,17 @@ function logUserActivity($username, $operation) {
             </div>
             <br />
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Zaloguj</button>
-            <a href="index.php" type="button" class="btn btn-outline-success my-2 my-sm-0">Anuluj</a>
+            <a href="#" onclick="goBack()" type="button" class="btn btn-outline-success my-2 my-sm-0">Anuluj</a>
         </form>
             </div>
             <input type="hidden" id="darkModeButton" />
 </body>
+<script>
+    function goBack() {
+      // Przejdź do poprzedniej strony w historii przeglądarki
+      window.history.back();
+    }
+  </script>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];

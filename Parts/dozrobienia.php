@@ -122,7 +122,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
-  <?php require_once('globalnav.php'); ?>
+<?php require_once('globalnav.php'); ?>
   <div class="container-xl">
     <form method="get" action="">
       <div class="input-group">
