@@ -126,7 +126,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   <div class="container-xl">
     <form method="get" action="">
       <div class="input-group">
-        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" value="<?php echo $projekt; ?>" placeholder="Nazwa detalu..."> <button class="btn btn-primary" type="submit">Szukaj</button>
+        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" value="<?php echo $projekt; ?>" placeholder="Nazwa detalu..." autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
       </div>
       <label for="checkbox">Szukaj po assembly: </label>
           <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()">
