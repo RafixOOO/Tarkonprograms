@@ -37,7 +37,7 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
   foreach ($keywordArray as $keyword) {
     $keyword = trim($keyword);
     
-      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal' ]; // Dodaj więcej kolumn, jeśli jest potrzebne
+      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal']; // Dodaj więcej kolumn, jeśli jest potrzebne
       $matchesKeyword = false;
       foreach ($columnsToSearch as $column) {
         if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
