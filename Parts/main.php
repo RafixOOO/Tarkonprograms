@@ -439,7 +439,7 @@ border-radius: 10px;
   </tr>
 </thead>
 <tbody>
-<?php foreach ($currentPageResults as $data): 
+<?php foreach ($filteredData as $data): 
   if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
       $szer = 0;
     } else {
@@ -760,6 +760,7 @@ var jsonData = '<?php echo $jsonData; ?>';
 <script src="../static/jspdf.plugin.autotable.min.js"></script>
 
 <script src="../static/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 <script>
 
 $(document).ready(function () {
@@ -785,41 +786,16 @@ $(window).on("load", function() {
 
 
 function generatePDF() {
-  var doc = new jsPDF({
-    orientation: 'landscape'
-  });
+  var wb = XLSX.utils.book_new();
 
-  doc.setFont('Helvetica');
-  var tableTitleElement = document.getElementById('tableTitle');
-    var tableTitle = tableTitleElement.innerText;
+  // Dodaj arkusz do skoroszytu
+  var ws = XLSX.utils.table_to_sheet(document.getElementById('myTablereport'));
 
-    tableTitle = tableTitle.replace(/<br\s*\/?>/gi, '\n');
-  var table = document.getElementById('myTablereport');
+  // Ustaw tytuł arkusza
+  XLSX.utils.book_append_sheet(wb, ws, 'Raport');
 
-  var tableData = doc.autoTableHtmlToJson(table);
-
-
-  var pageWidth = doc.internal.pageSize.width;
-  var textWidth = doc.getTextWidth(tableTitle);
-  var textX = (pageWidth - textWidth) / 2;
-  var textY = 20; // Ustal wartość Y, aby umieścić tekst na górze strony
-
-  doc.setFontSize(18);
-  doc.setFontStyle('bold');
-  doc.text(tableTitle, textX, textY, { align: 'center' });
-
-  doc.autoTable({
-    head: [tableData.columns],
-    body: tableData.data,
-    startY: 30,
-    margin: { top: 10, bottom: 10 },
-    styles: {
-      fontSize: 8 // Rozmiar czcionki
-    }
-  });
-
-  doc.save('Raport.pdf');
-
+  // Zapisz skoroszyt do pliku Excel
+  XLSX.writeFile(wb, 'Raport.xlsx');
 }
 
 var currentPage = <?php echo isset($_GET['page']) ? $_GET['page'] : 1; ?>;
