@@ -6,10 +6,10 @@ require_once("dbconnect.php");
 
 $myVariable = isset($_GET['myCheckbox']) ? "Zespol" : "Pozycja";
 $projekt = isset($_GET['keywords']) ? $_GET['keywords'] : '';
-if($projekt == ''){
-  $pro='+_+';
-}else{
-  $pro=$projekt;
+if ($projekt == '') {
+  $pro = '+_+';
+} else {
+  $pro = $projekt;
 }
 
 $sqlmesser = "SELECT Distinct
@@ -23,7 +23,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[PartName] COLLATE Latin1_General_CS_AS) as ilosc_full
 ,sum(b.[QtyProgram]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[PartArchive_Messer] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[PartName] = p.[Pozycja] COLLATE Latin1_General_CS_AS
-where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
+where p.[Pozycja] !='' and p.[" . $myVariable . "] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[PartName],p.Zespol,p.[Ilosc]";
 $datasmesser = sqlsrv_query($conn, $sqlmesser);
 
@@ -41,7 +41,7 @@ from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc_full
 ,sum(b.[AmountDone]) AS ilosc_zrealizowana
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
-where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
+where p.[Pozycja] !='' and p.[" . $myVariable . "] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Name],p.Zespol,p.[Ilosc]
 ";
 $datasv630 = sqlsrv_query($conn, $sqlv630);
@@ -66,7 +66,7 @@ AND NOT EXISTS (
     SELECT 1
     FROM dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
-) and p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%' and p.lock is NULL
+) and p.[Pozycja] !='' and p.[" . $myVariable . "] LIKE '$pro%' and p.lock is NULL
 group by p.[Pozycja],p.[Projekt], p.[Status], b.[Pozycja],p.Zespol,p.[Ilosc]";
 $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 
@@ -75,14 +75,14 @@ $datasrecznie = sqlsrv_query($conn, $sqlrecznie);
 $sqlproject = "SELECT Distinct
 (select max(p1.[Id])
 from [PartCheck].[dbo].[Parts] p1
-where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[".$myVariable."] LIKE '$pro%') as id,
+where p.[Zespol]=p1.Zespol and p1.[Pozycja] !='' and p1.[" . $myVariable . "] LIKE '$pro%') as id,
 p.[Projekt] as ProjectName,
 p.[Zespol] AS zespol
 ,(select p1.[Ilosc]
 from [PartCheck].[dbo].[Parts] p1
 where p.[Zespol]=p1.Zespol and p1.[Pozycja] ='') as ilosc
 from [PartCheck].[dbo].[Parts] as p
-where p.[Pozycja] !='' and p.[".$myVariable."] LIKE '$pro%'
+where p.[Pozycja] !='' and p.[" . $myVariable . "] LIKE '$pro%'
 group by p.[Projekt], p.[Zespol],p.[Ilosc]";
 $datasproject = sqlsrv_query($conn, $sqlproject);
 
@@ -112,112 +112,114 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   require_once('../auth.php');
   ?>
   <style>
-    .green{
+    .green {
       background-color: #daecd1;
     }
-    .yellow{
+
+    .yellow {
       background-color: #fff06ee8;
     }
-    </style>
+  </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
-<?php require_once('globalnav.php'); ?>
+  <?php require_once('globalnav.php'); ?>
   <div class="container-xl">
     <form method="get" action="">
       <div class="input-group">
-        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" value="<?php echo $projekt; ?>" placeholder="Nazwa detalu..." autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
+        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>" autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
       </div>
       <label for="checkbox">Szukaj po assembly: </label>
-          <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()">
+      <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()">
     </form>
     <script>
-    function updatePlaceholder() {
-      var inputElement = document.getElementsByName("keywords")[0];
-      var checkboxElement = document.getElementById("checkbox");
+      function updatePlaceholder() {
+        var inputElement = document.getElementsByName("keywords")[0];
+        var checkboxElement = document.getElementById("checkbox");
+        // Zaktualizuj placeholder w zależności od stanu checkboxa
+        if('<?php echo $projekt; ?>'==''){
+        inputElement.placeholder = checkboxElement.checked ? "Nazwa assembly..." : "Nazwa detalu...";
+        }
+      }
 
-      // Zaktualizuj placeholder w zależności od stanu checkboxa
-      inputElement.placeholder = checkboxElement.checked ? "Nazwa assembly..." : "Nazwa detalu...";
-    }
-
-    // Wywołaj funkcję przy załadowaniu strony, aby zainicjować odpowiedni placeholder
-    window.onload = updatePlaceholder;
-  </script>
+      // Wywołaj funkcję przy załadowaniu strony, aby zainicjować odpowiedni placeholder
+      window.onload = updatePlaceholder;
+    </script>
     <br />
     <a class="float-end" href='https://hrappka.budhrd.eu/work-time-register/index/488a3e4adca6545878db8ec4163c15fd#/'><button class="btn btn-warning">Hrappka</button></a>
-</div>
-<div class="container mt-5">
-  <br />
-  <div class="row" id="masonry-grid">
-    <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)) :
-      $orange = 0;
-      $dark = 0;
-    ?>
-      <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
-        <div id="<?php echo 'collapse' . $data['id']; ?>" class="card mb-3">
-          <div class="card-header">
-        <span><?php echo $data['zespol'] ?></span>
-        <span class="float-end"><?php echo $data['ilosc']; ?></span>
-        </div>
-          <div class="card-body">
-            <p class="card-text">
-              <?php foreach ($dataresult1 as $data1) : ?>
-                <?php if ($data['zespol'] == $data1['zespol']) : ?>
-                  <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') : ?>
-            <div class="text-success">
-              <div>
-                <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
-                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
-              </div>
-            </div>
-          <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') :
-                    $orange = $orange + 1;
-          ?>
-            <div style="color:#a88102">
-              <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
-                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
-              </div>
-            </div>
-          <?php else :
-                    $dark = $dark + 1;
-          ?>
-            <div>
-              <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank"><?php echo $data1['Detal']; ?></a></span>
-                <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
-              </div>
-            </div>
-          <?php endif; ?>
-        <?php endif; ?>
-      <?php endforeach; ?>
-      </p>
-      <?php
-      if ($dark == 0 and $orange == 0) {
-        $id = 'collapse' . $data['id'];
-        echo "<script>";
-        echo "var row6 = document.getElementById('" . $id . "');";
-        echo "if (row6) {";
-        echo "  row6.classList.add('green');";
-        echo "}";
-        echo "</script>";
-      } elseif ($orange >= 1 and $dark == 0) {
-        $id = 'collapse' . $data['id'];
-        echo "<script>";
-        echo "var row6 = document.getElementById('" . $id . "');";
-        echo "if (row6) {";
-        echo "  row6.classList.add('yellow');";
-        echo "}";
-        echo "</script>";
-      }
+  </div>
+  <div class="container mt-5">
+    <br />
+    <div class="row" id="masonry-grid">
+      <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)) :
+        $orange = 0;
+        $dark = 0;
       ?>
+        <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
+          <div id="<?php echo 'collapse' . $data['id']; ?>" class="card mb-3">
+            <div class="card-header">
+              <span><?php echo $data['zespol'] ?></span>
+              <span class="float-end"><?php echo $data['ilosc']; ?></span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <?php foreach ($dataresult1 as $data1) : ?>
+                  <?php if ($data['zespol'] == $data1['zespol']) : ?>
+                    <?php if ($data1['ilosc_full'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') : ?>
+              <div class="text-success">
+                <div>
+                  <span title="Części są w pełni zakończone"><?php echo $data1['Detal']; ?></span>
+                  <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?></span>
+                </div>
+              </div>
+            <?php elseif ($data1['ilosc'] <= $data1['ilosc_zrealizowana'] and $data1['ilosc_zrealizowana'] != '') :
+                      $orange = $orange + 1;
+            ?>
+              <div style="color:#a88102">
+                <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                  <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
+                </div>
+              </div>
+            <?php else :
+                      $dark = $dark + 1;
+            ?>
+              <div>
+                <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" target="_blank"><?php echo $data1['Detal']; ?></a></span>
+                  <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
+                </div>
+              </div>
+            <?php endif; ?>
+          <?php endif; ?>
+        <?php endforeach; ?>
+        </p>
+        <?php
+        if ($dark == 0 and $orange == 0) {
+          $id = 'collapse' . $data['id'];
+          echo "<script>";
+          echo "var row6 = document.getElementById('" . $id . "');";
+          echo "if (row6) {";
+          echo "  row6.classList.add('green');";
+          echo "}";
+          echo "</script>";
+        } elseif ($orange >= 1 and $dark == 0) {
+          $id = 'collapse' . $data['id'];
+          echo "<script>";
+          echo "var row6 = document.getElementById('" . $id . "');";
+          echo "if (row6) {";
+          echo "  row6.classList.add('yellow');";
+          echo "}";
+          echo "</script>";
+        }
+        ?>
+            </div>
           </div>
         </div>
-      </div>
-    <?php endwhile; ?>
+      <?php endwhile; ?>
+    </div>
   </div>
-</div>
 
 
-</div>
+  </div>
 </body>
 <script src="../static/masonry.pkgd.min.js"></script>
 <script>

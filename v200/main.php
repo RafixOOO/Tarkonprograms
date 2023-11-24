@@ -3,7 +3,7 @@ require_once("dbconnect.php");
 $projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if(empty($projekt)){
 
-
+$projekt='Projekt...';
 $sql="";
 }else{
     $sql="SELECT distinct
@@ -71,7 +71,7 @@ $sql="";
 <div class="container">
 <form method="get" action="">
           <div class="input-group">
-            <input type="text" class="form-control" name="keywords" value="<?php echo $projekt; ?>" oninput="convertToUppercase(this)" placeholder="Projekt..."> 
+            <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>"> 
             <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
 </form>
