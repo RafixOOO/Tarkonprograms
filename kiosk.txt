@@ -4,14 +4,15 @@ browser=chrome
 homepage_append=hostname
 homepage=https://hrappka.budhrd.eu/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd
 allow_icmp_protocol=yes
-kiosk_config=http://10.100.100.66/programs/Tarkonprograms/kiosk.txt
+kiosk_config=http://messer.local/kiosk.txt
 root_password=12345678
 virtual_keyboard=yes
 vnc_interactive=yes
 removable_devices=yes
-screensaver_idle=5
+dpms_idle=1
 vnc_password=12345678
-session_idle_forced=5
 shutdown_menu=reboot shutdown
+managed_bookmarks=https://hrappka.budhrd.eu/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd|Hrappka| http://messer.local/parts/dozrobienia.php|Tarkonprograms| http://urlop.local|Urlopy|
+whitelist=https://hrappka.budhrd.eu http://messer.local http://urlop.local
 wallpaper=http://tarkon.eu/kiosks/wygaszacz.jpg
 additional_components=09-x11vnc.xzm uefi.zip 08-ssh.xzm

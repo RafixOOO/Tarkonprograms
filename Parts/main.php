@@ -748,7 +748,7 @@ $jsonData1 = json_encode($data);
               if (isUserPartsKier()) { ?>
                 <button id="submit-button" class="btn btn-default">Przejdź</button>
               <?php } else if (!isUserPartsKier()) { ?>
-                <a href="..\index.php" class="btn btn-default">Strona główna</a>
+                <a href="javascript:history.back()" class="btn btn-default">Wróć</a>
               <?php } ?>
             </div>
           </form>

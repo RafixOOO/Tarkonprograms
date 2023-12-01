@@ -15,7 +15,7 @@
       <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
         <?php
         // Lista zablokowanych adresów IP
-        $blockedIPs = array("10.100.100.74");
+        $blockedIPs = array("10.100.102.126");
 
         // Pobierz aktualny adres IP użytkownika
         $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
@@ -102,12 +102,23 @@
             </li>
 
           <?php } ?>
+          <?php
+        // Lista zablokowanych adresów IP
+        $blockedIPs = array("10.100.102.126");
+
+        // Pobierz aktualny adres IP użytkownika
+        $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+        // Sprawdź, czy adres IP użytkownika jest zablokowany
+        if (!in_array($userIP, $blockedIPs)) {
+        ?>
           <li class="dropdown-divider"></li>
           <?php if (isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
           <?php } ?>
           <?php if (!isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="../login.php">Zaloguj się</a></li>
+          <?php } ?>
           <?php } ?>
           </ul>
 
