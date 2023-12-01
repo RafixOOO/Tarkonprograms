@@ -14,5 +14,5 @@ vnc_password=12345678
 shutdown_menu=reboot shutdown
 managed_bookmarks=https://hrappka.budhrd.eu/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd|Hrappka| http://messer.local/parts/dozrobienia.php|Tarkonprograms| http://urlop.local|Urlopy|
 whitelist=https://hrappka.budhrd.eu http://messer.local http://urlop.local
-wallpaper=http://tarkon.eu/kiosks/wygaszacz.jpg
+wallpaper=http://messer.local/wygaszacz.jpg
 additional_components=09-x11vnc.xzm uefi.zip 08-ssh.xzm
