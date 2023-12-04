@@ -5,6 +5,7 @@ $sqlother = "SELECT
 p.Id_import as import
 ,v.[AmountNeeded] as ilosc_v200
 ,p.lock as lok
+,c.[PROGRAM] as cutlogic
 ,(
 SELECT SUM(v1.[AmountDone])
 FROM [PartCheck].[dbo].[Product_V200] v1

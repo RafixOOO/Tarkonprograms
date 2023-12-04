@@ -7,24 +7,36 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 // Now you can use the Utils class
 
-require_once 'othersql.php';
-
+$programs = isset($_GET['programs']) ? $_GET['programs'] : 'inne';
 $dataresult = array();
+if($programs == "inne" or $programs == "cutlogic"){
+
+
+require_once 'othersql.php';
 
 while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
   $dataresult[] = $dataot;
 }
+
+}
+
+if($programs == "messer"){
 
 require_once 'messer.php';
 
 while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   $dataresult[] = $datamesser;
 }
+}
+
+if($programs == "v630"){
+
 
 require_once 'v630.php';
 
 while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
   $dataresult[] = $data;
+}
 }
 
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
@@ -32,7 +44,7 @@ $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
 $dataFrom = isset($_GET['dataFrom']) ? $_GET['dataFrom'] : '';
 $dataTo = isset($_GET['dataTo']) ? $_GET['dataTo'] : '';
-$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo, $myVariable) {
+$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo, $myVariable, $programs) {
   if ($keywordArray !== '') {
     foreach ($keywordArray as $keyword) {
       $keyword = trim($keyword);
@@ -43,11 +55,26 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
         if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
           continue;
         }
+        if($programs=="cutlogic" and !empty($item['cutlogic'])){
+          $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+        if (stripos($columnValue, $keyword) !== false) {
+          $matchesKeyword = true;
+          break;
+        }
+        }else if($programs=="inne" and empty($item['cutlogic'])){
+          $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+          if (stripos($columnValue, $keyword) !== false) {
+            $matchesKeyword = true;
+            break;
+          }
+        
+      }else if($programs=="messer" or $programs=="v630"){
         $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
         if (stripos($columnValue, $keyword) !== false) {
           $matchesKeyword = true;
           break;
         }
+      }
       }
       if (!$matchesKeyword) {
         return false;
@@ -319,10 +346,27 @@ $jsonData1 = json_encode($data);
       <form id="myForm1" method="get" action="">
         <div class="input-group">
           <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
+          <select class="form-control" id="programs" name="programs">
+      <option value="inne" <?php echo $programs === "inne" ? 'selected' : ''; ?>>
+        INNE
+          </option>
+          <option value="cutlogic" <?php echo $programs === "cutlogic" ? 'selected' : ''; ?>>
+        CUTLOGIC
+          </option>
+          <option value="messer" <?php echo $programs === "messer" ? 'selected' : ''; ?>>
+        MESSER
+          </option>
+          <option value="v630" <?php echo $programs === "v630" ? 'selected' : ''; ?>>
+        V630
+          </option>
+      </select>
           <button class="btn btn-primary" type="submit">Szukaj</button>
           <a href="http://localhost/programs/Tarkonprograms/Parts/main.php"><button class="btn btn-secondary" type="button">Wyczyść</button></a>
+          <br />
         </div>
+        <div style="text-align:right;">
         od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
+      </div>
     </div>
     <div class="form-group" style="float:left;">
       <label for="pageSizeSelect">Liczba wyników na stronie:</label>
@@ -333,9 +377,10 @@ $jsonData1 = json_encode($data);
           </option>
         <?php endforeach; ?>
       </select>
+      
       <label for="checkbox">Pokaż zakończone: </label>
       <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
-    </div>
+      </div>
     </form>
 
     <div style="clear:both;"></div>

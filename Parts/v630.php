@@ -4,6 +4,7 @@ require_once("dbconnect.php");
 
 $sql = "SELECT Distinct 
 p.Id_import as import
+,'' as cutlogic
 ,p.lock as lok
 ,'' as wykonal,
 p.[Status] as status,
