@@ -1,7 +1,7 @@
 <?php
 require_once("dbconnect.php");
 
-$sqlother = "SELECT
+$sqlcut = "SELECT
 p.Id_import as import
 ,v.[AmountNeeded] as ilosc_v200
 ,p.lock as lok
@@ -21,7 +21,7 @@ p.[Status] as status,
 FROM [PartCheck].[dbo].[Parts] p2
 LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozycja] = ''
 WHERE p.[Pozycja] = p2.[Pozycja]
-)+ ' ' + COALESCE(NULLIF(c.[PROGRAM], ''), '') AS zespol,
+) AS zespol,
  (SELECT SUM(p2.Ilosc)
     FROM [PartCheck].dbo.Parts p2
     WHERE p.[Pozycja] = p2.[Pozycja]
@@ -75,14 +75,10 @@ AND NOT EXISTS (
     FROM [PartCheck].dbo.Product_V630 v
     WHERE p.Pozycja = v.Name
 )
-AND NOT EXISTS (
-    SELECT 1
-    FROM [PartCheck].[dbo].[cutlogic] c
-    WHERE p.[Pozycja]=c.[CZESC]
-)
+AND c.[PROGRAM]!=''
 and p.[Pozycja]!=''
 GROUP BY
 p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock,c.[PROGRAM]
 order by c.[PROGRAM],p.Id_import desc";
-$dataother = sqlsrv_query($conn, $sqlother);
+$datacut = sqlsrv_query($conn, $sqlcut);
 ?>

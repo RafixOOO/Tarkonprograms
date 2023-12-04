@@ -9,7 +9,14 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 $programs = isset($_GET['programs']) ? $_GET['programs'] : 'inne';
 $dataresult = array();
-if($programs == "inne" or $programs == "cutlogic"){
+if($programs == "cutlogic"){
+  require_once 'cutlogicsql.php';
+
+  while ($datacut1 = sqlsrv_fetch_array($datacut, SQLSRV_FETCH_ASSOC)) {
+    $dataresult[] = $datacut1;
+  }
+}
+if($programs == "inne"){
 
 
 require_once 'othersql.php';
@@ -49,31 +56,16 @@ $filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $
     foreach ($keywordArray as $keyword) {
       $keyword = trim($keyword);
 
-      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal']; // Dodaj więcej kolumn, jeśli jest potrzebne
+      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic']; // Dodaj więcej kolumn, jeśli jest potrzebne
       $matchesKeyword = false;
       foreach ($columnsToSearch as $column) {
         if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
           continue;
         }
-        if($programs=="cutlogic" and !empty($item['cutlogic'])){
-          $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
-        if (stripos($columnValue, $keyword) !== false) {
-          $matchesKeyword = true;
-          break;
-        }
-        }else if($programs=="inne" and empty($item['cutlogic'])){
-          $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+        $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
           if (stripos($columnValue, $keyword) !== false) {
             $matchesKeyword = true;
             break;
-          }
-        
-      }else if($programs=="messer" or $programs=="v630"){
-        $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
-        if (stripos($columnValue, $keyword) !== false) {
-          $matchesKeyword = true;
-          break;
-        }
       }
       }
       if (!$matchesKeyword) {
@@ -392,6 +384,7 @@ $jsonData1 = json_encode($data);
           <tr>
             <th scope="col">Project</th>
             <th scope="col" style="width:10em;">Assembly</th>
+            <th scope="col">Cutlogic</th>
             <th scope="col">Part</th>
             <th scope="col">Amount Need / Done</th>
             <th scope="col">V200</th>
@@ -430,6 +423,7 @@ $jsonData1 = json_encode($data);
                             } else {
                               echo $data['zespol'];
                             } ?></td>
+                            <td id="Program1"><?php echo $data['cutlogic'] ?></td>
             <td id="detal"><?php echo $data['Detal']; ?></td>
             <td>
               <div class="progress" style="height:25px;font-size: 16px;">
@@ -585,6 +579,11 @@ $jsonData1 = json_encode($data);
           <?php if (!isUserParts()) { ?>
             <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie</button>
             <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila</button>
+            <?php if($programs=="cutlogic"){ ?>
+            <div>
+            <button type="button" onclick="selectAllRows()" class="btn btn-warning btn-lg">Zaznacz wiele</button>
+            </div>
+            <?php } ?>
           <?php } ?>
           <?php if (isUserParts()) { ?>
             <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
@@ -755,6 +754,19 @@ $jsonData1 = json_encode($data);
           </div>
         </div>
       </div>
+      <div class="modal fade" id="programmodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Zaznaczone programy</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="selectedProgramsList"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
   </div>
   </div>
@@ -793,7 +805,7 @@ $jsonData1 = json_encode($data);
               if (isUserPartsKier()) { ?>
                 <button id="submit-button" class="btn btn-default">Przejdź</button>
               <?php } else if (!isUserPartsKier()) { ?>
-                <a href="javascript:history.back()" class="btn btn-default">Wróć</a>
+                <a href="..\login.php" class="btn btn-default">Zaloguj się</a>
               <?php } ?>
             </div>
           </form>
@@ -916,6 +928,52 @@ $jsonData1 = json_encode($data);
       selectedrow.splice(index, 1);
     }
   }
+
+  function selectAllRows() {
+    var tableRows = document.querySelectorAll('#myTable tbody tr');
+    var allSelected = true; // Zmienna do śledzenia, czy wszystkie wiersze są już zaznaczone
+    var program1Values = new Set(); // Zbiór do przechowywania unikalnych wartości z kolumny "program1"
+
+    tableRows.forEach(function(row) {
+        var hasClass = row.classList.contains("table-warning");
+        if (!hasClass) {
+            allSelected = false; // Ustaw, że nie wszystkie wiersze są zaznaczone
+            row.classList.add("table-warning");
+            addRowToSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+            program1Values.add(getColumnData(row, "Program1"));
+        }
+    });
+
+    // Jeśli wszystkie wiersze są już zaznaczone, to odznacz je
+    if (allSelected) {
+        tableRows.forEach(function(row) {
+            row.classList.remove("table-warning");
+            removeRowFromSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+        });
+    }
+
+    // Sprawdź unikalne wartości kolumny "program1"
+    if (program1Values.size > 1) {
+        // Wyświetl okno modalne
+        showModalDialog(program1Values);
+    }
+}
+
+function showModalDialog(program1Values) {
+    var modal = $('#programmodal');
+    var selectedProgramsList = $('#selectedProgramsList');
+
+    // Wyczyść listę programów przed dodaniem nowych
+    selectedProgramsList.empty();
+
+    // Dodaj zaznaczone programy do listy
+    program1Values.forEach(function(program) {
+        selectedProgramsList.append('<li>' + program + '</li>');
+    });
+
+    // Wyświetl okno modalne
+    modal.modal('show');
+}
 
   function doubleClickAction(row) {
     var projectName = row.querySelector('#project').innerHTML;
