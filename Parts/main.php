@@ -272,8 +272,8 @@ $jsonData1 = json_encode($data);
     .bottom-banner1 {
       background-color: orange;
       position: fixed;
-      bottom: 8px;
-      right: 40%;
+      bottom: 3%;
+      right: 35%;
       font-size: 18px;
       width: 15%;
       text-align: center;
