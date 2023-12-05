@@ -7,16 +7,16 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 // Now you can use the Utils class
 
-$programs = isset($_GET['programs']) ? $_GET['programs'] : 'inne';
+$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['inne'];
 $dataresult = array();
-if($programs == "cutlogic"){
+if(in_array("cutlogic", $programs)){
   require_once 'cutlogicsql.php';
 
   while ($datacut1 = sqlsrv_fetch_array($datacut, SQLSRV_FETCH_ASSOC)) {
     $dataresult[] = $datacut1;
   }
 }
-if($programs == "inne"){
+if(in_array("inne", $programs)){
 
 
 require_once 'othersql.php';
@@ -27,7 +27,7 @@ while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
 
 }
 
-if($programs == "messer"){
+if(in_array("messer", $programs)){
 
 require_once 'messer.php';
 
@@ -36,7 +36,7 @@ while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 }
 }
 
-if($programs == "v630"){
+if(in_array("v630", $programs)){
 
 
 require_once 'v630.php';
@@ -319,7 +319,9 @@ $jsonData1 = json_encode($data);
       margin: 20px;
     }
   </style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
@@ -338,25 +340,18 @@ $jsonData1 = json_encode($data);
       <form id="myForm1" method="get" action="">
         <div class="input-group">
           <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
-          <select class="form-control" id="programs" name="programs">
-      <option value="inne" <?php echo $programs === "inne" ? 'selected' : ''; ?>>
-        INNE
-          </option>
-          <option value="cutlogic" <?php echo $programs === "cutlogic" ? 'selected' : ''; ?>>
-        CUTLOGIC
-          </option>
-          <option value="messer" <?php echo $programs === "messer" ? 'selected' : ''; ?>>
-        MESSER
-          </option>
-          <option value="v630" <?php echo $programs === "v630" ? 'selected' : ''; ?>>
-        V630
-          </option>
-      </select>
+
           <button class="btn btn-primary" type="submit">Szukaj</button>
           <a href="http://localhost/programs/Tarkonprograms/Parts/main.php"><button class="btn btn-secondary" type="button">Wyczyść</button></a>
           <br />
         </div>
         <div style="text-align:right;">
+        <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control" name="test">
+      <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
+      <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
+      <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
+      <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
+    </select><br />
         od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
       </div>
     </div>
@@ -958,6 +953,10 @@ $jsonData1 = json_encode($data);
         showModalDialog(program1Values);
     }
 }
+
+$(".chosen-select").chosen({
+  no_results_text: "Oops, nothing found!"
+})
 
 function showModalDialog(program1Values) {
     var modal = $('#programmodal');
