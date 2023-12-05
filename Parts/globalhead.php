@@ -14,6 +14,8 @@
 <script src="../static/chart.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
 <script src="../static/popper.min.js"></script>
+<script src="../static/chosen.jquery.min.js"></script>
+<link href="../static/chosen.min.css" rel="stylesheet"/>
 <script>
  window.addEventListener('load', function() {
   var darkModeButton = document.getElementById('darkModeButton');
