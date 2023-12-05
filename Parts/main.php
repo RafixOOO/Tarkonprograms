@@ -343,12 +343,12 @@ $jsonData1 = json_encode($data);
           <br />
         </div>
         <div style="text-align:right;">
-        <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control" name="test">
-      <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
-      <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
-      <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
-      <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
-    </select><br />
+        <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control" name="programs[]">
+  <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
+  <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
+  <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
+  <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
+</select><br />
         od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
       </div>
     </div>
