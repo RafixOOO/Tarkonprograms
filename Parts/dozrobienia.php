@@ -176,7 +176,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                       $orange = $orange + 1;
             ?>
               <div style="color:#a88102">
-                <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&programs[]=inne&programs[]=cutlogic&dataFrom=&dataTo=&page_size=25" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
                   <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
                 </div>
               </div>
@@ -184,7 +184,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                       $dark = $dark + 1;
             ?>
               <div>
-                <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></span>
+                <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&programs[]=inne&programs[]=cutlogic&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></span>
                   <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
                 </div>
               </div>
