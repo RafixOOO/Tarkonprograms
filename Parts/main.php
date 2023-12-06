@@ -571,7 +571,7 @@ $jsonData1 = json_encode($data);
           <?php if (!isUserParts()) { ?>
             <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie</button>
             <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila</button>
-            <?php if($programs=="cutlogic"){ ?>
+            <?php if(in_array("cutlogic", $programs)){ ?>
             <div>
             <button type="button" onclick="selectAllRows()" class="btn btn-warning btn-lg">Zaznacz wiele</button>
             </div>
