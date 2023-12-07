@@ -29,8 +29,7 @@
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
             <li><a class="dropdown-item" href="main.php">Aktualne</a></li>
-            <li><a class="dropdown-item" href="wykonane.php">Wykonane</a></li>
-            <li><a class="dropdown-item" href="niewykonane.php">Niewykonane</a></li>
+            <li><a class="dropdown-item" href="wykonane.php">Zakończone</a></li>
           </ul>
         </li>
         <?php if(isUserParts()){ ?>

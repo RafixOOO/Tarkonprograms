@@ -29,9 +29,8 @@
           </a>
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
-            <li><a class="dropdown-item" href="messer/main.php">Aktualne</a></li>
-            <li><a class="dropdown-item" href="messer/wykonane.php">Wykonane</a></li>
-            <li><a class="dropdown-item" href="messer/niewykonane.php">Niewykonane</a></li>
+          <li><a class="dropdown-item" href="messer/main.php">Aktualne</a></li>
+            <li><a class="dropdown-item" href="messer/wykonane.php">Zakończone</a></li>
           </ul>
         </li>
 

@@ -92,13 +92,42 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             <td>
                                 <?php echo "$data[czaspalenia]"; ?>
                             </td>
-                        <?php }
-                }
-                sqlsrv_close($conn);
+                            </tr>
+                        <?php }else if ($data["Comment"] == "nie znaleziono arkusza" | $data["Comment"] == "zla jakosc otworow" | $data["Comment"] == "zla jakosc faz" | $data["Comment"] == "inne") { ?>
+                            <tr class="table-danger" id="<?php echo $data['ArchivePacketID'] ?>">
+                                <td>
+                                    <?php echo "$data[Comment] "; ?>
+                                </td>
+    
+                                <td>
+                                    <?php echo "$data[ProgramName]"; ?>
+                                </td>
+                                <td>
+                                    <?php echo "$data[SheetName]"; ?>
+                                </td>
+                                <td>
+                                    <?php echo "$data[Material]"; ?>
+                                </td>
+                                <td>
+                                    <?php echo "$data[Thickness]"; ?>
+                                </td>
+                                <td>
+                                    <?php echo ceil($data["SheetLength"]); ?>
+                                </td>
+                                <td>
+                                    <?php echo ceil($data["SheetWidth"]); ?>
+                                </td>
+                                <td>
+                                    <?php echo "$data[czaspalenia]"; ?>
+                                </td>
+                                </tr>
+                            <?php } ?>
+                            
+                <?php }
                 ?>
 
 
-                </tr>
+                
 
             </tbody>
         </table>
