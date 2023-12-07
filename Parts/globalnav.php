@@ -24,9 +24,11 @@
         if (!in_array($userIP, $blockedIPs)) {
         ?>
           <li class="nav-item text-center mx-2 mx-lg-1">
-            <a class="nav-link" aria-current="page" href="../index.php">
-              Strona główna
-            </a>
+          <?php if(isLoggedIn()){ ?>
+          <a class="nav-link" aria-current="page" href="../index.php">
+            Strona główna
+          </a>
+          <?php } ?>
           </li>
         <?php } ?>
         <?php if (isUserMesser()) { ?>

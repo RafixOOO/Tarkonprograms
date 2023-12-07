@@ -6,15 +6,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $comment = "";
     $id = "";
     $id = $_GET["id"];
+    $osoba = $_GET["numbermesser"];
     $sql = "SELECT [Comment] FROM [SNDBASE_PROD].[dbo].[Program] where [ArchivePacketID]=$id";
     $res = sqlsrv_query($conn, $sql);
     $row = sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC);
     $comment = "$row[Comment]";
 } else {
 
-    $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
+    if($_POST['comment']="wykonano"){
+        $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
+                    SET [Comment]='$_POST[numbermesser]'
+               where [ArchivePacketID]=$_POST[id]";
+
+    }else{
+        $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
                     SET [Comment]='$_POST[comment]'
                where [ArchivePacketID]=$_POST[id]";
+    }
+    
     sqlsrv_query($conn, $sql1);
     $tsql1 = "SELECT
         [ArchivePacketID]
@@ -54,20 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         <form method="Post">
 
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Kto wykonał? / Powód nie wykonania</label>
+                <label class="col-sm-3 col-form-label">Czy wykonano? / Powód nie wykonania</label>
                 <div class="col-sm-6" for="input-lg">
+                    <label>Pracownik: <?php echo $osoba; ?></label>
                     <select class="form-control" name="comment">
-                        <option value="<?php echo $comment; ?>" selected>
-                        </option>
-                        <option value="SYLWESTER WOZNIAK">Wykonano - SYLWESTER WOZNIAK</option>
-                        <option value="MARCIN MICHAS">Wykonano - MARCIN MICHAS</option>
-                        <option value="LUKASZ PASEK">Wykonano - LUKASZ PASEK</option>
-                        <option value="ARTUR BEDNARZ">Wykonano - ARTUR BEDNARZ</option>
-                        <option value="DARIUSZ MALEK">Wykonano - DARIUSZ MALEK</option>
-                        <option value="nie znaleziono arkusza">Nie Wykonano - nie znaleziono arkusza</option>
-                        <option value="zla jakosc otworow">Nie Wykonano - zła jakośc otworów </option>
-                        <option value="zla jakosc faz">Nie Wykonano - zła jakość faz </option>
-                        <option value="inne">Nie Wykonano - inne </option>
+                        <option value="wykonano" selected>Wykonano</option>
+                        <option value="nie znaleziono arkusza">nie znaleziono arkusza</option>
+                        <option value="zla jakosc otworow">zła jakośc otworów </option>
+                        <option value="zla jakosc faz">zła jakość faz </option>
+                        <option value="inne">inne</option>
                     </select>
                 </div>
             </div>
@@ -84,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     </div>
     <input type="hidden" name="id" value="<?php echo $id ?>" />
+    <input type="hidden" name="numbermesser" value="<?php echo $osoba ?>" />
     <input type="hidden" name="comment1" value="<?php echo $comment ?>" />
     </form>
     </div>

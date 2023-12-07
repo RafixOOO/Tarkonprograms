@@ -64,8 +64,11 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                 <?php
 
                 while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) { ?>
-
-                    <?php if ($data["Comment"] == "SYLWESTER WOZNIAK" | $data["Comment"] == "MARCIN MICHAS" | $data["Comment"] == "LUKASZ PASEK" | $data["Comment"] == "ARTUR BEDNARZ" | $data["Comment"] == "DARIUSZ MALEK") { ?>
+                    
+                    <?php 
+                    $kiersql = "Select * from PartCheck.dbo.Persons where [imie_nazwisko]='$data[Comment]'";
+                    $stmt = sqlsrv_query($conn, $kiersql);
+                    if (sqlsrv_has_rows($stmt)) { ?>
                         <tr class="table-success" id="<?php echo $data['ArchivePacketID'] ?>">
                             <td>
                                 <?php echo "$data[Comment] "; ?>

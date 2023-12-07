@@ -17,9 +17,11 @@
       <!-- Left links -->
       <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item text-center mx-2 mx-lg-1">
+          <?php if(isLoggedIn()){ ?>
           <a class="nav-link" aria-current="page" href="../index.php">
             Strona główna
           </a>
+          <?php } ?>
         </li>
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
           <a href="#" class="nav-link active dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"

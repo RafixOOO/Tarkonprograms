@@ -3,6 +3,13 @@
 
 <head>
     <?php include 'globalhead.php'; ?>
+    <style>
+    #exit-button {
+        position: fixed;
+        bottom: 10px; /* odległość od dolnej krawędzi ekranu */
+        left: 10px; /* odległość od lewej krawędzi ekranu */
+    }
+</style>
 </head>
 <?php require_once('dbconnect.php');
 $sql = "SELECT p.[ProgramName]
@@ -78,7 +85,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                     <th>width length</th>
                     <th>Burning time</th>
                     <th>Amount</th>
+                    <?php if(!isLoggedIn()) { ?>
                     <th>Options</th>
+                    <?php } ?>
 
 
                 </thead>
@@ -151,28 +160,104 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 <td>
                                     <?php echo "$data[liczba]"; ?>
                                 </td>
+                                <?php if(!isLoggedIn()) { ?>
                                 <td>
                                     
-                                    <a class='btn btn-primary btn-sm'
-                                        href='edit.php?id=<?php echo $data["ArchivePacketID"]; ?>'>Zarządzaj</a>
+                                <a class='btn btn-primary btn-sm' href='#' onclick="addNumberMesserToURL('<?php echo $data['ArchivePacketID']; ?>')">Zarządzaj</a>
                                 </td>
+                                <?php } ?>
                                 </tr>
                 
                     <?php } } ?>                
                 </tbody>
 
             </table>
+            <?php if (!isUserMesser()) { ?>
+              <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
+            <?php } ?>
         </div>
     </div>
     </div>
     </div>
 </div>
+<div class="modal" id="user-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Identyfikacja użytkownika</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <?php
+                $kiersql = "Select * from dbo.Persons where [user]=''";
+                $stmt = sqlsrv_query($conn, $kiersql);
+              ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
+                  <?php
+                  while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+
+                  ?>
+                    <option value="<?php echo $data['imie_nazwisko'];  ?>" data-imie-nazwisko="<?php echo $data['imie_nazwisko']; ?>"><?php echo $data['imie_nazwisko']; ?></option>
+
+                  <?php }
+                  ?>
+                </select>
+      
+            </div>
+
+            <div class="modal-footer">
+                <button id="submit-button" class="btn btn-default">Przejdź</button>
+                <a href="../login.php" class="btn btn-default">Zaloguj się</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="../static/jquery.min.js"></script>
 <script src="../static/jquery-ui.min.js"></script>
 <script src="../static/toastr.min.js"></script>
+<?php if (!isUserMesser()) { ?>
+<script>
+     function addNumberMesserToURL(archivePacketID) {
+        var numberMesser = localStorage.getItem('numbermesser');
+        
+        // Sprawdź, czy numberMesser jest zdefiniowane
+        if (numberMesser) {
+            // Utwórz dynamiczny URL z dodanym parametrem numbermesser
+            var url = 'edit.php?id=' + archivePacketID + '&numbermesser=' + encodeURIComponent(numberMesser);
+            
+            // Przejdź do nowego URL
+            window.location.href = url;
+        } else {
+            // W przypadku braku numbermesser, po prostu przejdź do standardowego URL
+            window.location.href = 'edit.php?id=' + archivePacketID;
+        }
+    }
+    $(document).ready(function() {
+        $('#user-modal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        if(!localStorage.getItem('numbermesser')){
+            $('#user-modal').modal('show');
+        }
+        
+        $('#user-number').focus();
 
 
+        $('#user-modal').on('shown.bs.modal', function() {
+          selectInput();
+        });
+        $('#submit-button').on('click', function(e) {
+          e.preventDefault(); // Zapobiegamy domyślnemu zachowaniu przycisku (np. przeładowaniu strony)
+          var userNumber = $('#user-number').val();
+          localStorage.setItem('numbermesser', userNumber);
+          $('#user-modal').modal('hide');
+          console.log(localStorage.getItem('numbermesser'));
+        });
+    });
+</script>
+<?php } ?>
 
 
 <?php
