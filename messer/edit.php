@@ -12,15 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $row = sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC);
     $comment = "$row[Comment]";
 } else {
-
+    $aktualna_data_i_czas = date("Y-m-d H:i:s");
     if($_POST['comment']="wykonano"){
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
-                    SET [Comment]='$_POST[numbermesser]'
+                    SET [Comment]='$_POST[numbermesser],$aktualna_data_i_czas'
                where [ArchivePacketID]=$_POST[id]";
 
     }else{
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
-                    SET [Comment]='$_POST[comment]'
+                    SET [Comment]='$_POST[comment],$aktualna_data_i_czas'
                where [ArchivePacketID]=$_POST[id]";
     }
     

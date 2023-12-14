@@ -109,7 +109,24 @@
             </form>
             <div style="clear:both;"></div>
             <?php } else{ ?>
-                <td></td>
+                <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="prac_messer">
+                
+                <?php if( $data['prac_messer']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
+            </form>
+                <td>
+                <form method="post" action="zmien_status.php">
+                <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
+                <input type="hidden" name="role" value="prac_parts">
+                
+                <?php if( $data['prac_parts']==1){ ?>
+                <button type="submit" name="change_status" class="btn btn-success"></button><?php } else { ?>
+                    <button type="submit" name="change_status" class="btn btn-danger"></button> <?php } ?>
+            </form>
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>

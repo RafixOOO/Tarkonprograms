@@ -51,7 +51,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
          <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
             <thead>
-                <th>Person</th>
+                <th>Person/reason</th>
                 <th>Program name</th>
                     <th>Sheet name</th>
                     <th>Material</th>
@@ -59,6 +59,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                     <th>sheet length</th>
                     <th>width length</th>
                     <th>Burning time</th>
+                    <th>Data i czas</th>
             </thead>
             <tbody class="row_position">
                 <?php
@@ -66,12 +67,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                 while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) { ?>
                     
                     <?php 
-                    $kiersql = "Select * from PartCheck.dbo.Persons where [imie_nazwisko]='$data[Comment]'";
+                    $wartosci = explode(',', $data['Comment']);
+                    $kiersql = "SELECT *
+                    FROM PartCheck.dbo.Persons
+                    WHERE LOWER([imie_nazwisko]) = LOWER('$wartosci[0]');";
                     $stmt = sqlsrv_query($conn, $kiersql);
-                    if (sqlsrv_has_rows($stmt)) { ?>
+                    
+                    if (sqlsrv_has_rows($stmt)) { 
+                        ?>
                         <tr class="table-success" id="<?php echo $data['ArchivePacketID'] ?>">
                             <td>
-                                <?php echo "$data[Comment] "; ?>
+                                <?php echo $wartosci[0]; ?>
                             </td>
 
                             <td>
@@ -95,11 +101,12 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                             <td>
                                 <?php echo "$data[czaspalenia]"; ?>
                             </td>
+                            <td><?php echo isset($wartosci[1]) && $wartosci[1] !== '' ? "" . $wartosci[1] : ""; ?></td>
                             </tr>
                         <?php }else if ($data["Comment"] == "nie znaleziono arkusza" | $data["Comment"] == "zla jakosc otworow" | $data["Comment"] == "zla jakosc faz" | $data["Comment"] == "inne") { ?>
                             <tr class="table-danger" id="<?php echo $data['ArchivePacketID'] ?>">
                                 <td>
-                                    <?php echo "$data[Comment] "; ?>
+                                    <?php echo $wartosci[0]; ?>
                                 </td>
     
                                 <td>
@@ -123,6 +130,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 <td>
                                     <?php echo "$data[czaspalenia]"; ?>
                                 </td>
+                                <td>
+                                <?php echo isset($wartosci[1]) && $wartosci[1] !== '' ? "" . $wartosci[1] : ""; ?>
+                            </td>
                                 </tr>
                             <?php } ?>
                             

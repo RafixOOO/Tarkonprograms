@@ -774,7 +774,7 @@ $jsonData1 = json_encode($data);
               <label for="user-number">Wprowadź swój numer:</label>
               <?php
               if (isUserPartsKier()) {
-                $kiersql = "Select * from dbo.Persons where [user]=''";
+                $kiersql = "Select * from dbo.Persons where [user]='' and [prac_parts]=1";
                 $stmt = sqlsrv_query($conn, $kiersql);
               ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
                   <?php
