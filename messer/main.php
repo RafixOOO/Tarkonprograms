@@ -88,8 +88,8 @@
 
     #chatInputContainer {
       position: fixed;
-    bottom: 0;
-    left:30px;
+      bottom: 0;
+      left: 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -289,21 +289,22 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <?php if (!isLoggedIn()) { ?>
           <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
           <button style="left: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
-        <?php }else if (isUserMesser() | !isLoggedIn()) { ?>
+        <?php } else if (isUserMesser() | !isLoggedIn()) { ?>
           <button type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
         <?php } ?>
       </div>
-      <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Chat</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body" id="chatContainer">
-  </div>
-  <div class="offcanvas-footer" id="chatInputContainer">
-  <input type="text" id="message-input" placeholder="Type your message...">
-        <button id="sendButton" onclick="sendMessage()">Send</button>
-  </div>
-</div>
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Chat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="chatContainer">
+        </div>
+        <div class="offcanvas-footer" id="chatInputContainer">
+          <input type="text" id="message-input" placeholder="Type your message...">
+          <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
     </div>
   </div>
   </div>
@@ -370,6 +371,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
     var previousMessageCount = 0; // Dodana definicja zmiennej previousMessageCount
     var currentMessageCount = 0;
+    var isFirstToast = true;
 
     function loadMessages() {
       $.ajax({
@@ -390,12 +392,12 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                 var sender = message.osoba; // Zmieniłem 'osoba' na 'sender' dla zgodności z poprzednim kodem
                 var content = message.massage;
                 var time = new Date(message.time.date);
-                if(localStorage.getItem('numbermesser')==sender){
+                if (localStorage.getItem('numbermesser') == sender) {
                   var isDarker = true;
-                }else{
+                } else {
                   var isDarker = false;
                 }
-                 // Tutaj możesz dodać logikę, aby określić, czy wiadomość ma być ciemniejsza
+                // Tutaj możesz dodać logikę, aby określić, czy wiadomość ma być ciemniejsza
                 var formattedDateTime = time.getFullYear() + '-' +
                   ('0' + (time.getMonth() + 1)).slice(-2) + '-' +
                   ('0' + time.getDate()).slice(-2) + ' ' +
@@ -410,12 +412,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             console.error('Błąd parsowania danych JSON:', error);
           }
 
+
           if (currentMessageCount > previousMessageCount) {
-            toastr.info('New message', '', {
-          timeOut: 0, // Ustawienie timeOut na 0 sprawia, że toastr pozostanie na ekranie
-          extendedTimeOut: 0, // Podobnie, ustawienie extendedTimeOut na 0
-          tapToDismiss: true, // Uniemożliwia zamknięcie przez kliknięcie
-        });
+            if (!isFirstToast) {
+              toastr.info('New message', '', {
+                timeOut: 0,
+                extendedTimeOut: 0,
+                tapToDismiss: true,
+              });
+              
+            }
+            isFirstToast = false;
             previousMessageCount = currentMessageCount;
           }
         }
@@ -431,7 +438,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
       var percent = 0;
 
       function changeColor() {
-        percent += 0.5;
+        percent += 0.2;
         colorButton.style.width = `${percent}%`;
 
         if (percent < 100) {
@@ -493,19 +500,19 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 <script>
   function addMessageToChat(sender, content, time, isDarker) {
-      
-      // Utwórz nowy element wiadomości
-      var newMessage = $("<div>").addClass("chat").addClass(isDarker ? "darker" : "").addClass("show");
 
-      // Dodaj treść wiadomości
-      newMessage.append("<p><b>" + sender + "</b></p>");
-      newMessage.append("<p>" + content + "</p>");
-      newMessage.append("<span class='" + (isDarker ? "time-left" : "time-right") + "'>" + time + "</span>");
-      newMessage.append("</div>");
+    // Utwórz nowy element wiadomości
+    var newMessage = $("<div>").addClass("chat").addClass(isDarker ? "darker" : "").addClass("show");
 
-      // Dodaj nową wiadomość do kontenera
-      $("#chatContainer").append(newMessage);
-    }
+    // Dodaj treść wiadomości
+    newMessage.append("<p><b>" + sender + "</b></p>");
+    newMessage.append("<p>" + content + "</p>");
+    newMessage.append("<span class='" + (isDarker ? "time-left" : "time-right") + "'>" + time + "</span>");
+    newMessage.append("</div>");
+
+    // Dodaj nową wiadomość do kontenera
+    $("#chatContainer").append(newMessage);
+  }
 </script>
 <?php
 
