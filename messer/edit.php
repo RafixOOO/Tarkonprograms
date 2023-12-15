@@ -13,14 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $comment = "$row[Comment]";
 } else {
     $aktualna_data_i_czas = date("Y-m-d H:i:s");
-    if($_POST['comment']="wykonano"){
+    if($_POST['comment']=="wykonano"){
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
                     SET [Comment]='$_POST[numbermesser],$aktualna_data_i_czas'
                where [ArchivePacketID]=$_POST[id]";
 
     }else{
+        $dane=$_POST['comment'].' '.$_POST['numbermesser'];
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
-                    SET [Comment]='$_POST[comment],$aktualna_data_i_czas'
+                    SET [Comment]='$dane,$aktualna_data_i_czas'
                where [ArchivePacketID]=$_POST[id]";
     }
     
