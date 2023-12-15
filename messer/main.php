@@ -285,6 +285,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
           </tbody>
 
         </table>
+        <br />
         <?php if (!isLoggedIn()) { ?>
           <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
           <button style="left: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
