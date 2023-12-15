@@ -87,8 +87,6 @@
     }
 
     #chatInputContainer {
-      position: fixed;
-      bottom: 0;
       left: 30px;
       display: flex;
       justify-content: space-between;
@@ -293,16 +291,16 @@ function czyCiągZawieraLiczbyPHP($ciąg)
           <button type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
         <?php } ?>
       </div>
-      <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+      <div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Chat</h5>
+          <h5 class="offcanvas-title" id="chatInputContainer"><input type="text" id="message-input" placeholder="Type your message...">
+          <button id="sendButton" onclick="sendMessage()">Send</button></h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" id="chatContainer">
         </div>
-        <div class="offcanvas-footer" id="chatInputContainer">
-          <input type="text" id="message-input" placeholder="Type your message...">
-          <button id="sendButton" onclick="sendMessage()">Send</button>
+        <div class="offcanvas-footer" >
+          
         </div>
       </div>
     </div>
