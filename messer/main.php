@@ -542,6 +542,7 @@ if (isUserMesser()) {
 
 var previousMessageCount = 0; // Dodana definicja zmiennej previousMessageCount
 var currentMessageCount = 0;
+var isFirstToast = true;
 
 function loadMessages() {
   $.ajax({
@@ -583,11 +584,15 @@ function loadMessages() {
       }
 
       if (currentMessageCount > previousMessageCount) {
-        toastr.info('New message', '', {
-          timeOut: 0, // Ustawienie timeOut na 0 sprawia, że toastr pozostanie na ekranie
-          extendedTimeOut: 0, // Podobnie, ustawienie extendedTimeOut na 0
-          tapToDismiss: true, // Uniemożliwia zamknięcie przez kliknięcie
-        });
+        if (!isFirstToast) {
+          toastr.info('New message', '', {
+            timeOut: 0,
+            extendedTimeOut: 0,
+            tapToDismiss: true,
+          });
+          
+        }
+        isFirstToast = false;
         previousMessageCount = currentMessageCount;
       }
     }
