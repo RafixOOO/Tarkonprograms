@@ -8,6 +8,7 @@
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
   
 <?php require_once("globalnav.php"); ?>
+<button class="btn btn-secondary float-end" onclick="location.reload()">Wyczyść</button>
 <button class="btn btn-primary float-end" onclick="searchByGroupId()">Szukaj</button>
 <select class="form-control w-25 float-end" name="evens" id="groupIdInput">
   <option value="v630">V630</option>
