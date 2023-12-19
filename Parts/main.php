@@ -339,7 +339,7 @@ $jsonData1 = json_encode($data);
           <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
 
           <button class="btn btn-primary" type="submit">Szukaj</button>
-          <a href="http://localhost/programs/Tarkonprograms/Parts/main.php"><button class="btn btn-secondary" type="button">Wyczyść</button></a>
+          <a href="main.php"><button class="btn btn-secondary" type="button">Wyczyść</button></a>
           <br />
         </div>
         <div style="text-align:right;">

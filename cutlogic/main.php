@@ -20,40 +20,35 @@ require_once 'cutlogic.php';
 
 <thead>
   <tr>
-    <th scope="col">Program</th>
+    <th scope="col">ItemName</th>
+    <th scope="col">Batch Quantity</th>
+    <th scope="col">InvntryUom</th>
+    <th scope="col">DistNumber</th>
+    <th scope="col">ExpDate</th>
     <th scope="col">Projekt</th>
-    <th scope="col">Opis</th>
-    <th scope="col">Length</th>
-    <th scope="col">Resztki</th>
-    <th scope="col">Część</th>
-    <th scope="col">Długość Części</th>
-    <th scope="col">Liczba</th>
+    <th scope="col">Rezerwacja</th>
+    <th scope="col">InDate</th>
+    <th scope="col">U_Nrwytopu</th>
+    <th scope="col">LastPunPrc</th>
   </tr>
 </thead>
 <tbody>
-<?php while ($row = sqlsrv_fetch_array($datacut, SQLSRV_FETCH_ASSOC)) {
+<?php while ($row = odbc_fetch_array($result)) {
 ?>  
-<tr value="<?php echo $row['ID']; ?>">
-<td><?php echo $row['PROGRAM']; ?></td>
-<td><?php echo $row['PROJEKT']; ?></td>
-<td><?php echo $row['OPIS']; ?></td>
-<td><?php echo $row['DLUGOSC']; ?></td>
-<td><?php echo $row['RESZTKI']; ?></td>
-<td><?php echo $row['CZESC']; ?></td>
-<td><?php echo $row['CZDLU']; ?></td>
-<td><?php echo $row['CNT']; ?></td>
+<tr value="<?php echo $row['ItemCode']; ?>">
+<td><?php echo $row['ItemName']; ?></td>
+<td><?php echo $row['Batch Quantity']; ?></td>
+<td><?php echo $row['InvntryUom']; ?></td>
+<td><?php echo $row['ExpDate']; ?></td>
+<td><?php echo $row['DistNumber']; ?></td>
+<td><?php echo $row['Projekt']; ?></td>
+<td><?php echo $row['Rezerwacja']; ?></td>
+<td><?php echo $row['InDate']; ?></td>
+<td><?php echo $row['U_NRWYTOPU']; ?></td>
+<td><?php echo $row['LastPurPrc']; ?></td>
 </tr>
   <?php } ?>
 </tbody>
 </table>
 </body>
-<script src="../static/jquery-3.7.0.js"></script>
-<script src="../static/jquery.dataTables.min.js"></script>
-<script src="../static/dataTables.bootstrap5.min.js"></script>
-<script>
-
-    $(document).ready(function() {
-    $('#myTable').DataTable();
-});
-</script>
 </html>
