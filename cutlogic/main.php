@@ -24,10 +24,8 @@ require_once 'cutlogic.php';
     <th scope="col">Batch Quantity</th>
     <th scope="col">InvntryUom</th>
     <th scope="col">DistNumber</th>
-    <th scope="col">ExpDate</th>
     <th scope="col">Projekt</th>
     <th scope="col">Rezerwacja</th>
-    <th scope="col">InDate</th>
     <th scope="col">U_Nrwytopu</th>
     <th scope="col">LastPunPrc</th>
   </tr>
@@ -39,11 +37,9 @@ require_once 'cutlogic.php';
 <td><?php echo $row['ItemName']; ?></td>
 <td><?php echo $row['Batch Quantity']; ?></td>
 <td><?php echo $row['InvntryUom']; ?></td>
-<td><?php echo $row['ExpDate']; ?></td>
 <td><?php echo $row['DistNumber']; ?></td>
 <td><?php echo $row['Projekt']; ?></td>
 <td><?php echo $row['Rezerwacja']; ?></td>
-<td><?php echo $row['InDate']; ?></td>
 <td><?php echo $row['U_NRWYTOPU']; ?></td>
 <td><?php echo $row['LastPurPrc']; ?></td>
 </tr>
