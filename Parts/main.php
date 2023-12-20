@@ -507,7 +507,7 @@ $jsonData1 = json_encode($data);
             <td><?php echo $data['profil']; ?></td>
             <td><?php echo $data['material']; ?></td>
             <td><?php echo $data['dlugosc']; ?></td>
-            <td><?php echo $data['dlugosc_zre']; ?></td>
+            <td><?php echo $data['dlugosc_zre']; ?></td>0
             <td><?php echo $data['Ciezar']; ?></td>
             <td><?php echo $data['Calk_ciez']; ?></td>
             <td><?php echo $data['import'] . $data['uwaga'] . "," . $data['wykonal']; ?></td>
