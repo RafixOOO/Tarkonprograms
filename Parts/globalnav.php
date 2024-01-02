@@ -40,6 +40,7 @@
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
             <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
             <li><a class="dropdown-item" href="../messer/wykonane.php">Zakończone</a></li>
+            <li><a class="dropdown-item" href="../messer/archiwum.php">Archiwalne</a></li>
             </ul>
           </li>
           <li class="nav-item text-center mx-2 mx-lg-1">

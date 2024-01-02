@@ -233,12 +233,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 
                             ";
                     } else if (!empty($data["part"])) {
-                      echo "
-                                        <details>
-                                <summary>Rozwiń</summary>
-                                <label>" . $data["part"] . "</label>
-                                </details>
-                            ";
+                      echo "".$data["part"]."";
                     }
 
 
