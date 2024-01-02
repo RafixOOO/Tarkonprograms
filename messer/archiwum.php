@@ -98,7 +98,7 @@ ORDER BY
 
             <form id="myForm1" method="get" action="">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>"
+                    <input type="text" class="form-control" name="keywords" placeholder="<?php echo $keywords; ?>"
                            placeholder="Nazwa..." autofocus>
 
                     <button class="btn btn-primary" type="submit">Szukaj</button>
