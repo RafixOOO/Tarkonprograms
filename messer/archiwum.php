@@ -58,7 +58,7 @@ ORDER BY
             if ($keywordArray !== '') {
                 foreach ($keywordArray as $keyword) :
                     $keyword = trim($keyword);
-                $columnsToSearch = ['CommentBeforeComma','ProgramName', 'MachineName']; // Dodaj więcej kolumn, jeśli jest potrzebne
+                $columnsToSearch = ['CommentAfterComma','CommentBeforeComma','ProgramName', 'MachineName']; // Dodaj więcej kolumn, jeśli jest potrzebne
                     $matchesKeyword = false;
                     foreach ($columnsToSearch as $column) {
                         $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
