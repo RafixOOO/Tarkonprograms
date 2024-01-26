@@ -2,7 +2,7 @@
     "require": {
         "ext-gd": "*",
         "ext-sqlsrv": "*",
-        "pagerfanta/pagerfanta": "^4.1"
+        "pagerfanta/pagerfanta": "^4.1",
+        "phpmailer/phpmailer": "^6.9"
     } 
 }
-

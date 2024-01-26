@@ -607,7 +607,7 @@ setInterval(loadMessages, 2000);
           input.value = value.replace(/[,\.]/g, '');
         }
       }
-
+try {
     document.getElementById('myField').addEventListener('keydown', function(event) {
         
 
@@ -640,6 +640,10 @@ setInterval(loadMessages, 2000);
             }
         })
     }
+}catch(error){
+          console.error('Błąd: ', error);
+
+}
 </script>";
 }
 ?>

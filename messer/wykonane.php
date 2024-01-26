@@ -60,6 +60,12 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                         <th>width length</th>
                         <th>Burning time</th>
                         <th>Data i czas</th>
+                        <?php
+                            if (isUserMesser()){
+                                ?>
+                                <th>Opcje</th>
+                         <?php   }
+                        ?>
                     </thead>
                     <tbody class="row_position">
                         <?php
@@ -75,7 +81,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
                             if (sqlsrv_has_rows($stmt)) {
                             ?>
-                                <tr class="table-success" id="<?php echo $data['ArchivePacketID'] ?>">
+                                <tr class="table-success" value="<?php echo $data['ArchivePacketID'] ?>">
                                     <td>
                                         <?php echo $wartosci[0]; ?>
                                     </td>
@@ -102,6 +108,11 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                         <?php echo "$data[czaspalenia]"; ?>
                                     </td>
                                     <td><?php echo isset($wartosci[1]) && $wartosci[1] !== '' ? "" . $wartosci[1] : ""; ?></td>
+                                    <?php
+                            if (isUserMesser()){
+                                ?>
+                                <td><Button class='btn btn-primary btn-sm'>Resetuj</Button></td>
+                         <?php   } ?>
                                 </tr>
                             <?php } else if (
                                 stripos($data["Comment"], "nie znaleziono arkusza") !== false ||
@@ -109,7 +120,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 stripos($data["Comment"], "zla jakosc faz") !== false ||
                                 stripos($data["Comment"], "inne") !== false
                             ) { ?>
-                                <tr class="table-danger" id="<?php echo $data['ArchivePacketID'] ?>">
+                                <tr class="table-danger" value="<?php echo $data['ArchivePacketID'] ?>">
                                     <td>
                                         <?php echo $wartosci[0]; ?>
                                     </td>
@@ -138,6 +149,11 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                     <td>
                                         <?php echo isset($wartosci[1]) && $wartosci[1] !== '' ? "" . $wartosci[1] : ""; ?>
                                     </td>
+                                   <?php  if (isUserMesser()){
+                                ?>
+                                <td><Button class='btn btn-primary btn-sm'>Resetuj</Button></td>
+
+                         <?php   } ?>
                                 </tr>
                             <?php } ?>
 
@@ -154,6 +170,26 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     </div>
     </div>
 </body>
+<script>
+ $(document).ready(function() {
+     $('.btn-primary').on('click', function() {
+         var button = $(this);
+         var rowId = button.closest('tr').attr('value'); // Pobierz ID z atrybutu 'value' rodzica przycisku
+
+         // Wywołaj AJAX, aby zaktualizować dane w bazie danych
+         $.ajax({
+             url: 'resetuj.php', // Ścieżka do pliku PHP, który obsłuży aktualizację bazy danych
+         method: 'POST',
+            data: { rowId: rowId }, // Przesyłanie ID wiersza do serwera
+         success: function(response) {
+             console.log(response); // Wyświetl odpowiedź z serwera w konsoli przeglądarki
+             button.text('Zresetowano'); // Zmień tekst przycisku na "Zakończono"
+             button.removeClass('btn-primary').addClass('btn-success'); // Zmień styl przycisku na zielony
+             button.prop('disabled', true); // Zablokuj przycisk, aby uniknąć kolejnych kliknięć
+         }
+     });
+     });
+ });
 </script>
 
 </html>

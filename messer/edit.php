@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $comment = "$row[Comment]";
 } else {
     $aktualna_data_i_czas = date("Y-m-d H:i:s");
+    $raz=1;
     if($_POST['comment']=="wykonano"){
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
                     SET [Comment]='$_POST[numbermesser],$aktualna_data_i_czas'
@@ -23,7 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $sql1 = "UPDATE [SNDBASE_PROD].[dbo].[Program]
                     SET [Comment]='$dane,$aktualna_data_i_czas'
                where [ArchivePacketID]=$_POST[id]";
+        if($raz=1){
+        require_once 'mail.php';
+        $raz=0;
     }
+    }
+
     
     sqlsrv_query($conn, $sql1);
     $tsql1 = "SELECT

@@ -18,6 +18,7 @@ class ComposerStaticInit853af11023e634b7cfc2fa24bdbef5ce
             'Pagerfanta\\Doctrine\\DBAL\\' => 25,
             'Pagerfanta\\Doctrine\\Collections\\' => 32,
             'Pagerfanta\\' => 11,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -57,6 +58,10 @@ class ComposerStaticInit853af11023e634b7cfc2fa24bdbef5ce
         'Pagerfanta\\' => 
         array (
             0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Core',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
