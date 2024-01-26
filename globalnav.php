@@ -87,6 +87,7 @@
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
             <?php if(isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="password.php">Zmień hasło</a></li>
+            <li><a class="dropdown-item" href="username.php">Zmień nazwę użytkownika</a></li>
             <?php } ?>
             <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
             </ul>
