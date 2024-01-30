@@ -288,7 +288,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
       </div>
       <div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="chatInputContainer"><input type="text" id="message-input" placeholder="Type your message...">
+          <h5 class="offcanvas-title" id="chatInputContainer"><input type="text" id="message-input" placeholder="Type your message..." >
           <button id="sendButton" onclick="sendMessage()">Send</button></h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -395,8 +395,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                   ('0' + (time.getMonth() + 1)).slice(-2) + '-' +
                   ('0' + time.getDate()).slice(-2) + ' ' +
                   ('0' + time.getHours()).slice(-2) + ':' +
-                  ('0' + time.getMinutes()).slice(-2) + ':' +
-                  ('0' + time.getSeconds()).slice(-2);
+                  ('0' + time.getMinutes()).slice(-2);
 
                 addMessageToChat(sender, content, formattedDateTime, isDarker);
               });
@@ -407,20 +406,24 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 
           if (currentMessageCount > previousMessageCount) {
-            if (!isFirstToast) {
-              toastr.info('New message', '', {
-                timeOut: 0,
-                extendedTimeOut: 0,
-                tapToDismiss: true,
-              });
-              
-            }
-            isFirstToast = false;
-            previousMessageCount = currentMessageCount;
-          }
+ if (currentMessageCount > previousMessageCount) {
+        if (!isFirstToast) {
+          toastr.info('New message', '', {
+            timeOut: 0,
+            extendedTimeOut: 0,
+            tapToDismiss: true,
+          });
+
         }
-      });
+        isFirstToast = false;
+        previousMessageCount = currentMessageCount;
+      }
     }
+  });
+
+  isFirstToast = false;
+  previousMessageCount = currentMessageCount;
+}
 
     // Odświeżenie widoku wiadomości co pewien czas
     setInterval(loadMessages, 2000);
@@ -566,8 +569,7 @@ function loadMessages() {
               ('0' + (time.getMonth() + 1)).slice(-2) + '-' +
               ('0' + time.getDate()).slice(-2) + ' ' +
               ('0' + time.getHours()).slice(-2) + ':' +
-              ('0' + time.getMinutes()).slice(-2) + ':' +
-              ('0' + time.getSeconds()).slice(-2);
+              ('0' + time.getMinutes()).slice(-2);
 
             addMessageToChat(sender, content, formattedDateTime, isDarker);
           });
@@ -577,17 +579,26 @@ function loadMessages() {
       }
 
       if (currentMessageCount > previousMessageCount) {
-        if (!isFirstToast) {
-          toastr.info('New message', '', {
-            timeOut: 0,
-            extendedTimeOut: 0,
-            tapToDismiss: true,
-          });
-          
+    if (!isFirstToast) {
+        // Wyślij powiadomienie do systemu Windows
+        if ('Notification' in window) {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === 'granted') {
+                    var notification = new Notification('Messer', {
+                        body: 'Masz nową wiadomość na Czacie'
+                    });
+
+                    // Dodaj dźwięk (opcjonalne)
+                    var audio = new Audio('muzykamassage.mp3');
+                    audio.play();
+                }
+            });
         }
-        isFirstToast = false;
-        previousMessageCount = currentMessageCount;
-      }
+    }
+
+    isFirstToast = false;
+    previousMessageCount = currentMessageCount;
+}
     }
   });
 }

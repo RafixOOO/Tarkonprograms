@@ -3,7 +3,7 @@
 
 require_once('dbconnect.php');
 
-$sql = "SELECT massage, osoba, [date] as time FROM PartCheck.dbo.messages_messer where CONVERT(DATE, [date]) = CONVERT(DATE, GETDATE()) ORDER BY [date] desc";
+$sql = "SELECT massage, osoba, [date] as time FROM PartCheck.dbo.messages_messer where CONVERT(DATE, [date]) >= CONVERT(DATE, GETDATE()-6) ORDER BY [date] desc";
 
 // Wykonaj zapytanie SQL
 $result = sqlsrv_query($conn, $sql);
