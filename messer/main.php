@@ -406,24 +406,29 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 
           if (currentMessageCount > previousMessageCount) {
- if (currentMessageCount > previousMessageCount) {
-        if (!isFirstToast) {
-          toastr.info('New message', '', {
-            timeOut: 0,
-            extendedTimeOut: 0,
-            tapToDismiss: true,
-          });
+            if (!isFirstToast) {
+              // Wyślij powiadomienie do systemu Windows
+              if ('Notification' in window) {
+                Notification.requestPermission().then(function (permission) {
+                  if (permission === 'granted') {
+                    var notification = new Notification('Messer', {
+                      body: 'Masz nową wiadomość na Czacie'
+                    });
 
+                    // Dodaj dźwięk (opcjonalne)
+                    var audio = new Audio('muzykamassage.mp3');
+                    audio.play();
+                  }
+                });
+              }
+            }
+
+            isFirstToast = false;
+            previousMessageCount = currentMessageCount;
+          }
         }
-        isFirstToast = false;
-        previousMessageCount = currentMessageCount;
-      }
+      });
     }
-  });
-
-  isFirstToast = false;
-  previousMessageCount = currentMessageCount;
-}
 
     // Odświeżenie widoku wiadomości co pewien czas
     setInterval(loadMessages, 2000);
