@@ -5,7 +5,6 @@ require_once('auth.php');
 
 <!DOCTYPE html>
 <html>
-
 <head>
 <?php require_once("globalhead.php"); ?>
 </head id="error-container">
