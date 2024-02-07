@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" href="main.php">Aktualne</a></li>
             <li><a class="dropdown-item" href="wykonane.php">Zakończone</a></li>
             <li><a class="dropdown-item" href="archiwum.php">Archiwalne</a></li>
+            <li><a class="dropdown-item" href="magazyn.php">Magazyn</a></li>
           </ul>
         </li>
         <?php if(isUserParts()){ ?>

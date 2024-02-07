@@ -41,6 +41,7 @@
             <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
             <li><a class="dropdown-item" href="../messer/wykonane.php">Zakończone</a></li>
             <li><a class="dropdown-item" href="../messer/archiwum.php">Archiwalne</a></li>
+            <li><a class="dropdown-item" href="../messer/magazyn.php">Magazyn</a></li>
             </ul>
           </li>
           <li class="nav-item text-center mx-2 mx-lg-1">
