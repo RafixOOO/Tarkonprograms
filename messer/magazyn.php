@@ -44,7 +44,7 @@ echo "<tr><th>Sheetname</th><th>Date</th><th>Person</th><th>Localization</th><th
 echo "</thead>";
 echo "<tbody>";
 while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
-    echo "<tr class='clickable-row' data-partid='".$row['PartID']."'>";
+    echo "<tr id='main' class='clickable-row' data-partid='".$row['PartID']."'>";
     echo "<td>".$row['PartID']."</td>";
     echo "<td>".$row['data']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
     echo "<td>".$row['Person']."</td>";
@@ -100,16 +100,21 @@ echo "</table>";
 $(document).ready(function(){
     $("#searchInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#mytable tbody tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+        if (value === '') {
+            $("#mytable tbody tr#main").show(); // Pokaż wszystkie wiersze, gdy pole wyszukiwania jest puste
+        } else {
+            $("#mytable tbody tr:visible").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        }
     });
 });
+
 $(document).ready(function() {
     $(".clickable-row").click(function() {
         var partID = $(this).data('partid');
-        $(".details-row").hide(); // Ukryj wszystkie rzędy szczegółów
-        $(".details-row-"+partID).toggle(); // Pokaż lub ukryj rzęd szczegółów dla klikniętego PartID
+        $(".details-row").hide().removeClass('visible-details'); // Ukryj wszystkie rzędy szczegółów i usuń klasę 'visible-details'
+        $(".details-row-"+partID).toggle().addClass('visible-details'); // Pokaż lub ukryj rzęd szczegółów dla klikniętego PartID i dodaj klasę 'visible-details'
     });
 });
 </script>
