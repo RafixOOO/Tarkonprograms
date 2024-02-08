@@ -2,17 +2,23 @@
 require_once("dbconnect.php");
 
 $sql="SELECT m.PartID,
-       MAX(m.[Date]) as data,
-       (SELECT TOP 1 m2.Person FROM PartCheck.dbo.MagazynExtra m2 WHERE m2.PartID = m.PartID GROUP BY m2.Person) as Person,
-       (SELECT TOP 1 m3.Localization FROM PartCheck.dbo.MagazynExtra m3 WHERE m3.PartID = m.PartID GROUP BY m3.Localization) AS Localization,
+       m.[Date] as data,
+       m2.Person,
+       m3.Localization,
        s.Material,
        s.Thickness,
        s.[Length],
        s.Qty,
        s.Width 
-FROM PartCheck.dbo.MagazynExtra m
-INNER JOIN SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
-GROUP BY m.PartID, s.Material, s.Thickness, s.[Length], s.Qty, s.Width;";
+FROM (
+    SELECT PartID, MAX([Date]) as max_date
+    FROM PartCheck.dbo.MagazynExtra
+    GROUP BY PartID
+) max_dates
+INNER JOIN PartCheck.dbo.MagazynExtra m ON max_dates.PartID = m.PartID AND max_dates.max_date = m.[Date]
+inner JOIN SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
+inner JOIN PartCheck.dbo.MagazynExtra m2 ON m.MagazynID = m2.MagazynID AND m2.[Date] = max_dates.max_date
+inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[Date] = max_dates.max_date;";
  $datas = sqlsrv_query($conn, $sql);
  if ($datas === false) {
      die(print_r(sqlsrv_errors(), true)); // Error handling
@@ -75,15 +81,11 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     while ($otherrow = sqlsrv_fetch_array($otherdatas, SQLSRV_FETCH_ASSOC)) {
         echo "<tr class='details-row details-row-".$row['PartID']."' style='display: none;'>"; // Ukryj rzędy szczegółów na początku
         echo "<td></td>"; // Pusta komórka dla identyfikatora
+        echo "<td></td>";
         echo "<td>".$otherrow['PartID']."</td>";
         echo "<td>".$otherrow['Date']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
         echo "<td>".$otherrow['Person']."</td>";
         echo "<td>".$otherrow['Localization']."</td>";
-        echo "<td>".$otherrow['Material']."</td>";
-        echo "<td>".$otherrow['Thickness']."</td>";
-        echo "<td>".$otherrow['Length']."</td>";
-        echo "<td>".$otherrow['Qty']."</td>";
-        echo "<td>".$otherrow['Width']."</td>";
         echo "</tr>";
     }
     // Koniec drugiego while
