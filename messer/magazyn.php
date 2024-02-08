@@ -18,7 +18,8 @@ FROM (
 INNER JOIN PartCheck.dbo.MagazynExtra m ON max_dates.PartID = m.PartID AND max_dates.max_date = m.[Date]
 inner JOIN SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
 inner JOIN PartCheck.dbo.MagazynExtra m2 ON m.MagazynID = m2.MagazynID AND m2.[Date] = max_dates.max_date
-inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[Date] = max_dates.max_date;";
+inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[Date] = max_dates.max_date
+order by m.[Date] desc";
  $datas = sqlsrv_query($conn, $sql);
  if ($datas === false) {
      die(print_r(sqlsrv_errors(), true)); // Error handling
@@ -28,7 +29,6 @@ inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[D
 <head>
 
     <?php include 'globalhead.php'; ?>
-
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
@@ -43,10 +43,20 @@ inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[D
 <br />
 <div class="table-responsive">
 <?php
-echo "<table class='table table-sm table-hover table-striped table-bordered' id='mytable'
+echo "<table class='table table-sm table-hover table-bordered' id='mytable'
                    style='font-size: calc(9px + 0.390625vw)'>";
 echo "<thead>";
-echo "<tr><th>Sheetname</th><th>Date</th><th>Person</th><th>Localization</th><th>Material</th><th>Thickness</th><th>Length</th><th>Qty</th><th>Width</th></tr>";
+echo "<tr><tr>
+        <th>Sheetname</th>
+        <th>Date</th>
+        <th>Person</th>
+        <th>Localization</th>
+        <th>Material</th>
+        <th>Thickness</th>
+        <th>Length</th>
+        <th>Qty</th>
+        <th>Width</th>
+    </tr></tr>";
 echo "</thead>";
 echo "<tbody>";
 while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
@@ -119,6 +129,8 @@ $(document).ready(function() {
         $(".details-row-"+partID).toggle().addClass('visible-details'); // Pokaż lub ukryj rzęd szczegółów dla klikniętego PartID i dodaj klasę 'visible-details'
     });
 });
+
+
 </script>
 
 </html>
