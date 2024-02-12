@@ -48,7 +48,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             WHERE 
     [Comment] LIKE '%:%'
 ORDER BY
-    SUBSTRING([Comment], CHARINDEX(',', [Comment]) + 2, LEN([Comment]) - CHARINDEX(',', [Comment]) - 8);";
+    SUBSTRING([Comment], CHARINDEX(',', [Comment]) + 2, LEN([Comment]) - CHARINDEX(',', [Comment]) - 8) desc;";
         $datas = sqlsrv_query($conn, $sql);
 
         ?>
