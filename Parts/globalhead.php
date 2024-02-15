@@ -40,7 +40,7 @@
       padding: 10px;
     }
 ::-webkit-scrollbar{
-  width: 40px;
+  width: 16px;
 }
 ::-webkit-scrollbar-thumb{
   border-radius: 8px;
