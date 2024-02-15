@@ -31,7 +31,6 @@
           <?php } ?>
           </li>
         <?php } ?>
-        <?php if (isUserMesser()) { ?>
           <li class="nav-item dropdown text-center mx-2 mx-lg-1">
             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Messer
@@ -44,6 +43,7 @@
             <li><a class="dropdown-item" href="../messer/magazyn.php">Magazyn</a></li>
             </ul>
           </li>
+          <?php if (isUserMesser()) { ?>
           <li class="nav-item text-center mx-2 mx-lg-1">
             <a class="nav-link" aria-current="page" href="../v200/main.php">
               V200
