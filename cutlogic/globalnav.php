@@ -50,6 +50,7 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="../Parts/main.php">Programy</a></li>
             <li><a class="dropdown-item" href="../Parts/dozrobienia.php">Gotowe</a></li>
+            <li><a class="dropdown-item" href="../parts/hrappka.php">Hrappka</a></li>
             <li><a class="dropdown-item" href="../Parts/upload.php">Wyślij</a></li>
           </ul>
         </li>
