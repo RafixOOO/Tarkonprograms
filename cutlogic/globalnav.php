@@ -50,7 +50,6 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="../Parts/main.php">Programy</a></li>
             <li><a class="dropdown-item" href="../Parts/dozrobienia.php">Gotowe</a></li>
-            <li><a class="dropdown-item" href="../parts/hrappka.php">Hrappka</a></li>
             <li><a class="dropdown-item" href="../Parts/upload.php">Wyślij</a></li>
           </ul>
         </li>
@@ -58,6 +57,11 @@
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link active" aria-current="page" href="#">
             CutLogic
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" aria-current="page" href="../Hrappka/index.php">
+            Hrappka
           </a>
         </li>
       </ul>

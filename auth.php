@@ -1,7 +1,7 @@
 ﻿<?php
 session_start();
 function logUserActivity($username, $operation) {
-    $logFilePath = 'dziennik.log';
+    $logFilePath = 'C:\xampp\htdocs\programs\Tarkonprograms\dziennik.log';
     $logMessage = "[" . date('Y-m-d H:i:s') . "],$username,$operation" . PHP_EOL;
 
     // Otwarcie pliku dziennika w trybie dołączania

@@ -56,10 +56,10 @@
           </a>
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="main.php">Programy</a></li>
-            <li><a class="dropdown-item" href="dozrobienia.php">Gotowe</a></li>
+            <li><a class="dropdown-item" href="../Parts/main.php">Programy</a></li>
+            <li><a class="dropdown-item" href="../Parts/dozrobienia.php">Gotowe</a></li>
             <?php if (isUserParts()) { ?>
-              <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
+            <li><a class="dropdown-item" href="../Parts/upload.php">Wyślij</a></li>
             <?php } ?>
           </ul>
         </li>
@@ -71,7 +71,7 @@
           </li>
         <?php } ?>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="../Hrappka/index.php">
+          <a class="nav-link active" aria-current="page" href="index.php">
             Hrappka
           </a>
         </li>
