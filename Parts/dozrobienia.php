@@ -9,7 +9,7 @@ $projekt = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if ($projekt == '') {
   $pro = '+_+';
 } else {
-  $pro = $projekt;
+  $pro = strtoupper($projekt);
 }
 
 $sqlmesser = "SELECT Distinct
@@ -126,11 +126,12 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
   <?php require_once('globalnav.php'); ?>
   <div class="container-xl">
     <form method="get" action="">
-      <div class="input-group">
-        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>" autofocus> <button class="btn btn-primary" type="submit">Szukaj</button>
+      <div class="input-group" style="font-size: 150%;">
+        <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>" style="font-size: 150%;" autofocus>
+        <button class="btn btn-primary" type="submit" style="font-size: 150%;">Szukaj</button>
       </div>
-      <label for="checkbox">Szukaj po assembly: </label>
-      <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()">
+      <label for="checkbox" style="font-size: 200%; margin-top: 20px;">Szukaj po assembly: </label>
+      <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 'Zespol') echo 'checked'; ?> onchange="updatePlaceholder()" style="transform: scale(2); margin-left: 10px;">
     </form>
     <script>
       function updatePlaceholder() {
@@ -175,7 +176,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                       $orange = $orange + 1;
             ?>
               <div style="color:#a88102">
-                <div><a style="color:#a88102" href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&programs[]=inne&programs[]=cutlogic&dataFrom=&dataTo=&page_size=25" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
+                <div><a style="color:#a88102" title="Cześci pasują do kilku Assembly i nie są w pełni zakończone"><?php echo $data1['Detal']; ?></a></span>
                   <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
                 </div>
               </div>
@@ -183,7 +184,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                       $dark = $dark + 1;
             ?>
               <div>
-                <div><a class='text-dark' href="main.php?keywords=<?php echo $data['zespol'] . '+' . $data1['Detal']; ?>&programs[]=inne&programs[]=cutlogic&dataFrom=&dataTo=&page_size=25"><?php echo $data1['Detal']; ?></a></span>
+                <div><a class='text-dark'><?php echo $data1['Detal']; ?></a></span>
                   <span class="float-end" title="<?php echo "Aktualnie zrobione: " . $data1['ilosc_zrealizowana']; ?>"><?php echo $data1['ilosc']; ?>
                 </div>
               </div>
