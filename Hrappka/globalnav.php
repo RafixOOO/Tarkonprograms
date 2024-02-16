@@ -51,7 +51,7 @@
           </li>
         <?php } ?>
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Parts
           </a>
           <!-- Dropdown menu -->

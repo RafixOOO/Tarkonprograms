@@ -2,9 +2,9 @@ connection=wired
 dhcp=yes
 browser=chrome
 homepage_append=hostname
-homepage=https://hrappka.budhrd.eu/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd
+homepage=http://10.100.100.21/Hrappka/index.php
 allow_icmp_protocol=yes
-kiosk_config=http://messer.local/kiosk.txt
+kiosk_config=http://10.100.100.21/kiosk.txt
 root_password=12345678
 virtual_keyboard=yes
 vnc_interactive=yes
@@ -12,7 +12,7 @@ removable_devices=yes
 dpms_idle=1
 vnc_password=12345678
 shutdown_menu=reboot shutdown
-managed_bookmarks=https://hrappka.budhrd.eu/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd|Hrappka| http://messer.local/parts/dozrobienia.php|Tarkonprograms| http://urlop.local|Urlopy|
-whitelist=https://hrappka.budhrd.eu http://messer.local http://urlop.local
-wallpaper=http://messer.local/wygaszacz.jpg
+touchscreen_calibration="eGalax Inc. USB TouchController" "libinput Calibration Matrix" 0.904104 -0.003807 0.048565 -0.003489 -0.846835 0.876748 0.000000 0.000000 1.000000
+whitelist=https://hrappka.budhrd.eu http://messer.local http://urlop.local http://10.100.100.21
+wallpaper=http://10.100.100.21/wygaszacz.jpg
 additional_components=09-x11vnc.xzm uefi.zip 08-ssh.xzm
