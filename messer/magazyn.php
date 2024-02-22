@@ -7,6 +7,7 @@ $sql="Select
     m.Person,
     m.Localization,
     COUNT(m.PartID) AS Ilosc,
+    COUNT(sh1.SheetName) as zuzyte,
     s.Material,
     s.Thickness,
     s.[Length],
@@ -15,6 +16,8 @@ FROM
     PartCheck.dbo.MagazynExtra m
 LEFT JOIN
     SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
+LEFT JOIN
+   	SNDBASE_PROD.dbo.StockArchive sh1 on m.PartID=sh1.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
 WHERE NOT EXISTS (
         SELECT 1
         FROM
@@ -59,6 +62,7 @@ echo "<tr><tr>
         <th>Person</th>
         <th>Localization</th>
         <th>Count</th>
+        <th>Used</th>
         <th>Material</th>
         <th>Thickness</th>
         <th>Length</th>
@@ -73,6 +77,7 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<td>".$row['Person']."</td>";
     echo "<td>".$row['Localization']."</td>";
     echo "<td>".$row['Ilosc']."</td>";
+    echo "<td>".$row['zuzyte']."</td>";
     echo "<td>".$row['Material']."</td>";
     echo "<td>".$row['Thickness']."</td>";
     echo "<td>".$row['Length']."</td>";
