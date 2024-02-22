@@ -1,25 +1,32 @@
 <?php
 require_once("dbconnect.php");
 
-$sql="SELECT m.PartID,
-       m.[Date] as data,
-       m2.Person,
-       m3.Localization,
-       s.Material,
-       s.Thickness,
-       s.[Length],
-       s.Qty,
-       s.Width 
-FROM (
-    SELECT PartID, MAX([Date]) as max_date
-    FROM PartCheck.dbo.MagazynExtra
-    GROUP BY PartID
-) max_dates
-INNER JOIN PartCheck.dbo.MagazynExtra m ON max_dates.PartID = m.PartID AND max_dates.max_date = m.[Date]
-inner JOIN SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
-inner JOIN PartCheck.dbo.MagazynExtra m2 ON m.MagazynID = m2.MagazynID AND m2.[Date] = max_dates.max_date
-inner JOIN PartCheck.dbo.MagazynExtra m3 ON m.MagazynID = m3.MagazynID AND m3.[Date] = max_dates.max_date
-order by m.[Date] desc";
+$sql="Select
+    m.PartID,
+    MAX(m.[Date]) AS data,
+    m.Person,
+    m.Localization,
+    COUNT(m.PartID) AS Ilosc,
+    s.Material,
+    s.Thickness,
+    s.[Length],
+    s.Width
+FROM
+    PartCheck.dbo.MagazynExtra m
+LEFT JOIN
+    SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE NOT EXISTS (
+        SELECT 1
+        FROM
+            SNDBASE_PROD.dbo.StockArchive sh
+        WHERE
+            sh.SheetName = m.PartID COLLATE SQL_Latin1_General_CP1_CI_AS
+            and sh.Qty=0
+    )
+GROUP BY
+    m.PartID, m.Person, m.Localization, s.Material, s.Thickness, s.[Length], s.Width
+ORDER BY
+    MAX(m.[Date]) DESC;";
  $datas = sqlsrv_query($conn, $sql);
  if ($datas === false) {
      die(print_r(sqlsrv_errors(), true)); // Error handling
@@ -51,10 +58,10 @@ echo "<tr><tr>
         <th>Date</th>
         <th>Person</th>
         <th>Localization</th>
+        <th>Count</th>
         <th>Material</th>
         <th>Thickness</th>
         <th>Length</th>
-        <th>Qty</th>
         <th>Width</th>
     </tr></tr>";
 echo "</thead>";
@@ -65,40 +72,12 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<td>".$row['data']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
     echo "<td>".$row['Person']."</td>";
     echo "<td>".$row['Localization']."</td>";
+    echo "<td>".$row['Ilosc']."</td>";
     echo "<td>".$row['Material']."</td>";
     echo "<td>".$row['Thickness']."</td>";
     echo "<td>".$row['Length']."</td>";
-    echo "<td>".$row['Qty']."</td>";
     echo "<td>".$row['Width']."</td>";
     echo "</tr>";
-
-    // Początek drugiego while
-    $othersql = "SELECT m.PartID,
-                        m.[Date],
-                        m.Person,
-                        m.Localization  AS Localization,
-                        s.Material,
-                        s.Thickness,
-                        s.[Length],
-                        s.Qty,
-                        s.Width 
-                 FROM PartCheck.dbo.MagazynExtra m
-                 LEFT JOIN SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
-                 WHERE m.PartID='".$row['PartID']."'
-                 order by m.[Date] desc";
-
-    $otherdatas = sqlsrv_query($conn, $othersql);
-    while ($otherrow = sqlsrv_fetch_array($otherdatas, SQLSRV_FETCH_ASSOC)) {
-        echo "<tr class='details-row details-row-".$row['PartID']."' style='display: none;'>"; // Ukryj rzędy szczegółów na początku
-        echo "<td></td>"; // Pusta komórka dla identyfikatora
-        echo "<td></td>";
-        echo "<td>".$otherrow['PartID']."</td>";
-        echo "<td>".$otherrow['Date']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
-        echo "<td>".$otherrow['Person']."</td>";
-        echo "<td>".$otherrow['Localization']."</td>";
-        echo "</tr>";
-    }
-    // Koniec drugiego while
 }
 echo "</tbody>";
 echo "</table>";

@@ -26,6 +26,13 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <?php include 'globalnav.php'; ?>
 <div class="container-xxl">
+    <div class="mb-3" style="float:right;">
+    <div class="input-group">
+    <input type="text"  class="form-control" id="searchInput" placeholder="Nazwa programu...">
+</div>
+</div>
+    <div class="clearfix"></div>
+    <br />
 
     <div>
 
@@ -86,7 +93,7 @@ ORDER BY
 
                     if (sqlsrv_has_rows($stmt)) {
                         ?>
-                        <tr class="table-success" value="<?php echo $data['ArchivePacketID'] ?>">
+                    <tr id="main" class="table-success" value="<?php echo $data['ArchivePacketID'] ?>">
                             <td>
                                 <?php echo $wartosci[0]; ?>
                             </td>
@@ -197,6 +204,19 @@ ORDER BY
             });
         });
     });
+
+$(document).ready(function(){
+    $("#searchInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        if (value === '') {
+            $("#mytable tbody tr#main").show(); // Pokaż wszystkie wiersze, gdy pole wyszukiwania jest puste
+        } else {
+            $("#mytable tbody tr:visible").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        }
+    });
+});
 </script>
 
 </html>

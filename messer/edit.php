@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         sqlsrv_query($conn, $sql1);
     }
 
-    logUserActivity($_POST['comment'],'update w aplikacji messer o id: '.$_POST['id']);
+    logUserActivity($_POST['numbermesser'],'update w aplikacji messer o id: '.$_POST['id']);
     sqlsrv_close($conn);
     header("location: main.php");
     exit();
