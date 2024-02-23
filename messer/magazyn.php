@@ -25,7 +25,7 @@ WHERE NOT EXISTS (
         WHERE
             sh.SheetName = m.PartID COLLATE SQL_Latin1_General_CP1_CI_AS
             and sh.Qty=0
-    )
+    ) and Deleted = 0
 GROUP BY
     m.PartID, m.Person, m.Localization, s.Material, s.Thickness, s.[Length], s.Width
 ORDER BY
