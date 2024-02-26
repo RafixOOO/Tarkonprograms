@@ -35,43 +35,8 @@ foreach ($programs as $program) {
 }
 
 function checkData($item, $myVariable, $keywordArray , $dataFrom, $dataTo) {
-
-    foreach ($keywordArray as $keyword) {
-        $keyword = trim($keyword);
-        $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
-
-        foreach ($columnsToSearch as $column) {
-            if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
-                continue;
-            }
-
-            $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
-
-            if (stripos($columnValue, $keyword) !== false) {
-                return true;
-            }
-        }
-           $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic']; // Dodaj więcej kolumn, jeśli jest potrzebne
-      $matchesKeyword = false;
-      foreach ($columnsToSearch as $column) {
-          if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
-              continue;
-          }
-        $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
-          if (stripos($columnValue, $keyword) !== false) {
-              $matchesKeyword = true;
-              break;
-          }
-      }
-      if (!$matchesKeyword) {
-          return false;
-      }
-    }
-
-    if ($myVariable == 0 and $keywordArray == '') {
-        if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1)) {
-            return false;
-        }
+    if ($myVariable == 0 && ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1) && $keywordArray == '') {
+        return false;
     }
 
     if ($dataFrom !== '') {
@@ -86,6 +51,29 @@ function checkData($item, $myVariable, $keywordArray , $dataFrom, $dataTo) {
         $dataTo = new DateTime($dataTo);
         $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
         if ($itemData > $dataTo) {
+            return false;
+        }
+    }
+
+    foreach ($keywordArray as $keyword) {
+        $keyword = trim($keyword);
+        $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
+        $matchesKeyword = false;
+
+        foreach ($columnsToSearch as $column) {
+            if (($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1) && $myVariable == 0) {
+                continue;
+            }
+
+            $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+
+            if (stripos($columnValue, $keyword) !== false) {
+                $matchesKeyword = true;
+                break;
+            }
+        }
+
+        if (!$matchesKeyword) {
             return false;
         }
     }
