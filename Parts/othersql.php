@@ -84,5 +84,5 @@ and p.[Pozycja]!=''
 GROUP BY
 p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock,c.[PROGRAM]
 order by p.[Status] desc, p.Id_import desc, c.[PROGRAM] desc ";
-$dataother = sqlsrv_query($conn, $sqlother);
+$data = sqlsrv_query($conn, $sqlother);
 ?>

@@ -8,96 +8,90 @@ use Pagerfanta\View\TwitterBootstrap4View;
 // Now you can use the Utils class
 
 $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['inne'];
-$dataresult = array();
-if(in_array("cutlogic", $programs)){
-  require_once 'cutlogicsql.php';
-
-  while ($datacut1 = sqlsrv_fetch_array($datacut, SQLSRV_FETCH_ASSOC)) {
-    $dataresult[] = $datacut1;
-  }
-}
-if(in_array("inne", $programs)){
-
-
-require_once 'othersql.php';
-
-while ($dataot = sqlsrv_fetch_array($dataother, SQLSRV_FETCH_ASSOC)) {
-  $dataresult[] = $dataot;
-}
-
-}
-
-if(in_array("messer", $programs)){
-
-require_once 'messer.php';
-
-while ($datamesser = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
-  $dataresult[] = $datamesser;
-}
-}
-
-if(in_array("v630", $programs)){
-
-
-require_once 'v630.php';
-
-while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
-  $dataresult[] = $data;
-}
-}
-
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
 $dataFrom = isset($_GET['dataFrom']) ? $_GET['dataFrom'] : '';
 $dataTo = isset($_GET['dataTo']) ? $_GET['dataTo'] : '';
-$filteredData = array_filter($dataresult, function ($item) use ($keywordArray, $dataFrom, $dataTo, $myVariable, $programs) {
-  if ($keywordArray !== '') {
-    foreach ($keywordArray as $keyword) {
-      $keyword = trim($keyword);
+$filesToLoad = [
+    'cutlogic' => 'cutlogicsql.php',
+    'inne' => 'othersql.php',
+    'messer' => 'messer.php',
+    'v630' => 'v630.php',
+];
 
-      $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic']; // Dodaj więcej kolumn, jeśli jest potrzebne
+$filteredData = [];
+
+foreach ($programs as $program) {
+    if (isset($filesToLoad[$program])) {
+        require_once $filesToLoad[$program];
+        while ($rowData = sqlsrv_fetch_array($data, SQLSRV_FETCH_ASSOC)) {
+            // Dodaj dane do tablicy tylko jeśli spełniają warunki filtrowania
+            if (checkData($rowData, $myVariable, $keywordArray, $dataFrom, $dataTo)) {
+                $filteredData[] = $rowData;
+            }
+        }
+    }
+}
+
+function checkData($item, $myVariable, $keywordArray , $dataFrom, $dataTo) {
+
+    foreach ($keywordArray as $keyword) {
+        $keyword = trim($keyword);
+        $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
+
+        foreach ($columnsToSearch as $column) {
+            if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
+                continue;
+            }
+
+            $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
+
+            if (stripos($columnValue, $keyword) !== false) {
+                return true;
+            }
+        }
+           $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic']; // Dodaj więcej kolumn, jeśli jest potrzebne
       $matchesKeyword = false;
       foreach ($columnsToSearch as $column) {
-        if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
-          continue;
-        }
+          if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1) and $myVariable == 0) {
+              continue;
+          }
         $columnValue = $item[$column] instanceof DateTime ? $item[$column]->format('Y-m-d H:i:s') : $item[$column];
           if (stripos($columnValue, $keyword) !== false) {
-            $matchesKeyword = true;
-            break;
-      }
+              $matchesKeyword = true;
+              break;
+          }
       }
       if (!$matchesKeyword) {
-        return false;
+          return false;
       }
     }
-  }
 
-  if ($myVariable == 0 and $keywordArray == '') {
-    if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1)) {
-      return false;
+    if ($myVariable == 0 and $keywordArray == '') {
+        if (($item['ilosc_zrealizowana'] >= $item['ilosc'] or $item['lok'] == 1)) {
+            return false;
+        }
     }
-  }
 
-  if ($dataFrom !== '') {
-    $dataFrom = new DateTime($dataFrom);
-    $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
-    if ($itemData < $dataFrom) {
-      return false;
+    if ($dataFrom !== '') {
+        $dataFrom = new DateTime($dataFrom);
+        $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
+        if ($itemData < $dataFrom) {
+            return false;
+        }
     }
-  }
 
-  if ($dataTo !== '') {
-    $dataTo = new DateTime($dataTo);
-    $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
-    if ($itemData > $dataTo) {
-      return false;
+    if ($dataTo !== '') {
+        $dataTo = new DateTime($dataTo);
+        $itemData = $item['data'] instanceof DateTime ? $item['data'] : new DateTime($item['data']);
+        if ($itemData > $dataTo) {
+            return false;
+        }
     }
-  }
 
-  return true;
-});
+    return true;
+}
 $pageSizeOptions = [25, 100, 500, 1000];
 $pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 25;
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
