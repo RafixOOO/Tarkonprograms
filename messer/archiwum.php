@@ -44,6 +44,7 @@ use Pagerfanta\View\TwitterBootstrap4View;
     CONVERT(CHAR(8), DATEADD(second, [CuttingTime], 0), 108) AS czaspalenia
 FROM 
     [SNDBASE_PROD].[dbo].[ProgArchive]
+where [Comment]!=''
 ORDER BY 
     CommentAfterComma DESC;";
         $datas = sqlsrv_query($conn, $sql);
