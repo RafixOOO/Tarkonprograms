@@ -6,7 +6,7 @@ $sql="SELECT
     MAX(m.[Date]) AS data,
     m.Person,
     m.Localization,
-    (SELECT COUNT(l.PartID) from PartCheck.dbo.MagazynExtra l where l.PartID=m.PartID and l.Localization=m.Localization) AS Ilosc,
+    (SELECT COUNT(l.PartID) from PartCheck.dbo.MagazynExtra l where l.PartID=m.PartID and l.Localization=m.Localization and l.Deleted=0) AS Ilosc,
     (SELECT COUNT(h.SheetName) from SNDBASE_PROD.dbo.StockArchive h where h.SheetName=sh1.SheetName) as zuzyte,
     s.Material,
     s.Thickness,
@@ -18,16 +18,16 @@ LEFT JOIN
     SNDBASE_PROD.dbo.Stock s ON m.PartID = s.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
 LEFT JOIN
     SNDBASE_PROD.dbo.StockArchive sh1 on m.PartID=sh1.SheetName COLLATE SQL_Latin1_General_CP1_CI_AS
-WHERE NOT EXISTS (
+WHERE m.Deleted = 0 and NOT EXISTS (
         SELECT 1
         FROM
             SNDBASE_PROD.dbo.StockArchive sh
         WHERE
             sh.SheetName = m.PartID COLLATE SQL_Latin1_General_CP1_CI_AS
             and sh.Qty=0
-    ) and Deleted = 0
+    )
 GROUP BY
-    m.PartID, m.Person, m.Localization, s.Material, s.Thickness, s.[Length], s.Width, sh1.SheetName
+    m.PartID, m.Person, m.Localization, s.Material, s.Thickness, s.[Length], s.Width, sh1.SheetName, m.Deleted
 ORDER BY
     MAX(m.[Date]) DESC;";
  $datas = sqlsrv_query($conn, $sql);
@@ -67,7 +67,11 @@ echo "<tr><tr>
         <th>Thickness</th>
         <th>Length</th>
         <th>Width</th>
-    </tr></tr>";
+";
+if (isUserMesser()) {
+    echo "<th>Option</th>";
+}
+  echo "  </tr></tr>";
 echo "</thead>";
 echo "<tbody>";
 while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
@@ -82,12 +86,36 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<td>".$row['Thickness']."</td>";
     echo "<td>".$row['Length']."</td>";
     echo "<td>".$row['Width']."</td>";
+     if (isUserMesser()) {
+        echo "<td> <Button class='btn btn-primary btn-sm'>Usuń</Button></td>";
+    }
     echo "</tr>";
 }
 echo "</tbody>";
 echo "</table>";
 ?>
 </div>
+</div>
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie produktu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>PartID: <span id="modal-partid"></span></p>
+                <p>Lokalizacja: <span id="modal-localization"></span></p>
+                <p>Ilość: <span id="modal-quantity"></span></p>
+                <label for="quantityToRemove">Wybierz ilość do usunięcia:</label>
+                <input type="number" id="quantityToRemove" name="quantityToRemove" min="0">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary" onclick="deleteItems()">Usuń</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -114,7 +142,59 @@ $(document).ready(function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Pobierz wszystkie przyciski "Usuń"
+    var deleteButtons = document.querySelectorAll(".btn-primary");
 
+    // Dodaj obsługę zdarzenia dla każdego przycisku "Usuń"
+    deleteButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            // Pobierz dane z wiersza
+            var partId = this.closest("tr").getAttribute("data-partid");
+            var localization = this.closest("tr").querySelector("td:nth-child(4)").innerText;
+            var quantity = parseInt(this.closest("tr").querySelector("td:nth-child(5)").innerText);
+
+            // Ustaw wartości w modalu
+            document.getElementById("modal-partid").textContent = partId;
+            document.getElementById("modal-localization").textContent = localization;
+            document.getElementById("modal-quantity").textContent = quantity;
+
+            // Ustaw minimalną i maksymalną ilość w polu wyboru
+            document.getElementById("quantityToRemove").min = 0;
+            document.getElementById("quantityToRemove").max = quantity;
+
+            // Wyświetl modal
+            var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+            myModal.show();
+        });
+    });
+});
+
+function deleteItems() {
+    // Pobierz wartość z pola wprowadzania quantityToRemove
+    var quantityToRemove = document.getElementById("quantityToRemove").value;
+
+    // Pobierz wartości PartID i lokalizacji z modalu
+    var partId = document.getElementById("modal-partid").textContent;
+    var localization = document.getElementById("modal-localization").textContent;
+
+    // Wyślij zapytanie AJAX do serwera, aby usunąć odpowiednią ilość produktów
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "delete_items.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // Obsłuż odpowiedź z serwera (jeśli potrzeba)
+            console.log(xhr.responseText);
+            location.reload();
+        }
+    };
+    xhr.send("partId=" + partId + "&localization=" + localization + "&quantityToRemove=" + quantityToRemove);
+
+    // Zamknij modal po zakończeniu operacji
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.hide();
+}
 </script>
 
 </html>
