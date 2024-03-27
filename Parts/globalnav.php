@@ -4,7 +4,7 @@
   <button style="margin-right:2%;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <img src="../static/menu.svg"></img>
   </button>
-  <div class="container-fluid">
+  <div class="container-xxl">
     <!-- Navbar brand -->
 
 
