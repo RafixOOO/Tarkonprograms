@@ -564,8 +564,9 @@ $jsonData1 = json_encode($data);
           <?php if (isUserPartsKier() && isUserParts()) { ?>
             <form method="POST" action="statuschange.php">
               <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz</button>
-              <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">Kooperacyjnie</button>
             </form>
+              <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">Kooperacyjnie</button>
+
           <?php } ?>
 
 
