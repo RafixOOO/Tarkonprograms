@@ -4,7 +4,16 @@ require_once("dbconnect.php");
 $sql="SELECT
     m.PartID,
     MAX(m.[Date]) AS data,
-    m.Person,
+    (
+        SELECT STRING_AGG( Person, ', ')
+        FROM (
+            SELECT DISTINCT Person
+            FROM PartCheck.dbo.MagazynExtra
+            WHERE PartID = m.PartID
+                AND Localization = m.Localization
+                AND Deleted = 0
+        ) AS distinct_persons
+    ) AS Persons,
     m.Localization,
     (SELECT COUNT(l.PartID) from PartCheck.dbo.MagazynExtra l where l.PartID=m.PartID and l.Localization=m.Localization and l.Deleted=0) AS Ilosc,
     (SELECT COUNT(h.SheetName) from SNDBASE_PROD.dbo.StockArchive h where h.SheetName=sh1.SheetName) as zuzyte,
@@ -24,10 +33,10 @@ WHERE m.Deleted = 0 and NOT EXISTS (
             SNDBASE_PROD.dbo.StockArchive sh
         WHERE
             sh.SheetName = m.PartID COLLATE SQL_Latin1_General_CP1_CI_AS
-            and sh.Qty=0
+            and sh1.Qty=0
     )
 GROUP BY
-    m.PartID, m.Person, m.Localization, s.Material, s.Thickness, s.[Length], s.Width, sh1.SheetName, m.Deleted
+    m.PartID, m.Localization, s.Material, s.Thickness, s.[Length], s.Width, sh1.SheetName, m.Deleted
 ORDER BY
     MAX(m.[Date]) DESC;";
  $datas = sqlsrv_query($conn, $sql);
@@ -78,7 +87,7 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<tr id='main' class='clickable-row' data-partid='".$row['PartID']."'>";
     echo "<td>".$row['PartID']."</td>";
     echo "<td>".$row['data']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
-    echo "<td>".$row['Person']."</td>";
+    echo "<td>".$row['Persons']."</td>";
     echo "<td>".(($row['Localization'] == 16) ? "kooperacja" : (($row['Localization'] == 17) ? "zewnątrz" : $row['Localization']))."</td>";
     echo "<td>".$row['Ilosc']."</td>";
     echo "<td>".$row['zuzyte']."</td>";
