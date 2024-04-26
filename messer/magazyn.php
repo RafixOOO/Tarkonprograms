@@ -48,18 +48,18 @@ ORDER BY
 <head>
 
     <?php include 'globalhead.php'; ?>
+<style>
+.dataTables_filter {
+    float: right; /* Przesunięcie pola wyszukiwania na prawo */
+    margin-right: 20px; /* Odstęp między polem wyszukiwania a prawym brzegiem tabeli */
+}
+</style>
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <?php include 'globalnav.php'; ?>
 <div class="container-xxl">
-<div class="mb-3" style="float:right;">
-<div class="input-group">
-<input type="text"  class="form-control" id="searchInput" placeholder="Nazwa arkusza...">
-</div>
-</div>
-<div class="clearfix"></div>
-<br />
+
 <div class="table-responsive">
 <?php
 echo "<table class='table table-sm table-hover table-bordered' id='mytable'
@@ -127,27 +127,16 @@ echo "</table>";
     </div>
 </div>
 </body>
+    <script src="../static/jquery-3.7.0.js"></script>
+    <script src="../static/jquery.dataTables.min.js"></script>
+    <script src="../static/dataTables.bootstrap5.min.js"></script>
 <script>
-$(document).ready(function(){
-    $("#searchInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        if (value === '') {
-            $("#mytable tbody tr#main").show(); // Pokaż wszystkie wiersze, gdy pole wyszukiwania jest puste
-        } else {
-            $("#mytable tbody tr:visible").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(document).ready(function(){
+            $('#mytable').DataTable({
+                paging: false, // Wyłączenie paginacji
+                info: false // Wyłączenie informacji o liczbie rekordów
             });
-        }
-    });
-});
-
-$(document).ready(function() {
-    $(".clickable-row").click(function() {
-        var partID = $(this).data('partid');
-        $(".details-row").hide().removeClass('visible-details'); // Ukryj wszystkie rzędy szczegółów i usuń klasę 'visible-details'
-        $(".details-row-"+partID).toggle().addClass('visible-details'); // Pokaż lub ukryj rzęd szczegółów dla klikniętego PartID i dodaj klasę 'visible-details'
-    });
-});
+        });
 
 document.addEventListener("DOMContentLoaded", function() {
     // Pobierz wszystkie przyciski "Usuń"
