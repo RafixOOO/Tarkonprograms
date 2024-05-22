@@ -150,6 +150,12 @@ document.addEventListener("DOMContentLoaded", function() {
             var localization = this.closest("tr").querySelector("td:nth-child(4)").innerText;
             var quantity = parseInt(this.closest("tr").querySelector("td:nth-child(5)").innerText);
 
+            if(localization=="zewnątrz"){
+                localization=17;
+            }else if(localization=="kooperacja"){
+                localization=16;
+            }
+
             // Ustaw wartości w modalu
             document.getElementById("modal-partid").textContent = partId;
             document.getElementById("modal-localization").textContent = localization;
