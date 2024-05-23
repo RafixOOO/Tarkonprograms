@@ -105,7 +105,7 @@ echo "</table>";
 <script>
         $(document).ready(function(){
             $('#mytable').DataTable({
-                paging: false, // Wyłączenie paginacji
+                paging: true, // Wyłączenie paginacji
                 info: false // Wyłączenie informacji o liczbie rekordów
             });
         });
