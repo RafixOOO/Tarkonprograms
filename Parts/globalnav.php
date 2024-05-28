@@ -51,10 +51,13 @@
               V200
             </a>
           </li>
-        <?php } ?>        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+        <?php } ?>
+        <?php if (isLoggedIn()) { ?>
+        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
           <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Parts
           </a>
+
           <!-- Dropdown menu -->
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="main.php">Programy</a></li>
@@ -63,7 +66,9 @@
               <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
             <?php } ?>
           </ul>
+
         </li>
+        <?php } ?>
         <?php if (isUserCutlogic()) { ?>
           <li class="nav-item text-center mx-2 mx-lg-1">
             <a class="nav-link active" aria-current="page" href="../cutlogic/main.php">
@@ -74,6 +79,16 @@
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link" aria-current="page" href="../Hrappka/index.php">
             Hrappka
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link active" aria-current="page" href="main.php">
+            Programy
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link" aria-current="page" href="dozrobienia.php">
+            Gotowe
           </a>
         </li>
       </ul>
