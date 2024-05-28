@@ -81,13 +81,20 @@
             Hrappka
           </a>
         </li>
+        <?php
+$current_page = basename($_SERVER['PHP_SELF']);
+        function isActive($page) {
+          global $current_page;
+          return $current_page === $page ? 'active' : '';
+        }
+         ?>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link active" aria-current="page" href="main.php">
-            Programy
+                <a class="nav-link <?php echo isActive('main.php'); ?>" aria-current="page" href="main.php">
+                Programy
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="dozrobienia.php">
+          <a class="nav-link <?php echo isActive('dozrobienia.php'); ?>" aria-current="page" href="dozrobienia.php">
             Gotowe
           </a>
         </li>
@@ -135,7 +142,6 @@
         $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
 
         // Sprawdź, czy adres IP użytkownika jest zablokowany
-        if (!in_array($userIP, $blockedIPs)) {
         ?>
           <li class="dropdown-divider"></li>
           <?php if (isLoggedIn()) { ?>
@@ -143,7 +149,6 @@
           <?php } ?>
           <?php if (!isLoggedIn()) { ?>
             <li><a class="dropdown-item" href="../login.php">Zaloguj się</a></li>
-          <?php } ?>
           <?php } ?>
           </ul>
 
