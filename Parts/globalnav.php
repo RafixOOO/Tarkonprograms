@@ -51,9 +51,7 @@
               V200
             </a>
           </li>
-        <?php } ?>
-          <?php if (isLoggedIn()) { ?>
-        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+        <?php } ?>        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
           <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Parts
           </a>
@@ -65,7 +63,6 @@
               <li><a class="dropdown-item" href="upload.php">Wyślij</a></li>
             <?php } ?>
           </ul>
-          <?php } ?>
         </li>
         <?php if (isUserCutlogic()) { ?>
           <li class="nav-item text-center mx-2 mx-lg-1">
@@ -79,13 +76,6 @@
             Hrappka
           </a>
         </li>
-        <?php if(!isLoggedIn()){ ?>
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="dozrobienia.php">
-            Gotowe
-          </a>
-        </li>
-        <?php } ?>
       </ul>
       <!-- Left links -->
       <!-- Right links -->

@@ -52,7 +52,7 @@
             </a>
           </li>
         <?php } ?>
-          <?php if (isLoggedIn()) { ?>
+          <?php if (!isLoggedIn()) { ?>
         <li class="nav-item dropdown text-center mx-2 mx-lg-1">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Parts
@@ -78,11 +78,6 @@
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link active" aria-current="page" href="index.php">
             Hrappka
-          </a>
-        </li>
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="../Parts/dozrobienia.php">
-            Gotowe
           </a>
         </li>
       </ul>

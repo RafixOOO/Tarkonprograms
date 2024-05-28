@@ -801,6 +801,7 @@ $jsonData1 = json_encode($data);
               if (isUserPartsKier()) { ?>
                 <button id="submit-button" class="btn btn-default">Przejdź</button>
               <?php } else if (!isUserPartsKier()) { ?>
+                <a href="..\Hrappka\index.php" class="btn btn-default">Hrappka</a>
                 <a href="..\login.php" class="btn btn-default">Zaloguj się</a>
               <?php } ?>
             </div>
