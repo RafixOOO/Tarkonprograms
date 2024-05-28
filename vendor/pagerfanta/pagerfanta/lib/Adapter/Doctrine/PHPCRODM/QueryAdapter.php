@@ -5,6 +5,7 @@ namespace Pagerfanta\Doctrine\PHPCRODM;
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
 use Doctrine\ODM\PHPCR\Query\Query;
 use Pagerfanta\Adapter\AdapterInterface;
+use PHPCR\Query\QueryResultInterface;
 
 /**
  * Adapter which calculates pagination from a Doctrine PHPCR ODM QueryBuilder.
@@ -17,8 +18,7 @@ class QueryAdapter implements AdapterInterface
 {
     public function __construct(
         private readonly QueryBuilder $queryBuilder
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

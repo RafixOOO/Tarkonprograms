@@ -2,6 +2,7 @@
     "require": {
         "ext-gd": "*",
         "ext-sqlsrv": "*",
+        "ext-json": "*",
         "pagerfanta/pagerfanta": "^4.1"
     } 
 }

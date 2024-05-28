@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "pagerfanta/pagerfanta",
-            "version": "v4.2.0",
+            "version": "v4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/Pagerfanta.git",
-                "reference": "f38141da47c7f909d6919ad3d1917a7fd873175c"
+                "reference": "ab85ad0ac605d59d6263f49db9584254e159c37f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/f38141da47c7f909d6919ad3d1917a7fd873175c",
-                "reference": "f38141da47c7f909d6919ad3d1917a7fd873175c",
+                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/ab85ad0ac605d59d6263f49db9584254e159c37f",
+                "reference": "ab85ad0ac605d59d6263f49db9584254e159c37f",
                 "shasum": ""
             },
             "require": {
@@ -46,21 +46,21 @@
                 "pagerfanta/twig": "self.version"
             },
             "require-dev": {
-                "dg/bypass-finals": "^1.4.1",
+                "dg/bypass-finals": "^1.5.1",
                 "doctrine/collections": "^1.8 || ^2.0",
-                "doctrine/dbal": "^3.5",
+                "doctrine/dbal": "^3.5 || ^4.0",
                 "doctrine/mongodb-odm": "^2.4",
-                "doctrine/orm": "^2.14",
-                "doctrine/phpcr-odm": "^1.7",
+                "doctrine/orm": "^2.14 || ^3.0",
+                "doctrine/phpcr-odm": "^1.7 || ^2.0",
                 "jackalope/jackalope-doctrine-dbal": "^1.9",
-                "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "1.10.25",
-                "phpstan/phpstan-phpunit": "1.3.13",
-                "phpunit/phpunit": "10.2.4",
-                "rector/rector": "0.17.3",
+                "phpstan/extension-installer": "^1.3.1",
+                "phpstan/phpstan": "1.10.66",
+                "phpstan/phpstan-phpunit": "1.3.16",
+                "phpunit/phpunit": "10.5.17",
+                "rector/rector": "1.0.4",
                 "ruflin/elastica": "^7.3",
                 "solarium/solarium": "^6.2",
-                "symfony/cache": "^5.4 || ^6.2",
+                "symfony/cache": "^5.4 || ^6.3 || ^7.0",
                 "twig/twig": "^2.13 || ^3.0"
             },
             "suggest": {
@@ -96,7 +96,7 @@
             ],
             "support": {
                 "issues": "https://github.com/BabDev/Pagerfanta/issues",
-                "source": "https://github.com/BabDev/Pagerfanta/tree/v4.2.0"
+                "source": "https://github.com/BabDev/Pagerfanta/tree/v4.5.0"
             },
             "funding": [
                 {
@@ -104,7 +104,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-10T22:14:20+00:00"
+            "time": "2024-04-10T22:17:10+00:00"
         }
     ],
     "packages-dev": [],

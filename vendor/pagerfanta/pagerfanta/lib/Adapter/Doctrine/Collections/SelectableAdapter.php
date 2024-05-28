@@ -22,15 +22,14 @@ class SelectableAdapter implements AdapterInterface
     public function __construct(
         private readonly Selectable $selectable,
         private readonly Criteria $criteria,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>
      */
     public function getNbResults(): int
     {
-        return $this->selectable->matching($this->createCriteria(null, null))->count();
+        return $this->selectable->matching($this->createCriteria(0, null))->count();
     }
 
     /**
@@ -45,10 +44,10 @@ class SelectableAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $firstResult
+     * @phpstan-param int<0, max> $firstResult
      * @phpstan-param int<0, max>|null $maxResult
      */
-    private function createCriteria(?int $firstResult, ?int $maxResult): Criteria
+    private function createCriteria(int $firstResult, ?int $maxResult): Criteria
     {
         $criteria = clone $this->criteria;
         $criteria->setFirstResult($firstResult);
