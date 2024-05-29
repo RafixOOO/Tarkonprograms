@@ -16,7 +16,12 @@ $sql="SELECT
     ) AS Persons,
     m.Localization,
     (SELECT COUNT(l.PartID) from PartCheck.dbo.MagazynExtra l where l.PartID=m.PartID and l.Localization=m.Localization ) AS Ilosc,
-    (SELECT COUNT(h.SheetName) from SNDBASE_PROD.dbo.StockArchive h where h.SheetName=sh1.SheetName) as zuzyte,
+    CASE
+        WHEN m.Deleted = 1 THEN 'Deleted'
+        ELSE CAST((SELECT COUNT(h.SheetName)
+                   FROM SNDBASE_PROD.dbo.StockArchive h
+                   WHERE h.SheetName = sh1.SheetName) AS VARCHAR)
+    END as zuzyte,
     sh1.Material,
     sh1.Thickness,
     sh1.[Length],
