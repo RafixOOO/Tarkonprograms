@@ -24,8 +24,8 @@ $sql="SELECT
     END as zuzyte,
     sh1.Material,
     sh1.Thickness,
-    sh1.[Length],
-    sh1.Width
+    ROUND(sh1.Length, 2) AS Length,
+    ROUND(sh1.Width, 2) AS Width
 FROM
     PartCheck.dbo.MagazynExtra m
 LEFT JOIN

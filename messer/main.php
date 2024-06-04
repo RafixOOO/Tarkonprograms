@@ -113,6 +113,10 @@
       color: white;
       cursor: pointer;
     }
+
+    .highlight {
+      background-color: yellow;
+      }
   </style>
 </head>
 <?php require_once('dbconnect.php');
@@ -184,6 +188,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     <?php } ?>
     <div>
       <div class="table-responsive">
+      <?php if (isLoggedIn()) { ?>
+    <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()">
+    <?php } ?>
         <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
           <thead>
             <th>#</th>
@@ -514,6 +521,36 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     // Dodaj nową wiadomość do kontenera
     $("#chatContainer").append(newMessage);
   }
+
+function highlightTableText() {
+  const searchText = document.getElementById('search').value.toLowerCase();
+  const table = document.getElementById('mytable');
+  const rows = table.getElementsByTagName('tr');
+
+  // Resetowanie podświetleń
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName('td');
+    for (let j = 0; j < cells.length; j++) {
+      cells[j].innerHTML = cells[j].innerText;
+    }
+  }
+
+  // Jeśli pole wyszukiwania jest puste, zakończ funkcję
+  if (!searchText) return;
+
+  // Podświetlanie znalezionego tekstu
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName('td');
+    for (let j = 0; j < cells.length; j++) {
+      const cellText = cells[j].innerText.toLowerCase();
+      if (cellText.includes(searchText)) {
+        const regex = new RegExp(searchText, 'gi');
+        cells[j].innerHTML = cells[j].innerText.replace(regex, match => `<span class="highlight">${match}</span>`);
+      }
+    }
+  }
+}
+
 </script>
 <?php
 
