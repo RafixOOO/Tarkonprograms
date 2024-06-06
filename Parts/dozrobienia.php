@@ -115,6 +115,23 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         .yellow {
             background-color: #fff06ee8;
         }
+
+          /* Styl dla spinnera */
+  #loadingIndicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Wycentruj spinner */
+    z-index: 10000; /* Zadaj jeszcze wyższy indeks warstwy, aby spinner był na wierzchu */
+    display: none; /* Ukryj początkowo spinner */
+}
+
+/* Dodatkowe style dla większego spinnera */
+.spinner-border {
+    width: 6rem; /* Szerokość spinnera */
+    height: 6rem; /* Wysokość spinnera */
+    border-width: 0.5em; /* Grubość obramowania */
+}
     </style>
 </head>
 
@@ -143,13 +160,18 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
     </form>
 </div>
 <div class="container mt-5">
-
+    <div id="loadingIndicator" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <br/>
     <div class="row" id="masonry-grid">
         <?php while ($data = sqlsrv_fetch_array($datasproject, SQLSRV_FETCH_ASSOC)) :
             $orange = 0;
             $dark = 0;
             ?>
+
             <div class="col-md-2"> <!-- Ustawiamy szerokość karty na 4 kolumny na ekranach większych niż "md" -->
                 <div id="<?php echo 'collapse' . $data['id']; ?>" class="card mb-3">
                     <div class="card-header">
@@ -157,6 +179,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
                         <span class="float-end"><?php echo $data['ilosc']; ?></span>
                     </div>
                     <div class="card-body">
+
                         <p class="card-text">
                             <?php foreach ($dataresult1
 
@@ -224,6 +247,16 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 </body>
 <script src="../static/masonry.pkgd.min.js"></script>
 <script>
+
+function showLoadingIndicator() {
+    document.getElementById('loadingIndicator').style.display = 'block';
+}
+
+// Dodanie nasłuchiwacza zdarzeń do linków paginacji
+var paginationLinks = document.querySelectorAll('a');
+paginationLinks.forEach(function(link) {
+        link.addEventListener('click', showLoadingIndicator);
+});
     function convertToUppercase(inputElement) {
         inputElement.value = inputElement.value.toUpperCase();
     }

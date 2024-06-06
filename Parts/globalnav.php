@@ -34,10 +34,10 @@
                 <?php } ?>
                 <?php if (isUserMesser()) { ?>
                     <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown1" role="button"
+                        <func href="#" class="nav-link dropdown-toggle" id="navbarDropdown1" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Messer
-                        </a>
+                        </func>
                         <!-- Dropdown menu -->
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
                             <li><a class="dropdown-item" href="../messer/main.php">Aktualne</a></li>
@@ -56,10 +56,10 @@
                 <?php } ?>
                 <?php if (isLoggedIn()) { ?>
                     <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <func class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Parts
-                        </a>
+                        </func>
 
                         <!-- Dropdown menu -->
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">

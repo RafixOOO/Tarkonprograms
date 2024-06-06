@@ -827,7 +827,7 @@ function showLoadingIndicator() {
 }
 
   // Dodanie nasłuchiwacza zdarzeń do linków paginacji
-  var paginationLinks = document.querySelectorAll('.pagination a');
+  var paginationLinks = document.querySelectorAll('a');
   paginationLinks.forEach(function(link) {
       link.addEventListener('click', showLoadingIndicator);
   });
