@@ -61,11 +61,6 @@
             CutLogic
           </a>
         </li>
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="../Hrappka/index.php">
-            Hrappka
-          </a>
-        </li>
       </ul>
       <!-- Left links -->
       <!-- Right links -->
