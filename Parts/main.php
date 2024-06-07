@@ -335,19 +335,21 @@ $jsonData1 = json_encode($data);
 
       <form id="myForm1" method="get" action="">
         <div class="input-group">
-          <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
+          <input type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
 
           <button class="btn btn-primary" type="submit">Szukaj</button>
-          <a href="main.php"><button class="btn btn-secondary" type="button">Wyczyść</button></a>
-          <br />
+          <a href="main.php"><button class="btn btn-secondary form-control form-control-lg" type="button">Wyczyść</button></a>
+          <br /><br />
         </div>
         <div style="text-align:right;">
-        <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control" name="programs[]">
-  <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
-  <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
-  <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
-  <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
-</select><br />
+            <br />
+            <button id="deleteBtn" class="btn btn-info form-control form-control" style="float:right; width: 30%;">Usuń</button>
+        <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control form-control-lg" name="programs[]" style="float:right; width: 65%;">
+  <option class="form-control form-control-lg" value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
+  <option class="form-control form-control-lg" value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
+  <option class="form-control form-control-lg" value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
+  <option class="form-control form-control-lg" value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
+</select><br /><br />
         od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
       </div>
     </div>
@@ -822,6 +824,8 @@ $jsonData1 = json_encode($data);
 <script src="../static/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 <script>
+
+
 function showLoadingIndicator() {
     document.getElementById('loadingIndicator').style.display = 'block';
 }
@@ -965,9 +969,23 @@ function showLoadingIndicator() {
     }
 }
 
-$(".chosen-select").chosen({
-  no_results_text: "Oops, nothing found!"
-})
+$(document).ready(function() {
+        $(".chosen-select").chosen({
+            no_results_text: 'Brak wyników',
+            single_backstroke_delete: true
+        });
+
+        $("#deleteBtn").on("click", function(event) {
+            event.preventDefault(); // Zapobiega wysłaniu formularza
+            let $select = $(".chosen-select");
+            let selectedValues = $select.val();
+            if (selectedValues && selectedValues.length > 0) {
+                selectedValues.pop();  // Usuwa ostatnią wybraną wartość
+                $select.val(selectedValues).trigger("chosen:updated");  // Aktualizuje element select
+            }
+        });
+    });
+
 
 function showModalDialog(program1Values) {
     var modal = $('#programmodal');

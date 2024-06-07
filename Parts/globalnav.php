@@ -104,7 +104,7 @@
             <!-- Right links -->
             <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
                 <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-auto-close="outside"
+                    <fync class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-auto-close="outside"
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                         <?php if (isLoggedIn()) { ?>
@@ -113,26 +113,26 @@
                             Zaloguj się
 
                         <?php } ?>
-                    </a>
+                    </fync>
                     <!-- Dropdown menu -->
 
                     <ul class="dropdown-menu dropdown-menu-dark" style="left: -35%;" aria-labelledby="navbarDropdown">
 
-                        <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                        <li class="dropstart"><fync class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
                                                  role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                 aria-expanded="false">Ustawienia</a>
+                                                 aria-expanded="false">Ustawienia</fync>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
                                 <?php if (isLoggedIn()) { ?>
                                     <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
                                     <li><a class="dropdown-item" href="../username.php">Zmień nazwę użytkownika</a></li>
                                 <?php } ?>
-                                <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
+                                <li><fync class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</fync></li>
                             </ul>
 
                             <?php if (isUserAdmin()) { ?>
-                        <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
+                        <li class="dropstart"><fync class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2"
                                                  role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                 aria-expanded="false">Panel admina</a>
+                                                 aria-expanded="false">Panel admina</fync>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
                                 <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
                                 <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
