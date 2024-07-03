@@ -2,5 +2,6 @@
     "php.stubs": [
         "*",
         "uodbc"
-    ]
+    ],
+    "php.version": "8.3"
 }
