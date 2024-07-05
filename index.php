@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
 <?php require_once("globalhead.php"); ?>
 
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-  
-<?php require_once("globalnav.php"); ?>
+
+<div class="row" style="width:80%; margin: 0 auto;">
+              <div class="col-md-12">
+                <div class="card" style="background-color: transparent;">
+                  <div class="card-header">
+                  <h4 class="card-title">Kalendarz</h4>
+
 <button class="btn btn-secondary float-end" onclick="location.reload()">Wyczyść</button>
 <button class="btn btn-primary float-end" onclick="searchByGroupId()">Szukaj</button>
 <select class="form-control w-25 float-end" name="evens" id="groupIdInput">
@@ -17,9 +22,13 @@
   <option value="Recznie">Recznie</option>
   <option value="Kooperacyjnie">Kooperacyjnie</option>
 </select>
-    <br /><br />
 <div style="width:85%;margin-left:auto;margin-right:auto;" id='calendar'></div>
-<br />
+
+</div></div></div></div>
+<?php require_once("globalnav.php"); ?>
+
+
+
 <script src='dist/index.global.js'></script>
 <script>
     var calendar;

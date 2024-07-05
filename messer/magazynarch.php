@@ -1,5 +1,6 @@
 <?php
 require_once("dbconnect.php");
+require_once '../auth.php'; 
 
 $sql="SELECT
     m.PartID,
@@ -63,7 +64,6 @@ if ($datas === false) {
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
 <div class="container-xxl">
 
 <div class="table-responsive">
@@ -103,8 +103,9 @@ echo "</table>";
 ?>
 </div>
 </div>
+<?php include 'globalnav.php'; ?>
+
 </body>
-    <script src="../static/jquery-3.7.0.js"></script>
     <script src="../static/jquery.dataTables.min.js"></script>
     <script src="../static/dataTables.bootstrap5.min.js"></script>
 <script>

@@ -1,6 +1,6 @@
 <?php
 require_once("dbconnect.php");
-
+require_once '../auth.php'; 
 $sql="SELECT
     m.PartID,
     MAX(m.[Date]) AS data,
@@ -45,9 +45,9 @@ ORDER BY
  }
 ?>
 <html>
+<?php include 'globalhead.php'; ?>
 <head>
 
-    <?php include 'globalhead.php'; ?>
 <style>
 .dataTables_filter {
     float: right; /* Przesunięcie pola wyszukiwania na prawo */
@@ -57,8 +57,7 @@ ORDER BY
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
-<div class="container-xxl">
+<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
 
 <div class="table-responsive">
 <?php
@@ -126,8 +125,8 @@ echo "</table>";
         </div>
     </div>
 </div>
+<?php include 'globalnav.php'; ?>
 </body>
-    <script src="../static/jquery-3.7.0.js"></script>
     <script src="../static/jquery.dataTables.min.js"></script>
     <script src="../static/dataTables.bootstrap5.min.js"></script>
 <script>

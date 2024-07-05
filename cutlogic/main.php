@@ -10,12 +10,11 @@
       </style>
 </head>
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
 <?php 
 require_once 'cutlogic.php';
 ?>
 
-<table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
+<table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw); width:80%; margin-left: auto; margin-right:auto;">
 
 
 <thead>
@@ -46,5 +45,6 @@ require_once 'cutlogic.php';
   <?php } ?>
 </tbody>
 </table>
+<?php include 'globalnav.php'; ?>
 </body>
 </html>

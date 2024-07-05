@@ -5,11 +5,11 @@
         require_once('dbconnect.php');
     ?>
 <head>
+<?php require_once 'auth.php'; ?>
    <?php require_once("globalhead.php"); ?>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php require_once("globalnav.php"); ?>
             <div class="container">
             <div class="table-responsive">
             <a href="dodaj.php" class="btn btn-success float-end">Dodaj</a>
@@ -149,5 +149,6 @@
 </div>
 </div>
 </div>
+<?php require_once("globalnav.php"); ?>
 </body>
 </html>

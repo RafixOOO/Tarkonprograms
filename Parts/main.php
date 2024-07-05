@@ -1,3 +1,5 @@
+<?php require_once '../auth.php'; ?>
+
 <?php
 require_once 'vendor/autoload.php';
 
@@ -308,558 +310,528 @@ $jsonData1 = json_encode($data);
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Wycentruj spinner */
-            z-index: 10000; /* Zadaj jeszcze wyższy indeks warstwy, aby spinner był na wierzchu */
-            display: none; /* Ukryj początkowo spinner */
+            transform: translate(-50%, -50%);
+            /* Wycentruj spinner */
+            z-index: 10000;
+            /* Zadaj jeszcze wyższy indeks warstwy, aby spinner był na wierzchu */
+            display: none;
+            /* Ukryj początkowo spinner */
         }
 
         /* Dodatkowe style dla większego spinnera */
         .spinner-border {
-            width: 6rem; /* Szerokość spinnera */
-            height: 6rem; /* Wysokość spinnera */
-            border-width: 0.5em; /* Grubość obramowania */
+            width: 6rem;
+            /* Szerokość spinnera */
+            height: 6rem;
+            /* Wysokość spinnera */
+            border-width: 0.5em;
+            /* Grubość obramowania */
         }
     </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php require_once('globalnav.php') ?>
-<div class="container-fluid">
-    <?php if (!isLoggedIn()) { ?>
-        <div class="progress verticalrotate">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-                 style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
-        </div>
-    <?php } ?>
-
-
-    <div class="mb-3" style="float:right;">
-
-        <form id="myForm1" method="get" action="">
-            <div class="input-group">
-                <input type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>"
-                       placeholder="Nazwa..." autofocus>
-
-                <button class="btn btn-primary" type="submit">Szukaj</button>
-                <a href="main.php">
-                    <button class="btn btn-secondary form-control form-control-lg" type="button">Wyczyść</button>
-                </a>
-                <br/><br/>
+    <div class="container-fluid" style="width:90%;margin-left:auto;margin-right:auto;">
+        <?php if (!isLoggedIn()) { ?>
+            <div class="progress verticalrotate">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
             </div>
-            <div style="text-align:right;">
-                <br/>
-                <button id="deleteBtn" class="btn btn-info form-control form-control" style="float:right; width: 30%;">
-                    Usuń
-                </button>
-                <select data-placeholder="Wybierz kategorie" multiple class="chosen-select form-control form-control-lg"
-                        name="programs[]" style="float:right; width: 65%;">
-                    <option class="form-control form-control-lg"
-                            value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE
-                    </option>
-                    <option class="form-control form-control-lg"
-                            value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC
-                    </option>
-                    <option class="form-control form-control-lg"
-                            value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER
-                    </option>
-                    <option class="form-control form-control-lg"
-                            value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630
-                    </option>
-                </select><br/><br/>
-                od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date"
-                                                                                                    value="<?php echo $dataTo; ?>"
-                                                                                                    name="dataTo">
-            </div>
-    </div>
-    <div class="form-group" style="float:left;">
-        <label for="pageSizeSelect">Liczba wyników na stronie:</label>
-        <select class="form-control" id="pageSizeSelect" name="page_size">
-            <?php foreach ($pageSizeOptions as $option) : ?>
-                <option value="<?php echo $option; ?>" <?php echo $pageSize === $option ? 'selected' : ''; ?>>
-                    <?php echo $option; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-
-        <label for="checkbox">Pokaż zakończone: </label>
-        <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
-    </div>
-    </form>
-
-    <div style="clear:both;"></div>
-    <div class="table-responsive">
-        <table id="myTable" class="table table-sm table-hover table-striped table-bordered"
-               style="font-size: calc(9px + 0.390625vw)">
-
-
-            <thead>
-            <tr>
-                <th scope="col">Project</th>
-                <th scope="col" style="width:10em;">Assembly</th>
-                <th scope="col">Cutlogic</th>
-                <th scope="col">Part</th>
-                <th scope="col">Amount Need / Done</th>
-                <th scope="col">V200</th>
-                <th scope="col">Machine</th>
-                <th scope="col">Dimension</th>
-                <th scope="col">Material</th>
-                <th scope="col">Length</th>
-                <th scope="col">Length Done</th>
-                <th scope="col">Weight</th>
-                <th scope="col">Weight Done</th>
-                <th scope="col">Description</th>
-                <th scope="col">Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($currentPageResults as $data) :
-                if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
-                    $szer = 0;
-                } else {
-                    $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
-                }
-
-                if ($data['lok'] == 1 or $szer >= 100) {
-                    if ($data['lok'] == 1) {
-                        echo "<tr class='table-danger'>";
-                    } else {
-                        echo "<tr>";
-                    }
-                } else if (($data['maszyna'] == "" or $data['maszyna'] == "Recznie" or $data['maszyna'] == "Kooperacyjnie" or $data['maszyna'] == "Pila") and $szer < 100) {
-                    echo '<tr id="myRow" onclick="handleClick(this);">';
-                }
-                ?>
-                <td id="project"><?php echo $data['ProjectName']; ?></td>
-                <td id="zespol"><?php if ($data['status'] == 1) {
-                        echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
-                    } else {
-                        echo $data['zespol'];
-                    } ?></td>
-                <td id="Program1"><?php echo $data['cutlogic'] ?></td>
-                <td id="detal"><?php echo $data['Detal']; ?></td>
-                <td>
-                    <div class="progress" style="height:25px;font-size: 16px;">
-                        <?php if ($szer <= 100) { ?>
-                            <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;'
-                                 aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0'
-                                 aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc_zrealizowana']; ?></div>
-                            <span class='progress-bar bg-white text-dark' style='width:
-                            <?php if (100 - $szer < 0) {
-                                echo 0;
-                            } else {
-                                echo 100 - $szer;
-                            } ?>%;'><?php echo $data['ilosc']; ?> </span>
-                        <?php } else { ?>
-                            <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;'
-                                 aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0'
-                                 aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana']; ?></div>
-                        <?php }
-                        ?>
-                </td>
-                <td><?php echo $data['ilosc_v200'] . "/" . $data['ilosc_v200_zre']; ?></td>
-                <td><?php echo $data['maszyna']; ?></td>
-                <td><?php echo $data['profil']; ?></td>
-                <td><?php echo $data['material']; ?></td>
-                <td><?php echo $data['dlugosc']; ?></td>
-                <td><?php echo $data['dlugosc_zre']; ?></td>
-                <td><?php echo $data['Ciezar']; ?></td>
-                <td><?php echo $data['Calk_ciez']; ?></td>
-                <td><?php echo $data['import'] . $data['uwaga'] . "," . $data['wykonal']; ?></td>
-                <td><?php if ($data['data'] != "") {
-                        echo $data['data']->format('Y-m-d H:i:s');
-                    } ?>
-                </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-
-
-        <table id="myTablereport" hidden>
-            <caption
-                id="tableTitle"><?php echo $_GET['keywords'] . " (od: " . $_GET['dataFrom'] . " do: " . $_GET['dataTo'] . ") Ilość: " . $_GET['page_size']; ?></caption>
-            <thead>
-            <tr>
-                <th scope="col">Project</th>
-                <th scope="col" style="width:10em;">Assembly</th>
-                <th scope="col">Part</th>
-                <th scope="col">Amount Need / Done</th>
-                <th scope="col">V200</th>
-                <th scope="col">Machine</th>
-                <th scope="col">Dimension</th>
-                <th scope="col">Material</th>
-                <th scope="col">Length</th>
-                <th scope="col">Length Done</th>
-                <th scope="col">Weight</th>
-                <th scope="col">Weight Done</th>
-                <th scope="col">Description</th>
-                <th scope="col">Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($filteredData as $data) :
-                if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
-                    $szer = 0;
-                } else {
-                    $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
-                }
-
-                if ($szer >= 100) {
-                    echo "<tr>";
-                } else if (($data['maszyna'] == "" or $data['maszyna'] == "Recznie" or $data['maszyna'] == "Kooperacyjnie" or $data['maszyna'] == "Pila") and $szer < 100) {
-                    echo '<tr id="myRow" onclick="handleClick(this);">';
-                }
-                ?>
-                <td id="project"><?php echo $data['ProjectName']; ?></td>
-                <td id="zespol"><?php if ($data['status'] == 1) {
-                        echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
-                    } else {
-                        echo $data['zespol'];
-                    } ?></td>
-                <td id="detal"><?php echo $data['Detal']; ?></td>
-                <td>
-
-                    <?php if ($data['ilosc_zrealizowana'] == "") {
-                        echo $data['ilosc'] . "/0";
-                    } else {
-                        echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana'];
-                    } ?>
-                </td>
-                <td><?php echo $data['ilosc_v200'] . "/" . $data['ilosc_v200_zre']; ?></td>
-                <td><?php echo $data['maszyna']; ?></td>
-                <td><?php echo $data['profil']; ?></td>
-                <td><?php echo $data['material']; ?></td>
-                <td><?php echo $data['dlugosc']; ?></td>
-                <td><?php echo $data['dlugosc_zre']; ?></td>
-                <td><?php echo $data['Ciezar']; ?></td>
-                <td><?php echo $data['Calk_ciez']; ?></td>
-                <td><?php echo $data['import'] . $data['uwaga'] . "," . $data['wykonal']; ?></td>
-                <td><?php if ($data['data'] != "") {
-                        echo $data['data']->format('Y-m-d H:i:s');
-                    } ?>
-                </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-
-
-        <div id="loadingIndicator" style="display: none;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-
-        <div style="float: right;">
-            <?php
-            $view = new TwitterBootstrap4View();
-            $options = array(
-                'prev_message' => '<',
-                'next_message' => '>',
-                'routeGenerator' => function ($page) {
-                    $queryString = $_SERVER['QUERY_STRING'];
-                    parse_str($queryString, $queryParams);
-                    $queryParams['page'] = $page;
-                    $newQueryString = http_build_query($queryParams);
-                    $url = $_SERVER['PHP_SELF'] . '?' . $newQueryString;
-                    return $url;
-                },
-            );
-
-            echo $view->render($pagerfanta, $options['routeGenerator'], $options);
-            ?>
-        </div>
-        <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups"
-             style="bottom:4%;">
-            <div class="btn-group me-2 " role="group" aria-label="First group">
-
-                <?php if (!isUserParts()) { ?>
-                    <?php if (!isUserPartsKier()) { ?>
-                        <button type="button" onclick="localStorage.removeItem('number1'); location.reload();"
-                                class="btn btn-warning btn-lg">Wyjdź
-                        </button>
-                    <?php } ?>
-                    <?php if (isUserPartsKier()) { ?>
-                        <form method="POST" action="statuschange.php">
-                            <button type="Submit" onclick="localStorage.removeItem('number1')"
-                                    class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
-                            </button>
-                        </form>
-                        <button type="button" onclick="localStorage.removeItem('number1'); location.reload();"
-                                class="btn btn-warning btn-lg">Przełącz
-                        </button>
-                    <?php }
-                } ?>
-                <?php if (isUserPartsKier() && isUserParts()) { ?>
-                    <form method="POST" action="statuschange.php">
-                        <button type="Submit" onclick="localStorage.removeItem('number1')"
-                                class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
-                        </button>
-                    </form>
-                    <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">
-                        Kooperacyjnie
-                    </button>
-
-                <?php } ?>
-
-
-            </div>
-            <div class="btn-group me-2" role="group" aria-label="Second group">
-                <?php if (!isUserParts()) { ?>
-                    <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
-                    </button>
-                    <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila
-                    </button>
-                    <?php if (in_array("cutlogic", $programs)) { ?>
-                        <div>
-                            <button type="button" onclick="selectAllRows()" class="btn btn-warning btn-lg">Zaznacz
-                                wiele
-                            </button>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
-                <?php if (isUserParts()) { ?>
-                    <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
-                    <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal"
-                            data-bs-target="#chartmodal">Raport
-                    </button>
-                <?php } ?>
-            </div>
-        </div>
-        <br/><br/>
-        <?php if (isUserParts()) { ?>
-            <div class="modal" id="chartmodal">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; height: 90%;">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h4 class="modal-title">Raport</h4>
-                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                        </div>
-
-                        <div class="modal-body">
-
-                            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <center>
-                                        <div class="carousel-item active">
-                                            <div class="chart_containers d-block w-100"
-                                                 style="position: relative; height:40vh; width:80vw;">
-                                                <canvas id="myChart1"></canvas>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="chart_containers d-block w-100"
-                                                 style="position: relative; height:40vh; width:80vw">
-                                                <canvas id="myChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </center>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <!-- Tutaj umieść swoje wykresy -->
-
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" onclick="generatePDF()" class="btn btn-danger" onclick='obrazek()'>
-                                Generuj
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                var jsonData1 = <?php echo $jsonData1; ?>; // Przekazanie danych JSON do JavaScriptu
-                // Utwórz wykres
-                var ctx = document.getElementById('myChart1').getContext('2d');
-                const config = {
-                    type: 'line',
-                    data: jsonData1,
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: (ctx) => 'Ilość zrobienia',
-                            }
-                        }
-                    }
-                };
-
-                var myChart = new Chart(ctx, config);
-
-
-                var jsonData = '<?php echo $jsonData; ?>';
-
-                var sumaIlosc = <?php echo $sumaIlosc; ?>;
-
-                var sumaIloscZrealizowana = <?php echo $sumaIloscZrealizowana; ?>;
-                var sumaKolumnyJeden = <?php echo $sumaKolumnyJeden; ?>;
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var chart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Ilość do zrobienia', 'Ilość zrealizowana', 'Ilość z przed rewizji'],
-                        datasets: [{
-                            label: 'Dane',
-                            data: [sumaIlosc - sumaIloscZrealizowana - sumaKolumnyJeden, sumaIloscZrealizowana - sumaKolumnyJeden, sumaKolumnyJeden],
-                            backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 205, 86, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-                            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 205, 86, 1)', 'rgba(255, 99, 132, 1)'],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Stopień ukończenia'
-                            }
-                        },
-                        scales: {
-                            y: {
-                                max: sumaIlosc // Ustaw maksymalną wartość na sumę 'ilosc'
-                            }
-                        }
-                    }
-                });
-            </script>
         <?php } ?>
 
 
-        <div class="modal fade" id="mymodal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edycja Detalu</h4>
+        <div class="mb-3" style="float:right;">
+
+            <form id="myForm1" method="get" action="">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
+
+                    <button class="btn btn-primary" type="submit">Szukaj</button>
+                    <a href="main.php">
+                        <button class="btn btn-secondary form-control form-control-lg" type="button">Wyczyść</button>
+                    </a>
+                    <br /><br />
+                </div>
+                <div style="text-align:right;">
+                    <br />
+                    <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" name="programs" style="float:right; width: 65%;">
+                        <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
+                        <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
+                        <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
+                        <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
+                    </select><br /><br /><br />
+                    od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
+                </div>
+        </div>
+        <div class="form-group" style="float:left;">
+            <label for="pageSizeSelect">Liczba wyników na stronie:</label>
+            <select class="form-control" id="pageSizeSelect" name="page_size">
+                <?php foreach ($pageSizeOptions as $option) : ?>
+                    <option value="<?php echo $option; ?>" <?php echo $pageSize === $option ? 'selected' : ''; ?>>
+                        <?php echo $option; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <label for="checkbox">Pokaż zakończone: </label>
+            <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
+        </div>
+        </form>
+
+        <div style="clear:both;"></div>
+        <div class="table-responsive">
+            <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
+
+
+                <thead>
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col" style="width:10em;">Assembly</th>
+                        <th scope="col">Cutlogic</th>
+                        <th scope="col">Part</th>
+                        <th scope="col">Amount Need / Done</th>
+                        <th scope="col">V200</th>
+                        <th scope="col">Machine</th>
+                        <th scope="col">Dimension</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Length</th>
+                        <th scope="col">Length Done</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Weight Done</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($currentPageResults as $data) :
+                        if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
+                            $szer = 0;
+                        } else {
+                            $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
+                        }
+
+                        if ($data['lok'] == 1 or $szer >= 100) {
+                            if ($data['lok'] == 1) {
+                                echo "<tr class='table-danger'>";
+                            } else {
+                                echo "<tr>";
+                            }
+                        } else if (($data['maszyna'] == "" or $data['maszyna'] == "Recznie" or $data['maszyna'] == "Kooperacyjnie" or $data['maszyna'] == "Pila") and $szer < 100) {
+                            echo '<tr id="myRow" onclick="handleClick(this);">';
+                        }
+                    ?>
+                        <td id="project"><?php echo $data['ProjectName']; ?></td>
+                        <td id="zespol"><?php if ($data['status'] == 1) {
+                                            echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
+                                        } else {
+                                            echo $data['zespol'];
+                                        } ?></td>
+                        <td id="Program1"><?php echo $data['cutlogic'] ?></td>
+                        <td id="detal"><?php echo $data['Detal']; ?></td>
+                        <td>
+                            <div class="progress" style="height:25px;font-size: 16px;">
+                                <?php if ($szer <= 100) { ?>
+                                    <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc_zrealizowana']; ?></div>
+                                    <span class='progress-bar bg-white text-dark' style='width:
+                            <?php if (100 - $szer < 0) {
+                                        echo 0;
+                                    } else {
+                                        echo 100 - $szer;
+                                    } ?>%;'><?php echo $data['ilosc']; ?> </span>
+                                <?php } else { ?>
+                                    <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana']; ?></div>
+                                <?php }
+                                ?>
+                        </td>
+                        <td><?php echo $data['ilosc_v200'] . "/" . $data['ilosc_v200_zre']; ?></td>
+                        <td><?php echo $data['maszyna']; ?></td>
+                        <td><?php echo $data['profil']; ?></td>
+                        <td><?php echo $data['material']; ?></td>
+                        <td><?php echo $data['dlugosc']; ?></td>
+                        <td><?php echo $data['dlugosc_zre']; ?></td>
+                        <td><?php echo $data['Ciezar']; ?></td>
+                        <td><?php echo $data['Calk_ciez']; ?></td>
+                        <td><?php echo $data['import'] . $data['uwaga'] . "," . $data['wykonal']; ?></td>
+                        <td><?php if ($data['data'] != "") {
+                                echo $data['data']->format('Y-m-d H:i:s');
+                            } ?>
+                        </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+
+            <table id="myTablereport" hidden>
+                <caption id="tableTitle"><?php echo $_GET['keywords'] . " (od: " . $_GET['dataFrom'] . " do: " . $_GET['dataTo'] . ") Ilość: " . $_GET['page_size']; ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col" style="width:10em;">Assembly</th>
+                        <th scope="col">Part</th>
+                        <th scope="col">Amount Need / Done</th>
+                        <th scope="col">V200</th>
+                        <th scope="col">Machine</th>
+                        <th scope="col">Dimension</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Length</th>
+                        <th scope="col">Length Done</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Weight Done</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($filteredData as $data) :
+                        if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
+                            $szer = 0;
+                        } else {
+                            $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
+                        }
+
+                        if ($szer >= 100) {
+                            echo "<tr>";
+                        } else if (($data['maszyna'] == "" or $data['maszyna'] == "Recznie" or $data['maszyna'] == "Kooperacyjnie" or $data['maszyna'] == "Pila") and $szer < 100) {
+                            echo '<tr id="myRow" onclick="handleClick(this);">';
+                        }
+                    ?>
+                        <td id="project"><?php echo $data['ProjectName']; ?></td>
+                        <td id="zespol"><?php if ($data['status'] == 1) {
+                                            echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
+                                        } else {
+                                            echo $data['zespol'];
+                                        } ?></td>
+                        <td id="detal"><?php echo $data['Detal']; ?></td>
+                        <td>
+
+                            <?php if ($data['ilosc_zrealizowana'] == "") {
+                                echo $data['ilosc'] . "/0";
+                            } else {
+                                echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana'];
+                            } ?>
+                        </td>
+                        <td><?php echo $data['ilosc_v200'] . "/" . $data['ilosc_v200_zre']; ?></td>
+                        <td><?php echo $data['maszyna']; ?></td>
+                        <td><?php echo $data['profil']; ?></td>
+                        <td><?php echo $data['material']; ?></td>
+                        <td><?php echo $data['dlugosc']; ?></td>
+                        <td><?php echo $data['dlugosc_zre']; ?></td>
+                        <td><?php echo $data['Ciezar']; ?></td>
+                        <td><?php echo $data['Calk_ciez']; ?></td>
+                        <td><?php echo $data['import'] . $data['uwaga'] . "," . $data['wykonal']; ?></td>
+                        <td><?php if ($data['data'] != "") {
+                                echo $data['data']->format('Y-m-d H:i:s');
+                            } ?>
+                        </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+
+            <div id="loadingIndicator" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div style="float: right;">
+                <?php
+                $view = new TwitterBootstrap4View();
+                $options = array(
+                    'prev_message' => '<',
+                    'next_message' => '>',
+                    'routeGenerator' => function ($page) {
+                        $queryString = $_SERVER['QUERY_STRING'];
+                        parse_str($queryString, $queryParams);
+                        $queryParams['page'] = $page;
+                        $newQueryString = http_build_query($queryParams);
+                        $url = $_SERVER['PHP_SELF'] . '?' . $newQueryString;
+                        return $url;
+                    },
+                );
+
+                echo $view->render($pagerfanta, $options['routeGenerator'], $options);
+                ?>
+            </div>
+            <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
+                <div class="btn-group me-2 " role="group" aria-label="First group">
+
+                    <?php if (!isUserParts()) { ?>
+                        <?php if (!isUserPartsKier()) { ?>
+                            <button type="button" onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Wyjdź
+                            </button>
+                        <?php } ?>
+                        <?php if (isUserPartsKier()) { ?>
+                            <form method="POST" action="statuschange.php">
+                                <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
+                                </button>
+                            </form>
+                            <button type="button" onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Przełącz
+                            </button>
+                    <?php }
+                    } ?>
+                    <?php if (isUserPartsKier() && isUserParts()) { ?>
+                        <form method="POST" action="statuschange.php">
+                            <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
+                            </button>
+                        </form>
+                        <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">
+                            Kooperacyjnie
+                        </button>
+
+                    <?php } ?>
+
+
+                </div>
+                <div class="btn-group me-2" role="group" aria-label="Second group">
+                    <?php if (!isUserParts()) { ?>
+                        <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
+                        </button>
+                        <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila
+                        </button>
+                        <?php if (in_array("cutlogic", $programs)) { ?>
+                            <div>
+                                <button type="button" onclick="selectAllRows()" class="btn btn-warning btn-lg">Zaznacz
+                                    wiele
+                                </button>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if (isUserParts()) { ?>
+                        <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
+                        <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#chartmodal">Raport
+                        </button>
+                    <?php } ?>
+                </div>
+            </div>
+            <br /><br />
+            <?php if (isUserParts()) { ?>
+                <div class="modal" id="chartmodal">
+                    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; height: 90%;">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Raport</h4>
+                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <center>
+                                            <div class="carousel-item active">
+                                                <div class="chart_containers d-block w-100" style="position: relative; height:40vh; width:80vw;">
+                                                    <canvas id="myChart1"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="chart_containers d-block w-100" style="position: relative; height:40vh; width:80vw">
+                                                    <canvas id="myChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <!-- Tutaj umieść swoje wykresy -->
+
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" onclick="generatePDF()" class="btn btn-danger" onclick='obrazek()'>
+                                    Generuj
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
-                    <form method="POST" action="zapisze_dane.php" id="myForm">
+                </div>
+
+                <script>
+                    var jsonData1 = <?php echo $jsonData1; ?>; // Przekazanie danych JSON do JavaScriptu
+                    // Utwórz wykres
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    const config = {
+                        type: 'line',
+                        data: jsonData1,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: (ctx) => 'Ilość zrobienia',
+                                }
+                            }
+                        }
+                    };
+
+                    var myChart = new Chart(ctx, config);
+
+
+                    var jsonData = '<?php echo $jsonData; ?>';
+
+                    var sumaIlosc = <?php echo $sumaIlosc; ?>;
+
+                    var sumaIloscZrealizowana = <?php echo $sumaIloscZrealizowana; ?>;
+                    var sumaKolumnyJeden = <?php echo $sumaKolumnyJeden; ?>;
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Ilość do zrobienia', 'Ilość zrealizowana', 'Ilość z przed rewizji'],
+                            datasets: [{
+                                label: 'Dane',
+                                data: [sumaIlosc - sumaIloscZrealizowana - sumaKolumnyJeden, sumaIloscZrealizowana - sumaKolumnyJeden, sumaKolumnyJeden],
+                                backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 205, 86, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 205, 86, 1)', 'rgba(255, 99, 132, 1)'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Stopień ukończenia'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    max: sumaIlosc // Ustaw maksymalną wartość na sumę 'ilosc'
+                                }
+                            }
+                        }
+                    });
+                </script>
+            <?php } ?>
+
+
+            <div class="modal fade" id="mymodal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edycja Detalu</h4>
+                        </div>
+                        <form method="POST" action="zapisze_dane.php" id="myForm">
+                            <div class="modal-body">
+                                Nazwa projektu: <label id="projectName" name="projectName"></label><br />
+                                <input type="hidden" name="project">
+                                Zespół: <label id="zespolName" name="zespolName"></label><br />
+                                Detal: <label id="detalName" name="detalName"></label><br />
+                                <input type="hidden" name="detal">
+                                Numer pracownika: <label id="numerName" name="numerName"></label>
+                                <input type="hidden" name="numer">
+                                <br />
+
+                                <?php if (!isUserParts()) { ?>
+                                    <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
+                                    <br />
+                                    <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
+                                    <br />
+
+                                    <select class="form-control" name="maszyna" required>
+                                        <option value="Recznie" selected>Recznie</option>
+                                        <option value="Pila">Pila</option>
+                                    </select>
+                                <?php } ?>
+                            </div>
+                            <div class="modal-footer">
+                                <?php
+                                if (isUserParts()) { ?>
+                                    <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt
+                                    </button>
+                                <?php }
+                                ?>
+                                <?php
+                                if (!isUserParts()) { ?>
+                                    <button type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button>
+                                <?php }
+                                ?>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="programmodal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zaznaczone programy</h4>
+                        </div>
                         <div class="modal-body">
-                            Nazwa projektu: <label id="projectName" name="projectName"></label><br/>
-                            <input type="hidden" name="project">
-                            Zespół: <label id="zespolName" name="zespolName"></label><br/>
-                            Detal: <label id="detalName" name="detalName"></label><br/>
-                            <input type="hidden" name="detal">
-                            Numer pracownika: <label id="numerName" name="numerName"></label>
-                            <input type="hidden" name="numer">
-                            <br/>
+                            <ul id="selectedProgramsList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <?php if (!isUserParts()) { ?>
-                                <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość"
-                                       name="ilosc">
-                                <br/>
-                                <input class="form-control" type="number" inputmode="numeric" placeholder="Długość"
-                                       name="dlugosc">
-                                <br/>
+        </div>
+    </div>
+    </div>
+    <div class="modal" id="user-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Weryfikacja użytkownika</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="user-form">
+                        <div class="form-group">
+                            <label for="user-number">Wprowadź swój numer:</label>
+                            <?php
+                            if (isUserPartsKier()) {
+                                $kiersql = "Select * from dbo.Persons where [user]='' and [prac_parts]=1";
+                                $stmt = sqlsrv_query($conn, $kiersql);
+                            ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
+                                    <?php
+                                    while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
 
-                                <select class="form-control" name="maszyna" required>
-                                    <option value="Recznie" selected>Recznie</option>
-                                    <option value="Pila">Pila</option>
-                                </select>
+                                    ?>
+                                        <option value="<?php echo $data['identyfikator']; ?>" data-imie-nazwisko="<?php echo $data['imie_nazwisko']; ?>"><?php echo $data['imie_nazwisko']; ?></option>
+
+                                    <?php }
+                                    ?>
+                                </select> <?php
+
+                                        } else if (!isUserPartsKier()) { ?>
+                                <input type="number" class="form-control" id="user-number" name="user-number">
                             <?php } ?>
                         </div>
+
                         <div class="modal-footer">
                             <?php
-                            if (isUserParts()) { ?>
-                                <button type="button" name="save" class="btn btn-default" value='usun'
-                                        onclick="showConfirmation()">Kasuj Projekt
-                                </button>
-                            <?php }
-                            ?>
-                            <?php
-                            if (!isUserParts()) { ?>
-                                <button type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button>
-                            <?php }
-                            ?>
-
+                            if (isUserPartsKier()) { ?>
+                                <button id="submit-button" class="btn btn-default">Przejdź</button>
+                            <?php } else if (!isUserPartsKier()) { ?>
+                                <a href="dozrobienia.php" class="btn btn-default">Gotowe</a>
+                                <a href="..\login.php" class="btn btn-default">Zaloguj się</a>
+                            <?php } ?>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="programmodal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Zaznaczone programy</h4>
-                    </div>
-                    <div class="modal-body">
-                        <ul id="selectedProgramsList"></ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <?php if (isUserPartsKier()) { ?>
+        <div id="myElement" class="bottom-banner1"></div>
+    <?php } ?>
 
     </div>
-</div>
-</div>
-<div class="modal" id="user-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Weryfikacja użytkownika</h5>
-            </div>
-            <div class="modal-body">
-                <form id="user-form">
-                    <div class="form-group">
-                        <label for="user-number">Wprowadź swój numer:</label>
-                        <?php
-                        if (isUserPartsKier()) {
-                            $kiersql = "Select * from dbo.Persons where [user]='' and [prac_parts]=1";
-                            $stmt = sqlsrv_query($conn, $kiersql);
-                            ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
-                                <?php
-                                while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-
-                                    ?>
-                                    <option value="<?php echo $data['identyfikator']; ?>"
-                                            data-imie-nazwisko="<?php echo $data['imie_nazwisko']; ?>"><?php echo $data['imie_nazwisko']; ?></option>
-
-                                <?php }
-                                ?>
-                            </select> <?php
-
-                        } else if (!isUserPartsKier()) { ?>
-                            <input type="number" class="form-control" id="user-number" name="user-number">
-                        <?php } ?>
-                    </div>
-
-                    <div class="modal-footer">
-                        <?php
-                        if (isUserPartsKier()) { ?>
-                            <button id="submit-button" class="btn btn-default">Przejdź</button>
-                        <?php } else if (!isUserPartsKier()) { ?>
-                            <a href="dozrobienia.php" class="btn btn-default">Gotowe</a>
-                            <a href="..\login.php" class="btn btn-default">Zaloguj się</a>
-                        <?php } ?>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<?php if (isUserPartsKier()) { ?>
-    <div id="myElement" class="bottom-banner1"></div>
-<?php } ?>
-
-</div>
+    <?php require_once('globalnav.php') ?>
 </body>
 <script src="../static/jspdf.min.js"></script>
 <script src="../static/jspdf.plugin.autotable.min.js"></script>
@@ -867,26 +839,15 @@ $jsonData1 = json_encode($data);
 <script src="../static/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 <script>
-
-
-    function showLoadingIndicator() {
-        document.getElementById('loadingIndicator').style.display = 'block';
-    }
-
-    // Dodanie nasłuchiwacza zdarzeń do linków paginacji
-    var paginationLinks = document.querySelectorAll('a');
-    paginationLinks.forEach(function (link) {
-        link.addEventListener('click', showLoadingIndicator);
-    });
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Obsługa zdarzenia zmiany checkboxa
-        $('#checkbox').change(function () {
+        $('#checkbox').change(function() {
             // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
             $('#myForm1').submit();
         });
 
         // Obsługa zdarzenia zmiany pola select
-        $('#pageSizeSelect').change(function () {
+        $('#pageSizeSelect').change(function() {
             // Wyślij formularz po zmianie wartości w polu select
             $('#myForm1').submit();
         });
@@ -895,7 +856,7 @@ $jsonData1 = json_encode($data);
     $('html').addClass('js');
 
 
-    $(window).on("load", function () {
+    $(window).on("load", function() {
         $("#loader-wrapper").fadeOut();
     });
 
@@ -918,7 +879,7 @@ $jsonData1 = json_encode($data);
     const pageItems = document.querySelectorAll('.pagination li');
 
     // Iteracja przez każdy element li i usunięcie słowa "Current"
-    pageItems.forEach(function (item) {
+    pageItems.forEach(function(item) {
         if (item.classList.contains('active')) {
             item.querySelector('.page-link').innerHTML = currentPage;
         }
@@ -942,7 +903,7 @@ $jsonData1 = json_encode($data);
         clicks++;
 
         if (clicks === 1) {
-            timeout = setTimeout(function () {
+            timeout = setTimeout(function() {
                 singleClickAction(row);
                 clicks = 0;
             }, 200);
@@ -987,7 +948,7 @@ $jsonData1 = json_encode($data);
         var allSelected = true; // Zmienna do śledzenia, czy wszystkie wiersze są już zaznaczone
         var program1Values = new Set(); // Zbiór do przechowywania unikalnych wartości z kolumny "program1"
 
-        tableRows.forEach(function (row) {
+        tableRows.forEach(function(row) {
             var hasClass = row.classList.contains("table-warning");
             if (!hasClass) {
                 allSelected = false; // Ustaw, że nie wszystkie wiersze są zaznaczone
@@ -999,7 +960,7 @@ $jsonData1 = json_encode($data);
 
         // Jeśli wszystkie wiersze są już zaznaczone, to odznacz je
         if (allSelected) {
-            tableRows.forEach(function (row) {
+            tableRows.forEach(function(row) {
                 row.classList.remove("table-warning");
                 removeRowFromSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
             });
@@ -1012,23 +973,6 @@ $jsonData1 = json_encode($data);
         }
     }
 
-    $(document).ready(function () {
-        $(".chosen-select").chosen({
-            no_results_text: 'Brak wyników',
-            single_backstroke_delete: true
-        });
-
-        $("#deleteBtn").on("click", function (event) {
-            event.preventDefault(); // Zapobiega wysłaniu formularza
-            let $select = $(".chosen-select");
-            let selectedValues = $select.val();
-            if (selectedValues && selectedValues.length > 0) {
-                selectedValues.pop();  // Usuwa ostatnią wybraną wartość
-                $select.val(selectedValues).trigger("chosen:updated");  // Aktualizuje element select
-            }
-        });
-    });
-
 
     function showModalDialog(program1Values) {
         var modal = $('#programmodal');
@@ -1038,7 +982,7 @@ $jsonData1 = json_encode($data);
         selectedProgramsList.empty();
 
         // Dodaj zaznaczone programy do listy
-        program1Values.forEach(function (program) {
+        program1Values.forEach(function(program) {
             selectedProgramsList.append('<li>' + program + '</li>');
         });
 
@@ -1076,7 +1020,7 @@ $jsonData1 = json_encode($data);
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Odpowiedź z serwera
                 console.log(xhr.responseText);
@@ -1095,7 +1039,7 @@ $jsonData1 = json_encode($data);
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Odpowiedź z serwera
                 console.log(xhr.responseText);
@@ -1114,7 +1058,7 @@ $jsonData1 = json_encode($data);
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Odpowiedź z serwera
                 console.log(xhr.responseText);
@@ -1133,7 +1077,7 @@ $jsonData1 = json_encode($data);
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Odpowiedź z serwera
                 console.log(xhr.responseText);
@@ -1182,7 +1126,7 @@ $jsonData1 = json_encode($data);
     <script>
         var stored;
         var nazwa;
-        $(document).ready(function () {
+        $(document).ready(function() {
             stored = localStorage.getItem('number1');
             nazwa = localStorage.getItem('nazwa');
             if (stored) {
@@ -1205,16 +1149,16 @@ $jsonData1 = json_encode($data);
                 $('#user-number').focus();
 
 
-                $('#user-modal').on('shown.bs.modal', function () {
+                $('#user-modal').on('shown.bs.modal', function() {
                     selectInput();
                 });
 
 
-                $('#user-number').on('input', function () {
+                $('#user-number').on('input', function() {
                     var userNumber = $(this).val();
 
 
-                    $('#user-number').on('keypress', function (e) {
+                    $('#user-number').on('keypress', function(e) {
                         if (e.which === 13) {
                             e.preventDefault();
                             var userNumber = $(this).val();
@@ -1227,7 +1171,7 @@ $jsonData1 = json_encode($data);
                     });
                 });
 
-                $('#submit-button').on('click', function (e) {
+                $('#submit-button').on('click', function(e) {
                     e.preventDefault(); // Zapobiegamy domyślnemu zachowaniu przycisku (np. przeładowaniu strony)
                     var userNumber = $('#user-number').val();
                     if (userNumber.length === 10) {
@@ -1244,7 +1188,7 @@ $jsonData1 = json_encode($data);
                         data: {
                             number: userNumber
                         },
-                        success: function (response) {
+                        success: function(response) {
                             var czesci = response.split(",")
                             console.log(response);
                             if (czesci[0] === 'true') {
@@ -1258,12 +1202,12 @@ $jsonData1 = json_encode($data);
                                 location.reload();
                             }
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown) {
                             console.log('Wystąpił błąd podczas sprawdzania numeru w bazie danych.');
                             location.reload();
                             console.log(jqXHR.responseText);
                         },
-                        complete: function () {
+                        complete: function() {
                             $('#user-modal').modal('hide');
                         }
                     });

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
+<?php require_once 'auth.php'; ?>
+
 <?php require_once("globalhead.php"); ?>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php require_once("globalnav.php"); ?>
 <div class="container">
     <div class="row">
         <div class="col min-vh-100 py-3">
@@ -45,8 +46,8 @@ echo "</tbody></table>";
 </div>
 </div>
 </div>
+<?php require_once("globalnav.php"); ?>
 </body>
-<script src="static/jquery-3.7.0.js"></script>
 <script src="static/jquery.dataTables.min.js"></script>
 <script src="static/dataTables.bootstrap5.min.js"></script>
 <script>

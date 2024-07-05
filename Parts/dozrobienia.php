@@ -1,3 +1,5 @@
+<?php require_once '../auth.php'; ?>
+
 <?php
 
 require_once("dbconnect.php");
@@ -136,7 +138,6 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
-<?php require_once('globalnav.php'); ?>
 <div class="container-xl">
     <form method="get" action="">
         <div class="input-group" style="font-size: 150%;">
@@ -145,13 +146,13 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
             <button class="btn btn-primary" type="submit" style="font-size: 150%;">Szukaj</button>
         </div>
       <div id="toggleButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary btn-lg <?php if ($myVariable == 'Zespol') echo 'active'; ?>">
+        <label class="btn btn-info btn-lg <?php if ($myVariable == 'Zespol') echo 'active'; ?>">
           <input type="radio" name="toggleButtons" id="assemblyRadio" value="Zespol" autocomplete="off" <?php if ($myVariable == 'Zespol') echo 'checked'; ?>> Zespół
         </label>
-        <label class="btn btn-secondary btn-lg  <?php if ($myVariable == 'Pozycja') echo 'active'; ?>">
+        <label class="btn btn-info btn-lg  <?php if ($myVariable == 'Pozycja') echo 'active'; ?>">
           <input type="radio" name="toggleButtons" id="positionRadio" value="Pozycja" autocomplete="off" <?php if ($myVariable == 'Pozycja') echo 'checked'; ?>> Detale
         </label>
-        <label class="btn btn-secondary btn-lg  <?php if ($myVariable == 'Projekt') echo 'active'; ?>">
+        <label class="btn btn-info btn-lg  <?php if ($myVariable == 'Projekt') echo 'active'; ?>">
           <input type="radio" name="toggleButtons" id="projectRadio" value="Projekt" autocomplete="off" <?php if ($myVariable == 'Projekt') echo 'checked'; ?>> Projekt
         </label>
       </div>
@@ -244,19 +245,10 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 
 
 </div>
+<?php require_once('globalnav.php'); ?>
 </body>
 <script src="../static/masonry.pkgd.min.js"></script>
 <script>
-
-function showLoadingIndicator() {
-    document.getElementById('loadingIndicator').style.display = 'block';
-}
-
-// Dodanie nasłuchiwacza zdarzeń do linków paginacji
-var paginationLinks = document.querySelectorAll('a');
-paginationLinks.forEach(function(link) {
-        link.addEventListener('click', showLoadingIndicator);
-});
     function convertToUppercase(inputElement) {
         inputElement.value = inputElement.value.toUpperCase();
     }

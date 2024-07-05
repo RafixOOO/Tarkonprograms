@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+<?php require_once '../auth.php'; ?>
 
 <head>
   <?php include 'globalhead.php'; ?>
@@ -8,7 +9,7 @@
       position: fixed;
       bottom: 10px;
       /* odległość od dolnej krawędzi ekranu */
-      left: 10px;
+      right: 10px;
       /* odległość od lewej krawędzi ekranu */
     }
 
@@ -179,8 +180,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 
-  <?php include 'globalnav.php'; ?>
-  <div class="container-xxl">
+<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
     <?php if (!isLoggedIn()) { ?>
       <div class="progress verticalrotate">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
@@ -288,7 +288,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <br />
         <?php if (!isLoggedIn()) { ?>
           <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
-          <button style="left: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
+          <button style="right: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
         <?php } else if (isUserMesser() | !isLoggedIn()) { ?>
           <button type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
         <?php } ?>
@@ -342,8 +342,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
       </div>
     </div>
   </div>
+  <?php include 'globalnav.php'; ?>
 </body>
-<script src="../static/jquery.min.js"></script>
+
 <script src="../static/jquery-ui.min.js"></script>
 <script src="../static/toastr.min.js"></script>
 <?php if (!isLoggedIn()) { ?>

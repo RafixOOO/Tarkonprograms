@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php require_once '../auth.php'; ?>
 <?php
 require_once 'vendor/autoload.php';
 
@@ -17,8 +18,8 @@ use Pagerfanta\View\TwitterBootstrap4View;
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
-<div class="container-xxl">
+<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+
     <div>
 
         <?php
@@ -169,6 +170,7 @@ ORDER BY
         </div>
     </div>
 </div>
+<?php include 'globalnav.php'; ?>
 </body>
 <script>
  var currentPage = <?php echo isset($_GET['page']) ? $_GET['page'] : 1; ?>;

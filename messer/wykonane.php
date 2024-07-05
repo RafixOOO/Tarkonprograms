@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php require_once '../auth.php'; ?>
 <?php
 
 function czyCiągZawieraLiczbyPHP($ciąg)
@@ -24,8 +25,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<?php include 'globalnav.php'; ?>
-<div class="container-xxl">
+<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
     <div class="mb-3" style="float:right;">
     <div class="input-group">
     <input type="text"  class="form-control" id="searchInput" placeholder="Nazwa programu...">
@@ -183,6 +183,7 @@ ORDER BY
     </div>
 </div>
 </div>
+<?php include 'globalnav.php'; ?>
 </body>
 <script>
     $(document).ready(function () {

@@ -1,3 +1,4 @@
+<?php require_once '../auth.php'; ?>
 <?php
 require_once("dbconnect.php");
 $projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
@@ -67,7 +68,6 @@ $sql="";
 </head>
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 
-<?php include 'globalnav.php'; ?>
 <div class="container">
 <form method="get" action="">
           <div class="input-group">
@@ -121,6 +121,7 @@ $sql="";
     </div>
     </div>
     </div>
+    <?php include 'globalnav.php'; ?>
 </body>
 <script>
     function convertToUppercase(inputElement) {

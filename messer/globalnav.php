@@ -1,130 +1,257 @@
-<?php require_once '../auth.php'; ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <!-- Container wrapper -->
-  <a class="navbar-brand" style="margin-left:2%;">Tarkon programs <sup>2.5</sup></a>
-  <button style="margin-right:2%;" class="navbar-toggler" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <img src="../static/menu.svg"></img>
-    </button>
-  <div class="container-xxl">
-    <!-- Navbar brand -->
-
-
-
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <?php if(isLoggedIn()){ ?>
-          <a class="nav-link" aria-current="page" href="../index.php">
-            Strona główna
-          </a>
-          <?php } ?>
-        </li>
-        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <a href="#" class="nav-link active dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Messer
-          </a>
-          <!-- Dropdown menu -->
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown1">
-            <li><a class="dropdown-item" href="main.php">Aktualne</a></li>
-            <li><a class="dropdown-item" href="wykonane.php">Zakończone</a></li>
-            <li><a class="dropdown-item" href="archiwum.php">Archiwalne</a></li>
-            <li><a class="dropdown-item" href="magazyn.php">Magazyn</a></li>
-            <li><a class="dropdown-item" href="magazynarch.php">Magazyn Archiwum</a></li>
-          </ul>
-        </li>
-        <?php if(isUserParts()){ ?>
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="../v200/main.php">
-            V200
-          </a>
-        </li>
-        
-        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Parts
-          </a>
-          <!-- Dropdown menu -->
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="../parts/main.php">Programy</a></li>
-            <li><a class="dropdown-item" href="../parts/dozrobienia.php">Gotowe</a></li>
-            <?php if(isUserParts()){ ?>
-            <li><a class="dropdown-item" href="parts/upload.php">Wyślij</a></li>
-            <?php } ?>
-          </ul>
-        </li>
-        <?php } ?>
-        <?php if(isUserCutlogic()){ ?>
-        <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" aria-current="page" href="../cutlogic/main.php">
-            CutLogic
-          </a>
-        </li>
-        <?php } ?>
-      </ul>
-      <!-- Left links -->
-
-      <!-- Right links -->
-      <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
-        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-        <li class="nav-item dropdown text-center mx-2 mx-lg-1">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-auto-close="outside" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-
-            <?php if(isLoggedIn()) { ?>
-              <?php echo $_SESSION['imie_nazwisko']; ?>
-            <?php } else { ?>
-              Zaloguj się
-
-            <?php } ?> 
-          </a>
-          <!-- Dropdown menu -->
-          
-          <ul class="dropdown-menu dropdown-menu-dark" style="left: -35%;" aria-labelledby="navbarDropdown">
-            
-              <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" >Ustawienia</a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
-            <?php if(isLoggedIn()) { ?>
-            <li><a class="dropdown-item" href="../password.php">Zmień hasło</a></li>
-            <li><a class="dropdown-item" href="../username.php">Zmień nazwę użytkownika</a></li>
-            <?php } ?>
-            <li><a class="dropdown-item" id="darkModeButton" href="#">Tryb ciemny</a></li>
-            </ul>
-            
-            <?php if(isUserAdmin()) { ?>
-              <li class="dropstart"><a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" >Panel admina</a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
-            <li><a class="dropdown-item" href="../zarzadzaj.php">Zarządzaj</a></li>
-            <li><a class="dropdown-item" href="../logi.php">Logi</a></li>
-            </ul>
-          </li>
-            
-            <?php } ?>
-            <li class="dropdown-divider"></li>
-            <?php if(isLoggedIn()) { ?>
-            <li><a class="dropdown-item" href="../logout.php">Wyloguj się</a></li>
-            <?php } ?>
-            <?php if(!isLoggedIn()) { ?> 
-              <li><a class="dropdown-item" href="../login.php">Zaloguj się</a></li>
-              <?php } ?> 
-          </ul>
-          
-        </li>
-          
-        </li>
-      </ul>
-      <!-- Right links -->
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../assets/css/plugins.min.css"/>
+<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
+<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: { families: ["Public Sans:300,400,500,600,700"] },
+    custom: {
+      families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+      ],
+      urls: ["../assets/css/fonts.min.css"],
+    },
+    active: function () {
+      sessionStorage.fonts = true;
+    },
+  });
+</script>
+<div class="wrapper sidebar_minimize" style="padding-bottom: 0;">
+  <!-- Sidebar -->
+  <div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+      
+        <a href="../index.php" class="logo" style="position: relative;
+      display: inline-block;";>
+        <img
+            src="../assets/img/logo.svg"
+            alt="navbar brand"
+            class="navbar-brand"
+            height="90"
+            width="220"
+          />
+          <div style="position: absolute;
+      top: 20%;
+      left: 20%;
+      transform: translate(-20%, -520%);
+      width: 20%;  /* Szerokość klikalnego obszaru (np. 50% szerokości obrazka) */
+      height: 20%; /* Wysokość klikalnego obszaru (np. 50% wysokości obrazka) */
+      cursor: pointer;"></div>
+        </a>
+      </div>
+      <!-- End Logo Header -->
     </div>
-    <!-- Collapsible wrapper -->
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">Profil</h4>
+          </li>
+          <?php if(!isLoggedIn()) { ?>
+          <li class="nav-item">
+            <a href="../login.php">
+              <i class="fa fa-user"></i>
+              <p>Zaloguj się</p>
+            </a>
+          </li>
+          <?php } ?>
+          <?php if(isLoggedIn()) { ?>
+          <li class="nav-item">
+            <a href="../logout.php">
+              <i class="fa fa-user"></i>
+              <p>Wyloguj się</p>
+            </a>
+          </li>
+          <?php } ?>
+          <?php if(isLoggedIn()) { ?>
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#dane">
+              <i class="fa fa-indent"></i>
+              <p><?php echo $_SESSION['imie_nazwisko']; ?></p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="dane">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a href="../username.php">
+                    <span class="sub-item">Nazwa użytkownika</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../password.php">
+                    <span class="sub-item">Hasło</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <?php } ?>
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#settings">
+              <i class="fa fa-cogs"></i>
+              <p>ustawienia</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="settings">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a id="darkModeButton" href="#">
+                    <span class="sub-item" >Tryb ciemny</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <ul class="nav nav-secondary">
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">Aplikacje</h4>
+          </li>
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#parts">
+              <i class="fas fa-layer-group"></i>
+              <p>Parts</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="parts">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a href="../parts/main.php">
+                    <span class="sub-item">Projekty</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../parts/dozrobienia.php">
+                    <span class="sub-item">Wykonane detale</span>
+                  </a>
+                </li>
+                <?php if(isUserParts()){ ?>
+                <li>
+                  <a href="../parts/upload.php">
+                    <span class="sub-item">Wczytaj detale</span>
+                  </a>
+                </li>
+                <?php } ?>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="../v200/main.php">
+              <i class="fas fa-table"></i>
+              <p>V200</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#sidebarLayouts">
+              <i class="fas fa-th-list"></i>
+              <p>Messer</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="sidebarLayouts">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a href="main.php">
+                    <span class="sub-item">Programy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="wykonane.php">
+                    <span class="sub-item">Zakończone Programy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="archiwum.php">
+                    <span class="sub-item">Programy Archiwum </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="magazyn.php">
+                    <span class="sub-item">Magazyn</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="magazynarch.php">
+                    <span class="sub-item">Magazyn Archiwum</span>
+                  </a>
+                </li>
+
+              </ul>
+              
+            </div>
+            <li class="nav-item">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <p>Cutlogic (W Rozbudowie)</p>
+            </a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a href="https://urlop.local/" target="_blank">
+              <i class="fa fa-bicycle"></i>
+              <p>Urlopy</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://hrappka.budhrd.eu/auth/login?prev_path=/index/schedule" target="_blank">
+              <i class="fa fa-calendar"></i>
+              <p>Hrappka</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://pp.timaco.pl/" target="_blank">
+              <i class="fa fa-check"></i>
+              <p>Punktualnik</p>
+            </a>
+          </li>
+          <?php if(isUserAdmin()) { ?>
+          <ul class="nav nav-secondary">
+            <li class="nav-section">
+              <span class="sidebar-mini-icon">
+                <i class="fa fa-ellipsis-h"></i>
+              </span>
+              <h4 class="text-section">Panel administracyjny</h4>
+            </li>
+            <li class="nav-item">
+              <a href="../zarzadzaj.php">
+                <i class="fa fa-database"></i>
+                <p>Role</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../logi.php">
+                <i class="fa fa-desktop"></i>
+                <p>Logi systemowe</p>
+              </a>
+            </li>
+          </ul>
+          <?php } ?>
+        </ul>
+      </div>
+    </div>
   </div>
-  <!-- Container wrapper -->
-</nav>
-<br />
-<!-- Navbar -->
+</div>
+<!-- End Sidebar -->
+<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Kaiadmin JS -->
+<script src="../assets/js/kaiadmin.min.js"></script>
