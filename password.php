@@ -39,6 +39,8 @@ if ($conn === false) {
 <?php require_once("globalhead.php"); ?>
 </head>
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
             <div class="container">
         <h2 class="text-uppercase">Zmiana hasła</h2>
         <br />

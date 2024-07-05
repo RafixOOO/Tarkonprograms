@@ -138,6 +138,8 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
 <div class="container-xl">
     <form method="get" action="">
         <div class="input-group" style="font-size: 150%;">

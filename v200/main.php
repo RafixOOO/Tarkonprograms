@@ -67,7 +67,8 @@ $sql="";
     <?php include 'globalhead.php'; ?>
 </head>
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-
+<!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
 <div class="container">
 <form method="get" action="">
           <div class="input-group">

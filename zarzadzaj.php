@@ -10,6 +10,8 @@
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
             <div class="container">
             <div class="table-responsive">
             <a href="dodaj.php" class="btn btn-success float-end">Dodaj</a>

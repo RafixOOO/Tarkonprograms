@@ -9,6 +9,8 @@ require_once('auth.php');
 <?php require_once("globalhead.php"); ?>
 </head id="error-container">
 <body class="p-3 mb-2 bg-light bg-gradient text-dark">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
             <div class="container">
         <h2 class="text-uppercase">Dodaj</h2>
         <br />

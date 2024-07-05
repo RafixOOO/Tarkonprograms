@@ -25,6 +25,8 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
     <div class="mb-3" style="float:right;">
     <div class="input-group">

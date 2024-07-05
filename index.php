@@ -27,7 +27,8 @@
 </div></div></div></div>
 <?php require_once("globalnav.php"); ?>
 
-
+<!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
 
 <script src='dist/index.global.js'></script>
 <script>

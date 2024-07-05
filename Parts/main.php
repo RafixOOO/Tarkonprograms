@@ -331,6 +331,8 @@ $jsonData1 = json_encode($data);
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
     <div class="container-fluid" style="width:90%;margin-left:auto;margin-right:auto;">
         <?php if (!isLoggedIn()) { ?>
             <div class="progress verticalrotate">

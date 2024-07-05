@@ -64,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+    <!-- 2024 Created by: Rafał Pezda-->
+<!-- link: https://github.com/RafixOOO -->
     <div class="container">
         <br />
         <h2 class="text-uppercase">Edycja</h2>
