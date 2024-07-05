@@ -33,9 +33,7 @@ GROUP BY
     T4.\"ExpDate\",T4.\"MnfSerial\" ,T4.\"InDate\",T4.\"LotNumber\",T4.\"U_NRWYTOPU\",T5.\"InvntryUom\" ,T5.\"LastPurPrc\"
 ORDER BY T0.\"ItemCode\", T0.\"WhsCode\", T1.\"BinCode\"
 ";
-$result = odbc_exec($conn, $query);
-if (!$result) {
-    die("Błąd zapytania: " . odbc_errormsg($conn));
-}
+$stmt = $conn->prepare($query);
+    $stmt->execute();
 
 ?>

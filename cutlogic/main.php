@@ -30,7 +30,8 @@ require_once 'cutlogic.php';
   </tr>
 </thead>
 <tbody>
-<?php while ($row = odbc_fetch_array($result)) {
+<?php $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($results as $row) { 
 ?>  
 <tr value="<?php echo $row['ItemCode']; ?>">
 <td><?php echo $row['ItemName']; ?></td>
