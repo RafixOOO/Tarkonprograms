@@ -8,7 +8,6 @@
 <script src="../static/jquery-ui.min.js"></script>
 <script src="../static/toastr.min.js"></script>
 <script src="../static/jquery-3.6.0.min.js"></script>
-<script src="../blad.js"></script>
 <script src="../static/chart.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
 <script src="../static/popper.min.js"></script>

@@ -1,13 +1,6 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $projekt = $_POST["project"];
-    $detal = $_POST["detal"];
-    $ilosc = $_POST["ilosc"];
-    $dlugosc = $_POST["dlugosc"];
-    $maszyna = $_POST["maszyna"];
-    $wykonawca = $_POST["numer"];
-    $status;
     require_once('../auth.php');
     try{
         $save = $_POST['save'];
@@ -15,6 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if ($save === 'piece') {
+      $projekt = $_POST["project"];
+    $detal = $_POST["detal"];
+    $ilosc = $_POST["ilosc"];
+    $dlugosc = $_POST["dlugosc"];
+    $maszyna = $_POST["maszyna"];
+    $wykonawca = $_POST["numer"];
+    $status;
       require_once("dbconnect.php");
       $osoba;
       $sql = "SELECT imie_nazwisko FROM dbo.Persons WHERE identyfikator = $wykonawca";
@@ -31,27 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: main.php');
 
     }  else {
+
+      $import=$_POST["import"];
         
         require_once("dbconnect.php");
         try{
-            
-            $sql = "Select [Id_import] as import from dbo.Parts where Projekt='$projekt' and Pozycja='$detal'";
-        $resultdelete = sqlsrv_query($conn, $sql);
-        if ($resultdelete === false) {
-            throw new Exception("Błąd wykonania zapytania SQL.".sqlsrv_errors());
-        }
-
-        while ($row = sqlsrv_fetch_array($resultdelete, SQLSRV_FETCH_ASSOC)) {
-          $import=$row['import'];
-        }
 
         $sqldelete = "DELETE FROM [dbo].[Parts]
         WHERE Id_import=$import";
         sqlsrv_query($conn, $sqldelete);
         if($_SESSION['imie_nazwisko']==""){
-            logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$detal);
+            logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$import);
           }else{
-            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$detal);
+            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$import);
           }
         header('Location: main.php');
 

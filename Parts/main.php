@@ -752,12 +752,6 @@ $jsonData1 = json_encode($data);
                             </div>
                             <div class="modal-footer">
                                 <?php
-                                if (isUserParts()) { ?>
-                                    <button type="button" name="save" class="btn btn-default" value='usun' onclick="showConfirmation()">Kasuj Projekt
-                                    </button>
-                                <?php }
-                                ?>
-                                <?php
                                 if (!isUserParts()) { ?>
                                     <button type="Submit" name="save" class="btn btn-default" value='piece'>Zapisz</button>
                                 <?php }
@@ -887,20 +881,9 @@ $jsonData1 = json_encode($data);
         }
     });
 
-    function showConfirmation() {
-        var form = document.getElementById("myForm");
-        var result = confirm("Czy na pewno chcesz usunąć projekt z danym ID?");
-        if (result) {
-            alert("Potwierdzono!");
-            form.submit();
-        } else {
-            alert("Anulowano!");
-        }
-    }
-
     var clicks = 0;
     var timeout;
-
+    var logged = "<?php echo isLoggedIn(); ?>";
     function handleClick(row) {
         clicks++;
 
@@ -909,7 +892,8 @@ $jsonData1 = json_encode($data);
                 singleClickAction(row);
                 clicks = 0;
             }, 200);
-        } else if (clicks === 2) {
+        } 
+        else if (clicks === 2 && logged === 'false') {
             clearTimeout(timeout);
             doubleClickAction(row);
             clicks = 0;
