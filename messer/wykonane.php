@@ -33,7 +33,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                         <a class="nav-link" href="main.php">Programy</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" href="wykonane.php">Zakończone</a>
+                        <a class="nav-link active" href="wykonane.php">Zakończone programy</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="magazyn.php">Magazyn</a>
