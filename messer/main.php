@@ -182,6 +182,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+<ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="main.php">Programy</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="wykonane.php">Zakończone</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="magazyn.php">Magazyn</a>
+                      </li>
+                    </ul>
     <?php if (!isLoggedIn()) { ?>
       <div class="progress verticalrotate">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
@@ -190,7 +201,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     <div>
       <div class="table-responsive">
       <?php if (isLoggedIn()) { ?>
-    <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()">
+    <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()" style="float:right;">
     <?php } ?>
         <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
           <thead>

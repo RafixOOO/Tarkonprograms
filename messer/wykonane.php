@@ -28,6 +28,17 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+<ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
+                      <li class="nav-item">
+                        <a class="nav-link" href="main.php">Programy</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" href="wykonane.php">Zakończone</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="magazyn.php">Magazyn</a>
+                      </li>
+                    </ul>
     <div class="mb-3" style="float:right;">
     <div class="input-group">
     <input type="text"  class="form-control" id="searchInput" placeholder="Nazwa programu...">
