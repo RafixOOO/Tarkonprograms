@@ -7,116 +7,138 @@
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 
-<div class="row" style="width:80%; margin: 0 auto;">
-              <div class="col-md-12">
-                <div class="card" style="background-color: transparent;">
-                  <div class="card-header">
-                  <h4 class="card-title">Kalendarz</h4>
-
-<button class="btn btn-secondary float-end" onclick="location.reload()">Wyczyść</button>
-<button class="btn btn-primary float-end" onclick="searchByGroupId()">Szukaj</button>
-<select class="form-control w-25 float-end" name="evens" id="groupIdInput">
-  <option value="v630">V630</option>
-  <option value="messer">Messer</option>
-  <option value="Pila">Pila</option>
-  <option value="Recznie">Recznie</option>
-  <option value="Kooperacyjnie">Kooperacyjnie</option>
-</select>
-<div style="width:85%;margin-left:auto;margin-right:auto;" id='calendar'></div>
-
-</div></div></div></div>
-<?php require_once("globalnav.php"); ?>
 
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 
-<script src='dist/index.global.js'></script>
-<script>
-    var calendar;
-    var eventsarray = [];
-
-    function searchByGroupId() {
-      var groupIdInput = document.getElementById('groupIdInput').value;
-      var filteredEvents;
-
-      if (groupIdInput === 'all') {
-        // Wyświetl wszystkie wydarzenia
-        filteredEvents = eventsarray;
-      } else {
-        // Wyświetl wydarzenia tylko dla wybranego groupId
-        filteredEvents = eventsarray.filter(function(event) {
-          return event.groupId === groupIdInput;
-        });
-      }
-
-      calendar.removeAllEvents();
-      calendar.addEventSource(filteredEvents);
-      calendar.render();
-    }
-
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-
-    const formattedDate = `${year}-${month}-${day}`;
-
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-
-      calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-          left: 'title',
-          center: '',
-          right: 'prev,next',
-        },
-        initialDate: formattedDate,
-        firstDay: 1,
-        navLinks: false,
-        businessHours: true,
-        editable: false,
-        selectable: false,
-        dayMaxEvents: true,
-        events: eventsarray,
-        eventSources: [{
-          url: 'fetch_events.php', // Adres pliku do pobierania danych z bazy
-          method: 'GET', // Metoda żądania
-          extraParams: {
-            startDate: function() {
-              var view = calendar.view;
-              return view.activeStart.format('YYYY-MM-DD');
-            },
-            endDate: function() {
-              var view = calendar.view;
-              return view.activeEnd.format('YYYY-MM-DD');
-            },
-          },
-          failure: function(jqXHR, textStatus, errorThrown) {
-            alert('Wystąpił błąd podczas pobierania danych.');
-            console.log(jqXHR.responseText);
-          },
-          success: function(data) {
-            // Aktualizuj zawartość eventsarray
-            eventsarray = data;
-            // Wyświetl wszystkie wydarzenia na kalendarzu
-            calendar.removeAllEvents();
-            calendar.addEventSource();
-            calendar.render(eventsarray);
-          }
-        }],
-        dateClick: function(info) {
-          var selectedDate = info.date;
-          var year = selectedDate.getFullYear();
-          var month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-          var firstDay = year + '-' + month + '-01';
-          var lastDay = year + '-' + month + '-' + new Date(year, selectedDate.getMonth() + 1, 0).getDate();
-          calendar.refetchEvents(); // Odśwież dane w kalendarzu
-        }
-      });
-
-      calendar.render();
-    });
-  </script>
+<div class="col-md-8" style="width:90%; margin: 0 auto;">
+                <div class="card card-round" style="width:65%;">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">Liczba wykonanych detali</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container" style="min-height: 375px">
+                      <canvas id="statisticsChart"></canvas>
+                    </div>
+                    <div id="myChartLegend"></div>
+                  </div>
+                </div>
+              </div>
+              <?php require_once("globalnav.php"); ?>
 </body>
+<script>
+        
+        var ctx = document.getElementById('statisticsChart').getContext('2d');
+
+var statisticsChart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		datasets: [ {
+			label: "Ręcznie",
+			borderColor: '#f3545d',
+			pointBackgroundColor: 'rgba(243, 84, 93, 0.6)',
+			pointRadius: 0,
+			backgroundColor: 'rgba(243, 84, 93, 0.4)',
+			legendColor: '#f3545d',
+			fill: true,
+			borderWidth: 2,
+			data: [154, 184, 175, 203, 210, 231, 240, 278, 252, 312, 320, 374]
+		}, {
+			label: "Piła",
+			borderColor: '#fdaf4b',
+			pointBackgroundColor: 'rgba(253, 175, 75, 0.6)',
+			pointRadius: 0,
+			backgroundColor: 'rgba(253, 175, 75, 0.4)',
+			legendColor: '#fdaf4b',
+			fill: true,
+			borderWidth: 2,
+			data: [256, 230, 245, 287, 240, 250, 230, 295, 331, 431, 456, 521]
+		}, {
+			label: "Messer",
+			borderColor: '#177dff',
+			pointBackgroundColor: 'rgba(23, 125, 255, 0.6)',
+			pointRadius: 0,
+			backgroundColor: 'rgba(23, 125, 255, 0.4)',
+			legendColor: '#177dff',
+			fill: true,
+			borderWidth: 2,
+			data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 900]
+		}, {
+			label: "V630",
+			borderColor: '#c249ff',
+			pointBackgroundColor: 'rgba(153, 153, 255, 0.6)',
+			pointRadius: 0,
+			backgroundColor: 'rgba(153, 153, 255, 0.4)',
+			legendColor: '#c249ff',
+			fill: true,
+			borderWidth: 2,
+			data: [156, 130, 145, 187, 140, 150, 130, 195, 231, 331, 356, 421]
+		},]
+	},
+	options : {
+		responsive: true, 
+		maintainAspectRatio: false,
+		legend: {
+			display: false
+		},
+		tooltips: {
+			bodySpacing: 4,
+			mode:"nearest",
+			intersect: 0,
+			position:"nearest",
+			xPadding:10,
+			yPadding:10,
+			caretPadding:10
+		},
+		layout:{
+			padding:{left:5,right:5,top:15,bottom:15}
+		},
+		scales: {
+			yAxes: [{
+				ticks: {
+					fontStyle: "500",
+					beginAtZero: false,
+					maxTicksLimit: 5,
+					padding: 10
+				},
+				gridLines: {
+					drawTicks: false,
+					display: false
+				}
+			}],
+			xAxes: [{
+				gridLines: {
+					zeroLineColor: "transparent"
+				},
+				ticks: {
+					padding: 10,
+					fontStyle: "500"
+				}
+			}]
+		}, 
+		legendCallback: function(chart) { 
+			var text = []; 
+			text.push('<ul class="' + chart.id + '-legend html-legend">'); 
+			for (var i = 0; i < chart.data.datasets.length; i++) { 
+				text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>'); 
+				if (chart.data.datasets[i].label) { 
+					text.push(chart.data.datasets[i].label); 
+				} 
+				text.push('</li>'); 
+			} 
+			text.push('</ul>'); 
+			return text.join(''); 
+		}  
+	}
+});
+
+var myLegendContainer = document.getElementById("myChartLegend");
+
+// generate HTML legend
+myLegendContainer.innerHTML = statisticsChart.generateLegend();
+    </script>
 </html>
   

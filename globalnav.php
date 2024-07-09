@@ -256,5 +256,6 @@
 <!-- jQuery Sparkline -->
 <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
+
 <!-- Kaiadmin JS -->
 <script src="assets/js/kaiadmin.min.js"></script>
