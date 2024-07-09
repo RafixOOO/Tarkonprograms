@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 require_once("dbconnect.php");
 require_once '../auth.php'; 
