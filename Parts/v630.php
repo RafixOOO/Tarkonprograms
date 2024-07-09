@@ -1,5 +1,6 @@
 <?php
 require_once("dbconnect.php");
+require_once '../auth.php'; 
 
 
 $sql = "SELECT Distinct 
@@ -39,6 +40,7 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 ,Max(b.[ModificationDate]) as data
 from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
 LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
+where p.[Projekt]='$_SESSION[project_name]'
 group by p.[Pozycja],p.[Profil],p.[Material],p.[Uwaga],b.[SawLength],p.[Projekt],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import,p.lock
 ";
 $data = sqlsrv_query($conn, $sql); 

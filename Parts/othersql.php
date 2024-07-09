@@ -1,5 +1,6 @@
 <?php
 require_once("dbconnect.php");
+require_once '../auth.php'; 
 
 $sqlother = "SELECT
 p.Id_import as import
@@ -81,6 +82,7 @@ AND NOT EXISTS (
     WHERE p.[Pozycja]=c.[CZESC]
 )
 and p.[Pozycja]!=''
+and p.[Projekt]='$_SESSION[project_name]'
 GROUP BY
 p.[Projekt], p.[Pozycja], p.Ciezar, p.[Profil], p.[Material], p.Uwaga, p.[Status], p.Id_import, v.[AmountNeeded],p.lock,c.[PROGRAM]
 order by p.[Status] desc, p.Id_import desc, c.[PROGRAM] desc ";

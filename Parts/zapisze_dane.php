@@ -28,7 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         sqlsrv_query($conn, $sqlinsert);
 
-        header('Location: main.php');
+        if($_SESSION['imie_nazwisko']==""){
+          logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$detal);
+        }else{
+          logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$detal);
+        }
+
+        header('Location: detale.php');
 
     }  else {
 
@@ -41,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         WHERE Id_import=$import";
         sqlsrv_query($conn, $sqldelete);
         if($_SESSION['imie_nazwisko']==""){
-            logUserActivity($wykonawca,'Zaktualizował aplikację parts: '.$import);
-          }else{
-            logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$import);
-          }
-        header('Location: main.php');
+          logUserActivity($wykonawca,'Usunął aplikację parts: '.$import);
+        }else{
+          logUserActivity($_SESSION['imie_nazwisko'],'Zaktualizował aplikację parts: '.$import);
+        }
+      header('Location: upload.php');
 
         }catch (Exception $e) {
     // Obsługa wyjątku
