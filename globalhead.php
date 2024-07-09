@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
     <link rel="shortcut icon" href="static/clipboard-data.svg">
-    <script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
 
 <link rel="stylesheet" href="static/toastr.min.css">
 <script src="static/jquery.min.js"></script>
