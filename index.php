@@ -15,7 +15,7 @@ require_once("dashbordssql.php"); ?>
 <!-- link: https://github.com/RafixOOO -->
 
 <div class="col-md-8" style="width:90%; margin: 0 auto;">
-                <div class="card card-round" style="width:60%;float:left; margin-right:5%;">
+                <div class="card card-round" style="width:60%;float:left; margin-right:5%;margin-left:1%;max-height:460px">
                   <div class="card-header">
                     <div class="card-head-row">
                       <div class="card-title">Liczba wykonanych detali</div>
@@ -28,7 +28,7 @@ require_once("dashbordssql.php"); ?>
                     <div id="myChartLegend"></div>
                   </div>
                 </div>
-				<div class="col-md-4" style="float:left; margin-top:2%;">
+				<div class="col-md-4" style="float:left;">
                 <div class="card card-primary card-round">
                   <div class="card-header">
                     <div class="card-head-row">
@@ -304,7 +304,7 @@ var myDailySalesChart = new Chart(dailySalesChart, {
 	data: {
 		labels:[<?php echo $dni;?>],
 		datasets:[ {
-			label: "Sales Analytics", fill: !0, backgroundColor: "rgba(255,255,255,0.2)", borderColor: "#fff", borderCapStyle: "butt", borderDash: [], borderDashOffset: 0, pointBorderColor: "#fff", pointBackgroundColor: "#fff", pointBorderWidth: 1, pointHoverRadius: 5, pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "#fff", pointHoverBorderWidth: 1, pointRadius: 1, pointHitRadius: 5, data: [<?php echo $sumadziendane;?>]
+			label: "Liczba detali", fill: !0, backgroundColor: "rgba(255,255,255,0.2)", borderColor: "#fff", borderCapStyle: "butt", borderDash: [], borderDashOffset: 0, pointBorderColor: "#fff", pointBackgroundColor: "#fff", pointBorderWidth: 1, pointHoverRadius: 5, pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "#fff", pointHoverBorderWidth: 1, pointRadius: 1, pointHitRadius: 5, data: [<?php echo $sumadziendane;?>]
 		}]
 	},
 	options : {
