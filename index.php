@@ -32,7 +32,7 @@ require_once("dashbordssql.php"); ?>
                 <div class="card card-primary card-round">
                   <div class="card-header">
                     <div class="card-head-row">
-                      <div class="card-title">Liczba wykonanych detali</div>
+                      <div class="card-title">Maksymalna liczba wykonanych detali</div>
                     </div>
                     <div class="card-category" id="dateRangeDisplay"><script>
     // Funkcja do formatowania daty do DD.MM.RRRR
