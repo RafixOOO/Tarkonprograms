@@ -146,6 +146,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
             <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)"
               placeholder="<?php echo !empty($projekt) ? $projekt : 'Nazwa...'; ?>" style="font-size: 150%;" autofocus>
             <button class="btn btn-primary" type="submit" style="font-size: 150%;">Szukaj</button>
+            <a href="main.php"><button class="btn btn-secondary" type="button" style="font-size: 150%;">Projekty</button></a>
         </div>
       <div id="toggleButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-info btn-lg <?php if ($myVariable == 'Zespol') echo 'active'; ?>">
@@ -247,7 +248,26 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 
 
 </div>
+<?php if(!isLoggedIn()) { ?>
+  <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
+<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
+<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Kaiadmin JS -->
+<script src="../assets/js/kaiadmin.min.js"></script>
+<?php } ?>
+<?php if(isLoggedIn()) { ?>
 <?php require_once('globalnav.php'); ?>
+<?php } ?>
 </body>
 <script src="../static/masonry.pkgd.min.js"></script>
 <script>

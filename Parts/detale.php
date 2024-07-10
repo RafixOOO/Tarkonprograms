@@ -509,12 +509,31 @@ $jsonData = json_encode($filteredData);
             </div>
         </div>
     </div>
+    <?php if(!isLoggedIn()) { ?>
+  <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
+<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
+<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Kaiadmin JS -->
+<script src="../assets/js/kaiadmin.min.js"></script>
+<?php } ?>
     <?php if (isUserPartsKier()) { ?>
         <div id="myElement" class="bottom-banner1"></div>
     <?php } ?>
 
     </div>
+    <?php if(isLoggedIn()) { ?>
     <?php require_once('globalnav.php') ?>
+    <?php } ?>
 </body>
 <script>
     $(document).ready(function() {
