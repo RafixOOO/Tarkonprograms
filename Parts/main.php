@@ -25,7 +25,7 @@ and cr_deleted!=true and cr_allow_work_time_registering=true and ( cr_end_date i
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cr_numbers = array_column($results, 'cr_number');
-$cr_numbers_list = implode(",", array_map(function($num) use ($pdo) {
+$cr_numbers_list = implode(",", array_map(function ($num) use ($pdo) {
     return $pdo->quote($num);
 }, $cr_numbers));
 
@@ -76,59 +76,96 @@ $datas1 = sqlsrv_query($conn, $sqlother);
     <div class="container mt-5">
         <br />
         <div class="row">
-        <?php
-        while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+            <?php
+            while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             ?>
-        <div class="col-xl-4 col-lg-4">
-        <a href="receiver.php?project_name=<?php echo $row['ProjectName']; ?>">
-            <div class="card l-bg-cherry">
-                <div class="card-statistic-3 p-4">
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0"><?php echo $row['ProjectName']; ?></h5>
-                    </div>
-                    <div class="row align-items-center mb-2 d-flex">
-                        <div class="col-8">
-                            <h2 class="d-flex align-items-center mb-0">
-                            <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%
-                            </h2>
+                <div class="col-xl-4 col-lg-4">
+                    <a href="receiver.php?project_name=<?php echo $row['ProjectName']; ?>">
+                        <div class="card l-bg-cherry">
+                            <div class="card-statistic-3 p-4">
+                                <div class="mb-4">
+                                    <h5 class="card-title mb-0"><?php echo $row['ProjectName']; ?></h5>
+                                </div>
+                                <div class="row align-items-center mb-2 d-flex">
+                                    <div class="col-8">
+                                        <h2 class="d-flex align-items-center mb-0">
+                                            <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%
+                                        </h2>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span>Liczba detali: <?php echo $row['ilosc']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                    <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%;"></div>
+                                </div>
+                                <div >
+                                <?php $godziny = "SELECT
+        ROUND(SUM(cuce_quantity)) AS sum_cuce_quantity,
+    CASE WHEN ut_name IS NOT NULL THEN ut_name ELSE cuce_category_detail_additional END AS czynnosc,
+    request_event.cr_number
+FROM public.company_user_calendar_events
+LEFT JOIN company_user_contracts ON cuce_entity_type = 'contracts' AND cuce_entity_fkey = cuc_id
+LEFT JOIN company_contractor_requests AS request_event ON request_event.cr_id = cuce_request_fkey
+LEFT JOIN user_tasks ON cuce_task_fkey = ut_id
+WHERE cuce_category IN ('RATE')
+  AND cuce_deleted IS FALSE
+  AND cuce_entity_type = 'contracts'
+  AND cuce_source IN ('INTERNAL_WORKER', 'WIDGET_RCP')
+  AND cuc_deleted IS false
+  and request_event.cr_number='$row[ProjectName]'
+-- AND cuce_date >= '2023-11-01' -- Opcjonalny warunek daty
+GROUP BY CASE WHEN ut_name IS NOT NULL THEN ut_name ELSE cuce_category_detail_additional END,request_event.cr_number
+order by request_event.cr_number desc;";
+    $stmt1 = $pdo->query($godziny);
+    $razem=0;
+    echo "<br />";
+    echo "<table border='1' style='margin-left:auto;margin-right:auto;'>";
+    echo "<tr><th>Czynność</th><th>godziny</th></tr>";
+    while ($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($row['czynnosc']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['sum_cuce_quantity']) . "</td>";
+        $razem=$razem+$row['sum_cuce_quantity'];
+        echo "</tr>";
+    }
+    echo "<tfoot>";
+    echo "<td><b>Razem</b></td>";
+    echo "<td><b>" . $razem . "</b></td>";
+    echo "</tfoot>";
+    echo "</table>";
+?>
+</div>
+                            </div>
                         </div>
-                        <div class="col-4 text-right">
-                            <span>Liczba detali: <?php echo $row['ilosc']; ?></span>
-                        </div>
-                    </div>
-                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%;"></div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-            </a>
-        </div>
-        <?php } ?>
+            <?php } ?>
         </div>
     </div>
 
 
     </div>
-    <?php if(!isLoggedIn()) { ?>
-  <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
-<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
-<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
-<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
+    <?php if (!isLoggedIn()) { ?>
+        <link rel="stylesheet" href="../assets/css/plugins.min.css" />
+        <link rel="stylesheet" href="../assets/css/kaiadmin.min.css" />
+        <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+        <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+        <script src="../assets/js/core/popper.min.js"></script>
+        <script src="../assets/js/core/bootstrap.min.js"></script>
 
-<!-- jQuery Scrollbar -->
-<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-<!-- jQuery Sparkline -->
-<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+        <!-- jQuery Sparkline -->
+        <script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
-<!-- Kaiadmin JS -->
-<script src="../assets/js/kaiadmin.min.js"></script>
-<?php } ?>
-    <?php if(isLoggedIn()) { ?>
+        <!-- Kaiadmin JS -->
+        <script src="../assets/js/kaiadmin.min.js"></script>
+    <?php } ?>
+    <?php if (isLoggedIn()) { ?>
 
-    <?php require_once('globalnav.php'); ?>
+        <?php require_once('globalnav.php'); ?>
     <?php } ?>
 </body>
 
