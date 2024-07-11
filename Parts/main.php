@@ -100,7 +100,7 @@ $datas1 = sqlsrv_query($conn, $sqlother);
                                 </div>
                                 <div >
                                     <br />
-                                <?php $godziny = "SELECT sum_cuce_quantity, czynnosc, cr_number
+                                <?php $godziny = "SELECT     CAST(ROUND(sum_cuce_quantity, 0) AS INT) AS sum_cuce_quantity, czynnosc, cr_number
 FROM PartCheck.dbo.hrappka_godziny where cr_number='$row[ProjectName]';";
 $datas2 = sqlsrv_query($conn, $godziny);
 $razem=0;
