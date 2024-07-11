@@ -60,14 +60,13 @@ $datas1 = sqlsrv_query($conn, $sqlother);
 
 ?>
 <!DOCTYPE html>
-
 <html>
 
-<head>
-
+<head lang="PL">
     <?php
     require_once('globalhead.php');
     ?>
+    <meta charset ="utf-8" />
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
@@ -79,7 +78,7 @@ $datas1 = sqlsrv_query($conn, $sqlother);
             <?php
             while ($row = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
             ?>
-                <div class="col-xl-4 col-lg-4">
+                <div class="col-xl-4 col-lg-4" style="height:800px;">
                     <a href="receiver.php?project_name=<?php echo $row['ProjectName']; ?>">
                         <div class="card l-bg-cherry">
                             <div class="card-statistic-3 p-4">
@@ -100,32 +99,17 @@ $datas1 = sqlsrv_query($conn, $sqlother);
                                     <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%;"></div>
                                 </div>
                                 <div >
-                                <?php $godziny = "SELECT
-        ROUND(SUM(cuce_quantity)) AS sum_cuce_quantity,
-    CASE WHEN ut_name IS NOT NULL THEN ut_name ELSE cuce_category_detail_additional END AS czynnosc,
-    request_event.cr_number
-FROM public.company_user_calendar_events
-LEFT JOIN company_user_contracts ON cuce_entity_type = 'contracts' AND cuce_entity_fkey = cuc_id
-LEFT JOIN company_contractor_requests AS request_event ON request_event.cr_id = cuce_request_fkey
-LEFT JOIN user_tasks ON cuce_task_fkey = ut_id
-WHERE cuce_category IN ('RATE')
-  AND cuce_deleted IS FALSE
-  AND cuce_entity_type = 'contracts'
-  AND cuce_source IN ('INTERNAL_WORKER', 'WIDGET_RCP')
-  AND cuc_deleted IS false
-  and request_event.cr_number='$row[ProjectName]'
--- AND cuce_date >= '2023-11-01' -- Opcjonalny warunek daty
-GROUP BY CASE WHEN ut_name IS NOT NULL THEN ut_name ELSE cuce_category_detail_additional END,request_event.cr_number
-order by request_event.cr_number desc;";
-    $stmt1 = $pdo->query($godziny);
-    $razem=0;
-    echo "<br />";
-    echo "<table border='1' style='margin-left:auto;margin-right:auto;'>";
-    echo "<tr><th>Czynność</th><th>godziny</th></tr>";
-    while ($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                                    <br />
+                                <?php $godziny = "SELECT sum_cuce_quantity, czynnosc, cr_number
+FROM PartCheck.dbo.hrappka_godziny where cr_number='$row[ProjectName]';";
+$datas2 = sqlsrv_query($conn, $godziny);
+$razem=0;
+echo "<table style='width:100%;'>";
+    echo "<tr><th>Czynność</th><th style='padding-left: 20px;'>Godziny</th></tr>";
+    while ($row = sqlsrv_fetch_array($datas2, SQLSRV_FETCH_ASSOC)) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['czynnosc']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['sum_cuce_quantity']) . "</td>";
+        echo "<td>" . $row['czynnosc'] . "</td>";
+        echo "<td>" . $row['sum_cuce_quantity'] . "</td>";
         $razem=$razem+$row['sum_cuce_quantity'];
         echo "</tr>";
     }
