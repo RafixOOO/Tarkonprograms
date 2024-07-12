@@ -9,20 +9,20 @@ p.Id_import as import
 ,p.lock as lok
 ,'' as wykonal,
 p.[Status] as status,
-p.[Projekt] as ProjectName
+b.[ProjectName] as ProjectName
 ,(SELECT STRING_AGG(CONCAT(p2.[Zespol], '(', p3.[Ilosc],'*',p2.[Ilosc]/p3.[Ilosc],') '), ' | ')
 FROM [PartCheck].[dbo].[Parts] p2
 LEFT JOIN [PartCheck].[dbo].[Parts] p3 ON p2.[Zespol] = p3.[Zespol] and p3.[Pozycja] = ''
 WHERE b.[Name] = p2.[Pozycja]
 ) AS zespol
-,p.[Pozycja] as Detal
+,b.[Name] as Detal
 ,(select sum(p1.[Ilosc])
 from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc,
 (
 SELECT SUM(p2.[AmountDone])
 FROM [PartCheck].[dbo].[Product_V630] p2
-WHERE p2.[Name] = p.[Pozycja]
+WHERE p2.[Name] = b.[Name]
 ) AS ilosc_zrealizowana,
   'V630' as maszyna
 ,p.[Profil] as profil
@@ -38,10 +38,10 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 ,Sum(p.[Calk_ciez]) as Calk_ciez
 ,p.[Uwaga] as uwaga
 ,Max(b.[ModificationDate]) as data
-from [PartCheck].[dbo].[Product_V630] as b INNER JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
+from [PartCheck].[dbo].[Product_V630] as b left JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
 LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
-where p.[Projekt]='$_SESSION[project_name]'
-group by p.[Pozycja],p.[Profil],p.[Material],p.[Uwaga],b.[SawLength],p.[Projekt],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import,p.lock
+where b.[ProjectName]='$_SESSION[project_name]'
+group by p.[Pozycja],p.[Profil],p.[Material],p.[Uwaga],b.[SawLength],b.[ProjectName],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import,p.lock
 ";
 $data = sqlsrv_query($conn, $sql); 
 

@@ -255,21 +255,21 @@ $jsonData = json_encode($filteredData);
 
                 <thead>
                     <tr>
-                        <th scope="col">Project</th>
-                        <th scope="col" style="width:10em;">Assembly</th>
-                        <th scope="col">Cutlogic</th>
-                        <th scope="col">Part</th>
-                        <th scope="col">Amount Need / Done</th>
+                        <th scope="col">Projekt</th>
+                        <th scope="col" style="width:10em;">Zespół</th>
+                        <th scope="col">Nazwa programu</th>
+                        <th scope="col">Detal</th>
+                        <th scope="col">Ilość Zaplanowana / Zrobiona</th>
                         <th scope="col">V200</th>
-                        <th scope="col">Machine</th>
-                        <th scope="col">Dimension</th>
-                        <th scope="col">Material</th>
-                        <th scope="col">Length</th>
-                        <th scope="col">Length Done</th>
-                        <th scope="col">Weight</th>
-                        <th scope="col">Weight Done</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Date</th>
+                        <th scope="col">Maszyna</th>
+                        <th scope="col">Wymiar</th>
+                        <th scope="col">Materiał</th>
+                        <th scope="col">Długość</th>
+                        <th scope="col">Dlugość zrealizowana</th>
+                        <th scope="col">Waga</th>
+                        <th scope="col">Waga zrealizowana</th>
+                        <th scope="col">Opis</th>
+                        <th scope="col">Data</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -296,20 +296,20 @@ $jsonData = json_encode($filteredData);
                                         } else {
                                             echo $data['zespol'];
                                         } ?></td>
-                        <td id="Program1"><?php echo $data['cutlogic'] ?></td>
+                        <td id="Program1"><?php echo $data['cutlogic']; ?></td>
                         <td id="detal"><?php echo $data['Detal']; ?></td>
-                        <td>
+                        <td> <center><?php echo $data['ilosc']; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
                             <div class="progress" style="height:25px;font-size: 16px;">
                                 <?php if ($szer <= 100) { ?>
-                                    <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc_zrealizowana']; ?></div>
+                                    <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'></div>
                                     <span class='progress-bar bg-white text-dark' style='width:
                             <?php if (100 - $szer < 0) {
                                         echo 0;
                                     } else {
                                         echo 100 - $szer;
-                                    } ?>%;'><?php echo $data['ilosc']; ?> </span>
+                                    } ?>%;'> </span>
                                 <?php } else { ?>
-                                    <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'><?php echo $data['ilosc'] . "/" . $data['ilosc_zrealizowana']; ?></div>
+                                    <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'></div>
                                 <?php }
                                 ?>
                         </td>
