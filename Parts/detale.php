@@ -252,16 +252,14 @@ $jsonData = json_encode($filteredData);
         <div class="table-responsive">
             <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
 
-
+            <caption style="caption-side: top;"><?php echo $_SESSION['project_name']; ?></caption>
                 <thead>
                     <tr>
-                        <th scope="col">Projekt</th>
                         <th scope="col" style="width:10em;">Zespół</th>
                         <th scope="col">Nazwa programu</th>
                         <th scope="col">Detal</th>
                         <th scope="col">Ilość Zaplanowana / Zrobiona</th>
                         <th scope="col">V200</th>
-                        <th scope="col">Maszyna</th>
                         <th scope="col">Wymiar</th>
                         <th scope="col">Materiał</th>
                         <th scope="col">Długość</th>
@@ -290,7 +288,6 @@ $jsonData = json_encode($filteredData);
                             echo '<tr id="myRow" onclick="handleClick(this);">';
                         }
                     ?>
-                        <td id="project"><?php echo $data['ProjectName']; ?></td>
                         <td id="zespol"><?php if ($data['status'] == 1) {
                                             echo $data['zespol'] . " <img src='../static/triangle.svg' /></img>";
                                         } else {
@@ -314,7 +311,6 @@ $jsonData = json_encode($filteredData);
                                 ?>
                         </td>
                         <td><?php echo $data['ilosc_v200'] . "/" . $data['ilosc_v200_zre']; ?></td>
-                        <td><?php echo $data['maszyna']; ?></td>
                         <td><?php echo $data['profil']; ?></td>
                         <td><?php echo $data['material']; ?></td>
                         <td><?php echo $data['dlugosc']; ?></td>
