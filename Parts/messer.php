@@ -7,8 +7,8 @@ require_once '../auth.php';
 
 
 
-$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, m.Projekt as ProjectName,p.lock as lok,m.ProgramName as cutlogic,v.[AmountNeeded] as ilosc_v200
-,(
+$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, m.Projekt as ProjectName,p.lock as lok,m.ProgramName as cutlogic,v.[AmountNeeded] as ilosc_v200,m.amount as amount_order,
+(
     SELECT SUM(v1.[AmountDone])
     FROM [PartCheck].[dbo].[Product_V200] v1
     WHERE v1.[Name]=m.PartName COLLATE Latin1_General_CS_AS
@@ -24,6 +24,7 @@ from (SELECT
 [PartName],
 [ProgramName],
 [Thickness] AS grubosc,
+SUM([QtyOrdered]) as amount,
 SUM([QtyProgram]) AS Complet,
 'Messer' AS machine,
 [Material] AS material,
@@ -38,5 +39,5 @@ GROUP BY [WoNumber], [PartName], [Thickness], [Material],ProgramName) as m
 left JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
 left Join [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=m.PartName COLLATE Latin1_General_CS_AS
 where m.Projekt='$_SESSION[project_name]'
-GROUP BY m.Projekt,m.[PartName],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import,p.lock,v.[AmountNeeded],m.ProgramName";
+GROUP BY m.Projekt,m.[PartName],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import,p.lock,v.[AmountNeeded],m.ProgramName,m.amount";
 $data = sqlsrv_query($conn, $sqlmesser);

@@ -19,8 +19,11 @@ WHERE b.[Name] = p2.[Pozycja]
 ,(select sum(p1.[Ilosc])
 from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc,
-(
-SELECT SUM(p2.[AmountDone])
+(SELECT SUM(p3.[AmountNeeded])
+FROM [PartCheck].[dbo].[Product_V630] p3
+WHERE p3.[Name] = b.[Name]
+) AS amount_order,
+(SELECT SUM(p2.[AmountDone])
 FROM [PartCheck].[dbo].[Product_V630] p2
 WHERE p2.[Name] = b.[Name]
 ) AS ilosc_zrealizowana,

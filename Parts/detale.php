@@ -272,10 +272,13 @@ $jsonData = json_encode($filteredData);
                 </thead>
                 <tbody>
                     <?php foreach ($currentPageResults as $data) :
+                    $ilosc='';
                         if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
-                            $szer = 0;
+                            $ilosc=$data['amount_order'];
+                            $szer = $data['ilosc_zrealizowana'] / $ilosc * 100;
                         } else {
                             $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
+                            $ilosc=$data['ilosc'];
                         }
 
                         if ($data['lok'] == 1 or $szer >= 100) {
@@ -295,10 +298,10 @@ $jsonData = json_encode($filteredData);
                                         } ?></td>
                         <td id="Program1"><?php echo $data['cutlogic']; ?></td>
                         <td id="detal"><?php echo $data['Detal']; ?></td>
-                        <td> <center><?php echo $data['ilosc']; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
+                        <td> <center><?php echo $ilosc; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
                             <div class="progress" style="height:25px;font-size: 16px;">
                                 <?php if ($szer <= 100) { ?>
-                                    <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'></div>
+                                    <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $ilosc; ?>'></div>
                                     <span class='progress-bar bg-white text-dark' style='width:
                             <?php if (100 - $szer < 0) {
                                         echo 0;
@@ -306,7 +309,7 @@ $jsonData = json_encode($filteredData);
                                         echo 100 - $szer;
                                     } ?>%;'> </span>
                                 <?php } else { ?>
-                                    <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $data['ilosc']; ?>'></div>
+                                    <div class='progress-bar bg-warning' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $ilosc; ?>'></div>
                                 <?php }
                                 ?>
                         </td>

@@ -3,6 +3,7 @@ require_once("dbconnect.php");
 require_once '../auth.php'; 
 
 $sqlcut = "SELECT
+'' as amount_order,
 p.Id_import as import
 ,v.[AmountNeeded] as ilosc_v200
 ,p.lock as lok
