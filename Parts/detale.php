@@ -38,9 +38,17 @@ foreach ($programs as $program) {
 
 function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
 {
-    if ($myVariable == 0 && ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1) && $keywordArray == '') {
+    if (
+        $myVariable == 0 && ($keywordArray == '') &&
+        (
+            ($item['ilosc'] == 0 || $item['ilosc'] == '')
+            ? ($item['ilosc_zrealizowana'] >= $item['amount_order'] || $item['lok'] == 1)
+            : ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1)
+        )
+    ) {
         return false;
     }
+
 
     if ($dataFrom !== '') {
         $dataFrom = new DateTime($dataFrom);
@@ -64,7 +72,10 @@ function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
         $matchesKeyword = false;
 
         foreach ($columnsToSearch as $column) {
-            if (($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1) && $myVariable == 0) {
+            if ($myVariable == 0 && (($item['ilosc'] == 0 || $item['ilosc'] == '')
+            ? ($item['ilosc_zrealizowana'] >= $item['amount_order'] || $item['lok'] == 1)
+            : ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1)
+           )) {
                 continue;
             }
 
@@ -201,7 +212,7 @@ $jsonData = json_encode($filteredData);
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
-<!-- link: https://github.com/RafixOOO -->
+    <!-- link: https://github.com/RafixOOO -->
     <div class="container-fluid" style="width:90%;margin-left:auto;margin-right:auto;">
         <?php if (!isLoggedIn()) { ?>
             <div class="progress verticalrotate">
@@ -252,7 +263,7 @@ $jsonData = json_encode($filteredData);
         <div class="table-responsive">
             <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
 
-            <caption style="caption-side: top;"><?php echo $_SESSION['project_name']; ?></caption>
+                <caption style="caption-side: top;"><?php echo $_SESSION['project_name']; ?></caption>
                 <thead>
                     <tr>
                         <th scope="col" style="width:10em;">Zespół</th>
@@ -272,13 +283,13 @@ $jsonData = json_encode($filteredData);
                 </thead>
                 <tbody>
                     <?php foreach ($currentPageResults as $data) :
-                    $ilosc='';
+                        $ilosc = '';
                         if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
-                            $ilosc=$data['amount_order'];
+                            $ilosc = $data['amount_order'];
                             $szer = $data['ilosc_zrealizowana'] / $ilosc * 100;
                         } else {
                             $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
-                            $ilosc=$data['ilosc'];
+                            $ilosc = $data['ilosc'];
                         }
 
                         if ($data['lok'] == 1 or $szer >= 100) {
@@ -298,7 +309,8 @@ $jsonData = json_encode($filteredData);
                                         } ?></td>
                         <td id="Program1"><?php echo $data['cutlogic']; ?></td>
                         <td id="detal"><?php echo $data['Detal']; ?></td>
-                        <td> <center><?php echo $ilosc; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
+                        <td>
+                            <center><?php echo $ilosc; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
                             <div class="progress" style="height:25px;font-size: 16px;">
                                 <?php if ($szer <= 100) { ?>
                                     <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $ilosc; ?>'></div>
@@ -508,30 +520,30 @@ $jsonData = json_encode($filteredData);
             </div>
         </div>
     </div>
-    <?php if(!isLoggedIn()) { ?>
-  <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
-<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
-<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
-<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
+    <?php if (!isLoggedIn()) { ?>
+        <link rel="stylesheet" href="../assets/css/plugins.min.css" />
+        <link rel="stylesheet" href="../assets/css/kaiadmin.min.css" />
+        <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+        <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+        <script src="../assets/js/core/popper.min.js"></script>
+        <script src="../assets/js/core/bootstrap.min.js"></script>
 
-<!-- jQuery Scrollbar -->
-<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-<!-- jQuery Sparkline -->
-<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+        <!-- jQuery Sparkline -->
+        <script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
-<!-- Kaiadmin JS -->
-<script src="../assets/js/kaiadmin.min.js"></script>
-<?php } ?>
+        <!-- Kaiadmin JS -->
+        <script src="../assets/js/kaiadmin.min.js"></script>
+    <?php } ?>
     <?php if (isUserPartsKier()) { ?>
         <div id="myElement" class="bottom-banner1"></div>
     <?php } ?>
 
     </div>
-    <?php if(isLoggedIn()) { ?>
-    <?php require_once('globalnav.php') ?>
+    <?php if (isLoggedIn()) { ?>
+        <?php require_once('globalnav.php') ?>
     <?php } ?>
 </body>
 <script>
@@ -570,6 +582,7 @@ $jsonData = json_encode($filteredData);
     var clicks = 0;
     var timeout;
     var logged = "<?php echo isLoggedIn(); ?>";
+
     function handleClick(row) {
         clicks++;
 
@@ -578,8 +591,7 @@ $jsonData = json_encode($filteredData);
                 singleClickAction(row);
                 clicks = 0;
             }, 200);
-        } 
-        else if (clicks === 2 && logged === 'false') {
+        } else if (clicks === 2 && logged === 'false') {
             clearTimeout(timeout);
             doubleClickAction(row);
             clicks = 0;
