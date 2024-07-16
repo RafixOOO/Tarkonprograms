@@ -68,7 +68,7 @@ function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
 
     foreach ($keywordArray as $keyword) {
         $keyword = trim($keyword);
-        $columnsToSearch = ['ProjectName', 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
+        $columnsToSearch = [ 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
         $matchesKeyword = false;
 
         foreach ($columnsToSearch as $column) {
@@ -228,7 +228,7 @@ $jsonData = json_encode($filteredData);
                     <input type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
 
                     <button class="btn btn-primary" type="submit">Szukaj</button>
-                    <a href="main.php">
+                    <a href="detale.php">
                         <button class="btn btn-secondary form-control form-control-lg" type="button">Wyczyść</button>
                     </a>
                     <br /><br />
@@ -581,7 +581,6 @@ $jsonData = json_encode($filteredData);
 
     var clicks = 0;
     var timeout;
-    var logged = "<?php echo isLoggedIn(); ?>";
 
     function handleClick(row) {
         clicks++;
@@ -591,7 +590,7 @@ $jsonData = json_encode($filteredData);
                 singleClickAction(row);
                 clicks = 0;
             }, 200);
-        } else if (clicks === 2 && logged === 'false') {
+        } else if (clicks === 2) {
             clearTimeout(timeout);
             doubleClickAction(row);
             clicks = 0;
@@ -604,10 +603,10 @@ $jsonData = json_encode($filteredData);
         var hasClass = row.classList.contains("table-warning");
         if (hasClass) {
             row.classList.remove("table-warning");
-            removeRowFromSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+            removeRowFromSelected("<?php echo $_SESSION['project_name']; ?>" + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
         } else {
             row.classList.add("table-warning");
-            addRowToSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+            addRowToSelected("<?php echo $_SESSION['project_name']; ?>" + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
         }
     }
 
@@ -637,7 +636,7 @@ $jsonData = json_encode($filteredData);
             if (!hasClass) {
                 allSelected = false; // Ustaw, że nie wszystkie wiersze są zaznaczone
                 row.classList.add("table-warning");
-                addRowToSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+                addRowToSelected("<?php echo $_SESSION['project_name']; ?>" + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
                 program1Values.add(getColumnData(row, "Program1"));
             }
         });
@@ -646,7 +645,7 @@ $jsonData = json_encode($filteredData);
         if (allSelected) {
             tableRows.forEach(function(row) {
                 row.classList.remove("table-warning");
-                removeRowFromSelected(getColumnData(row, "project") + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
+                removeRowFromSelected("<?php echo $_SESSION['project_name']; ?>" + "," + getColumnData(row, "detal") + "," + localStorage.getItem('number1'));
             });
         }
 
@@ -675,7 +674,7 @@ $jsonData = json_encode($filteredData);
     }
 
     function doubleClickAction(row) {
-        var projectName = row.querySelector('#project').innerHTML;
+        var projectName = "<?php echo $_SESSION['project_name']; ?>";
         var zespolName = row.querySelector('#zespol').innerHTML;
         var detalName = row.querySelector('#detal').innerHTML;
 

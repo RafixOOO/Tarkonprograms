@@ -21,7 +21,7 @@
     },
   });
 </script>
-<div class="wrapper sidebar_minimize" style="padding-bottom: 0;">
+<div class="wrapper sidebar_minimize" style="padding-bottom: 0; width:0; height:0;">
   <!-- Sidebar -->
   <div class="sidebar" data-background-color="dark">
     <div class="sidebar-logo">
