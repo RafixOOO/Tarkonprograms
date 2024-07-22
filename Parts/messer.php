@@ -7,7 +7,7 @@ require_once '../auth.php';
 
 
 
-$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, m.Projekt as ProjectName,p.lock as lok,m.ProgramName as cutlogic,v.[AmountNeeded] as ilosc_v200,m.amount as amount_order,
+$sqlmesser = "SELECT '' as wykonal,p.Id_import as import, '' as dlugosc,'' as dlugosc_zre,'' as Ciezar,'' as Calk_ciez,'' as uwaga, p.[Status] as status, m.Projekt as ProjectName,p.lock as lok,m.program as cutlogic,v.[AmountNeeded] as ilosc_v200,m.amount as amount_order,
 (
     SELECT SUM(v1.[AmountDone])
     FROM [PartCheck].[dbo].[Product_V200] v1
@@ -22,22 +22,21 @@ WHERE m.PartName = p2.[Pozycja] COLLATE Latin1_General_CS_AS
 from (SELECT 
 [WoNumber] AS Projekt,
 [PartName],
-[ProgramName],
 [Thickness] AS grubosc,
 SUM([QtyOrdered]) as amount,
 SUM([QtyProgram]) AS Complet,
 'Messer' AS machine,
 [Material] AS material,
 STUFF((
-    SELECT DISTINCT '/' + ProgramName
+    SELECT DISTINCT  ' ' + ProgramName + ' / ' 
     FROM [PartCheck].[dbo].[PartArchive_Messer] AS sub
-    WHERE sub.ProgramName IS NOT NULL AND sub.[WoNumber] = [PartArchive_Messer].[WoNumber]
+    WHERE sub.ProgramName IS NOT NULL AND sub.[PartName] = [PartArchive_Messer].[PartName]
     FOR XML PATH('')), 1, 1, '') AS program,
 MAX([ArcDateTime]) AS DataWykonania
 FROM [PartCheck].[dbo].[PartArchive_Messer]
-GROUP BY [WoNumber], [PartName], [Thickness], [Material],ProgramName) as m 
+GROUP BY [WoNumber], [PartName], [Thickness], [Material]) as m 
 left JOIN [PartCheck].[dbo].[Parts] as p ON p.Pozycja=m.PartName COLLATE Latin1_General_CS_AS
 left Join [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=m.PartName COLLATE Latin1_General_CS_AS
 where m.Projekt='$_SESSION[project_name]'
-GROUP BY m.Projekt,m.[PartName],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import,p.lock,v.[AmountNeeded],m.ProgramName,m.amount";
+GROUP BY m.Projekt,m.[PartName],m.grubosc,m.Complet,m.machine,m.material,m.DataWykonania, m.PartName, p.[Status], p.Id_import,p.lock,v.[AmountNeeded],m.program,m.amount";
 $data = sqlsrv_query($conn, $sqlmesser);

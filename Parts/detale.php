@@ -267,7 +267,7 @@ $jsonData = json_encode($filteredData);
                 <thead>
                     <tr>
                         <th scope="col" style="width:10em;">Zespół</th>
-                        <th scope="col">Nazwa programu</th>
+                        <th scope="col" style="width:10em;">Nazwa programu</th>
                         <th scope="col">Detal</th>
                         <th scope="col">Ilość Zaplanowana / Zrobiona</th>
                         <th scope="col">V200</th>
