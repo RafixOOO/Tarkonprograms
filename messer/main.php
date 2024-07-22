@@ -478,7 +478,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
       var percent = 0;
 
       function changeColor() {
-        percent += 0.2;
+        percent += 0.5;
         colorButton.style.width = `${percent}%`;
 
         if (percent < 100) {

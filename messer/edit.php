@@ -61,12 +61,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 <head>
     <?php include 'globalhead.php'; ?>
+    <style>
+         .verticalrotate {
+      position: fixed;
+      bottom: 50%;
+      left: 84.5%;
+      width: 30%;
+      transform: rotate(-90deg);
+    }
+    </style>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
     <div class="container">
+    <?php if (!isLoggedIn()) { ?>
+      <div class="progress verticalrotate">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
+      </div>
+    <?php } ?>
         <br />
         <h2 class="text-uppercase">Edycja</h2>
         <form method="Post">
@@ -102,5 +116,25 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     </form>
     </div>
 </body>
+<script>
+     if (localStorage.getItem('numbermesser') !== null) {
+      var colorButton = document.getElementById('time');
+      var percent = 0;
 
+      function changeColor() {
+        percent += 0.5;
+        colorButton.style.width = `${percent}%`;
+
+        if (percent < 100) {
+          setTimeout(changeColor, 200); // Powtórz co 1 sekundę (1000 milisekund)
+          localStorage.setItem('czas', percent);
+        } else {
+          localStorage.removeItem('numbermesser');
+          window.location.href = 'main.php';
+        }
+      }
+
+      changeColor(); // Wywołaj funkcję changeColor() po załadowaniu strony
+    }
+</script>
 </html>
