@@ -96,7 +96,7 @@ function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
 }
 
 $pageSizeOptions = [50, 200, 500, 1000];
-$pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 25;
+$pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 50;
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
 $showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
 
