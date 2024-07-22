@@ -1,0 +1,16 @@
+connection=wired
+dhcp=yes
+browser=chrome
+homepage_append=hostname
+disable_navigation_bar=yes
+homepage=http://10.100.100.21/parts/main.php?keywords=&programs%5B%5D=cutlogic&dataFrom=&dataTo=&page_size=25
+allow_icmp_protocol=yes
+kiosk_config=http://10.100.100.21/kiosk3.txt
+root_password=12345678
+vnc_interactive=yes
+removable_devices=yes
+dpms_idle=1
+vnc_password=12345678
+shutdown_menu=reboot shutdown
+wallpaper=http://10.100.100.21/wygaszacz.jpg
+additional_components=09-x11vnc.xzm uefi.zip 08-ssh.xzm

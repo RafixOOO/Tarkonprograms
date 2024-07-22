@@ -1,0 +1,17 @@
+connection=wired
+dhcp=yes
+browser=chrome
+homepage_append=hostname
+disable_navigation_bar=yes
+homepage=http://10.100.100.42/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd
+allow_icmp_protocol=yes
+kiosk_config=http://10.100.100.21/kiosk1.txt
+root_password=12345678
+vnc_interactive=yes
+removable_devices=yes
+dpms_idle=1
+vnc_password=12345678
+shutdown_menu=reboot shutdown
+touchscreen_calibration="eGalax Inc. USB TouchController" "libinput Calibration Matrix" 0.951260 0.002602 0.020224 0.000104 -0.850446 0.878123 0.000000 0.000000 1.000000
+wallpaper=http://10.100.100.21/wygaszacz.jpg
+additional_components=09-x11vnc.xzm uefi.zip 08-ssh.xzm
