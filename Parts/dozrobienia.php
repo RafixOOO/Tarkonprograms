@@ -146,7 +146,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
             <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)"
               placeholder="<?php echo !empty($projekt) ? $projekt : 'Nazwa...'; ?>" style="font-size: 150%;" autofocus>
             <button class="btn btn-primary" type="submit" style="font-size: 150%;">Szukaj</button>
-            <a href="main.php"><button class="btn btn-secondary" type="button" style="font-size: 150%;">Projekty</button></a>
+            <a href="detale.php"><button class="btn btn-secondary" type="button" style="font-size: 150%;">Projekty</button></a>
         </div>
       <div id="toggleButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-info btn-lg <?php if ($myVariable == 'Zespol') echo 'active'; ?>">
