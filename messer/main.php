@@ -206,14 +206,14 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(9px + 0.390625vw)">
           <thead>
             <th>#</th>
-            <th>Program name</th>
-            <th>Sheet name</th>
-            <th>Material</th>
-            <th>Thickness</th>
-            <th>sheet length</th>
-            <th>width length</th>
-            <th>Burning time</th>
-            <th>Amount</th>
+            <th>Nazwa programu</th>
+            <th>Nazwa Arkusza</th>
+            <th>Materiał</th>
+            <th>Grubość</th>
+            <th>Długość arkusza</th>
+            <th>Szerokość arkusza</th>
+            <th>Czas</th>
+            <th>Liczba</th>
             <?php if (!isLoggedIn()) { ?>
               <th>Options</th>
             <?php } ?>

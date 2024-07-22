@@ -76,14 +76,14 @@ ORDER BY
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
                    style="font-size: calc(9px + 0.390625vw)">
                 <thead>
-                <th>Person/reason</th>
-                <th>Program name</th>
-                <th>Sheet name</th>
-                <th>Material</th>
-                <th>Thickness</th>
-                <th>sheet length</th>
-                <th>width length</th>
-                <th>Burning time</th>
+                <th>Osoba/Powód</th>
+                <th>Nazwa Programu</th>
+                <th>Nazwa arkusza</th>
+                <th>Materiał</th>
+                <th>Grubość</th>
+                <th>Długość arkusza</th>
+                <th>szerokość arkusza</th>
+                <th>czas</th>
                 <th>Data i czas</th>
                 <?php
                 if (isUserMesser()) {

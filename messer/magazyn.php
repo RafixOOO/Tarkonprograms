@@ -79,19 +79,19 @@ echo "<table class='table table-sm table-hover table-bordered' id='mytable'
                    style='font-size: calc(9px + 0.390625vw)'>";
 echo "<thead>";
 echo "<tr><tr>
-        <th>Sheetname</th>
-        <th>Date</th>
-        <th>Person</th>
-        <th>Localization</th>
-        <th>Count</th>
-        <th>Used</th>
-        <th>Material</th>
-        <th>Thickness</th>
-        <th>Length</th>
-        <th>Width</th>
+        <th>Nazwa arkusza</th>
+        <th>data</th>
+        <th>Osoba</th>
+        <th>Lokalizacja</th>
+        <th>liczba</th>
+        <th>użyte</th>
+        <th>materiał</th>
+        <th>grubość</th>
+        <th>długość</th>
+        <th>Wiszerokośćdth</th>
 ";
 if (isUserMesser()) {
-    echo "<th>Option</th>";
+    echo "<th>opcje</th>";
 }
   echo "  </tr></tr>";
 echo "</thead>";

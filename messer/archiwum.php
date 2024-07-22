@@ -114,12 +114,12 @@ ORDER BY
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
                    style="font-size: calc(9px + 0.390625vw)">
                 <thead>
-                <th>Person/reason</th>
-                <th>Program name</th>
-                <th>Sheet name</th>
-                <th>Machine</th>
-                <th>Burning time</th>
-                <th>Data i czas</th>
+                <th>Osoba/powód</th>
+                <th>Nazwa programu</th>
+                <th>Nazwa arkusza</th>
+                <th>maszyna</th>
+                <th>czas</th>
+                <th>data i czas</th>
                 </thead>
                 <tbody class="row_position">
                 <?php foreach ($currentPageResults as $data) : ?>

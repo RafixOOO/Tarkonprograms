@@ -81,11 +81,11 @@ $sql="";
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable">
   <thead>
     <tr>
-      <th scope="col">Project</th>
+      <th scope="col">Projekt</th>
       <th scope="col">Detal</th>
-      <th scope="col">Detale need / done</th>
-      <th scope="col">Diameter</th>
-      <th scope="col">Number of holes</th>
+      <th scope="col">Ilość Zaplanowana / Zrobiona</th>
+      <th scope="col">średnica</th>
+      <th scope="col">liczba otworów</th>
     </tr>
   </thead>
   <tbody>

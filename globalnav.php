@@ -192,13 +192,14 @@
               </ul>
               
             </div>
-            <li class="nav-item">
+            </li>
+            <!--<li class="nav-item">
             <a href="cutlogic/main.php">
               <i class="fa fa-laptop"></i>
               <p>Cutlogic (W Rozbudowie)</p>
             </a>
-          </li>
-          </li>
+          </li>-->
+          
           <li class="nav-item">
             <a href="https://urlop.local/" target="_blank">
               <i class="fa fa-bicycle"></i>
