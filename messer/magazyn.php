@@ -88,7 +88,7 @@ echo "<tr><tr>
         <th>materiał</th>
         <th>grubość</th>
         <th>długość</th>
-        <th>Wiszerokośćdth</th>
+        <th>szerokość</th>
 ";
 if (isUserMesser()) {
     echo "<th>opcje</th>";
