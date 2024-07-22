@@ -21,8 +21,8 @@ require_once("dashbordssql.php"); ?>
                       <div class="card-title">Liczba wykonanych detali</div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="chart-container" style="min-height: 375px">
+                  <div class="card-body" style="min-height: 475px;">
+                    <div class="chart-container">
                       <canvas id="statisticsChart"></canvas>
                     </div>
                     <div id="myChartLegend"></div>
