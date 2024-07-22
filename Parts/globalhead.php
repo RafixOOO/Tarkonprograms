@@ -29,6 +29,24 @@
   }
 });
 </script>
+<?php if(!isLoggedIn()) { ?>
+    <style>
+         /* Dla przeglądarek WebKit (Chrome, Safari) */
+         ::-webkit-scrollbar {
+            width: 40px;  /* Szerokość paska przewijania */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #d3d3d3;  /* Kolor tła paska przewijania (jasnoszary) */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #a9a9a9;  /* Kolor suwaka (ciemnoszary) */
+            border-radius: 10px;  /* Zaokrąglone krawędzie suwaka */
+            border: 3px solid #d3d3d3;  /* Dodanie odstępu wewnętrznego suwaka */
+        }
+    </style>
+    <?php } ?>
 <style>
 #button-container {
       position: fixed;
@@ -36,13 +54,4 @@
       left: 0;
       padding: 10px;
     }
-::-webkit-scrollbar{
-  width: 16px;
-}
-::-webkit-scrollbar-thumb{
-  border-radius: 8px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-  background-color: #060b9a;
-}
     </style>
