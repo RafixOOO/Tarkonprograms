@@ -34,13 +34,4 @@
       left: 0;
       padding: 10px;
     }
-::-webkit-scrollbar{
-  width: 16px;
-}
-::-webkit-scrollbar-thumb{
-  border-radius: 8px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-  background-color: #060b9a;
-}
     </style>
