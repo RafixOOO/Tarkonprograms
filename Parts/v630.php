@@ -19,14 +19,8 @@ WHERE b.[Name] = p2.[Pozycja]
 ,(select sum(p1.[Ilosc])
 from [PartCheck].[dbo].[Parts] p1
 where p1.[Pozycja]=b.[Name]) as ilosc,
-(SELECT SUM(p3.[AmountNeeded])
-FROM [PartCheck].[dbo].[Product_V630] p3
-WHERE p3.[Name] = b.[Name]
-) AS amount_order,
-(SELECT SUM(p2.[AmountDone])
-FROM [PartCheck].[dbo].[Product_V630] p2
-WHERE p2.[Name] = b.[Name]
-) AS ilosc_zrealizowana,
+b.[AmountNeeded] AS amount_order,
+b.[AmountDone] AS ilosc_zrealizowana,
   'V630' as maszyna
 ,p.[Profil] as profil
 ,p.[Material] as material
@@ -44,7 +38,7 @@ WHERE v1.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 from [PartCheck].[dbo].[Product_V630] as b left JOIN [PartCheck].[dbo].[Parts] as p ON b.[Name] = p.[Pozycja]
 LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
 where b.[ProjectName]='$_SESSION[project_name]'
-group by p.[Pozycja],p.[Profil],p.[Material],p.[Uwaga],b.[SawLength],b.[ProjectName],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import,p.lock
+group by p.[Pozycja],p.[Profil],p.[Material],p.[Uwaga],b.[SawLength],b.[ProjectName],v.[AmountNeeded], p.[Status], b.[Name], p.Id_import,p.lock,b.[AmountNeeded],b.[AmountDone]
 ";
 $data = sqlsrv_query($conn, $sql); 
 
