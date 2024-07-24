@@ -15,8 +15,7 @@ try {
     echo "Błąd połączenia z bazą danych: " . $e->getMessage();
 }
 
-$query1 = "
-SELECT
+$query1 = "SELECT
     COUNT(DISTINCT CASE WHEN l.in_out = '0' THEN o.idx_osoby END) -
     COUNT(DISTINCT CASE WHEN l.in_out = '1' THEN o.idx_osoby END) AS diff_count
 FROM users o
@@ -86,6 +85,7 @@ SumowanieIloscZrealizowana AS (
         [PartCheck].dbo.Product_Recznie r
     WHERE
         DATEPART(YEAR, r.[Data]) = YEAR(GETDATE()) -- Filtruje tylko dane z bieżącego roku
+        and r.Maszyna in ('Recznie','Pila')
     GROUP BY
         r.Osoba,
         DATEPART(YEAR, r.[Data]),
