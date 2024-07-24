@@ -59,30 +59,18 @@ $stmt = $pdo->query($sql);
 
                                 $sqlother = "WITH CombinedData AS (
     SELECT
-        p.[Projekt] AS ProjectName,
-        SUM(p.[Ilosc]) AS ilosc,
+        c.PROJEKT AS ProjectName,
+        SUM(c.CNT) AS ilosc,
         SUM(r.[Ilosc_zrealizowana]) AS ilosc_zrealizowana
     FROM
-        [PartCheck].dbo.Parts p
-    FULL JOIN
-        [PartCheck].dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
-    LEFT JOIN 
-        [PartCheck].[dbo].[Product_V200] AS v ON v.[Name] = p.[Pozycja] COLLATE Latin1_General_CS_AS
+    [PartCheck].dbo.cutlogic c
+    left JOIN
+        [PartCheck].dbo.Product_Recznie r ON c.CZESC = r.[Pozycja]
     WHERE
-        NOT EXISTS (
-            SELECT 1
-            FROM [PartCheck].dbo.PartArchive_Messer m
-            WHERE p.Pozycja = m.PartName COLLATE Latin1_General_CS_AS
-        )
-        AND NOT EXISTS (
-            SELECT 1
-            FROM [PartCheck].dbo.Product_V630 v
-            WHERE p.Pozycja = v.Name
-        )
-        AND p.[Pozycja] != ''
-        and p.[Projekt] = '$row1[cr_number]'
+         c.PROJEKT != ''
+        and c.PROJEKT = '$row1[cr_number]'
     GROUP BY
-        p.[Projekt]
+        c.PROJEKT
     UNION ALL
     SELECT 
         ProjectName AS ProjectName,
