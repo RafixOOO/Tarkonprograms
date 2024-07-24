@@ -119,7 +119,7 @@
             </span>
             <h4 class="text-section">Aplikacje</h4>
           </li>
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a data-bs-toggle="collapse" href="#parts">
               <i class="fas fa-layer-group"></i>
               <p>Parts</p>
@@ -146,6 +146,12 @@
                 <?php } ?>
               </ul>
             </div>
+          </li>-->
+          <li class="nav-item">
+            <a href="main.php">
+              <i class="fas fa-layer-group"></i>
+              <p>Parts</p>
+            </a>
           </li>
           <li class="nav-item">
             <a href="../v200/main.php">

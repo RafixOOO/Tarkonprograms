@@ -9,7 +9,7 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 // Now you can use the Utils class
 
-$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['inne'];
+$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['cutlogic'];
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
@@ -236,7 +236,6 @@ $jsonData = json_encode($filteredData);
                 <div style="text-align:right;">
                     <br />
                     <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" name="programs" style="float:right; width: 65%;">
-                        <option value="inne" <?php echo in_array("inne", $programs) ? 'selected' : ''; ?>>INNE</option>
                         <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
                         <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
                         <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>

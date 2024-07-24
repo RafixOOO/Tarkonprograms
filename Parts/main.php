@@ -57,30 +57,62 @@ $stmt = $pdo->query($sql);
 
                                 <?php
 
-                                $sqlother = "SELECT
-p.[Projekt] AS ProjectName,
-SUM(p.[Ilosc]) as ilosc,
-SUM(r.[Ilosc_zrealizowana]) as ilosc_zrealizowana
-FROM
-[PartCheck].dbo.Parts p
-LEFT JOIN
-[PartCheck].dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
-LEFT JOIN [PartCheck].[dbo].[Product_V200] as v ON v.[Name]=p.[Pozycja] COLLATE Latin1_General_CS_AS
-WHERE
-NOT EXISTS (
-    SELECT 1
-    FROM [PartCheck].dbo.PartArchive_Messer m
-    WHERE p.Pozycja = m.PartName COLLATE Latin1_General_CS_AS
+                                $sqlother = "WITH CombinedData AS (
+    SELECT
+        p.[Projekt] AS ProjectName,
+        SUM(p.[Ilosc]) AS ilosc,
+        SUM(r.[Ilosc_zrealizowana]) AS ilosc_zrealizowana
+    FROM
+        [PartCheck].dbo.Parts p
+    FULL JOIN
+        [PartCheck].dbo.Product_Recznie r ON p.[Pozycja] = r.[Pozycja]
+    LEFT JOIN 
+        [PartCheck].[dbo].[Product_V200] AS v ON v.[Name] = p.[Pozycja] COLLATE Latin1_General_CS_AS
+    WHERE
+        NOT EXISTS (
+            SELECT 1
+            FROM [PartCheck].dbo.PartArchive_Messer m
+            WHERE p.Pozycja = m.PartName COLLATE Latin1_General_CS_AS
+        )
+        AND NOT EXISTS (
+            SELECT 1
+            FROM [PartCheck].dbo.Product_V630 v
+            WHERE p.Pozycja = v.Name
+        )
+        AND p.[Pozycja] != ''
+        and p.[Projekt] = '$row1[cr_number]'
+    GROUP BY
+        p.[Projekt]
+    UNION ALL
+    SELECT 
+        ProjectName AS ProjectName,
+        AmountNeeded AS ilosc, 
+        AmountDone AS ilosc_zrealizowana
+    FROM 
+        PartCheck.dbo.Product_V630
+    WHERE 
+        Name != ''
+        and ProjectName = '$row1[cr_number]' 
+    UNION ALL
+    -- Trzecie zapytanie
+    SELECT 
+        [WoNumber] AS ProjectName,
+        SUM([QtyOrdered]) AS ilosc,
+        SUM([QtyProgram]) AS ilosc_zrealizowana
+    FROM 
+        [PartCheck].[dbo].[PartArchive_Messer]
+    WHERE 
+        [PartName] != ''
+        and [WoNumber] = '$row1[cr_number]'
+    GROUP BY 
+        [WoNumber]
 )
-AND NOT EXISTS (
-    SELECT 1
-    FROM [PartCheck].dbo.Product_V630 v
-    WHERE p.Pozycja = v.Name
-)
-and p.[Pozycja]!=''
-and p.[Projekt] = '$row1[cr_number]'
-GROUP BY
-p.[Projekt]";
+SELECT 
+    SUM(ilosc) AS ilosc,
+    SUM(ilosc_zrealizowana) AS ilosc_zrealizowana
+FROM 
+    CombinedData;
+";
 
                                 $datas1 = sqlsrv_query($conn, $sqlother);
 
@@ -90,7 +122,18 @@ p.[Projekt]";
                                     <div class="row align-items-center mb-2 d-flex">
                                         <div class="col-8">
                                             <h2 class="d-flex align-items-center mb-0">
-                                                <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%
+                                                <?php
+                                                // Sprawdzenie, czy 'ilosc' nie jest zerem, aby uniknąć dzielenia przez zero
+                                                if ($row['ilosc'] != 0) {
+                                                    // Oblicz procent
+                                                    $percentage = ($row['ilosc_zrealizowana'] / $row['ilosc']) * 100;
+                                                    // Wyświetl procent z dwoma miejscami po przecinku
+                                                    echo number_format($percentage, 2) . '%';
+                                                } else {
+                                                    // Obsłuż przypadek, gdy 'ilosc' jest zerem
+                                                    echo '0.00%';
+                                                }
+                                                ?>
                                             </h2>
                                         </div>
                                         <div class="col-4 text-right">
@@ -98,34 +141,45 @@ p.[Projekt]";
                                         </div>
                                     </div>
                                     <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo number_format($row['ilosc_zrealizowana'] / $row['ilosc'], 2);; ?>%;"></div>
+                                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: <?php
+// Sprawdzenie, czy 'ilosc' nie jest zerem, aby uniknąć dzielenia przez zero
+if ($row['ilosc'] != 0) {
+    // Oblicz procent
+    $percentage = ($row['ilosc_zrealizowana'] / $row['ilosc']) * 100;
+    // Wyświetl procent z dwoma miejscami po przecinku
+    echo number_format($percentage, 2) . '%;';
+} else {
+    // Obsłuż przypadek, gdy 'ilosc' jest zerem
+    echo '0%;';
+}
+?>"></div>
                                     </div>
-                                    <?php } ?>
-                                    <div>
-                                        <br />
-                                    <?php 
-                                $godziny = "SELECT  CAST(ROUND(sum_cuce_quantity, 0) AS INT) AS sum_cuce_quantity, czynnosc, cr_number
+                                <?php } ?>
+                                <div>
+                                    <br />
+                                    <?php
+                                    $godziny = "SELECT  CAST(ROUND(sum_cuce_quantity, 0) AS INT) AS sum_cuce_quantity, czynnosc, cr_number
 FROM PartCheck.dbo.hrappka_godziny where cr_number='$row1[cr_number]';";
-                                $datas2 = sqlsrv_query($conn, $godziny);
-                                $razem = 0;
-                                echo "<table style='width:100%;'>";
-                                echo "<tr><th>Czynność</th><th style='padding-left: 20px;'>Godziny</th></tr>";
-                                while ($row = sqlsrv_fetch_array($datas2, SQLSRV_FETCH_ASSOC)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row['czynnosc'] . "</td>";
-                                    echo "<td>" . $row['sum_cuce_quantity'] . "</td>";
-                                    $razem = $razem + $row['sum_cuce_quantity'];
-                                    echo "</tr>";
-                                }
-                                echo "<tfoot>";
-                                echo "<td><b>Razem</b></td>";
-                                echo "<td><b>" . $razem . "</b></td>";
-                                echo "</tfoot>";
-                                echo "</table>";
-                                echo "</div>";
+                                    $datas2 = sqlsrv_query($conn, $godziny);
+                                    $razem = 0;
+                                    echo "<table style='width:100%;'>";
+                                    echo "<tr><th>Czynność</th><th style='padding-left: 20px;'>Godziny</th></tr>";
+                                    while ($row = sqlsrv_fetch_array($datas2, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['czynnosc'] . "</td>";
+                                        echo "<td>" . $row['sum_cuce_quantity'] . "</td>";
+                                        $razem = $razem + $row['sum_cuce_quantity'];
+                                        echo "</tr>";
+                                    }
+                                    echo "<tfoot>";
+                                    echo "<td><b>Razem</b></td>";
+                                    echo "<td><b>" . $razem . "</b></td>";
+                                    echo "</tfoot>";
+                                    echo "</table>";
+                                    echo "</div>";
                                     ?>
 
-                                    </div>
+                                </div>
                             </div>
                     </a>
                 </div>
