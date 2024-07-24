@@ -60,7 +60,7 @@ $stmt = $pdo->query($sql);
                                 $sqlother = "WITH CombinedData AS (
     SELECT
         c.PROJEKT AS ProjectName,
-        SUM(c.CNT) AS ilosc,
+        c.CNT AS ilosc,
         SUM(r.[Ilosc_zrealizowana]) AS ilosc_zrealizowana
     FROM
     [PartCheck].dbo.cutlogic c
@@ -70,7 +70,7 @@ $stmt = $pdo->query($sql);
          c.PROJEKT != ''
         and c.PROJEKT = '$row1[cr_number]'
     GROUP BY
-        c.PROJEKT
+        c.PROJEKT,c.CNT
     UNION ALL
     SELECT 
         ProjectName AS ProjectName,
