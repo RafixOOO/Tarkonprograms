@@ -357,7 +357,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
           </div>
 
           <div class="modal-footer">
-            <a href="../login.php" class="btn btn-default">Zaloguj się</a>
+            <!--<a href="../login.php" class="btn btn-default">Zaloguj się</a>-->
           </div>
         </div>
       </div>
