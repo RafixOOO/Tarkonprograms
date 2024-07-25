@@ -520,6 +520,8 @@ $jsonData = json_encode($filteredData);
         </div>
     </div>
     <?php if (!isLoggedIn()) { ?>
+        <link rel="stylesheet" href="../assets/css/plugins.min.css" />
+        <link rel="stylesheet" href="../assets/css/kaiadmin.min.css" />
         <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
         <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
         <script src="../assets/js/core/popper.min.js"></script>
