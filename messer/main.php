@@ -181,13 +181,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
- <?php if(isLoggedIn()){ ?>
-<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
-  <?php }else{ ?>
-
-    <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
-
-    <?php } ?>
 <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
                       <li class="nav-item">
                         <a class="nav-link active" href="main.php">Programy</a>
@@ -199,6 +192,14 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                         <a class="nav-link" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
                       </li>
                     </ul>
+ <?php if(isLoggedIn()){ ?>
+<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+  <?php }else{ ?>
+
+    <div class="container-fluid" style="margin-left:auto;margin-right:auto;font-size:6px;">
+
+    <?php } ?>
+
     <?php if (!isLoggedIn()) { ?>
       <div class="progress verticalrotate">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
@@ -216,13 +217,10 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             <th>Nazwa Arkusza</th>
             <th>Materiał</th>
             <th>Grubość</th>
-            <th>Długość arkusza</th>
-            <th>Szerokość arkusza</th>
+            <th>Długość</th>
+            <th>Szerokość</th>
             <th>Czas</th>
             <th>Liczba</th>
-            <?php if (!isLoggedIn()) { ?>
-              <th>Options</th>
-            <?php } ?>
 
 
           </thead>
@@ -243,8 +241,15 @@ function czyCiągZawieraLiczbyPHP($ciąg)
               if (czyCiągZawieraLiczbyPHP($data["Comment"]) == true) {
 
             ?>
+<?php if(isLoggedIn()){ ?>
 
-                <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+  <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" ></tr>
+
+  <?php }else{ ?>
+
+    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" href='#' onclick="addNumberMesserToURL('<?php echo $data['ArchivePacketID']; ?>')">
+    <?php } ?>
+                
                   <td>
                     <?php
                     if (isUserMesser()) {
@@ -264,7 +269,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
                     ?>
                   </td>
-
                   <td>
                     <?php echo "$data[ProgramName]"; ?>
                   </td>
@@ -291,10 +295,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                     <?php echo "$data[liczba]"; ?>
                   </td>
                   <?php if (!isLoggedIn()) { ?>
-                    <td>
-
-                      <a class='btn btn-primary btn-sm' href='#' onclick="addNumberMesserToURL('<?php echo $data['ArchivePacketID']; ?>')">Zarządzaj</a>
-                    </td>
+                    
                   <?php } ?>
                 </tr>
 
