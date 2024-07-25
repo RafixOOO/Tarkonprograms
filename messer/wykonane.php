@@ -27,22 +27,24 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
+<?php if(!isLoggedIn()){ ?>
 <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
                       <li class="nav-item">
                         <a class="nav-link" href="main.php">Programy</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" href="wykonane.php">Zakończone programy</a>
+                        <a class="nav-link active" href="wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="magazyn.php">Magazyn</a>
+                        <a class="nav-link" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
                       </li>
                     </ul>
+                    <?php } ?>
 <?php if(isLoggedIn()){ ?>
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
   <?php }else{ ?>
 
-    <div class="container-fluid" style="margin-left:auto;margin-right:auto;font-size:6px;">
+    <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
 
     <?php } ?>
     <div class="mb-3" style="float:right;">
@@ -80,7 +82,7 @@ ORDER BY
         ?>
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
-                   style="font-size: calc(9px + 0.390625vw)">
+                   style="font-size: calc(14px + 0.390625vw)">
                 <thead>
                 <th>Osoba/Powód</th>
                 <th>Nazwa Programu</th>
@@ -203,8 +205,6 @@ ORDER BY
 </div>
 </div>
 <?php if(!isLoggedIn()) { ?>
-  <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
-<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
 <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
 <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
