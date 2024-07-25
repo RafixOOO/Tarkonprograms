@@ -27,7 +27,13 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
+<?php if(isLoggedIn()){ ?>
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+  <?php }else{ ?>
+
+    <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
+
+    <?php } ?>
 <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
                       <li class="nav-item">
                         <a class="nav-link" href="main.php">Programy</a>

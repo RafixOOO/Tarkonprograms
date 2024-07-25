@@ -61,7 +61,13 @@ ORDER BY
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
+<?php if(isLoggedIn()){ ?>
 <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+  <?php }else{ ?>
+
+    <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
+
+    <?php } ?>
 <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
                       <li class="nav-item">
                         <a class="nav-link" href="main.php">Programy</a>
@@ -105,9 +111,9 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<td>".$row['Ilosc']."</td>";
     echo "<td>".$row['zuzyte']."</td>";
     echo "<td>".$row['Material']."</td>";
-    echo "<td>".$row['Thickness']."</td>";
-    echo "<td>".$row['Length']."</td>";
-    echo "<td>".$row['Width']."</td>";
+    echo "<td>" . round($row['Thickness'], 2) . "</td>";
+echo "<td>" . round($row['Length'], 2) . "</td>";
+echo "<td>" . round($row['Width'], 2) . "</td>";
      if (isUserMesser()) {
         echo "<td> <Button class='btn btn-primary btn-sm'>Usuń</Button></td>";
     }
