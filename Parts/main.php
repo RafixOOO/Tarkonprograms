@@ -40,6 +40,12 @@ $stmt = $pdo->query($sql);
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
     <!-- link: https://github.com/RafixOOO -->
+     <?php if(!isLoggedIn()) {?>
+     <div style="text-align: left;
+            padding: 10px;">
+    <a href="hrappka.php" class="btn btn-secondary btn-lg" >HRAPPKA</a>
+    <?php } ?>
+    </div>
     <div class="container mt-5">
         <br />
         <div class="row">

@@ -395,8 +395,10 @@ $jsonData = json_encode($filteredData);
                 </div>
                 <div class="btn-group me-2" role="group" aria-label="Second group">
                     <?php if (!isUserParts()) { ?>
+                        <?php if (in_array("inne", $programs)) { ?>
                         <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
                         </button>
+                        <?php } ?>
                         <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila
                         </button>
                         <?php if (in_array("cutlogic", $programs)) { ?>
