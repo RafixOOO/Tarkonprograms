@@ -376,19 +376,15 @@ $jsonData = json_encode($filteredData);
                             </button>
                         <?php } ?>
                         <?php if (isUserPartsKier()) { ?>
-                            <form method="POST" action="statuschange.php">
-                                <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
+                                <button type="Submit" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
                                 </button>
-                            </form>
                             <button type="button" onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Przełącz
                             </button>
                     <?php }
                     } ?>
                     <?php if (isUserPartsKier() && isUserParts()) { ?>
-                        <form method="POST" action="statuschange.php">
-                            <button type="Submit" onclick="localStorage.removeItem('number1')" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
+                            <button type="button" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
                             </button>
-                        </form>
                         <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">
                             Kooperacyjnie
                         </button>
