@@ -68,14 +68,14 @@ function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
 
     foreach ($keywordArray as $keyword) {
         $keyword = trim($keyword);
-        $columnsToSearch = [ 'zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
+        $columnsToSearch = ['zespol', 'Detal', 'maszyna', 'wykonal', 'cutlogic'];
         $matchesKeyword = false;
 
         foreach ($columnsToSearch as $column) {
             if ($myVariable == 0 && (($item['ilosc'] == 0 || $item['ilosc'] == '')
-            ? ($item['ilosc_zrealizowana'] >= $item['amount_order'] || $item['lok'] == 1)
-            : ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1)
-           )) {
+                ? ($item['ilosc_zrealizowana'] >= $item['amount_order'] || $item['lok'] == 1)
+                : ($item['ilosc_zrealizowana'] >= $item['ilosc'] || $item['lok'] == 1)
+            )) {
                 continue;
             }
 
@@ -206,6 +206,52 @@ $jsonData = json_encode($filteredData);
             /* Wysokość spinnera */
             border-width: 0.5em;
             /* Grubość obramowania */
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .input-group .fields {
+            display: flex;
+            gap: 10px; /* Space between input fields */
+            margin-bottom: 10px;
+        }
+        .input-group .fields .form-control {
+            width: 100%; /* Adjust width as needed */
+            text-align: center;
+        }
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block; /* Ensure labels are displayed above input fields */
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+            justify-items: center; /* Center items horizontally */
+        }
+        .keypad button {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .keypad .btn-zero {
+            grid-column: span 2; /* Przyciski 0 zajmują dwie kolumny */
+        }
+        .keypad .btn-delete {
+            grid-column: span 2; /* Przyciski usuwania zajmują dwie kolumny */
+            background-color: #f00;
+            color: #fff;
+        }
+        .keypad .btn-delete:hover {
+            background-color: #c00;
         }
     </style>
 </head>
@@ -376,15 +422,15 @@ $jsonData = json_encode($filteredData);
                             </button>
                         <?php } ?>
                         <?php if (isUserPartsKier()) { ?>
-                                <button type="Submit" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
-                                </button>
+                            <button type="Submit" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
+                            </button>
                             <button type="button" onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Przełącz
                             </button>
                     <?php }
                     } ?>
                     <?php if (isUserPartsKier() && isUserParts()) { ?>
-                            <button type="button" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
-                            </button>
+                        <button type="button" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Przełącz
+                        </button>
                         <button type="button" onclick="sendSelectedRowsToPHP2()" class="btn btn-warning btn-lg">
                             Kooperacyjnie
                         </button>
@@ -396,8 +442,8 @@ $jsonData = json_encode($filteredData);
                 <div class="btn-group me-2" role="group" aria-label="Second group">
                     <?php if (!isUserParts()) { ?>
                         <?php if (in_array("inne", $programs)) { ?>
-                        <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
-                        </button>
+                            <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
+                            </button>
                         <?php } ?>
                         <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila
                         </button>
@@ -434,14 +480,35 @@ $jsonData = json_encode($filteredData);
                                 <br />
 
                                 <?php if (!isUserParts()) { ?>
-                                    <input class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
+                                    <div class="input-group">
+                    <div class="fields">
+                        <div>
+                            <label for="ilosc">Ilość</label>
+                            <input id="ilosc" class="form-control" type="number" inputmode="numeric" placeholder="Ilość" name="ilosc">
+                        </div>
+                        <div>
+                            <label for="dlugosc">Długość</label>
+                            <input id="dlugosc" class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
+                        </div>
+                    </div>
+                </div>
+                                    <div class="keypad">
+                                        <button type="button" class="key btn-light" data-value="1">1</button>
+                                        <button type="button" class="key btn-light" data-value="2">2</button>
+                                        <button type="button" class="key btn-light" data-value="3">3</button>
+                                        <button type="button" class="key btn-light" data-value="4">4</button>
+                                        <button type="button" class="key btn-light" data-value="5">5</button>
+                                        <button type="button" class="key btn-light" data-value="6">6</button>
+                                        <button type="button" class="key btn-light" data-value="7">7</button>
+                                        <button type="button" class="key btn-light" data-value="8">8</button>
+                                        <button type="button" class="key btn-light" data-value="9">9</button>
+                                        <button type="button" class="key btn-light" data-value="0">0</button>
+                                        <button type="button" class="btn-delete">-</button>
+                                    </div>
                                     <br />
-                                    <input class="form-control" type="number" inputmode="numeric" placeholder="Długość" name="dlugosc">
-                                    <br />
-
                                     <select class="form-control" name="maszyna" required>
-                                        <option value="Recznie" selected>Recznie</option>
-                                        <option value="Pila">Pila</option>
+                                        <option value="Recznie">Recznie</option>
+                                        <option value="Pila" selected>Pila</option>
                                     </select>
                                 <?php } ?>
                             </div>
@@ -544,6 +611,28 @@ $jsonData = json_encode($filteredData);
     <?php } ?>
 </body>
 <script>
+    let currentInput = null;
+
+    document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('focus', () => {
+            currentInput = input;
+        });
+    });
+
+    document.querySelectorAll('.key').forEach(button => {
+        button.addEventListener('click', () => {
+            if (currentInput) {
+                currentInput.value += button.getAttribute('data-value');
+            }
+        });
+    });
+
+    document.querySelector('.btn-delete').addEventListener('click', () => {
+        if (currentInput) {
+            currentInput.value = currentInput.value.slice(0, -1); // Remove last character
+        }
+    });
+
     $(document).ready(function() {
         // Obsługa zdarzenia zmiany checkboxa
         $('#checkbox').change(function() {
