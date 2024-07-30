@@ -33,7 +33,7 @@
     <style>
          /* Dla przeglądarek WebKit (Chrome, Safari) */
          ::-webkit-scrollbar {
-            width: 40px;  /* Szerokość paska przewijania */
+            width: 60px;  /* Szerokość paska przewijania */
         }
 
         ::-webkit-scrollbar-track {
