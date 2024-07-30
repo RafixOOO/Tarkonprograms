@@ -208,22 +208,22 @@ $jsonData = json_encode($filteredData);
             /* Grubość obramowania */
         }
 
-        .input-group {
+        .input-group1 {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
         }
-        .input-group .fields {
+        .input-group1 .fields {
             display: flex;
             gap: 10px; /* Space between input fields */
             margin-bottom: 10px;
         }
-        .input-group .fields .form-control {
+        .input-group1 .fields .form-control {
             width: 100%; /* Adjust width as needed */
             text-align: center;
         }
-        .input-group label {
+        .input-group1 label {
             font-weight: bold;
             margin-bottom: 5px;
             display: block; /* Ensure labels are displayed above input fields */
@@ -480,7 +480,7 @@ $jsonData = json_encode($filteredData);
                                 <br />
 
                                 <?php if (!isUserParts()) { ?>
-                                    <div class="input-group">
+                                    <div class="input-group1">
                     <div class="fields">
                         <div>
                             <label for="ilosc">Ilość</label>
