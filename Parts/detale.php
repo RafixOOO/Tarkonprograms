@@ -575,7 +575,7 @@ $jsonData = json_encode($filteredData);
                             if (isUserPartsKier()) { ?>
                                 <button id="submit-button" class="btn btn-default">Przejdź</button>
                             <?php } else if (!isUserPartsKier()) { ?>
-                                <!--<a href="http://localhost/programs/Tarkonprograms/parts/dozrobienia.php?keywords=<?php echo $_SESSION['project_name']; ?>&toggleButtons=Projekt" class="btn btn-default">Wykonane detale</a>-->
+                                <a href="http://localhost/programs/Tarkonprograms/parts/dozrobienia.php?keywords=<?php echo $_SESSION['project_name']; ?>&toggleButtons=Projekt" class="btn btn-default">Wykonane detale</a>
                                 <a href="main.php" class="btn btn-default">Projekty</a>
                             <?php } ?>
                         </div>
