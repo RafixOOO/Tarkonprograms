@@ -84,7 +84,8 @@ SumowanieIloscZrealizowana AS (
     FROM
         [PartCheck].dbo.Product_Recznie r
     WHERE
-        DATEPART(YEAR, r.[Data]) = YEAR(GETDATE()) -- Filtruje tylko dane z bieżącego roku
+        DATEPART(YEAR, r.[Data]) = YEAR(GETDATE()) -- Filtruje dane z bieżącego roku
+    AND DATEPART(MONTH, r.[Data]) = MONTH(GETDATE()) -- Filtruje dane z bieżącego miesiąca
         and r.Maszyna in ('Recznie','Pila')
     GROUP BY
         r.Osoba,
