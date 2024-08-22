@@ -40,16 +40,16 @@ if ($sqlServerResult === false) {
 }
 
 // Pobierz wyniki z SQL Server
-$sqlServerResults = [];
+$sqlServerResults1 = [];
 while ($row = sqlsrv_fetch_array($sqlServerResult, SQLSRV_FETCH_ASSOC)) {
-    $sqlServerResults[] = $row;
+    $sqlServerResults1[] = $row;
 }
 
 $differences = [];
 foreach ($messerresult as $messerdRow) {
     $found = false;
-    foreach ($sqlServerResults as $sqlServerRow) {
-        if ($messerdRow['id'] === $sqlServerRow['id']) {
+    foreach ($sqlServerResults1 as $sqlServerRow) {
+        if ($messerdRow['id'] == $sqlServerRow['id']) {
             $found = true;
             break;
         }
