@@ -112,17 +112,7 @@ j2.id,
         CONVERT(varchar, DATEADD(SECOND, CAST(planned.PlannedTime AS float), 0), 108), 
         '00:00:00'
     ) AS PlannedTimeFormatted,
-    CASE 
-        WHEN EXISTS (
-            SELECT 1
-            FROM PartCheck.dbo.Jobtable j3
-            CROSS APPLY OPENJSON(j3.msg, '$.Plans[0]') 
-            WITH (Status nvarchar(50) '$.Status')
-            WHERE JSON_VALUE(j3.msg, '$.PartProgramName') = JSON_VALUE(j2.msg, '$.PartProgramName')
-            AND JSON_VALUE(j3.msg, '$.Plans[0].Status') = 'COMPLETED'
-        ) THEN 'COMPLETED'
-        ELSE 'UNKNOWN'
-    END AS OverallStatus
+    st.Status OverallStatus
 FROM 
     PartCheck.dbo.Jobtable j2
 CROSS APPLY 
@@ -134,10 +124,16 @@ CROSS APPLY
     OPENJSON(j2.msg, '$.Plans[0].Data') WITH (
         PlannedTime float '$.PlannedTime'
     ) AS planned
+CROSS APPLY 
+	OPENJSON(j2.msg, '$.Plans[0]') 
+	WITH (
+        Status nvarchar(20) '$.Status'
+    ) AS st
 WHERE
-    DATEADD(hour, 2, j2.[_internal_timestamp]) >= '$formattedDate'
-    AND DATEADD(hour, 2, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    DATEADD(hour, 2, j2.[_internal_timestamp]) >= '2024-09-03'
+    AND DATEADD(hour, 2, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '2024-09-03')
 GROUP BY 
+st.Status,
 	JSON_VALUE(j2.msg, '$.PartProgramName'),
 	j2.[_internal_timestamp],
 	j2.[_internal_endtime],
@@ -145,6 +141,7 @@ GROUP BY
     j2.id
 ORDER BY 
     j2.[_internal_timestamp] DESC;
+
 ";
 
         $datas = sqlsrv_query($conn, $sql);
