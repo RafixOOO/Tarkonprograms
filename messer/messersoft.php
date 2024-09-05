@@ -130,8 +130,8 @@ CROSS APPLY
         Status nvarchar(20) '$.Status'
     ) AS st
 WHERE
-    DATEADD(hour, 2, j2.[_internal_timestamp]) >= '2024-09-03'
-    AND DATEADD(hour, 2, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '2024-09-03')
+    DATEADD(hour, 2, j2.[_internal_timestamp]) >= '$formattedDate'
+    AND DATEADD(hour, 2, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
 GROUP BY 
 st.Status,
 	JSON_VALUE(j2.msg, '$.PartProgramName'),
