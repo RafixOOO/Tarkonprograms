@@ -187,7 +187,11 @@
                     <span class="sub-item">Magazyn Archiwum</span>
                   </a>
                 </li>
-
+                <li>
+                  <a href="../messer/messersoft.php">
+                    <span class="sub-item">Messer Soft</span>
+                  </a>
+                </li>
               </ul>
               
             </div>
