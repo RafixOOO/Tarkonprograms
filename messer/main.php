@@ -117,7 +117,7 @@
 
     .highlight {
       background-color: yellow;
-      }
+    }
   </style>
 </head>
 <?php require_once('dbconnect.php');
@@ -125,6 +125,7 @@ $sql = "SELECT p.[ProgramName]
 ,p.[ArchivePacketID]
 ,p.[SheetName]
 ,p.[MachineName]
+,p.[PostDateTime]
 ,p.[Material]
 ,p.[Thickness]
 ,p.[SheetLength]
@@ -146,6 +147,7 @@ group by p.[ProgramName]
 ,p.[MachineName]
 ,p.[Material]
 ,p.[Thickness]
+,p.[PostDateTime]
 ,p.[SheetLength]
 ,p.[SheetWidth]
 ,p.[ActualStartTime]
@@ -179,83 +181,84 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 ?>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-<!-- 2024 Created by: Rafał Pezda-->
-<!-- link: https://github.com/RafixOOO -->
-<?php if(!isLoggedIn()){ ?>
-<ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="main.php">Programy</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
-                      </li>
-                    </ul>
-                    <?php } ?>
- <?php if(isLoggedIn()){ ?>
-<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
-  <?php }else{ ?>
+  <!-- 2024 Created by: Rafał Pezda-->
+  <!-- link: https://github.com/RafixOOO -->
+  <?php if (!isLoggedIn()) { ?>
+    <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
+      <li class="nav-item">
+        <a class="nav-link active" href="main.php">Programy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
+      </li>
+    </ul>
+  <?php } ?>
+  <?php if (isLoggedIn()) { ?>
+    <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+    <?php } else { ?>
 
-    <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
+      <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
 
-    <?php } ?>
+      <?php } ?>
 
-    <?php if (!isLoggedIn()) { ?>
-      <div class="progress verticalrotate">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
-      </div>
-    <?php } ?>
-    <div>
-      <div class="table-responsive">
-      <?php if (isLoggedIn()) { ?>
-    <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()" style="float:right;">
-    <?php } ?>
-        <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(14px + 0.390625vw)">
-          <thead>
-            <th>#</th>
-            <th>Nazwa programu</th>
-            <th>Nazwa Arkusza</th>
-            <th>Materiał</th>
-            <th>Grubość</th>
-            <th>Długość</th>
-            <th>Szerokość</th>
-            <th>Czas</th>
-            <th>Ilość</th>
+      <?php if (!isLoggedIn()) { ?>
+        <div class="progress verticalrotate">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
+        </div>
+      <?php } ?>
+      <div>
+        <div class="table-responsive">
+          <?php if (isLoggedIn()) { ?>
+            <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()" style="float:right;">
+          <?php } ?>
+          <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(14px + 0.390625vw)">
+            <thead>
+              <th>#</th>
+              <th>Nazwa programu</th>
+              <th>Nazwa Arkusza</th>
+              <th>Materiał</th>
+              <th>Grubość</th>
+              <th>Długość</th>
+              <th>Szerokość</th>
+              <th>Czas</th>
+              <th>Data</th>
+              <th>Ilość</th>
 
 
-          </thead>
-          <tbody class="row_position">
-            <?php
-            $time = "";
-            $i = 1;
-            while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
+            </thead>
+            <tbody class="row_position">
+              <?php
+              $time = "";
+              $i = 1;
+              while ($data = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
 
-              if (empty($data["Comment"])) {
-                $max++;
-                $sql = "UPDATE [SNDBASE_PROD].[dbo].[Program]
+                if (empty($data["Comment"])) {
+                  $max++;
+                  $sql = "UPDATE [SNDBASE_PROD].[dbo].[Program]
                                     SET [Comment]='$max,'
                                     WHERE [ArchivePacketID]=$data[ArchivePacketID]";
-                sqlsrv_query($conn, $sql);
-              }
+                  sqlsrv_query($conn, $sql);
+                }
 
-              if (czyCiągZawieraLiczbyPHP($data["Comment"]) == true) {
+                if (czyCiągZawieraLiczbyPHP($data["Comment"]) == true) {
 
-            ?>
-<?php if(isLoggedIn()){ ?>
+              ?>
+                  <?php if (isLoggedIn()) { ?>
 
-  <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" ></tr>
+                    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></tr>
 
-  <?php }else{ ?>
+                  <?php } else { ?>
 
-    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" href='#' onclick="addNumberMesserToURL('<?php echo $data['ArchivePacketID']; ?>')">
-    <?php } ?>
-                
-                  <td>
-                    <?php
-                    if (isUserMesser()) {
-                      echo "
+                    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" href='#' onclick="addNumberMesserToURL('<?php echo $data['ArchivePacketID']; ?>')">
+                    <?php } ?>
+
+                    <td>
+                      <?php
+                      if (isUserMesser()) {
+                        echo "
                                         <details>
                                 <summary>Rozwiń</summary><form id='myForm' action='update.php' method='POST'>
                                 <input type='hidden' name='id' value='$data[ArchivePacketID]'>
@@ -264,123 +267,135 @@ function czyCiągZawieraLiczbyPHP($ciąg)
                                 </form></details>
                                 
                             ";
-                    } else if (!empty($data["part"])) {
-                      echo "".$data["part"]."";
-                    }
+                      } else if (!empty($data["part"])) {
+                        echo "" . $data["part"] . "";
+                      }
 
 
-                    ?>
-                  </td>
-                  <td>
-                    <?php echo "$data[ProgramName]"; ?>
-                  </td>
-                  <td>
-                    <?php echo "$data[SheetName]"; ?>
-                  </td>
-                  <td>
-                    <?php echo "$data[Material]"; ?>
-                  </td>
-                  <td>
-                    <?php echo "$data[Thickness]"; ?>
-                  </td>
-                  <td>
-                    <?php echo ceil($data["SheetLength"]); ?>
-                  </td>
-                  <td>
-                    <?php echo ceil($data["SheetWidth"]); ?>
-                  </td>
+                      ?>
+                    </td>
+                    <td>
+                      <?php echo "$data[ProgramName]"; ?>
+                    </td>
+                    <td>
+                      <?php echo "$data[SheetName]"; ?>
+                    </td>
+                    <td>
+                      <?php echo "$data[Material]"; ?>
+                    </td>
+                    <td>
+                      <?php echo "$data[Thickness]"; ?>
+                    </td>
+                    <td>
+                      <?php echo ceil($data["SheetLength"]); ?>
+                    </td>
+                    <td>
+                      <?php echo ceil($data["SheetWidth"]); ?>
+                    </td>
 
-                  <td>
-                    <?php echo "$data[czaspalenia]"; ?>
-                  </td>
-                  <td>
-                    <?php echo "$data[liczba]"; ?>
-                  </td>
-                  <?php if (!isLoggedIn()) { ?>
-                    
-                  <?php } ?>
-                </tr>
+                    <td>
+                      <?php echo "$data[czaspalenia]"; ?>
+                    </td>
+                    <td>
+                      <?php
+                      // Sprawdź, czy $data['PostDateTime'] jest obiektem DateTime
+                      if ($data['PostDateTime'] instanceof DateTime) {
+                        // Sformatuj obiekt DateTime, aby wyświetlić jako string
+                        echo $data['PostDateTime']->format('Y-m-d H:i:s'); // Możesz zmienić format na inny, jeśli chcesz
+                      } else {
+                        echo $data['PostDateTime']; // Jeśli to nie jest obiekt DateTime, wyświetl bez zmian
+                      }
+                      ?>
+                    </td>
+                    <td>
+                      <?php echo "$data[liczba]"; ?>
+                    </td>
+                    <?php if (!isLoggedIn()) { ?>
 
-            <?php }
-            } ?>
-          </tbody>
+                    <?php } ?>
+                    </tr>
 
-        </table>
-        <br />
-        <?php if (!isLoggedIn()) { ?>
-          <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
-          <button style="right: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
-        <?php } else if (isUserMesser() | !isLoggedIn()) { ?>
-          <button type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
-        <?php } ?>
+                <?php }
+              } ?>
+            </tbody>
+
+          </table>
+          <br />
+          <?php if (!isLoggedIn()) { ?>
+            <button type="button" id="exit-button" onclick="localStorage.removeItem('numbermesser'); location.reload();" class="btn btn-warning btn-lg">Wyjdź</button>
+            <button style="right: 100px" type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
+          <?php } else if (isUserMesser() | !isLoggedIn()) { ?>
+            <button type="button" id="toggleChatButton" class="btn btn-warning btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Chat</button>
+          <?php } ?>
+        </div>
+        <div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="chatInputContainer"><input type="text" id="message-input" placeholder="Type your message...">
+              <button id="sendButton" onclick="sendMessage()">Send</button>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body" id="chatContainer">
+          </div>
+          <div class="offcanvas-footer">
+
+          </div>
+        </div>
       </div>
-      <div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="chatInputContainer"><input type="text" id="message-input" placeholder="Type your message..." >
-          <button id="sendButton" onclick="sendMessage()">Send</button></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body" id="chatContainer">
-        </div>
-        <div class="offcanvas-footer" >
-          
-        </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
-  <div class="modal" id="user-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Identyfikacja użytkownika</h5>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <?php
-            $kiersql = "Select * from dbo.Persons where [user]='' and [prac_messer]=1";
-            $stmt = sqlsrv_query($conn, $kiersql);
-            ?>
-            <div class="tile-container">
+    </div>
+    <div class="modal" id="user-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Identyfikacja użytkownika</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
               <?php
-              while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+              $kiersql = "Select * from dbo.Persons where [user]='' and [prac_messer]=1";
+              $stmt = sqlsrv_query($conn, $kiersql);
               ?>
-                <div class="tile" data-imie-nazwisko="<?php echo $data['imie_nazwisko']; ?>">
-                  <?php echo $data['imie_nazwisko']; ?>
-                </div>
-              <?php
-              }
-              ?>
+              <div class="tile-container">
+                <?php
+                while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                ?>
+                  <div class="tile" data-imie-nazwisko="<?php echo $data['imie_nazwisko']; ?>">
+                    <?php echo $data['imie_nazwisko']; ?>
+                  </div>
+                <?php
+                }
+                ?>
+              </div>
+
             </div>
 
-          </div>
-
-          <div class="modal-footer">
-            <!--<a href="../login.php" class="btn btn-default">Zaloguj się</a>-->
+            <div class="modal-footer">
+              <!--<a href="../login.php" class="btn btn-default">Zaloguj się</a>-->
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <?php if(!isLoggedIn()) { ?>
-<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
-<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
+    <?php if (!isLoggedIn()) { ?>
+      <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+      <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+      <script src="../assets/js/core/popper.min.js"></script>
+      <script src="../assets/js/core/bootstrap.min.js"></script>
 
-<!-- jQuery Scrollbar -->
-<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+      <!-- jQuery Scrollbar -->
+      <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-<!-- jQuery Sparkline -->
-<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+      <!-- jQuery Sparkline -->
+      <script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
-<!-- Kaiadmin JS -->
-<script src="../assets/js/kaiadmin.min.js"></script>
-<?php } ?>
-  <?php if(isLoggedIn()) { ?>
-  <?php include 'globalnav.php'; ?>
-  <?php } ?>
+      <!-- Kaiadmin JS -->
+      <script src="../assets/js/kaiadmin.min.js"></script>
+    <?php } ?>
+    <?php if (isLoggedIn()) { ?>
+      <?php include 'globalnav.php'; ?>
+    <?php } ?>
 </body>
 
 <script src="../static/jquery-ui.min.js"></script>
@@ -455,7 +470,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
             if (!isFirstToast) {
               // Wyślij powiadomienie do systemu Windows
               if ('Notification' in window) {
-                Notification.requestPermission().then(function (permission) {
+                Notification.requestPermission().then(function(permission) {
                   if (permission === 'granted') {
                     var notification = new Notification('Messer', {
                       body: 'Masz nową wiadomość na Czacie'
@@ -561,35 +576,34 @@ function czyCiągZawieraLiczbyPHP($ciąg)
     $("#chatContainer").append(newMessage);
   }
 
-function highlightTableText() {
-  const searchText = document.getElementById('search').value.toLowerCase();
-  const table = document.getElementById('mytable');
-  const rows = table.getElementsByTagName('tr');
+  function highlightTableText() {
+    const searchText = document.getElementById('search').value.toLowerCase();
+    const table = document.getElementById('mytable');
+    const rows = table.getElementsByTagName('tr');
 
-  // Resetowanie podświetleń
-  for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName('td');
-    for (let j = 0; j < cells.length; j++) {
-      cells[j].innerHTML = cells[j].innerText;
+    // Resetowanie podświetleń
+    for (let i = 1; i < rows.length; i++) {
+      const cells = rows[i].getElementsByTagName('td');
+      for (let j = 0; j < cells.length; j++) {
+        cells[j].innerHTML = cells[j].innerText;
+      }
     }
-  }
 
-  // Jeśli pole wyszukiwania jest puste, zakończ funkcję
-  if (!searchText) return;
+    // Jeśli pole wyszukiwania jest puste, zakończ funkcję
+    if (!searchText) return;
 
-  // Podświetlanie znalezionego tekstu
-  for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName('td');
-    for (let j = 0; j < cells.length; j++) {
-      const cellText = cells[j].innerText.toLowerCase();
-      if (cellText.includes(searchText)) {
-        const regex = new RegExp(searchText, 'gi');
-        cells[j].innerHTML = cells[j].innerText.replace(regex, match => `<span class="highlight">${match}</span>`);
+    // Podświetlanie znalezionego tekstu
+    for (let i = 1; i < rows.length; i++) {
+      const cells = rows[i].getElementsByTagName('td');
+      for (let j = 0; j < cells.length; j++) {
+        const cellText = cells[j].innerText.toLowerCase();
+        if (cellText.includes(searchText)) {
+          const regex = new RegExp(searchText, 'gi');
+          cells[j].innerHTML = cells[j].innerText.replace(regex, match => `<span class="highlight">${match}</span>`);
+        }
       }
     }
   }
-}
-
 </script>
 <?php
 
