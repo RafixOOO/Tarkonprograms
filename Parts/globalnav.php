@@ -176,22 +176,33 @@
                   <a href="../messer/archiwum.php">
                     <span class="sub-item">Programy Archiwum </span>
                   </a>
-                </li>
-                <li>
-                  <a href="../messer/magazyn.php">
-                    <span class="sub-item">Magazyn</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../messer/magazynarch.php">
-                    <span class="sub-item">Magazyn Archiwum</span>
-                  </a>
-                </li>
                 <li>
                   <a href="../messer/messersoft.php">
                     <span class="sub-item">Messer Soft</span>
                   </a>
                 </li>
+
+              </ul>
+
+              <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#sidebarLayouts1">
+            <i class="fas fa-pallet"></i>
+              <p>Magazyn</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="sidebarLayouts1">
+              <ul class="nav nav-collapse">
+              <li>
+                  <a href="../messer/magazyn.php">
+                    <span class="sub-item">Lista</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../messer/magazynarch.php">
+                    <span class="sub-item">Archiwum</span>
+                  </a>
+                </li>
+
               </ul>
               
             </div>
