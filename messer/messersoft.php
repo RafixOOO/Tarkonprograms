@@ -202,9 +202,9 @@ while ($row1 = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
     }
 }
 echo "<h2 style='text-align:center;'><b>
-    PRACA: " . $working . "%
-    <span style='margin-left: 20px'>Bezczynność: " . $idle . "%</span>
-    <span style='margin-left: 20px'>Error: " . $Error . "%</span></b></h2>";
+    <span style='text-decoration: underline; text-decoration-color: #00FF00;'>PRACA: " . $working . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #808080;'>Bezczynność: " . $idle . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #FF0000;'>Error: " . $Error . "%</span></b></h2>";
 
     $sql2="WITH DurationOrdered AS (
     SELECT 
