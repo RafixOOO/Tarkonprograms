@@ -6,6 +6,7 @@ require_once '../auth.php';
 <html>
 
 <head>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
     <?php include 'globalhead.php'; ?>
     <style>
         .container {
@@ -144,6 +145,94 @@ ORDER BY
 
 ";
 
+$sql1="WITH DurationData AS (
+    SELECT 
+        j.StatusType,
+        SUM(j.Duration) AS TotalDuration
+    FROM utilizationtable u
+    CROSS APPLY 
+    OPENJSON(u.msg, '$.States') WITH (
+        StatusType nvarchar(50) '$.Status.StatusType',
+        Duration float '$.Duration'
+    ) AS j
+    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
+      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    GROUP BY j.StatusType
+),
+TotalDuration AS (
+    SELECT 
+        SUM(TotalDuration) AS GrandTotal
+    FROM DurationData
+)
+SELECT 
+    StatusType,
+    TotalDuration,
+    ROUND((TotalDuration * 100.0 / GrandTotal), 2) AS Percentage
+FROM DurationData
+CROSS JOIN TotalDuration
+ORDER BY TotalDuration DESC;
+";
+
+$datas1 = sqlsrv_query($conn, $sql1);
+$working=0;
+$Error=0;
+$idle=0;
+while ($row1 = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+    if($row1['StatusType']=="IDLE"){
+        $idle=$idle+$row1['Percentage'];
+    }else if($row1['StatusType']=="ERROR"){
+        $Error=$Error+$row1['Percentage'];
+    }else{
+        $working=$working+$row1['Percentage'];
+    }
+}
+echo "<h2 style='text-align:center;'><b>
+    PRACA: " . $working . "%
+    <span style='margin-left: 20px'>Bezczynność: " . $idle . "%</span>
+    <span style='margin-left: 20px'>Error: " . $Error . "%</span></b></h2>";
+
+    $sql2="WITH DurationOrdered AS (
+    SELECT 
+        u.[_internal_timestamp],
+        j.StatusType,
+        j.Duration,
+        ROW_NUMBER() OVER (PARTITION BY u.[_internal_timestamp] ORDER BY j.Duration) AS RowNum
+    FROM utilizationtable u
+    CROSS APPLY 
+    OPENJSON(u.msg, '$.States') WITH (
+        StatusType nvarchar(50) '$.Status.StatusType',
+        Duration float '$.Duration'
+    ) AS j
+),
+AccumulatedTimes AS (
+    SELECT 
+        _internal_timestamp,
+        StatusType,
+        Duration,
+        RowNum,
+        DATEADD(SECOND, SUM(Duration) OVER (PARTITION BY _internal_timestamp ORDER BY RowNum ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW), _internal_timestamp) AS AdjustedTimestamp
+    FROM DurationOrdered
+),
+PreviousTimes AS (
+    SELECT 
+        _internal_timestamp,
+        StatusType,
+        Duration,
+        AdjustedTimestamp,
+        LAG(AdjustedTimestamp, 1, _internal_timestamp) OVER (PARTITION BY _internal_timestamp ORDER BY RowNum) AS PreviousAdjustedTimestamp
+    FROM AccumulatedTimes
+)
+SELECT 
+    DATEADD(HOUR, 2, PreviousAdjustedTimestamp) AS PreviousAdjustedTimestamp,
+    StatusType,
+    Duration,
+    DATEADD(HOUR, 2, AdjustedTimestamp) AS AdjustedTimestamp
+FROM PreviousTimes
+WHERE DATEADD(hour, 2, PreviousAdjustedTimestamp) >= '$formattedDate'
+    AND DATEADD(hour, 2, PreviousAdjustedTimestamp) < DATEADD(DAY, 1, '$formattedDate')
+order by PreviousAdjustedTimestamp asc
+
+    ";
         $datas = sqlsrv_query($conn, $sql);
         $dataresult = [];
 
