@@ -41,6 +41,21 @@ require_once '../auth.php';
             box-sizing: border-box;
         }
     </style>
+    <style>
+        .axis line, .axis path {
+            stroke: black;
+        }
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+        .dot {
+            fill: steelblue;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+    </style>
     <script>
         function submitForm() {
             document.getElementById("dateForm").submit();
@@ -218,21 +233,32 @@ PreviousTimes AS (
         _internal_timestamp,
         StatusType,
         Duration,
-        AdjustedTimestamp,
-        LAG(AdjustedTimestamp, 1, _internal_timestamp) OVER (PARTITION BY _internal_timestamp ORDER BY RowNum) AS PreviousAdjustedTimestamp
+        -- First, add 2 hours using DATEADD, then apply the FORMAT function
+        FORMAT(LAG(DATEADD(HOUR, 2, AdjustedTimestamp), 1, DATEADD(HOUR, 2, _internal_timestamp)) 
+               OVER (PARTITION BY _internal_timestamp ORDER BY RowNum), 'yyyy-MM-ddTHH:mm:ss') AS PreviousAdjustedTimestamp,
+        FORMAT(DATEADD(HOUR, 2, AdjustedTimestamp), 'yyyy-MM-ddTHH:mm:ss') AS AdjustedTimestamp
     FROM AccumulatedTimes
 )
 SELECT 
-    DATEADD(HOUR, 2, PreviousAdjustedTimestamp) AS PreviousAdjustedTimestamp,
+    PreviousAdjustedTimestamp,
     StatusType,
-    Duration,
-    DATEADD(HOUR, 2, AdjustedTimestamp) AS AdjustedTimestamp
+    AdjustedTimestamp
 FROM PreviousTimes
-WHERE DATEADD(hour, 2, PreviousAdjustedTimestamp) >= '$formattedDate'
-    AND DATEADD(hour, 2, PreviousAdjustedTimestamp) < DATEADD(DAY, 1, '$formattedDate')
-order by PreviousAdjustedTimestamp asc
+WHERE PreviousAdjustedTimestamp >= '$formattedDate'
+    AND PreviousAdjustedTimestamp < DATEADD(DAY, 1, '$formattedDate')
+ORDER BY PreviousAdjustedTimestamp ASC;
+
 
     ";
+
+$datas1 = sqlsrv_query($conn, $sql2);
+$dataresult1 = [];
+
+while ($row1 = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
+    $dataresult1[] = $row1;
+}
+$jsonData = json_encode($dataresult1);
+
         $datas = sqlsrv_query($conn, $sql);
         $dataresult = [];
 
@@ -240,6 +266,69 @@ order by PreviousAdjustedTimestamp asc
             $dataresult[] = $row;
         }
         ?>
+        <svg id="timeline" width="100%" height="300"></svg>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+        // PHP will inject the JSON data here
+        const data = <?php echo $jsonData; ?>;
+
+        const margin = {top: 20, right: 30, bottom: 30, left: 40};
+        const fullWidth = document.getElementById("timeline").clientWidth; // Full width of SVG container
+        const width = fullWidth - margin.left - margin.right;
+        const height = 100 - margin.top - margin.bottom;
+
+        // Create SVG
+        const svg = d3.select("#timeline")
+            .attr("width", fullWidth)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Parse the timestamp
+        const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S");
+
+        // Parse the data timestamps
+        data.forEach(d => {
+            d.PreviousAdjustedTimestamp = parseTime(d.PreviousAdjustedTimestamp);
+            d.AdjustedTimestamp = parseTime(d.AdjustedTimestamp);
+        });
+
+        // Set up the X scale (time scale)
+        const x = d3.scaleTime()
+            .domain([d3.min(data, d => d.PreviousAdjustedTimestamp), d3.max(data, d => d.AdjustedTimestamp)])
+            .range([0, width]);
+
+        // Y scale is unnecessary for a single bar, we can hardcode its position
+        const barHeight = 30;
+
+        // Add the X-axis (time axis)
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${barHeight + 5})`)  // Adjust axis position below the bar
+            .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%H:%M")));
+
+        // Add a single bar with colored segments for each status
+        svg.selectAll(".segment")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "segment")
+            .attr("x", d => x(d.PreviousAdjustedTimestamp))
+            .attr("y", 0)
+            .attr("width", d => x(d.AdjustedTimestamp) - x(d.PreviousAdjustedTimestamp))
+            .attr("height", barHeight)
+            .attr("fill", d => {
+                // Simple color mapping for statuses
+                if (d.StatusType === "PREHEATING") return "#00FF00";
+                if (d.StatusType === "PIERCING") return "#00FF00";
+                if (d.StatusType === "CUTTING") return "#00FF00";
+                if (d.StatusType === "IDLE") return "#808080";
+                if (d.StatusType === "ERROR") return "#FF0000";
+                return "#00FF00"; // Default color for unknown status types
+            });
+
+    </script>
         <div class="table-responsive">
             <form id="dateForm" method="post" action="">
                 <label for="selected_date">Wybierz datę:</label>
