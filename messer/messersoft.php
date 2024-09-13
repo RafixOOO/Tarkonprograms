@@ -304,9 +304,11 @@ $jsonData = json_encode($dataresult1);
 
         // Add the X-axis (time axis)
         svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", `translate(0,${barHeight + 5})`)  // Adjust axis position below the bar
-            .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%H:%M")));
+    .attr("class", "axis")
+    .attr("transform", `translate(0,${barHeight + 5})`)  // Adjust axis position below the bar
+    .call(d3.axisBottom(x)
+        .ticks(d3.timeHour.every(1)) // Set tick marks every hour
+        .tickFormat(d3.timeFormat("%H"))); // Format tick labels as "Hour:Minute"
 
         // Add a single bar with colored segments for each status
         svg.selectAll(".segment")
