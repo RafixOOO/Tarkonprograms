@@ -21,14 +21,18 @@
     },
   });
 </script>
-<div class="wrapper sidebar_minimize" style="padding-bottom: 0; width:0; height:0;">
+<?php if(isSidebar()==0){ ?>
+<div class="wrapper" style="padding-bottom: 0; width:0; height:0;">
+  <?php }else if(isSidebar()==1){ ?>
+    <div class="wrapper sidebar_minimize" style="padding-bottom: 0; width:0; height:0;">
+      <?php } ?>
   <!-- Sidebar -->
   <div class="sidebar" data-background-color="dark">
     <div class="sidebar-logo">
       <!-- Logo Header -->
       <div class="logo-header" data-background-color="dark">
       
-        <a href="index.php" class="logo" style="position: relative;
+        <a href="#" class="logo" style="position: relative;
       display: inline-block;";>
         <img
             src="assets/img/logo.svg"
@@ -45,6 +49,12 @@
       height: 20%; /* Wysokość klikalnego obszaru (np. 50% wysokości obrazka) */
       cursor: pointer;"></div>
         </a>
+        <?php if(isLoggedIn()) { ?>
+        <button class="btn btn-toggle toggle-sidebar" style="top: 1.04%;
+      left: 0.094%; position:fixed;width:140%;">
+							<i class="gg-menu-right"></i>
+						</button>
+            <?php } ?>
       </div>
       <!-- End Logo Header -->
     </div>
@@ -119,6 +129,12 @@
               <i class="fa fa-ellipsis-h"></i>
             </span>
             <h4 class="text-section">Aplikacje</h4>
+          </li>
+          <li class="nav-item">
+            <a href="index.php">
+              <i class="fa fa-home"></i>
+              <p>Strona główna</p>
+            </a>
           </li>
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#parts">
@@ -259,7 +275,27 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
+<script>
+  $(document).ready(function(){
+    $(".btn-toggle").click(function(){
+      $.ajax({
+        url: "sidebar.php", // Ścieżka do pliku PHP
+        type: "POST", // Wysyłamy żądanie POST
+        data: { status: "nowyStatus" }, // Możesz przekazać dowolne dane, np. status
+        success: function(response){
+          // Pokaż komunikat o sukcesie
+          location.reload();
+          $("#status-message").html("<p>Status został zaktualizowany pomyślnie.</p>");
+        },
+        error: function(xhr, status, error){
+          // Pokaż komunikat o błędzie
+          $("#status-message").html("<p>Wystąpił błąd: " + error + "</p>");
+        }
+      });
+    });
+  });
+</script>
 <!-- End Sidebar -->
 <script src="assets/js/core/jquery-3.7.1.min.js"></script>
 <script src="assets/js/core/popper.min.js"></script>

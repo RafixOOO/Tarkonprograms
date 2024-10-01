@@ -66,7 +66,11 @@ if ($datas === false) {
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
-<div class="container-xxl">
+<?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
 
 <div class="table-responsive">
 <?php

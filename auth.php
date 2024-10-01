@@ -14,6 +14,10 @@ function logUserActivity($username, $operation) {
     fclose($file);
 }
 
+function isIdent(): int {
+    return isset($_SESSION['ID']) ? (int) $_SESSION['ID'] : 0;}
+function isSidebar(): int{
+    return isset($_SESSION['sidebar']) ? (int) $_SESSION['sidebar'] : 0;}
 function isLoggedIn()
 {
     return isset($_SESSION['imie_nazwisko']);

@@ -46,7 +46,11 @@ $stmt = $pdo->query($sql);
     <a href="hrappka.php" class="btn btn-secondary btn-lg" >HRAPPKA</a>
     <?php } ?>
     </div>
-    <div class="container mt-5">
+    <?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
         <br />
         <div class="row">
             <?php

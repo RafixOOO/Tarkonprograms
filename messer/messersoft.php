@@ -64,7 +64,11 @@ require_once '../auth.php';
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
-    <div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+<?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
 
         <?php
         $formattedDate = date('Y-m-d');

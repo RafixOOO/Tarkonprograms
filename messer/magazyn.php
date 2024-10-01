@@ -75,7 +75,11 @@ ORDER BY
                     </ul>
                     <?php } ?>
 <?php if(isLoggedIn()){ ?>
-<div class="container-fluid" style="width:80%;margin-left:auto;margin-right:auto;">
+    <?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
   <?php }else{ ?>
 
     <div class="container-fluid" style="margin-left:auto;margin-right:auto;">

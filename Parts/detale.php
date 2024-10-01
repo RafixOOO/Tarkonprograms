@@ -259,7 +259,11 @@ $jsonData = json_encode($filteredData);
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
     <!-- link: https://github.com/RafixOOO -->
-    <div class="container-fluid" style="width:90%;margin-left:auto;margin-right:auto;">
+    <?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
         <?php if (!isLoggedIn()) { ?>
             <div class="progress verticalrotate">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>

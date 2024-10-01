@@ -14,7 +14,11 @@ require_once("dashbordssql.php"); ?>
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 
-<div class="col-md-8" style="width:90%; margin: 0 auto;">
+<?php if(isSidebar()==0){ ?>
+<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
                 <div class="card card-round" style="width:60%;float:left; margin-right:5%;margin-left:1%;max-height:460px">
                   <div class="card-header">
                     <div class="card-head-row">
@@ -97,9 +101,9 @@ require_once("dashbordssql.php"); ?>
  ?>
                
               </div>
-              </div>
+              
 			  <div style="clear:both;"></div>
-			  <div class="col-md-8" style="width:90%; margin: 0 auto;">
+			  <div class="col-md-8" style="width:100%; margin: 0 auto;">
                 <div class="card card-round">
                   <div class="card-header">
                     <div class="card-head-row card-tools-still-right">
@@ -138,7 +142,9 @@ require_once("dashbordssql.php"); ?>
                   </div>
                 </div>
               </div>
+			  </div>
               <?php require_once("globalnav.php"); ?>
+			  
 </body>
 
 <?php 
