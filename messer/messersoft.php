@@ -71,6 +71,11 @@ require_once '../auth.php';
         <?php } ?>
 
         <?php
+        if (isset($_GET['query'])) {
+            $searchQuery = $_GET['query'];
+        }else{
+            $searchQuery="";
+        }
         $formattedDate = date('Y-m-d');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Pobranie wybranej daty z formularza
@@ -86,6 +91,7 @@ require_once '../auth.php';
             }
         }
         require_once("dbconnect.php");
+        if($searchQuery==""){
         $sql = "SELECT 
 j2.id,
     LEFT(
@@ -163,35 +169,120 @@ ORDER BY
     j2.[_internal_timestamp] DESC;
 
 ";
-
-$sql1="WITH DurationData AS (
+        }else if($searchQuery!=""){
+            $sql = "WITH ProgramNames AS (
     SELECT 
-        j.StatusType,
-        SUM(j.Duration) AS TotalDuration
-    FROM utilizationtable u
-    CROSS APPLY 
-    OPENJSON(u.msg, '$.States') WITH (
+        j2.id,
+        JSON_VALUE(j2.msg, '$.PartProgramName') AS FullProgramName,
+        LEFT(
+            SUBSTRING(
+                JSON_VALUE(j2.msg, '$.PartProgramName'), 
+                LEN(JSON_VALUE(j2.msg, '$.PartProgramName')) - CHARINDEX('/', REVERSE(JSON_VALUE(j2.msg, '$.PartProgramName'))) + 2, 
+                LEN(JSON_VALUE(j2.msg, '$.PartProgramName'))
+            ), 
+            LEN(SUBSTRING(
+                JSON_VALUE(j2.msg, '$.PartProgramName'), 
+                LEN(JSON_VALUE(j2.msg, '$.PartProgramName')) - CHARINDEX('/', REVERSE(JSON_VALUE(j2.msg, '$.PartProgramName'))) + 2, 
+                LEN(JSON_VALUE(j2.msg, '$.PartProgramName'))
+            )) - 4
+        ) AS PartProgramName,
+        j2.[_internal_timestamp],
+        j2.[_internal_endtime],
+        j2.msg
+    FROM 
+        PartCheck.dbo.Jobtable j2
+)
+SELECT 
+    pn.id,
+    pn.PartProgramName,
+    DATEADD(hour, 2, pn.[_internal_timestamp]) AS Starttime,
+    DATEADD(hour, 2, pn.[_internal_endtime]) AS Endtime,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'CUTTING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS CuttingDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'ERROR' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS ErrorDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'IDLE' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS IdleDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'PIERCING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS PiercingDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'PREHEATING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS PreheatingDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'POSITIONING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
+        '00:00:00'
+    ) AS PositioningDuration,
+    ISNULL(
+        CONVERT(varchar, DATEADD(SECOND, CAST(planned.PlannedTime AS float), 0), 108), 
+        '00:00:00'
+    ) AS PlannedTimeFormatted,
+    st.Status AS OverallStatus
+FROM 
+    ProgramNames pn
+CROSS APPLY 
+    OPENJSON(pn.msg, '$.States') WITH (
         StatusType nvarchar(50) '$.Status.StatusType',
         Duration float '$.Duration'
     ) AS j
-    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
-      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
-    GROUP BY j.StatusType
-),
-TotalDuration AS (
-    SELECT 
-        SUM(TotalDuration) AS GrandTotal
-    FROM DurationData
-)
-SELECT 
-    StatusType,
-    TotalDuration,
-    ROUND((TotalDuration * 100.0 / GrandTotal), 2) AS Percentage
-FROM DurationData
-CROSS JOIN TotalDuration
-ORDER BY TotalDuration DESC;
+CROSS APPLY 
+    OPENJSON(pn.msg, '$.Plans[0].Data') WITH (
+        PlannedTime float '$.PlannedTime'
+    ) AS planned
+CROSS APPLY 
+    OPENJSON(pn.msg, '$.Plans[0]') 
+    WITH (
+        Status nvarchar(20) '$.Status'
+    ) AS st
+WHERE
+    pn.PartProgramName LIKE '%$searchQuery%'
+GROUP BY 
+    st.Status,
+    pn.PartProgramName,
+    pn.[_internal_timestamp],
+    pn.[_internal_endtime],
+    planned.PlannedTime,
+    pn.id
+ORDER BY 
+    pn.[_internal_timestamp] DESC;
 ";
+        }
 
+        $sql1="WITH DurationData AS (
+            SELECT 
+                j.StatusType,
+                SUM(j.Duration) AS TotalDuration
+            FROM utilizationtable u
+            CROSS APPLY 
+            OPENJSON(u.msg, '$.States') WITH (
+                StatusType nvarchar(50) '$.Status.StatusType',
+                Duration float '$.Duration'
+            ) AS j
+            WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
+              AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+            GROUP BY j.StatusType
+        ),
+        TotalDuration AS (
+            SELECT 
+                SUM(TotalDuration) AS GrandTotal
+            FROM DurationData
+        )
+        SELECT 
+            StatusType,
+            TotalDuration,
+            ROUND((TotalDuration * 100.0 / GrandTotal), 2) AS Percentage
+        FROM DurationData
+        CROSS JOIN TotalDuration
+        ORDER BY TotalDuration DESC;
+        ";
 $datas1 = sqlsrv_query($conn, $sql1);
 $working=0;
 $Error=0;
@@ -338,14 +429,16 @@ $jsonData = json_encode($dataresult1);
         <div class="table-responsive">
             <form id="dateForm" method="post" action="">
                 <label for="selected_date">Wybierz datę:</label>
-                <input type="date" id="selected_date" name="selected_date" value="<?php echo htmlspecialchars($formattedDate); ?>" onchange="submitForm()" required>
+                <input type="date" id="selected_date" name="selected_date" value="<?php echo htmlspecialchars($formattedDate); ?>" onchange="submitForm()" required>            
             </form>
             <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
                 style="font-size: calc(9px + 0.390625vw)">
                 <thead>
                     <th>Program<br />
                         <div class="search-container">
-                            <input type="text" id="searchProgram" onkeyup="searchTable()" placeholder="Szukaj programu...">
+                        <form method="GET" action="" id="searchForm">
+    <input type="text" id="searchProgram" name="query" value="<?php echo $searchQuery; ?>" placeholder="Szukaj programu..." style="text-transform: uppercase;">
+</form>
                         </div>
                     </th>
                     <th>Szczegóły pracy</th>
@@ -408,7 +501,7 @@ LIMIT 1;
                     $today = new DateTime();
 
                     // Przetwarzaj wyniki zapytania
-                    if ($date->format('Y-m-d') === $today->format('Y-m-d')) {
+                    if ($date->format('Y-m-d') === $today->format('Y-m-d') && $searchQuery=="") {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row['PartProgramName'] . "</td>";
@@ -528,6 +621,39 @@ LIMIT 1;
         <?php include 'globalnav.php'; ?>
 </body>
 <script>
+     function submitForm() {
+        // Usuwanie parametrów URL, takich jak ?query
+        const url = new URL(window.location.href);
+
+        // Usuwamy parametr query (jeśli istnieje)
+        url.searchParams.delete('query');
+
+        // Ustawiamy nowy adres URL bez ?query
+        window.history.replaceState({}, '', url);
+
+        // Teraz wysyłamy formularz
+        document.getElementById('dateForm').submit();
+    }
+         function handleSubmit() {
+        var searchValue = document.getElementById('searchProgram').value;
+        console.log('Wyszukano: ' + searchValue);
+
+        // Jeśli chcesz, aby formularz został wysłany programowo:
+        document.getElementById('searchForm').submit();
+
+        // Zwróć false, aby zapobiec domyślnemu przeładowaniu strony
+        return false;
+    }
+
+    // Obsługa wysłania formularza po wciśnięciu Enter
+    document.getElementById('searchProgram').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            var searchInput = document.getElementById('searchProgram');
+        searchInput.value = searchInput.value.toUpperCase(); // Zamienia wartość na wielkie litery przed wysłaniem
+            event.preventDefault();  // Zapobiega domyślnemu wysyłaniu
+            handleSubmit();          // Wywołaj naszą funkcję wysyłającą formularz
+        }
+    });
     function searchTable() {
         var input, filter, table, tr, td, i, txtValue, statusFilter, status, programFilter;
 
@@ -542,20 +668,6 @@ LIMIT 1;
 
         for (i = 1; i < tr.length; i++) {
             tr[i].style.display = ""; // Domyślnie pokaż wiersz
-
-            // Filtruj po programie
-            if (programFilter) {
-                td = tr[i].getElementsByTagName("td")[0]; // Indeks kolumny Program
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(programFilter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                        continue; // Przejdź do następnego wiersza
-                    }
-                }
-            }
 
             // Filtruj po statusie
             if (statusFilter) {
