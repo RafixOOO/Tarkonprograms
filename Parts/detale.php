@@ -9,7 +9,7 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 // Now you can use the Utils class
 
-$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['cutlogic'];
+$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['all'];
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
@@ -20,17 +20,32 @@ $filesToLoad = [
     'inne' => 'othersql.php',
     'messer' => 'messer.php',
     'v630' => 'v630.php',
+    'all' => ['cutlogicsql.php','messer.php','v630.php'],
 ];
 
 $filteredData = [];
 
 foreach ($programs as $program) {
     if (isset($filesToLoad[$program])) {
-        require_once $filesToLoad[$program];
-        while ($rowData = sqlsrv_fetch_array($data, SQLSRV_FETCH_ASSOC)) {
-            // Dodaj dane do tablicy tylko jeśli spełniają warunki filtrowania
-            if (checkData($rowData, $myVariable, $keywordArray, $dataFrom, $dataTo)) {
-                $filteredData[] = $rowData;
+        // Sprawdź, czy $filesToLoad[$program] to tablica
+        if (is_array($filesToLoad[$program])) {
+            // Iteracja po tablicy plików
+            foreach ($filesToLoad[$program] as $file) {
+                require_once $file;
+                // Filtrowanie danych dla każdego pliku
+                while ($rowData = sqlsrv_fetch_array($data, SQLSRV_FETCH_ASSOC)) {
+                    if (checkData($rowData, $myVariable, $keywordArray, $dataFrom, $dataTo)) {
+                        $filteredData[] = $rowData;
+                    }
+                }
+            }
+        } else {
+            // Jeśli to nie tablica, wykonaj standardowy require_once
+            require_once $filesToLoad[$program];
+            while ($rowData = sqlsrv_fetch_array($data, SQLSRV_FETCH_ASSOC)) {
+                if (checkData($rowData, $myVariable, $keywordArray, $dataFrom, $dataTo)) {
+                    $filteredData[] = $rowData;
+                }
             }
         }
     }
@@ -285,7 +300,8 @@ $jsonData = json_encode($filteredData);
                 </div>
                 <div style="text-align:right;">
                     <br />
-                    <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" name="programs" style="float:right; width: 65%;">
+                    <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" id="select" name="programs" style="float:right; width: 65%;">
+                    <option value="all" <?php echo in_array("all", $programs) ? 'selected' : ''; ?>>ALL</option>
                         <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
                         <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
                         <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
@@ -307,6 +323,26 @@ $jsonData = json_encode($filteredData);
             <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
         </div>
         </form>
+        <script>
+                $(document).ready(function() {
+        // Obsługa zdarzenia zmiany checkboxa
+        $('#checkbox').change(function() {
+            // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
+            $('#myForm1').submit();
+        });
+
+        $('#select').change(function() {
+            // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
+            $('#myForm1').submit();
+        });
+
+        // Obsługa zdarzenia zmiany pola select
+        $('#pageSizeSelect').change(function() {
+            // Wyślij formularz po zmianie wartości w polu select
+            $('#myForm1').submit();
+        });
+    });
+        </script>
 
         <div style="clear:both;"></div>
         <div class="table-responsive">
@@ -318,7 +354,7 @@ $jsonData = json_encode($filteredData);
                         <th scope="col" style="width:10em;">Zespół</th>
                         <th scope="col" style="width:10em;">Nazwa programu</th>
                         <th scope="col">Detal</th>
-                        <th scope="col">Ilość Zaplanowana / Zrobiona</th>
+                        <th scope="col">Ilość Zrobiona / Zaplanowana</th>
                         <th scope="col">V200</th>
                         <th scope="col">Wymiar</th>
                         <th scope="col">Materiał</th>
@@ -359,7 +395,7 @@ $jsonData = json_encode($filteredData);
                         <td id="Program1"><?php echo $data['cutlogic']; ?></td>
                         <td id="detal"><?php echo $data['Detal']; ?></td>
                         <td>
-                            <center><?php echo $ilosc; ?>/<?php echo $data['ilosc_zrealizowana']; ?></center><br />
+                            <center><?php echo $data['ilosc_zrealizowana']; ?>/<?php echo $ilosc; ?></center><br />
                             <div class="progress" style="height:25px;font-size: 16px;">
                                 <?php if ($szer <= 100) { ?>
                                     <div class='progress-bar bg-success' role='progressbar' style='width:<?php echo $szer; ?>%;' aria-valuenow="<?php echo $data['ilosc_zrealizowana']; ?>" aria-valuemin='0' aria-valuemax='<?php echo $ilosc; ?>'></div>
@@ -635,20 +671,6 @@ $jsonData = json_encode($filteredData);
         if (currentInput) {
             currentInput.value = currentInput.value.slice(0, -1); // Remove last character
         }
-    });
-
-    $(document).ready(function() {
-        // Obsługa zdarzenia zmiany checkboxa
-        $('#checkbox').change(function() {
-            // Wyślij formularz po zaznaczeniu lub odznaczeniu checkboxa
-            $('#myForm1').submit();
-        });
-
-        // Obsługa zdarzenia zmiany pola select
-        $('#pageSizeSelect').change(function() {
-            // Wyślij formularz po zmianie wartości w polu select
-            $('#myForm1').submit();
-        });
     });
 
     $('html').addClass('js');

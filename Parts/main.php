@@ -94,16 +94,16 @@ $stmt = $pdo->query($sql);
     UNION ALL
     -- Trzecie zapytanie
     SELECT 
-        [WoNumber] AS ProjectName,
-        SUM([QtyOrdered]) AS ilosc,
-        SUM([QtyProgram]) AS ilosc_zrealizowana
-    FROM 
-        [PartCheck].[dbo].[PartArchive_Messer]
+        ISNULL(p.[WoNumber], m1.[WoNumber]) AS ProjectName,
+        ISNULL(p.[QtyOrdered], m1.[QtyOrdered]) AS ilosc,
+        ISNULL(p.[QtyCompleted], m1.[QtyProgram]) AS ilosc_zrealizowana
+    FROM [PartCheck].[dbo].[PartArchive_Messer] m1
+right join [SNDBASE_PROD].[dbo].[Part] p on m1.PartName=p.PartName
     WHERE 
-        [PartName] != ''
-        and [WoNumber] = '$row1[cr_number]'
+        (p.[PartName] != '' or m1.[PartName] != '')
+        and (p.[WoNumber] = '$row1[cr_number]' or m1.[WoNumber] = '$row1[cr_number]')
     GROUP BY 
-        [WoNumber]
+        p.[WoNumber], m1.[WoNumber],p.[QtyOrdered], m1.[QtyOrdered],p.[QtyCompleted], m1.[QtyProgram]
 )
 SELECT 
     SUM(ilosc) AS ilosc,
