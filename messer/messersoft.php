@@ -468,24 +468,32 @@ $jsonData = json_encode($dataresult1);
                     }
 
                     $sql = "SELECT 
-    `_internal_timestamp` as time,
+    e.`_internal_timestamp` AS time,
     LEFT(
         SUBSTRING(
-            JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')), 
-            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename'))) - LOCATE('/', REVERSE(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')))) + 2, 
-            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')))
+            JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')), 
+            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename'))) - LOCATE('/', REVERSE(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')))) + 2, 
+            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')))
         ), 
         LENGTH(SUBSTRING(
-            JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')), 
-            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename'))) - LOCATE('/', REVERSE(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')))) + 2, 
-            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(msg, '$.Filename')))
+            JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')), 
+            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename'))) - LOCATE('/', REVERSE(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')))) + 2, 
+            LENGTH(JSON_UNQUOTE(JSON_EXTRACT(e.msg, '$.Filename')))
         )) - 4
     ) AS PartProgramName
 FROM 
-    db_eventpartprogramtable
-ORDER BY 
-    id DESC
-LIMIT 1;
+    db_eventpartprogramtable e
+LEFT JOIN 
+    db_jobstable dj 
+    ON DATE_FORMAT(dj.`_internal_timestamp`, '%Y-%m-%d %H:%i') = DATE_FORMAT(e.`_internal_timestamp`, '%Y-%m-%d %H:%i') 
+    AND dj.msg IS NOT NULL
+WHERE 
+    dj.`_internal_timestamp` IS NULL
+    AND e.`_internal_timestamp` = (
+        SELECT MAX(e2.`_internal_timestamp`) 
+        FROM db_eventpartprogramtable e2
+    );
+
 ";
 
                     $result = $conn1->query($sql);
