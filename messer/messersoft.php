@@ -283,10 +283,73 @@ ORDER BY
         CROSS JOIN TotalDuration
         ORDER BY TotalDuration DESC;
         ";
+
+        $sqlbefore="WITH DurationDataBefore15 AS (
+    SELECT 
+        j.StatusType,
+        SUM(j.Duration) AS TotalDuration
+    FROM utilizationtable u
+    CROSS APPLY 
+    OPENJSON(u.msg, '$.States') WITH (
+        StatusType nvarchar(50) '$.Status.StatusType',
+        Duration float '$.Duration'
+    ) AS j
+    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
+      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+    GROUP BY j.StatusType
+),
+TotalDurationBefore15 AS (
+    SELECT 
+        SUM(TotalDuration) AS GrandTotal
+    FROM DurationDataBefore15
+)
+SELECT 
+    StatusType,
+    TotalDuration,
+    ROUND((TotalDuration * 100.0 / GrandTotal), 2) AS Percentage
+FROM DurationDataBefore15
+CROSS JOIN TotalDurationBefore15
+ORDER BY TotalDuration DESC;
+";
+$sqlafter="WITH DurationDataAfter15 AS (
+    SELECT 
+        j.StatusType,
+        SUM(j.Duration) AS TotalDuration
+    FROM utilizationtable u
+    CROSS APPLY 
+    OPENJSON(u.msg, '$.States') WITH (
+        StatusType nvarchar(50) '$.Status.StatusType',
+        Duration float '$.Duration'
+    ) AS j
+    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    GROUP BY j.StatusType
+),
+TotalDurationAfter15 AS (
+    SELECT 
+        SUM(TotalDuration) AS GrandTotal
+    FROM DurationDataAfter15
+)
+SELECT 
+    StatusType,
+    TotalDuration,
+    ROUND((TotalDuration * 100.0 / GrandTotal), 2) AS Percentage
+FROM DurationDataAfter15
+CROSS JOIN TotalDurationAfter15
+ORDER BY TotalDuration DESC;
+";
 $datas1 = sqlsrv_query($conn, $sql1);
+$datasbefore = sqlsrv_query($conn, $sqlbefore);
+$datasafter = sqlsrv_query($conn, $sqlafter);
 $working=0;
 $Error=0;
 $idle=0;
+$workingbefore=0;
+$Errorbefore=0;
+$idlebefore=0;
+$workingafter=0;
+$Errorafter=0;
+$idleafter=0;
 while ($row1 = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
     if($row1['StatusType']=="IDLE"){
         $idle=$idle+$row1['Percentage'];
@@ -294,6 +357,26 @@ while ($row1 = sqlsrv_fetch_array($datas1, SQLSRV_FETCH_ASSOC)) {
         $Error=$Error+$row1['Percentage'];
     }else{
         $working=$working+$row1['Percentage'];
+    }
+}
+
+while ($row1 = sqlsrv_fetch_array($datasbefore, SQLSRV_FETCH_ASSOC)) {
+    if($row1['StatusType']=="IDLE"){
+        $idlebefore=$idlebefore+$row1['Percentage'];
+    }else if($row1['StatusType']=="ERROR"){
+        $Errorbefore=$Errorbefore+$row1['Percentage'];
+    }else{
+        $workingbefore=$workingbefore+$row1['Percentage'];
+    }
+}
+
+while ($row1 = sqlsrv_fetch_array($datasafter, SQLSRV_FETCH_ASSOC)) {
+    if($row1['StatusType']=="IDLE"){
+        $idleafter=$idleafter+$row1['Percentage'];
+    }else if($row1['StatusType']=="ERROR"){
+        $Errorafter=$Errorafter+$row1['Percentage'];
+    }else{
+        $workingafter=$workingafter+$row1['Percentage'];
     }
 }
 echo "<h2 style='text-align:center;'><b>
@@ -361,49 +444,74 @@ $jsonData = json_encode($dataresult1);
             $dataresult[] = $row;
         }
         ?>
-        <svg id="timeline" width="100%" height="300"></svg>
+<div style="display: flex; justify-content: space-between;">
+    <!-- First chart with title -->
+    <div style="width: 48%;">
+        <h5 style="text-align: center;">1 zmiana</h5>
+        <?php echo "<h5 style='text-align:center;'><b>
+    <span style='text-decoration: underline; text-decoration-color: #00FF00;'>PRACA: " . $workingbefore . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #808080;'>Bezczynność: " . $idlebefore . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #FF0000;'>Error: " . $Errorbefore . "%</span></b></h5>";
+ ?>
+        <svg id="timeline1" width="100%" height="300"></svg>
+    </div>
+    
+    <!-- Second chart with title -->
+    <div style="width: 48%;">
+        <h5 style="text-align: center;">2 zmiana</h5>
+        <?php echo "<h5 style='text-align:center;'><b>
+    <span style='text-decoration: underline; text-decoration-color: #00FF00;'>PRACA: " . $workingafter . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #808080;'>Bezczynność: " . $idleafter . "%</span>
+    <span style='margin-left: 20px; text-decoration: underline; text-decoration-color: #FF0000;'>Error: " . $Errorafter . "%</span></b></h5>";
+ ?>
+        <svg id="timeline2" width="100%" height="300"></svg>
+    </div>
+</div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-        // PHP will inject the JSON data here
-        const data = <?php echo $jsonData; ?>;
+    // PHP will inject the JSON data here
+    const data = <?php echo $jsonData; ?>;
 
-        const margin = {top: 20, right: 30, bottom: 30, left: 40};
-        const fullWidth = document.getElementById("timeline").clientWidth; // Full width of SVG container
-        const width = fullWidth - margin.left - margin.right;
-        const height = 100 - margin.top - margin.bottom;
+    const margin = {top: 20, right: 30, bottom: 30, left: 40};
+    const fullWidth = document.getElementById("timeline1").clientWidth; // Full width of SVG container for one chart
+    const width = fullWidth - margin.left - margin.right;
+    const height = 100 - margin.top - margin.bottom;
+    const barHeight = 30; // Height of the bars
 
-        // Create SVG
-        const svg = d3.select("#timeline")
+    // Parse the timestamp
+    const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S");
+
+    // Parse the data timestamps
+    data.forEach(d => {
+        d.PreviousAdjustedTimestamp = parseTime(d.PreviousAdjustedTimestamp);
+        d.AdjustedTimestamp = parseTime(d.AdjustedTimestamp);
+    });
+
+    // Split data into two groups: before 15:00 and after 15:00
+    const before15 = data.filter(d => d.PreviousAdjustedTimestamp.getHours() < 15);
+    const after15 = data.filter(d => d.PreviousAdjustedTimestamp.getHours() >= 15);
+
+    // Function to create a chart in a specific SVG
+    const createChart = (data, svgId) => {
+        const svg = d3.select(svgId)
             .attr("width", fullWidth)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        // Parse the timestamp
-        const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S");
-
-        // Parse the data timestamps
-        data.forEach(d => {
-            d.PreviousAdjustedTimestamp = parseTime(d.PreviousAdjustedTimestamp);
-            d.AdjustedTimestamp = parseTime(d.AdjustedTimestamp);
-        });
 
         // Set up the X scale (time scale)
         const x = d3.scaleTime()
             .domain([d3.min(data, d => d.PreviousAdjustedTimestamp), d3.max(data, d => d.AdjustedTimestamp)])
             .range([0, width]);
 
-        // Y scale is unnecessary for a single bar, we can hardcode its position
-        const barHeight = 30;
-
         // Add the X-axis (time axis)
         svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", `translate(0,${barHeight + 5})`)  // Adjust axis position below the bar
-    .call(d3.axisBottom(x)
-        .ticks(d3.timeHour.every(1)) // Set tick marks every hour
-        .tickFormat(d3.timeFormat("%H"))); // Format tick labels as "Hour:Minute"
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${barHeight + 5})`)
+            .call(d3.axisBottom(x)
+                .ticks(d3.timeHour.every(1))
+                .tickFormat(d3.timeFormat("%H"))); // Format tick labels as "Hour"
 
         // Add a single bar with colored segments for each status
         svg.selectAll(".segment")
@@ -416,7 +524,6 @@ $jsonData = json_encode($dataresult1);
             .attr("width", d => x(d.AdjustedTimestamp) - x(d.PreviousAdjustedTimestamp))
             .attr("height", barHeight)
             .attr("fill", d => {
-                // Simple color mapping for statuses
                 if (d.StatusType === "PREHEATING") return "#00FF00";
                 if (d.StatusType === "PIERCING") return "#00FF00";
                 if (d.StatusType === "CUTTING") return "#00FF00";
@@ -424,8 +531,13 @@ $jsonData = json_encode($dataresult1);
                 if (d.StatusType === "ERROR") return "#FF0000";
                 return "#00FF00"; // Default color for unknown status types
             });
+    };
 
-    </script>
+    // Create two charts: one before 15:00 and one after 15:00
+    createChart(before15, "#timeline1"); // Chart for times before 15:00
+    createChart(after15, "#timeline2");  // Chart for times after 15:00
+</script>
+
         <div class="table-responsive">
             <form id="dateForm" method="post" action="">
                 <label for="selected_date">Wybierz datę:</label>
