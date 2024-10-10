@@ -9,6 +9,9 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 // Now you can use the Utils class
 
+if(!isLoggedIn()){
+    
+}
 $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['all'];
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';

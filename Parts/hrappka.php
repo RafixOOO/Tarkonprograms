@@ -29,9 +29,9 @@
     </style>
 </head>
 <body>
-    <div class=".container-fluid con">
+    <div class="container-fluid con">
         <a href="main.php" class="btn btn-primary btn-lg fixed-button">PROJEKTY</a>
-        <iframe src="http://10.100.100.42/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd"></iframe>
+        <iframe src="http://10.100.100.42/work-time-register?widget_hash=488a3e4adca6545878db8ec4163c15fd" loading="lazy"></iframe>
     </div>
 </body>
 </html>
