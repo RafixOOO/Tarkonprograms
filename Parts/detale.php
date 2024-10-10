@@ -10,9 +10,10 @@ use Pagerfanta\View\TwitterBootstrap4View;
 // Now you can use the Utils class
 
 if(!isLoggedIn()){
-    
+    $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['cutlogic'];
+}else{
+    $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['all'];
 }
-$programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['all'];
 $myVariable = isset($_GET['myCheckbox']) ? 1 : 0;
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
 $keywordArray = explode(' ', $keywords);
@@ -277,11 +278,17 @@ $jsonData = json_encode($filteredData);
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
     <!-- link: https://github.com/RafixOOO -->
+    <?php if (isLoggedIn()) { ?>
     <?php if(isSidebar()==0){ ?>
 <div class="container-fluid" style="width:80%;margin-left:14%;">
     <?php }else if(isSidebar()==1){ ?>
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>
+    <?php } else { ?>
+
+      <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
+
+      <?php } ?>
         <?php if (!isLoggedIn()) { ?>
             <div class="progress verticalrotate">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
@@ -301,6 +308,7 @@ $jsonData = json_encode($filteredData);
                     </a>
                     <br /><br />
                 </div>
+                <?php if(isLoggedIn()){ ?>
                 <div style="text-align:right;">
                     <br />
                     <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" id="select" name="programs" style="float:right; width: 65%;">
@@ -311,7 +319,9 @@ $jsonData = json_encode($filteredData);
                     </select><br /><br /><br />
                     od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
                 </div>
+                <?php } ?>
         </div>
+        <?php if(isLoggedIn()){ ?>
         <div class="form-group" style="float:left;">
             <label for="pageSizeSelect">Liczba wyników na stronie:</label>
             <select class="form-control" id="pageSizeSelect" name="page_size">
@@ -325,6 +335,7 @@ $jsonData = json_encode($filteredData);
             <label for="checkbox">Pokaż zakończone: </label>
             <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
         </div>
+        <?php } ?>
         </form>
         <script>
                 $(document).ready(function() {
