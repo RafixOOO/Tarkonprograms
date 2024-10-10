@@ -345,6 +345,26 @@ $jsonData = json_encode($filteredData);
             $('#myForm1').submit();
         });
     });
+
+    var clicks = 0;
+    var timeout;
+
+    function handleClick(row) {
+        clicks++;
+
+        if (clicks === 1) {
+            timeout = setTimeout(function() {
+                singleClickAction(row);
+                clicks = 0;
+            }, 200);
+        } else if (clicks === 2) {
+            clearTimeout(timeout);
+            doubleClickAction(row);
+            clicks = 0;
+        }
+    }
+
+    var selectedrow = [];
         </script>
 
         <div style="clear:both;"></div>
@@ -694,25 +714,6 @@ $jsonData = json_encode($filteredData);
         }
     });
 
-    var clicks = 0;
-    var timeout;
-
-    function handleClick(row) {
-        clicks++;
-
-        if (clicks === 1) {
-            timeout = setTimeout(function() {
-                singleClickAction(row);
-                clicks = 0;
-            }, 200);
-        } else if (clicks === 2) {
-            clearTimeout(timeout);
-            doubleClickAction(row);
-            clicks = 0;
-        }
-    }
-
-    var selectedrow = [];
 
     function singleClickAction(row) {
         var hasClass = row.classList.contains("table-warning");
