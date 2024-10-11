@@ -626,7 +626,7 @@ $jsonData = json_encode($filteredData);
                             <label for="user-number">Wprowadź swój numer:</label>
                             <?php
                             if (isUserPartsKier()) {
-                                $kiersql = "Select * from dbo.Persons where [user]='' and [prac_parts]=1";
+                                $kiersql = "Select max(identyfikator) as identyfikator, imie_nazwisko as imie_nazwisko from dbo.Persons where [user]='' and [prac_parts]=1 group by imie_nazwisko";
                                 $stmt = sqlsrv_query($conn, $kiersql);
                             ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
                                     <?php
