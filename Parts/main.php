@@ -19,8 +19,9 @@ try {
 }
 $sql = "SELECT *
 FROM public.company_contractor_requests
-where cr_state=
-'Aktywny'
+inner join public.tags t on cr_id=t.tag_entity_fkey and t.tag_body = 'RCP'
+where (cr_state=
+'Aktywny' or  cr_state= 'Produkcja-aktywny')
 and cr_deleted!=true and cr_allow_work_time_registering=true and ( cr_end_date is null or cr_end_date>CURRENT_DATE)
 order by cr_number desc";
 $stmt = $pdo->query($sql);
