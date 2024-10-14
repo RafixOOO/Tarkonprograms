@@ -15,11 +15,6 @@ require_once('auth.php');
         <h2 class="text-uppercase">Dodaj</h2>
         <br />
         <form method="POST" action="">
-            <div class="form-group">
-                <label for="current_password">Identyfikator</label>
-                <input type="number" class="form-control" id="id" name="id"
-                    placeholder="Identyfikator" required>
-            </div>
             <br />
             <div class="form-group">
                 <label for="new_password">Imię i Nazwisko</label>
@@ -41,12 +36,11 @@ require_once('auth.php');
 <?php 
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $id = $_POST['id'];
                 $nazwa = $_POST['nazwa'];
                 $login = $_POST['login'];
 
-                $sql = "INSERT INTO dbo.Persons ([identyfikator], [imie_nazwisko], [user]) VALUES (?, ?, ?)";
-                $params = array($id, $nazwa, $login);
+                $sql = "INSERT INTO dbo.Persons ( [imie_nazwisko], [user]) VALUES ( ?, ?)";
+                $params = array($nazwa, $login);
 
 
                 $stmt = sqlsrv_query($conn, $sql, $params);

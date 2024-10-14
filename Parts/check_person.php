@@ -3,7 +3,7 @@
 require_once("dbconnect.php");
 
 $userNumber = $_POST['number'];
-$sql = "SELECT * FROM dbo.Persons WHERE identyfikator = ?";
+$sql = "SELECT * FROM dbo.PersonsID pid inner join dbo.Persons p on p.Id = pid.PersonsID WHERE pid.identyfikator = ?";
 $params = array($userNumber);
 $stmt1 = sqlsrv_query($conn, $sql, $params);
 $imie;

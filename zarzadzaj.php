@@ -23,7 +23,6 @@
             <table class="table table-sm">
   <thead>
     <tr>
-      <th scope="col">Identyfikator</th>
       <th scope="col">Imię i nazwisko</th>
       <th scope="col">Login</th>
       <th scope="col">Messer</th>
@@ -43,7 +42,6 @@
         while ($data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {           
     ?>
     <tr>
-        <td><?php echo $data['identyfikator'] ?></td>
         <td><?php echo $data['imie_nazwisko'] ?></td>
         <td><?php echo $data['user'] ?></td>
         <?php if($data['user']!=""){ ?>
@@ -105,7 +103,9 @@
         <?php }  ?>
         <td>
             <?php if($data['user']!=""){ ?>
-            <form method="post" action="usun_haslo.php" style="float: left;">
+                <a href="identyfikatory.php?id=<?php echo $data['Id'] ?>" style="float: left;">
+                <button type="submit" name="usun_haslo" class="btn btn-warning">Identyfikatory</button></a>
+            <form method="post" action="usun_haslo.php" style="float: left; margin-left:2%;">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <button type="submit" name="usun_haslo" class="btn btn-warning">Usuń hasło</button>
             </form>
@@ -115,6 +115,7 @@
             </form>
             <div style="clear:both;"></div>
             <?php } else{ ?>
+                
                 <form method="post" action="zmien_status.php">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <input type="hidden" name="role" value="prac_messer">
@@ -137,7 +138,10 @@
                 <td></td>
                 <td></td>
                 <td>
-                <form method="post" action="usun_konto.php">
+                <a href="identyfikatory.php?id=<?php echo $data['Id'] ?>" style="float: left;">
+                <button type="submit" name="usun_haslo" class="btn btn-warning">Identyfikatory</button></a>
+            </form>
+                <form method="post" action="usun_konto.php" style="float: left; margin-left:2%;">
                 <input type="hidden" name="person_id" value="<?php echo $data['Id'] ?>">
                 <button type="submit" name="usun_konto" class="btn btn-warning">Usuń konto</button>
             </form>
