@@ -13,6 +13,8 @@
 <script src="../static/popper.min.js"></script>
 <script src="../static/chosen.jquery.min.js"></script>
 <link href="../static/chosen.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/plugins.min.css"/>
+<link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
 <script>
  window.addEventListener('load', function() {
   var darkModeButton = document.getElementById('darkModeButton');

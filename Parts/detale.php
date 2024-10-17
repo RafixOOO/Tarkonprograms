@@ -530,12 +530,14 @@ $jsonData = json_encode($filteredData);
                         <?php } ?>
                     <?php } ?>
                     <?php if (isUserParts()) { ?>
-                        <button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>
+                        <!--<button type="button" onclick="status()" class="btn btn-warning btn-lg">Status</button>-->
                     <?php } ?>
                 </div>
             </div>
             <br /><br />
-
+            <?php if (isLoggedIn()) { ?>
+        <?php require_once('globalnav.php') ?>
+    <?php } ?>
             <div class="modal fade" id="mymodal" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -626,7 +628,7 @@ $jsonData = json_encode($filteredData);
                             <label for="user-number">Wprowadź swój numer:</label>
                             <?php
                             if (isUserPartsKier()) {
-                                $kiersql = "Select max(identyfikator) as identyfikator, imie_nazwisko as imie_nazwisko from dbo.Persons where [user]='' and [prac_parts]=1 group by imie_nazwisko";
+                                $kiersql = "Select  MAX(pi2.identyfikator) as identyfikator ,p.imie_nazwisko from dbo.Persons p, PersonsID pi2 where pi2.PersonsID=p.Id and p.[user]='' and p.[prac_parts]=1 group by p.imie_nazwisko";
                                 $stmt = sqlsrv_query($conn, $kiersql);
                             ?> <select type="text" class="form-control" id="user-number" name="user-number" required>
                                     <?php
@@ -679,9 +681,7 @@ $jsonData = json_encode($filteredData);
     <?php } ?>
 
     </div>
-    <?php if (isLoggedIn()) { ?>
-        <?php require_once('globalnav.php') ?>
-    <?php } ?>
+
 </body>
 <script>
     let currentInput = null;
