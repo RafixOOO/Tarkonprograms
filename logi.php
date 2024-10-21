@@ -9,7 +9,11 @@
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
-<div class="container">
+<?php if(isSidebar()==0){ ?>
+    <div class="container-fluid" style="width:80%;margin-left:16%;">
+    <?php }else if(isSidebar()==1){ ?>
+        <div class="container-fluid" style="width:90%; margin: 0 auto;">
+        <?php } ?>
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
