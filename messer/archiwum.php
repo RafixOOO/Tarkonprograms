@@ -19,7 +19,7 @@ use Pagerfanta\View\TwitterBootstrap4View;
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 <?php if(isSidebar()==0){ ?>
-<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <div class="container-fluid" style="width:80%;margin-left:16%;">
     <?php }else if(isSidebar()==1){ ?>
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>

@@ -199,7 +199,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
   <p></p>
   <?php if (isLoggedIn()) { ?>
     <?php if(isSidebar()==0){ ?>
-<div class="container-fluid" style="width:80%;margin-left:14%;">
+      <div class="container-fluid" style="width:80%;margin-left:16%;">
     <?php }else if(isSidebar()==1){ ?>
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>

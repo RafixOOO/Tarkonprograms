@@ -19,7 +19,7 @@ require_once 'cutlogic.php';
 <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw); width:80%; margin-left: auto; margin-right:auto;">
 
 <?php if(isSidebar()==0){ ?>
-<div class="container-fluid" style="width:80%;margin-left:14%;">
+  <div class="container-fluid" style="width:80%;margin-left:16%;">
     <?php }else if(isSidebar()==1){ ?>
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>

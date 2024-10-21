@@ -141,7 +141,7 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>
-<div class="container-fluid" style="width:80%;margin-left:14%;">
+    <div class="container-fluid" style="width:80%;margin-left:16%;">
     <?php }else if(isSidebar()==1){ ?>
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>
