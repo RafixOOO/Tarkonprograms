@@ -36,6 +36,11 @@
   </thead>
   <tbody>
     <?php 
+
+if(!isUserAdmin()){
+    header("Location: index.php");
+exit();
+}
     
         $sql = "Select * from dbo.Persons";
         $stmt = sqlsrv_query($conn, $sql);
