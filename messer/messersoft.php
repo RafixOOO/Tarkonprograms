@@ -106,8 +106,8 @@ j2.id,
             LEN(JSON_VALUE(j2.msg, '$.PartProgramName'))
         )) - 4
     ) AS PartProgramName,
-    DATEADD(hour, 2, j2.[_internal_timestamp]) AS Starttime,
-        DATEADD(hour, 2, j2.[_internal_endtime]) AS Endtime,
+    DATEADD(hour, 1, j2.[_internal_timestamp]) AS Starttime,
+        DATEADD(hour, 1, j2.[_internal_endtime]) AS Endtime,
     -- Czas trwania dla każdego typu stanu
     ISNULL(
         CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'CUTTING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
@@ -195,8 +195,8 @@ ORDER BY
 SELECT 
     pn.id,
     pn.PartProgramName,
-    DATEADD(hour, 2, pn.[_internal_timestamp]) AS Starttime,
-    DATEADD(hour, 2, pn.[_internal_endtime]) AS Endtime,
+    DATEADD(hour, 1, pn.[_internal_timestamp]) AS Starttime,
+    DATEADD(hour, 1, pn.[_internal_endtime]) AS Endtime,
     ISNULL(
         CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'CUTTING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
         '00:00:00'
@@ -266,8 +266,8 @@ ORDER BY
                 StatusType nvarchar(50) '$.Status.StatusType',
                 Duration float '$.Duration'
             ) AS j
-            WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
-              AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+            WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= '$formattedDate'
+              AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
             GROUP BY j.StatusType
         ),
         TotalDuration AS (
@@ -294,8 +294,8 @@ ORDER BY
         StatusType nvarchar(50) '$.Status.StatusType',
         Duration float '$.Duration'
     ) AS j
-    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= '$formattedDate'
-      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+    WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= '$formattedDate'
+      AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
     GROUP BY j.StatusType
 ),
 TotalDurationBefore15 AS (
@@ -321,8 +321,8 @@ $sqlafter="WITH DurationDataAfter15 AS (
         StatusType nvarchar(50) '$.Status.StatusType',
         Duration float '$.Duration'
     ) AS j
-    WHERE DATEADD(hour, 2, u.[_internal_timestamp]) >= DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
-      AND DATEADD(hour, 2, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+      AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
     GROUP BY j.StatusType
 ),
 TotalDurationAfter15 AS (
@@ -412,9 +412,9 @@ PreviousTimes AS (
         StatusType,
         Duration,
         -- First, add 2 hours using DATEADD, then apply the FORMAT function
-        FORMAT(LAG(DATEADD(HOUR, 2, AdjustedTimestamp), 1, DATEADD(HOUR, 2, _internal_timestamp)) 
+        FORMAT(LAG(DATEADD(HOUR, 1, AdjustedTimestamp), 1, DATEADD(HOUR, 1, _internal_timestamp)) 
                OVER (PARTITION BY _internal_timestamp ORDER BY RowNum), 'yyyy-MM-ddTHH:mm:ss') AS PreviousAdjustedTimestamp,
-        FORMAT(DATEADD(HOUR, 2, AdjustedTimestamp), 'yyyy-MM-ddTHH:mm:ss') AS AdjustedTimestamp
+        FORMAT(DATEADD(HOUR, 1, AdjustedTimestamp), 'yyyy-MM-ddTHH:mm:ss') AS AdjustedTimestamp
     FROM AccumulatedTimes
 )
 SELECT 
