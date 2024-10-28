@@ -633,12 +633,12 @@ WHERE
                                 // Sprawdź, czy wartość jest instancją DateTime
                                 if ($row['time'] instanceof DateTime) {
                                     // Dodaj 2 godziny
-                                    $row['time']->modify('+2 hours');
+                                    $row['time']->modify('+1 hours');
                                     echo $row['time']->format('Y-m-d H:i:s');
                                 } else {
                                     // Jeśli to nie jest DateTime, przekształć to w DateTime i dodaj 2 godziny
                                     $time = new DateTime($row['time']);
-                                    $time->modify('+2 hours');
+                                    $time->modify('+1 hours');
                                     echo $time->format('Y-m-d H:i:s');
                                 }
                             } else {
