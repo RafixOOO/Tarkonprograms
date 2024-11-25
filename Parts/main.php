@@ -160,6 +160,7 @@ if ($row['ilosc'] != 0) {
 ?>"></div>
                                     </div>
                                 <?php } ?>
+                                <?php if(isLoggedIn()) { ?>
                                 <div>
                                     <br />
                                     <?php
@@ -183,8 +184,9 @@ FROM PartCheck.dbo.hrappka_godziny where cr_number='$row1[cr_number]';";
                                     echo "</table>";
                                     echo "</div>";
                                     ?>
-
+<?php } ?>
                                 </div>
+                                
                             </div>
                     </a>
                 </div>
