@@ -96,7 +96,10 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
     echo "<td>".$row['PartID']."</td>";
     echo "<td>".$row['data']->format('Y-m-d H:i:s')."</td>"; // Zakładając, że Date jest typu datetime
     echo "<td>".$row['Persons']."</td>";
-    echo "<td>".(($row['Localization'] == 16) ? "kooperacja" : (($row['Localization'] == 17) ? "zewnątrz" : $row['Localization']))."</td>";
+    echo "<td>".(($row['Localization'] == 16) ? "kooperacja" : 
+            (($row['Localization'] == 17) ? "zewnątrz" : 
+            (($row['Localization'] == 18) ? "Transport" : $row['Localization'])))
+     ."</td>";
     echo "<td>".$row['zuzyte']."</td>";
     echo "<td>".$row['Material']."</td>";
     echo "<td>".$row['Thickness']."</td>";

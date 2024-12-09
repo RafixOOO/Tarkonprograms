@@ -86,6 +86,9 @@ ORDER BY
 
     <?php } ?>
 <div class="table-responsive">
+    <?php if (isUserMesser()) { ?>
+<div style="float:left;"><Button class='btn btn-success' data-bs-toggle="modal" data-bs-target="#ModalAdd">Dodaj</Button></div>
+<?php } ?>
 <?php
 echo "<table class='table table-sm table-hover table-bordered' id='mytable'
                    style='font-size: calc(14px + 0.390625vw)'>";
@@ -121,7 +124,7 @@ while ($row = sqlsrv_fetch_array($datas, SQLSRV_FETCH_ASSOC)) {
 echo "<td>" . round($row['Length'], 2) . "</td>";
 echo "<td>" . round($row['Width'], 2) . "</td>";
      if (isUserMesser()) {
-        echo "<td> <Button class='btn btn-primary btn-sm'>Usuń</Button></td>";
+        echo "<td> <Button class='btn btn-primary'>Transport / Usuń</Button></td>";
     }
     echo "</tr>";
 }
@@ -134,19 +137,62 @@ echo "</table>";
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Usuwanie produktu</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Aktualizowanie produktu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>PartID: <span id="modal-partid"></span></p>
                 <p>Lokalizacja: <span id="modal-localization"></span></p>
                 <p>Ilość: <span id="modal-quantity"></span></p>
-                <label for="quantityToRemove">Wybierz ilość do usunięcia:</label>
-                <input type="number" id="quantityToRemove" name="quantityToRemove" min="0">
+                <p><label for="quantityToRemove">Wybierz ilość:</label>
+                <input type="number" id="quantityToRemove" name="quantityToRemove" min="0" style="width: 100px;"></p>
+                <p><input type="checkbox" id="transport" name="transport">
+                <label for="transport">Transport?</label></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                <button type="button" class="btn btn-primary" onclick="deleteItems()">Usuń</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Anuluj</button>
+                <button type="button" class="btn btn-primary" onclick="deleteItems()">Aktualizuj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dodawanie produktu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <p>Arkusz: <input type="text" id="modal-partid1" name="modal-partid"></p>
+<p>Lokalizacja: 
+    <select id="modal-localization1" name="modal-localization">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="17">Zewnątrz</option>
+        <option value="16">Kooperacja</option>
+    </select>
+</p>
+<p>Ilość: 
+    <input type="number" id="modal-quantity1" name="modal-quantity" min="0">
+</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Anuluj</button>
+                <button type="button" class="btn btn-primary" onclick="addItems()">dodaj</button>
             </div>
         </div>
     </div>
@@ -222,6 +268,9 @@ function deleteItems() {
     var partId = document.getElementById("modal-partid").textContent;
     var localization = document.getElementById("modal-localization").textContent;
 
+    // Pobierz stan checkboxa (czy jest zaznaczony)
+    var isTransportChecked = document.getElementById("transport").checked;
+
     // Wyślij zapytanie AJAX do serwera, aby usunąć odpowiednią ilość produktów
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "delete_items.php", true);
@@ -233,10 +282,53 @@ function deleteItems() {
             location.reload();
         }
     };
-    xhr.send("partId=" + partId + "&localization=" + localization + "&quantityToRemove=" + quantityToRemove);
+
+    // Przygotuj dane do wysłania, uwzględniając stan checkboxa
+    var data = "partId=" + partId + "&localization=" + localization + "&quantityToRemove=" + quantityToRemove + "&transport=" + (isTransportChecked ? "1" : "0");
+
+    // Wysyłanie danych
+    xhr.send(data);
 
     // Zamknij modal po zakończeniu operacji
     var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.hide();
+}
+
+function addItems() {
+    // Pobierz wartości z modalu
+    var partId = document.getElementById("modal-partid1").value;
+    var localization = document.getElementById("modal-localization1").value;
+    var quantity = document.getElementById("modal-quantity1").value;
+
+    // Debugowanie: logowanie pobranych wartości
+    console.log("partId: " + partId);
+    console.log("localization: " + localization);
+    console.log("quantity: " + quantity);
+
+    // Sprawdź, czy dane są poprawne
+    if (!partId || !localization || !quantity || isNaN(quantity) || quantity <= 0) {
+        alert("Proszę wypełnić wszystkie pola poprawnie.");
+        return;
+    }
+
+    // Wyślij zapytanie AJAX do serwera
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "add_items.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            location.reload(); // Odświeżenie strony po zakończeniu operacji
+        }
+    };
+
+    // Przesyłanie danych do serwera
+    xhr.send("partId=" + encodeURIComponent(partId) + 
+             "&localization=" + encodeURIComponent(localization) + 
+             "&quantityToRemove=" + encodeURIComponent(quantity));
+
+    // Zamknij modal po zakończeniu operacji
+    var myModal = new bootstrap.Modal(document.getElementById('ModalAdd'));
     myModal.hide();
 }
 </script>
