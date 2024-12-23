@@ -144,7 +144,7 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
   $(document).ready(function(){
     $(".btn-sidebar").click(function(){
       $.ajax({
-        url: "sidebar.php", // Ścieżka do pliku PHP
+        url: "../sidebar.php", // Ścieżka do pliku PHP
         type: "POST", // Wysyłamy żądanie POST
         data: { status: "nowyStatus" }, // Możesz przekazać dowolne dane, np. status
         success: function(response){
