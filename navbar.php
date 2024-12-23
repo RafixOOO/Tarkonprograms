@@ -1,7 +1,63 @@
+<?php
+// Pobierz pełny URL
+$currentUrl = $_SERVER['REQUEST_URI'];  // np. '/programs/Tarkonprograms/zarzadzaj.php'
+
+// Zdefiniuj podstawowy breadcrumb (strona główna)
+$breadcrumb = [
+    'Strona główna' => '/programs/Tarkonprograms/index.php',  // Strona główna
+];
+
+// Usuń część '/programs/Tarkonprograms/' z URL, aby uzyskać resztę ścieżki
+$relativeUrl = str_replace('/programs/Tarkonprograms/', '', $currentUrl);
+
+// Jeśli ścieżka nie jest pusta i nie jesteśmy na stronie głównej
+if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
+    // Podziel resztę ścieżki na segmenty
+    $segments = explode('/', $relativeUrl);
+    $path = '/programs/Tarkonprograms';  // Ścieżka do katalogu "programs/Tarkonprograms"
+
+    // Tworzenie breadcrumb dla pozostałych segmentów URL
+    foreach ($segments as $segment) {
+        // Jeśli segment zawiera '.php', usuń rozszerzenie '.php' i dodaj link
+        if (strpos($segment, '.php') !== false) {
+            $segment = str_replace('.php', '', $segment);
+            $path .= '/' . $segment;
+            $breadcrumb[ucwords(str_replace('-', ' ', $segment))] = $path;
+        } else {
+            // Jeśli to folder (bez '.php'), dodaj go do breadcrumb bez linku
+            $path .= '/' . $segment;
+            $breadcrumb[ucwords(str_replace('-', ' ', $segment))] = $path;
+        }
+    }
+}
+?>
+
+
 <div class="main-header">
 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="margin-top: 0;">
 
 <div class="container-fluid">
+<ul class="navbar-nav topbar-nav ms-md-auto align-items-left">
+<li class="nav-item max-auto">
+    <ol class="breadcrumb">
+    <?php
+    foreach ($breadcrumb as $label => $url) {
+        // Sprawdzamy, czy to ostatni element i nie robimy linku dla niego
+        if ($url == end($breadcrumb)) {
+            echo '<li class="breadcrumb-item active" aria-current="page">' . $label . '</li>';
+        } else {
+            // Dodaj link tylko jeśli to plik .php
+            if (strpos($url, '.php') !== false) {
+                echo '<li class="breadcrumb-item"><a href="' . $url . '">' . $label . '</a></li>';
+            } else {
+                echo '<li class="breadcrumb-item">' . $label . '</li>';
+            }
+        }
+    }
+    ?>
+</ol>
+</li>
+</ul>
 
     <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
     <?php if(isUserAdmin()) { ?>
