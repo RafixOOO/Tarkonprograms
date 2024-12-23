@@ -113,21 +113,21 @@
             <div class="collapse" id="sidebarLayouts">
               <ul class="nav nav-collapse">
                 <li>
-                  <a href="main.php">
+                  <a href="../messer/main.php">
                     <span class="sub-item">Programy</span>
                   </a>
                 </li>
                 <li>
-                  <a href="wykonane.php">
+                  <a href="../messer/wykonane.php">
                     <span class="sub-item">Zakończone Programy</span>
                   </a>
                 </li>
                 <li>
-                  <a href="archiwum.php">
+                  <a href="../messer/archiwum.php">
                     <span class="sub-item">Programy Archiwum </span>
                   </a>
                 <li>
-                  <a href="messersoft.php">
+                  <a href="../messer/messersoft.php">
                     <span class="sub-item">Messer Soft</span>
                   </a>
                 </li>
@@ -143,12 +143,12 @@
             <div class="collapse" id="sidebarLayouts1">
               <ul class="nav nav-collapse">
               <li>
-                  <a href="../magazyn/magazyn.php">
+                  <a href="magazyn.php">
                     <span class="sub-item">Lista</span>
                   </a>
                 </li>
                 <li>
-                  <a href="../magazyn/magazynarch.php">
+                  <a href="magazynarch.php">
                     <span class="sub-item">Archiwum</span>
                   </a>
                 </li>

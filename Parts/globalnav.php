@@ -141,12 +141,12 @@
             <div class="collapse" id="sidebarLayouts1">
               <ul class="nav nav-collapse">
               <li>
-                  <a href="../messer/magazyn.php">
+                  <a href="../magazyn//magazyn.php">
                     <span class="sub-item">Lista</span>
                   </a>
                 </li>
                 <li>
-                  <a href="../messer/magazynarch.php">
+                  <a href="../magazyn//magazynarch.php">
                     <span class="sub-item">Archiwum</span>
                   </a>
                 </li>
