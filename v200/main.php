@@ -67,6 +67,8 @@ $sql="";
     <?php include 'globalhead.php'; ?>
 </head>
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>
@@ -75,14 +77,13 @@ $sql="";
         <div class="container-fluid" style="width:90%; margin: 0 auto;">
         <?php } ?>
 <form method="get" action="">
-          <div class="input-group">
-            <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>"> 
-            <button class="btn btn-primary" type="submit">Szukaj</button>
-          </div>
+            <input type="text" class="form-control form-control" name="keywords" oninput="convertToUppercase(this)" placeholder="<?php echo $projekt; ?>" style="width:20%;float:left;"> 
+            <button class="btn btn-primary" type="submit" style="float:left;">Szukaj</button>
+            <div style="clear:both;"></div>
 </form>
 <br />
 <div class="table-responsive">
-            <table class="table table-sm table-hover table-striped table-bordered" id="mytable">
+            <table class="table table-xl table-hover table-striped" id="mytable">
   <thead>
     <tr>
       <th scope="col">Projekt</th>

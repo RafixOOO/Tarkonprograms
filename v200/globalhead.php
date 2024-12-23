@@ -28,6 +28,9 @@
 });
 </script>
 <style>
+    .darkmode-background{
+  background-color: #f8f9fd !important;
+}
 #button-container {
       position: fixed;
       top: 0;

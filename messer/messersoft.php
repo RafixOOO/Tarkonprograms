@@ -64,6 +64,8 @@ require_once '../auth.php';
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
 <?php if(isSidebar()==0){ ?>
     <div class="container-fluid" style="width:80%;margin-left:16%;">
     <?php }else if(isSidebar()==1){ ?>
@@ -543,7 +545,7 @@ $jsonData = json_encode($dataresult1);
                 <label for="selected_date">Wybierz datę:</label>
                 <input type="date" id="selected_date" name="selected_date" value="<?php echo htmlspecialchars($formattedDate); ?>" onchange="submitForm()" required>            
             </form>
-            <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
+            <table class="table table-xl table-hover table-striped" id="mytable"
                 style="font-size: calc(9px + 0.390625vw)">
                 <thead>
                     <th>Program<br />

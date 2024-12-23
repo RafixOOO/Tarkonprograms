@@ -15,4 +15,5 @@ return array(
     'Pagerfanta\\Doctrine\\DBAL\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/DBAL'),
     'Pagerfanta\\Doctrine\\Collections\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/Collections'),
     'Pagerfanta\\' => array($vendorDir . '/pagerfanta/pagerfanta/lib/Core'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

@@ -28,7 +28,7 @@ require_once 'cutlogic.php';
       <div class="container-fluid" style="margin-left:auto;margin-right:auto;">
 
       <?php } ?>
-      <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
+      <table id="myTable" class="table table-xl table-hover table-striped" style="font-size: calc(9px + 0.390625vw)">
 <thead>
   <tr>
     <th scope="col">ItemName</th>

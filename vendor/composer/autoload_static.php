@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit0e93a6dc11500911e52fa6090cb3e24a
 {
+    public static $files = array (
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
@@ -18,6 +22,7 @@ class ComposerStaticInit0e93a6dc11500911e52fa6090cb3e24a
             'Pagerfanta\\Doctrine\\DBAL\\' => 25,
             'Pagerfanta\\Doctrine\\Collections\\' => 32,
             'Pagerfanta\\' => 11,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -57,6 +62,10 @@ class ComposerStaticInit0e93a6dc11500911e52fa6090cb3e24a
         'Pagerfanta\\' => 
         array (
             0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Core',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

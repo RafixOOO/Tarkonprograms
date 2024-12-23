@@ -49,78 +49,17 @@
       height: 20%; /* Wysokość klikalnego obszaru (np. 50% wysokości obrazka) */
       cursor: pointer;"></div>
         </a>
-        <?php if(isLoggedIn()) { ?>
-        <button class="btn btn-toggle toggle-sidebar" style="top: 1.04%;
-      left: 0.094%; position:fixed;width:140%;">
-							<i class="gg-menu-right"></i>
-						</button>
-            <?php } ?>
       </div>
       <!-- End Logo Header -->
     </div>
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
-          <li class="nav-section">
-            <span class="sidebar-mini-icon">
-              <i class="fa fa-ellipsis-h"></i>
-            </span>
-            <h4 class="text-section">Profil</h4>
-          </li>
-          <?php if(!isLoggedIn()) { ?>
-          <li class="nav-item">
-            <a href="../login.php">
-              <i class="fa fa-user"></i>
-              <p>Zaloguj się</p>
+        <li class="nav-item">
+            <a href="../index.php">
+              <i class="fa fa-home"></i>
+              <p>Strona główna</p>
             </a>
-          </li>
-          <?php } ?>
-          <?php if(isLoggedIn()) { ?>
-          <li class="nav-item">
-            <a href="../logout.php">
-              <i class="fa fa-user"></i>
-              <p>Wyloguj się</p>
-            </a>
-          </li>
-          <?php } ?>
-          <?php if(isLoggedIn()) { ?>
-          <li class="nav-item">
-            <a data-bs-toggle="collapse" href="#dane">
-              <i class="fa fa-indent"></i>
-              <p><?php echo $_SESSION['imie_nazwisko']; ?></p>
-              <span class="caret"></span>
-            </a>
-            <div class="collapse" id="dane">
-              <ul class="nav nav-collapse">
-                <li>
-                  <a href="../username.php">
-                    <span class="sub-item">Nazwa użytkownika</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../password.php">
-                    <span class="sub-item">Hasło</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <?php } ?>
-          <li class="nav-item">
-            <a data-bs-toggle="collapse" href="#settings">
-              <i class="fa fa-cogs"></i>
-              <p>ustawienia</p>
-              <span class="caret"></span>
-            </a>
-            <div class="collapse" id="settings">
-              <ul class="nav nav-collapse">
-                <li>
-                  <a id="darkModeButton" href="#">
-                    <span class="sub-item" >Tryb ciemny</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
           </li>
         </ul>
         <ul class="nav nav-secondary">
@@ -129,12 +68,6 @@
               <i class="fa fa-ellipsis-h"></i>
             </span>
             <h4 class="text-section">Aplikacje</h4>
-          </li>
-          <li class="nav-item">
-            <a href="../index.php">
-              <i class="fa fa-home"></i>
-              <p>Strona główna</p>
-            </a>
           </li>
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#parts">
@@ -248,28 +181,6 @@
               <p>Punktualnik</p>
             </a>
           </li>
-          <?php if(isUserAdmin()) { ?>
-          <ul class="nav nav-secondary">
-            <li class="nav-section">
-              <span class="sidebar-mini-icon">
-                <i class="fa fa-ellipsis-h"></i>
-              </span>
-              <h4 class="text-section">Panel administracyjny</h4>
-            </li>
-            <li class="nav-item">
-              <a href="../zarzadzaj.php">
-                <i class="fa fa-database"></i>
-                <p>Role</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../logi.php">
-                <i class="fa fa-desktop"></i>
-                <p>Logi systemowe</p>
-              </a>
-            </li>
-          </ul>
-          <?php } ?>
         </ul>
       </div>
     </div>

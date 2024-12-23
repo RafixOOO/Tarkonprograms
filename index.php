@@ -10,7 +10,8 @@ require_once("dashbordssql.php"); ?>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
 
-
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
 <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 

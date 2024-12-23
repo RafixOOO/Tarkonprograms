@@ -11,6 +11,7 @@
 <script src="static/jquery-ui.min.js"></script>
 <script src="static/toastr.min.js"></script>
 <script src="static/jquery-3.6.0.min.js"></script>
+<script src="static/jquery.min.js"></script>
 <script src="static/darkmode-js.min.js"></script>
 <script>
  window.addEventListener('load', function() {
@@ -29,6 +30,9 @@
 });
 </script>
 <style>
+  .darkmode-background{
+  background-color: #f8f9fd !important;
+}
     #button-container {
       position: fixed;
       top: 0;

@@ -10,6 +10,8 @@
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>
@@ -20,7 +22,7 @@
             <div class="table-responsive">
             <a href="dodaj.php" class="btn btn-success float-end">Dodaj</a>
             
-            <table class="table table-sm">
+            <table class="table table-xl table-hover table-striped">
   <thead>
     <tr>
       <th scope="col">Imię i nazwisko</th>

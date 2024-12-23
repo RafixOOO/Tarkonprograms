@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                         <option value="nie znaleziono arkusza">nie znaleziono arkusza</option>
                         <option value="zla jakosc otworow">zła jakośc otworów </option>
                         <option value="zla jakosc faz">zła jakość faz </option>
+                        <option value="brak arkusza">Brak arkusza</option>
                         <option value="inne">inne</option>
                     </select>
                 </div>

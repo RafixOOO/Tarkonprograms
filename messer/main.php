@@ -181,6 +181,10 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 ?>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php if(isLoggedIn()){ ?>
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
+<?php } ?>
   <!-- 2024 Created by: Rafał Pezda-->
   <!-- link: https://github.com/RafixOOO -->
   <?php if (!isLoggedIn()) { ?>
@@ -217,9 +221,9 @@ function czyCiągZawieraLiczbyPHP($ciąg)
       <div>
         <div class="table-responsive">
           <?php if (isLoggedIn()) { ?>
-            <input type="text" id="search" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()" style="float:right;">
+            <input type="text" id="search" class="form-control form-control" placeholder="Wyszukaj w tabeli..." oninput="highlightTableText()" style="float:right; width: 15%">
           <?php } ?>
-          <table class="table table-sm table-hover table-striped table-bordered" id="mytable" style="font-size: calc(14px + 0.390625vw)">
+          <table class="table table-xl table-hover table-striped" id="mytable" style="font-size: calc(14px + 0.390625vw)">
             <thead>
               <th>#</th>
               <th>Nazwa programu</th>

@@ -64,6 +64,8 @@ if ($datas === false) {
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>
@@ -74,7 +76,7 @@ if ($datas === false) {
 
 <div class="table-responsive">
 <?php
-echo "<table class='table table-sm table-hover table-bordered' id='mytable'
+echo "<table class='table table-xl table-hover table-striped' id='mytable'
                 style='font-size: calc(9px + 0.390625vw)'>";
 echo "<thead>";
 echo "<tr><tr>
@@ -118,12 +120,12 @@ echo "</table>";
     <script src="../static/jquery.dataTables.min.js"></script>
     <script src="../static/dataTables.bootstrap5.min.js"></script>
 <script>
-        $(document).ready(function(){
-            $('#mytable').DataTable({
-                paging: true, // Wyłączenie paginacji
-                info: false // Wyłączenie informacji o liczbie rekordów
-            });
-        });
+         $(document).ready(function() {
+    $('#mytable').DataTable({
+        order: [[1, 'asc']], // Domyślne sortowanie
+        ordering: false      // Wyłączenie sortowania przez użytkownika
+    });
+});
 </script>
 
 </html>

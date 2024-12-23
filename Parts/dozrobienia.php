@@ -138,6 +138,10 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
+<?php if(isLoggedIn()){ ?>
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
+<?php } ?>
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>

@@ -31,7 +31,7 @@ if (!isLoggedIn()) {
             <button type="submit" name="submit" class="btn btn-outline-warning text-dark">Wyślij</button>
             <a class="btn btn-outline-warning text-dark" href="main.php" role="button">Wróć</a>
         </form>
-        <table class='table table-sm table-hover table-bordered' id='mytable'>
+        <table class='table table-xl table-hover table-striped' id='mytable'>
             <thead>
                 <tr>
                     <td>Project</td>
@@ -175,12 +175,14 @@ while ($row1 = sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)) {
 <script src="../static/jquery.dataTables.min.js"></script>
     <script src="../static/dataTables.bootstrap5.min.js"></script>
 <script>
-    $(document).ready(function(){
-            $('#mytable').DataTable({
-                paging: true, // Wyłączenie paginacji
-                info: false // Wyłączenie informacji o liczbie rekordów
-            });
-        });
+     $(document).ready(function() {
+    $('#mytable').DataTable({
+        order: [[0, 'asc']], // Domyślne sortowanie
+        ordering: false,
+        paging: false, // Wyłączenie paginacji
+        info: false      // Wyłączenie sortowania przez użytkownika
+    });
+});
 
         function showConfirmation() {
         var form = document.getElementById("myForm");

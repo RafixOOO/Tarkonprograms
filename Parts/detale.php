@@ -276,6 +276,10 @@ $jsonData = json_encode($filteredData);
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php if(isLoggedIn()){ ?>
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
+<?php } ?>
     <!-- 2024 Created by: Rafał Pezda-->
     <!-- link: https://github.com/RafixOOO -->
     <?php if (isLoggedIn()) { ?>
@@ -299,12 +303,12 @@ $jsonData = json_encode($filteredData);
         <div class="mb-3" style="float:right;">
 
             <form id="myForm1" method="get" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
+                <div>
+                    <input style="float:left;width:50%;" type="text" class="form-control form-control-lg" name="keywords" value="<?php echo $keywords; ?>" placeholder="Nazwa..." autofocus>
 
-                    <button class="btn btn-primary" type="submit">Szukaj</button>
+                    <button style="float:left;width:25%;" class="btn btn-primary" type="submit">Szukaj</button>
                     <a href="detale.php">
-                        <button class="btn btn-secondary form-control form-control-lg" type="button">Wyczyść</button>
+                        <button style="float:left;width:25%;" class="btn btn-secondary" type="button">Wyczyść</button>
                     </a>
                     <br /><br />
                 </div>
@@ -380,7 +384,7 @@ $jsonData = json_encode($filteredData);
 
         <div style="clear:both;"></div>
         <div class="table-responsive">
-            <table id="myTable" class="table table-sm table-hover table-striped table-bordered" style="font-size: calc(9px + 0.390625vw)">
+            <table id="myTable" class="table table-xl table-hover table-striped" style="font-size: calc(9px + 0.390625vw)">
 
                 <caption style="caption-side: top;"><?php echo $_SESSION['project_name']; ?></caption>
                 <thead>

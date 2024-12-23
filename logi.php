@@ -7,6 +7,8 @@
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(isSidebar()==0){ ?>
@@ -26,7 +28,7 @@ $logFilePath = 'dziennik.log';
 $logLines = file($logFilePath);
 $logLines = array_reverse($logLines);
 
-echo "<table id='example' class='table table-stripped'>";
+echo "<table id='example' class='table table-xl table-hover table-striped'>";
 echo "<thead><tr>
 <th style='width:15em;'>Data</th>
 <th style='width:15em;'>Użytkownik</th>
@@ -57,9 +59,12 @@ echo "</tbody></table>";
 <script src="static/jquery.dataTables.min.js"></script>
 <script src="static/dataTables.bootstrap5.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $('#example').DataTable();
+    $(document).ready(function() {
+    $('#example').DataTable({
+        order: [[0, 'asc']], // Domyślne sortowanie
+        ordering: false      // Wyłączenie sortowania przez użytkownika
     });
+});
 </script>
 
 </html>

@@ -25,6 +25,10 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 </head>
 
 <body id="colorbox" class="p-3 mb-2 bg-light bg-gradient text-dark" id="error-container">
+<?php if(isLoggedIn()){ ?>
+<?php require_once("navbar.php"); ?>
+<br /><br /><br /><br />
+<?php } ?>
     <!-- 2024 Created by: Rafał Pezda-->
 <!-- link: https://github.com/RafixOOO -->
 <?php if(!isLoggedIn()){ ?>
@@ -56,7 +60,6 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 </div>
 </div>
     <div class="clearfix"></div>
-    <br />
 
     <div>
 
@@ -84,7 +87,7 @@ ORDER BY
 
         ?>
         <div class="table-responsive">
-            <table class="table table-sm table-hover table-striped table-bordered" id="mytable"
+            <table class="table table-xl table-hover table-striped" id="mytable"
                    style="font-size: calc(14px + 0.390625vw)">
                 <thead>
                 <th>Osoba/Powód</th>
