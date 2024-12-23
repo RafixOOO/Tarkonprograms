@@ -143,7 +143,7 @@
             <div class="collapse" id="sidebarLayouts1">
               <ul class="nav nav-collapse">
               <li>
-                  <a href="magazyn.php">
+                  <a href="main.php">
                     <span class="sub-item">Lista</span>
                   </a>
                 </li>
