@@ -109,13 +109,11 @@ ORDER BY
         <div class="mb-3" style="float:right;">
 
             <form id="myForm1" method="get" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="keywords" placeholder="<?php echo $keywords; ?>"
+                    <input type="text" class="form-control" name="keywords" style="float:left;width:65%" placeholder="<?php echo $keywords; ?>"
                            placeholder="Nazwa..." autofocus>
 
-                    <button class="btn btn-primary" type="submit">Szukaj</button>
+                    <button class="btn btn-primary" style="float:left;width:30%" type="submit">Szukaj</button>
                     <br/>
-                </div>
         </div>
         </form>
 
