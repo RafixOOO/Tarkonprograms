@@ -94,14 +94,23 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
                 </div>
             </div>
         </li>
-        <?php } ?>
+        <?php } 
+        ?>
         <li class="nav-item topbar-user dropdown hidden-caret">
         <a class="dropdown-toggle profile-pic" 
    data-bs-toggle="<?php echo isLoggedIn() ? 'dropdown' : ''; ?>"
    href="<?php echo isLoggedIn() ? '#' : 'login.php'; ?>" 
    aria-expanded="false">
-    <div class="avatar-sm">
-        <i class="fa fa-user" style="font-size: 2.5em;"></i>
+    <div class="avatar-sm" style="width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4CAF50; /* Kolor tła */
+    color: #FFFFFF; /* Kolor tekstu */
+    font-size: 20px;
+    border-radius: 50%; /* Okrągły kształt */
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;"><?php echo strtoupper($_SESSION['imie_nazwisko'][0]); ?>
     </div>
     <span class="profile-username">
         <?php if(isLoggedIn()) { ?>
@@ -112,12 +121,23 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
     </span>
 </a>
 
-<?php if(isLoggedIn()) { ?>
+<?php if(isLoggedIn()) { 
+    
+    ?>
     <ul class="dropdown-menu dropdown-user animated fadeIn">
         <div class="dropdown-user-scroll scrollbar-outer">
             <li>
                 <div class="user-box">
-                    <div class="avatar-lg"><i class="fa fa-user fa-4x"></i></div>
+                    <div class="avatar-lg" style="width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4CAF50; /* Kolor tła */
+    color: #FFFFFF; /* Kolor tekstu */
+    font-size: 30px;
+    border-radius: 50%; /* Okrągły kształt */
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;"><?php echo strtoupper($_SESSION['imie_nazwisko'][0]); ?></div>
                     <div class="u-text">
                         <h4><?php echo $_SESSION['imie_nazwisko']; ?></h4>
                         <p class="text-muted"><?php echo $_SESSION['username']; ?></p>
