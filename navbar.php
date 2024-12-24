@@ -1,6 +1,6 @@
 <?php
-// Pobierz pełny URL
-$currentUrl = $_SERVER['REQUEST_URI'];  // np. '/programs/Tarkonprograms/zarzadzaj.php'
+// Pobierz pełny URL i usuń część z parametrami po znaku '?'
+$currentUrl = strtok($_SERVER['REQUEST_URI'], '?');  // np. '/programs/Tarkonprograms/zarzadzaj.php'
 
 // Zdefiniuj podstawowy breadcrumb (strona główna)
 $breadcrumb = [
