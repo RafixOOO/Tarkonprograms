@@ -110,7 +110,13 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
     font-size: 20px;
     border-radius: 50%; /* Okrągły kształt */
     font-family: Arial, sans-serif;
-    text-transform: uppercase;"><?php echo strtoupper($_SESSION['imie_nazwisko'][0]); ?>
+    text-transform: uppercase;"><?php 
+if (!empty($_SESSION['imie_nazwisko']) && isset($_SESSION['imie_nazwisko'][0])) {
+    echo strtoupper($_SESSION['imie_nazwisko'][0]);
+} else {
+    echo "U";
+}
+?>
     </div>
     <span class="profile-username">
         <?php if(isLoggedIn()) { ?>
@@ -137,7 +143,13 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
     font-size: 30px;
     border-radius: 50%; /* Okrągły kształt */
     font-family: Arial, sans-serif;
-    text-transform: uppercase;"><?php echo strtoupper($_SESSION['imie_nazwisko'][0]); ?></div>
+    text-transform: uppercase;"><?php 
+if (!empty($_SESSION['imie_nazwisko']) && isset($_SESSION['imie_nazwisko'][0])) {
+    echo strtoupper($_SESSION['imie_nazwisko'][0]);
+} else {
+    echo "U";
+}
+?></div>
                     <div class="u-text">
                         <h4><?php echo $_SESSION['imie_nazwisko']; ?></h4>
                         <p class="text-muted"><?php echo $_SESSION['username']; ?></p>

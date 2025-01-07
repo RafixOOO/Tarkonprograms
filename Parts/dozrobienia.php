@@ -151,11 +151,10 @@ while ($data = sqlsrv_fetch_array($datasmesser, SQLSRV_FETCH_ASSOC)) {
         <?php } ?>
     <form method="get" action="">
             <input type="text" class="form-control" name="keywords" oninput="convertToUppercase(this)"
-              placeholder="<?php echo !empty($projekt) ? $projekt : 'Nazwa...'; ?>" style="font-size: 150%; float:left;width:65%;" autofocus>
-            <button class="btn btn-primary" type="submit" style="font-size: 150%;">Szukaj</button>
-            <?php if(!isLoggedIn()) { ?><a href="detale.php"><button class="btn btn-secondary" type="button" style="font-size: 150%;float:left;width:65%;">Detale</button></a><?php } ?>
-
-      <div id="toggleButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
+              placeholder="<?php echo !empty($projekt) ? $projekt : 'Nazwa...'; ?>" style="font-size: 150%; float:left;width:40%;" autofocus>
+              <button class="btn btn-primary" type="submit" style="font-size: 150%;float:left; width:8%">Szukaj</button>
+            <?php if(!isLoggedIn()) { ?><a href="detale.php"><button class="btn btn-secondary" type="button" style="font-size: 150%;float:left;width:8%;">Detale</button></a><?php } ?>
+      <div id="toggleButtons" class="btn-group btn-group-toggle" data-toggle="buttons"> 
         <label class="btn btn-info btn-lg <?php if ($myVariable == 'Zespol') echo 'active'; ?>">
           <input type="radio" name="toggleButtons" id="assemblyRadio" value="Zespol" autocomplete="off" <?php if ($myVariable == 'Zespol') echo 'checked'; ?>> Zespół
         </label>
