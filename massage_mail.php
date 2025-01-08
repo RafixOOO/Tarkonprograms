@@ -117,6 +117,8 @@ $mail->Port = 587;                                      //TCP port to connect to
 
 //$email = $row['usr_email'];
 $mail->clearAddresses();
+$mail->clearCCs();
+$mail->clearBCCs();
 $email = $row['usr_email'];
 $mail->addAddress($email);
 
@@ -209,8 +211,9 @@ if($row['cta_last_update_time']==''){
         <tr>
             <td class="content">
                 Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
-                Do twojego projektu o nr '.$row['projekt'].' została dodana nowa faktura o nr '.$row['numer_zewnetrzny'].'.<br>
+                Do twojego projektu o nr '.$row['projekt'].' została dodana nowa faktura o nr <a href="'.$row['link_url'].'">'.$row['numer_zewnetrzny'].'</a>.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
+                Nazwa dostawcy: '.$row['nazwa_dostawcy'].'<br>
                 Data wystawienia: '.$row['data_wystawienia'].'<br><br>
                 Faktura jest dostępna w linku na dole.
             </td>
@@ -304,8 +307,9 @@ if($row['cta_last_update_time']==''){
         <tr>
             <td class="content">
                 Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
-                Do twojego projektu o nr '.$row['projekt'].' została zaktualizowana faktura o nr '.$row['numer_zewnetrzny'].'.<br>
+                Do twojego projektu o nr '.$row['projekt'].' została zaktualizowana faktura o nr <a href="'.$row['link_url'].'">'.$row['numer_zewnetrzny'].'</a>.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
+                Nazwa dostawcy: '.$row['nazwa_dostawcy'].'<br>
                 Data wystawienia: '.$row['data_wystawienia'].'<br><br>
                 Faktura jest dostępna w linku na dole.
             </td>
