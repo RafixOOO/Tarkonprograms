@@ -116,7 +116,8 @@ $mail->Port = 587;                                      //TCP port to connect to
     
 
 //$email = $row['usr_email'];
-$email = $row['u2.usr_email'];
+$mail->clearAddresses();
+$email = $row['usr_email'];
 $mail->addAddress($email);
 
     //Attachments
@@ -208,7 +209,7 @@ if($row['cta_last_update_time']==''){
         <tr>
             <td class="content">
                 Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
-                Do twojego projektu o nr '.$row['projekt'].' została dodana nowa faktura o nr '.$row['cci_number'].'.<br>
+                Do twojego projektu o nr '.$row['projekt'].' została dodana nowa faktura o nr '.$row['numer_zewnetrzny'].'.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
                 Data wystawienia: '.$row['data_wystawienia'].'<br><br>
                 Faktura jest dostępna w linku na dole.
@@ -303,7 +304,7 @@ if($row['cta_last_update_time']==''){
         <tr>
             <td class="content">
                 Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
-                Do twojego projektu o nr '.$row['projekt'].' została zaktualizowana faktura o nr '.$row['cci_number'].'.<br>
+                Do twojego projektu o nr '.$row['projekt'].' została zaktualizowana faktura o nr '.$row['numer_zewnetrzny'].'.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
                 Data wystawienia: '.$row['data_wystawienia'].'<br><br>
                 Faktura jest dostępna w linku na dole.
