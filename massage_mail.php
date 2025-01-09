@@ -60,6 +60,7 @@ $sqlcreate = "SELECT
     u2.usr_name AS Imie_nazwisko_opiekuna_proj, -- Dodanie kolumny zawierającej pełne imię i nazwisko opiekuna projektu
 	u2.usr_email,
     CONCAT(REPLACE(cast(f_path AS text), '/var/www/hrappka/public', 'http://hrappka.budhrd.eu'), f_name) AS Link_url,
+    u1.usr_email as email_operator,
     u1.usr_name AS Operator_name -- Użycie aliasu, aby jednoznacznie wskazać operatora
 FROM public.cost_allocation
 INNER JOIN public.company_contractor_invoices fak ON cci_id = cta_invoice_fkey
@@ -119,7 +120,7 @@ $mail->Port = 587;                                      //TCP port to connect to
 $mail->clearAddresses();
 $mail->clearCCs();
 $mail->clearBCCs();
-$email = $row['usr_email'];
+$email = $row['email_operator'];
 $mail->addAddress($email);
 
     //Attachments
@@ -210,7 +211,7 @@ if($row['cta_last_update_time']==''){
         <!-- Treść wiadomości -->
         <tr>
             <td class="content">
-                Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
+                Cześć '.$row['operator_name'].',
                 Do twojego projektu o nr '.$row['projekt'].' została dodana nowa faktura o nr <a href="'.$row['link_url'].'">'.$row['numer_zewnetrzny'].'</a>.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
                 Nazwa dostawcy: '.$row['nazwa_dostawcy'].'<br>
@@ -306,7 +307,7 @@ if($row['cta_last_update_time']==''){
         <!-- Treść wiadomości -->
         <tr>
             <td class="content">
-                Cześć '.$row['imie_nazwisko_opiekuna_proj'].',
+                Cześć '.$row['operator_name'].',
                 Do twojego projektu o nr '.$row['projekt'].' została zaktualizowana faktura o nr <a href="'.$row['link_url'].'">'.$row['numer_zewnetrzny'].'</a>.<br>
                 Kwota dodana do projektu, to '.$row['koszt_w_proj'].' '.$row['waluta'].' <br>
                 Nazwa dostawcy: '.$row['nazwa_dostawcy'].'<br>
