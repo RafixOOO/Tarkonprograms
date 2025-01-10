@@ -68,13 +68,13 @@ ORDER BY
 <?php if(!isLoggedIn()){ ?>
 <ul class="nav nav-pills nav-primary" style="margin-left:auto;margin-right:auto;">
                       <li class="nav-item">
-                        <a class="nav-link" href="main.php">Programy</a>
+                        <a class="nav-link" href="../messer/main.php">Programy</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
+                        <a class="nav-link" href="../messer/wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
+                        <a class="nav-link active" href="main.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
                       </li>
                     </ul>
                     <?php } ?>

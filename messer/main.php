@@ -196,7 +196,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
         <a class="nav-link" href="wykonane.php" onclick="localStorage.removeItem('numbermesser')">Zakończone programy</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="magazyn.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
+        <a class="nav-link" href="../magazyn/main.php" onclick="localStorage.removeItem('numbermesser')">Magazyn</a>
       </li>
     </ul>
   <?php } ?>
