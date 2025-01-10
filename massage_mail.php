@@ -57,21 +57,19 @@ $sqlcreate = "SELECT
     cr_number AS Projekt,
     cr_name AS nazwa_proj,
     proj.cr_operator_fkey, -- Dodanie klucza cr_operator_fkey
-    u2.usr_name AS Imie_nazwisko_opiekuna_proj, -- Dodanie kolumny zawierającej pełne imię i nazwisko opiekuna projektu
-	u2.usr_email,
     CONCAT(REPLACE(cast(f_path AS text), '/var/www/hrappka/public', 'http://hrappka.budhrd.eu'), f_name) AS Link_url,
-    u1.usr_email as email_operator,
-    u1.usr_name AS Operator_name -- Użycie aliasu, aby jednoznacznie wskazać operatora
+    u2.usr_email as email_operator,
+    u2.usr_name AS Operator_name
 FROM public.cost_allocation
 INNER JOIN public.company_contractor_invoices fak ON cci_id = cta_invoice_fkey
 INNER JOIN public.company_contractor_requests proj ON cr_id = cta_project_fkey
-INNER JOIN public.users u1 ON u1.usr_id = cta_operator_fkey -- Alias dla głównego INNER JOIN
-LEFT JOIN public.users u2 ON u2.usr_id = proj.cr_operator_fkey -- Połączenie dla Imie_nazwisko_opiekuna_proj
+inner join public.company_accountants_map cam on cam.cam_entity_fkey = proj.cr_id and cam.cam_entity_type ='contractors-requests'
+LEFT JOIN public.users u2 ON u2.usr_id = cam.cam_accountant_entity_fkey and cam.cam_accountant_entity_type = 'user' -- Połączenie dla Imie_nazwisko_opiekuna_proj
 LEFT JOIN public.files files ON f_entity_fkey = cta_invoice_fkey
 WHERE files.f_deleted IS FALSE 
   AND f_entity_type = 'invoice-printout' 
   AND cta_deleted IS FALSE 
-  AND (cta_creation_time > :date or cta_last_update_time > :date)
+  AND (cta_creation_time > :date or cta_last_update_time > :date) and cam.cam_deleted = false
 ORDER BY cci_id DESC;";
 
 $stmt = $pdo->prepare($sqlcreate);
