@@ -257,7 +257,7 @@ function czyCiągZawieraLiczbyPHP($ciąg)
               ?>
                   <?php if (isLoggedIn()) { ?>
 
-                    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></tr>
+                    <tr id="<?php echo $data['ArchivePacketID'] ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 
                   <?php } else { ?>
 
