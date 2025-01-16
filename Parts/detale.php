@@ -24,7 +24,7 @@ $filesToLoad = [
     'inne' => 'othersql.php',
     'messer' => 'messer.php',
     'v630' => 'v630.php',
-    'all' => ['cutlogicsql.php','messer.php','v630.php'],
+    'all' => ['cutlogicsql.php','messer.php','v630.php','other.sql'],
 ];
 
 $filteredData = [];
@@ -496,7 +496,7 @@ $jsonData = json_encode($filteredData);
 
                     <?php if (!isUserParts()) { ?>
                         <?php if (!isUserPartsKier()) { ?>
-                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'main.php';" class="btn btn-warning btn-lg">Wyjdź
+                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg">Wyjdź
                             </button>
                         <?php } ?>
                         <?php if (isUserPartsKier()) { ?>
@@ -918,8 +918,7 @@ $jsonData = json_encode($filteredData);
                 } else {
                     localStorage.removeItem('number1');
                     localStorage.removeItem('czas');
-                    location.reload();
-                }
+                    window.location.href = 'panel.php';                }
             }
 
             changeColor(); // Wywołaj funkcję changeColor() po załadowaniu strony
@@ -954,12 +953,13 @@ $jsonData = json_encode($filteredData);
 
             } else {
                 // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
-                $('#user-modal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $('#user-modal').modal('show');
-                $('#user-number').focus();
+                //$('#user-modal').modal({
+                   // backdrop: 'static',
+                   // keyboard: false
+               // });
+                //$('#user-modal').modal('show');
+                //$('#user-number').focus();
+                window.location.href = 'panel.php';
 
 
                 $('#user-modal').on('shown.bs.modal', function() {

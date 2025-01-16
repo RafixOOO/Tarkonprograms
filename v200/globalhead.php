@@ -11,6 +11,8 @@
 <script src="../blad.js"></script>
 <script src="../static/darkmode-js.min.js"></script>
 <link rel="shortcut icon" href="../static/clipboard-data.svg">
+<script src="../blad.js"></script>
+<?php if(isLoggedIn()){ ?>
 <script>
  window.addEventListener('load', function() {
   var darkModeButton = document.getElementById('darkModeButton');
@@ -27,6 +29,7 @@
   }
 });
 </script>
+<?php } ?>
 <style>
     .darkmode-background{
   background-color: #f8f9fd !important;

@@ -36,21 +36,39 @@ $stmt = $pdo->query($sql);
     require_once('globalhead.php');
     ?>
     <meta charset="utf-8" />
+    <style>
+        .verticalrotate {
+            position: fixed;
+            bottom: 50%;
+            left: 84.5%;
+            width: 30%;
+            transform: rotate(-90deg);
+        }
+    </style>
+    <?php if(!isLoggedIn()){ ?>
+    <script>
+        // Sprawdzenie localStorage przed załadowaniem strony
+        const number1 = localStorage.getItem('number1');
+        if (!number1) {
+            // Jeśli dane są puste, przekierowanie na inną stronę
+            window.location.href = 'panel.php'; // Podaj adres strony błędu lub logowania
+        }
+    </script>
+    <?php } ?>
 </head>
 
 <body class="p-3 mb-2 bg-light bg-gradient text-dark" style="max-height:800px;" id="error-container">
+<?php if (!isLoggedIn()) { ?>
+            <div class="progress verticalrotate">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="time"></div>
+            </div>
+        <?php } ?>
 <?php if(isLoggedIn()){ ?>
 <?php require_once("navbar.php"); ?>
 <br /><br /><br /><br />
 <?php } ?>
     <!-- 2024 Created by: Rafał Pezda-->
     <!-- link: https://github.com/RafixOOO -->
-     <?php if(!isLoggedIn()) {?>
-     <div style="text-align: left;
-            padding: 10px;">
-    <a href="hrappka.php" class="btn btn-secondary btn-lg" >HRAPPKA</a>
-    <?php } ?>
-    </div>
     <?php if (isLoggedIn()) { ?>
     <?php if(isSidebar()==0){ ?>
         <div class="container-fluid" style="width:80%;margin-left:16%;">
@@ -195,6 +213,15 @@ FROM PartCheck.dbo.hrappka_godziny where cr_number='$row1[cr_number]';";
                     </a>
                 </div>
             <?php  } ?>
+            <?php if (!isUserParts()) { ?>
+                        <?php if (!isUserPartsKier()) { ?>
+                            <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
+                <div class="btn-group me-2 " role="group" aria-label="First group"></div>
+                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg">Wyjdź
+                            </button>
+                            </div></div>
+                        <?php } ?>
+                        <?php } ?>
         </div>
     </div>
 
@@ -222,5 +249,39 @@ FROM PartCheck.dbo.hrappka_godziny where cr_number='$row1[cr_number]';";
         <?php require_once('globalnav.php'); ?>
     <?php } ?>
 </body>
+<?php if (!isUserPartskier() and !isLoggedIn()) { ?>
+    <script>
+        var stored = localStorage.getItem('number1');
+        if (stored !== null) {
+            var colorButton = document.getElementById('time');
+            var percent = 0;
+
+            function changeColor() {
+                percent += 0.1;
+                colorButton.style.width = `${percent}%`;
+
+                if (percent < 100) {
+                    setTimeout(changeColor, 200); // Powtórz co 1 sekundę (1000 milisekund)
+                    localStorage.setItem('czas', percent);
+                } else {
+                    localStorage.removeItem('number1');
+                    localStorage.removeItem('czas');
+                    window.location.href = 'panel.php';
+                }
+            }
+
+            changeColor(); // Wywołaj funkcję changeColor() po załadowaniu strony
+        }
+
+        setTimeout(changeColor, 5000);
+
+        setTimeout(changeColor, 1000); // Rozpocznij po 5 sekundach
+
+        function sendcheck() {
+            usernumber = document.getElementById('user-number');
+            sendForm(userNumber);
+        }
+    </script>
+<?php } ?>
 
 </html>

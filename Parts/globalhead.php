@@ -15,6 +15,8 @@
 <link href="../static/chosen.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/plugins.min.css"/>
 <link rel="stylesheet" href="../assets/css/kaiadmin.min.css"/>
+<script src="../blad.js"></script>
+<?php if(isLoggedIn()){ ?>
 <script>
  window.addEventListener('load', function() {
   var darkModeButton = document.getElementById('darkModeButton');
@@ -31,6 +33,7 @@
   }
 });
 </script>
+<?php } ?>
 <?php if(!isLoggedIn()) { ?>
     <style>
          /* Dla przeglądarek WebKit (Chrome, Safari) */
