@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__ . '/../../vendor/autoload.php';
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -19,7 +19,6 @@ try {
 } catch (PDOException $e) {
     echo "Błąd połączenia z bazą danych: " . $e->getMessage();
 }
-require 'vendor/autoload.php';
 
 $now = new DateTime();
 

@@ -137,7 +137,7 @@ require_once("dbconnect.php");
         }
 
         // Uruchamianie zmiany co 3 sekundy
-        setInterval(changePlaceholder, 2000);
+        setInterval(changePlaceholder, 1500);
 
         // Automatyczne ustawianie focusu na polu input przy każdym kliknięciu na stronie
         document.body.addEventListener('click', () => {
