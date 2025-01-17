@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $maszyna = $_POST["maszyna"];
     $wykonawca = $_POST["numer"];
     $status;
-      require_once("dbconnect.php");
+    require_once("../dbconnect.php");
+
       $osoba;
       $sql = "SELECT imie_nazwisko FROM dbo.Persons WHERE identyfikator = $wykonawca";
       $result = sqlsrv_query($conn, $sql);
@@ -40,7 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $import=$_POST["import"];
         
-        require_once("dbconnect.php");
+      require_once("../dbconnect.php");
+
         try{
 
         $sqldelete = "DELETE FROM [dbo].[Parts]

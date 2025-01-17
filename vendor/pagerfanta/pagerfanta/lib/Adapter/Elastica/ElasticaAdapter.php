@@ -3,6 +3,7 @@
 namespace Pagerfanta\Elastica;
 
 use Elastica\Query;
+use Elastica\Result;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -11,21 +12,20 @@ use Pagerfanta\Exception\NotValidResultCountException;
 /**
  * Adapter which calculates pagination from an Elastica Query.
  *
- * @template T
- *
- * @implements AdapterInterface<T>
+ * @implements AdapterInterface<Result>
  */
 class ElasticaAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private readonly ?int $maxResults;
 
     private ?ResultSet $resultSet = null;
 
     /**
-     * @param int|null $maxResults Limit the number of totalHits returned by ElasticSearch; see https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     * @param array<string, mixed> $options
+     * @param int|null             $maxResults Limit the number of totalHits returned by ElasticSearch; see https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
      *
      * @throws NotValidResultCountException if the maximum number of results is less than zero
      */
@@ -53,7 +53,7 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -67,10 +67,10 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
-     * @return iterable<array-key, T>
+     * @return iterable<int, Result>
      */
     public function getSlice(int $offset, int $length): iterable
     {

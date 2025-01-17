@@ -1,7 +1,8 @@
 <?php
 require_once('../auth.php');
 
-require_once("dbconnect.php");
+require_once("../dbconnect.php");
+
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $comment = "";
     $id = "";

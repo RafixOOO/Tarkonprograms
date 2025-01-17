@@ -1,5 +1,5 @@
 <?php
-require 'vendor\autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 require_once('../auth.php');
 
@@ -43,7 +43,8 @@ if (!isLoggedIn()) {
 
             <tbody>
                 <?php
-                require_once('dbconnect.php');
+                require_once("../dbconnect.php");
+
                 $sql = "SELECT Projekt, count(Pozycja) as Pozycja ,Id_import
 FROM PartCheck.dbo.Parts
 group by Projekt, Id_import

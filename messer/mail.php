@@ -1,13 +1,15 @@
 <?php
 
 //These must be at the top of your script, not inside a function
+require __DIR__ . '/../vendor/autoload.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require_once 'dbconnect.php';
-require 'vendor/autoload.php';
+require_once("../dbconnect.php");
+
 
 $comment = $_POST['comment'];
 $numbermesser = $_POST['numbermesser'];

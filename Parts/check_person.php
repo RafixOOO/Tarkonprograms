@@ -1,6 +1,7 @@
 <?php 
 
-require_once("dbconnect.php");
+require_once("../dbconnect.php");
+
 
 $userNumber = $_POST['number'];
 $sql = "SELECT * FROM dbo.PersonsID pid inner join dbo.Persons p on p.Id = pid.PersonsID WHERE pid.identyfikator = ?";

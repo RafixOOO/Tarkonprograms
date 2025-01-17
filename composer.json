@@ -1,6 +1,9 @@
 {
     "require": {
         "pagerfanta/pagerfanta": "^4.1" ,
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "ext-sqlsrv": "*",
+        "ext-gd": "*",
+        "ext-json": "*"
     }
 }

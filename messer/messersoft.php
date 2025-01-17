@@ -92,7 +92,8 @@ require_once '../auth.php';
                 $formattedDate = date('Y-m-d');
             }
         }
-        require_once("dbconnect.php");
+        require_once("../dbconnect.php");
+
         if($searchQuery==""){
         $sql = "SELECT 
 j2.id,

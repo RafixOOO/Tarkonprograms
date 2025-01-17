@@ -2,7 +2,8 @@
 
 <?php
 
-require_once("dbconnect.php");
+require_once("../dbconnect.php");
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,6 +1,6 @@
 <?php require_once '../auth.php'; ?>
 <?php
-require_once("dbconnect.php");
+require_once("../dbconnect.php");
 $projekt=isset($_GET['keywords']) ? $_GET['keywords'] : '';
 if(empty($projekt)){
 

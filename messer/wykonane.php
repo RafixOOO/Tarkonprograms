@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <?php require_once '../auth.php'; ?>
 <?php
 
@@ -63,7 +63,8 @@ function czyCiągZawieraLiczbyPHP($ciąg)
 
     <div>
 
-        <?php require_once('dbconnect.php');
+        <?php require_once("../dbconnect.php");
+
         $sql = "SELECT[ProgramName]
         ,[ArchivePacketID]
         ,[SheetName]

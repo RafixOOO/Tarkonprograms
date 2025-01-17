@@ -1,7 +1,8 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-require_once('dbconnect.php');
+    require_once("../dbconnect.php");
+
 $message = $_POST['message'];
 $user= $_POST['user'];
 $currentDateTime = date('Y-m-d H:i:s');

@@ -2,7 +2,8 @@
 // Sprawdź, czy żądanie jest typu POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Połącz się z bazą danych
-    require_once("dbconnect.php");
+    require_once("../dbconnect.php");
+
 
     // Pobierz dane przesłane za pomocą POST
     $partId = $_POST['partId'];

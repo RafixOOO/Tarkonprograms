@@ -1,5 +1,6 @@
 <?php
-require_once('dbconnect.php');
+require_once("../dbconnect.php");
+
 
 // Sprawdź, czy przesłano zmienną rowId
 if (isset($_POST['rowId'])) {

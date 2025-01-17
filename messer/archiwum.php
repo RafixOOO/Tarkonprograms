@@ -2,7 +2,7 @@
 <html lang="en">
 <?php require_once '../auth.php'; ?>
 <?php
-require_once 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -33,7 +33,8 @@ use Pagerfanta\View\TwitterBootstrap4View;
       <?php } ?>
 
         <?php
-        require_once('dbconnect.php');
+        require_once("../dbconnect.php");
+
         $sql = "SELECT 
     [ProgramName],
     [ArchivePacketID],

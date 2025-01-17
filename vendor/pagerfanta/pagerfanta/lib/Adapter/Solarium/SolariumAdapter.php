@@ -5,15 +5,14 @@ namespace Pagerfanta\Solarium;
 use Pagerfanta\Adapter\AdapterInterface;
 use Solarium\Core\Client\ClientInterface;
 use Solarium\Core\Client\Endpoint;
+use Solarium\Core\Query\DocumentInterface;
 use Solarium\QueryType\Select\Query\Query;
 use Solarium\QueryType\Select\Result\Result;
 
 /**
  * Adapter which calculates pagination from a Solarium Query.
  *
- * @template T
- *
- * @implements AdapterInterface<T>
+ * @implements AdapterInterface<DocumentInterface>
  */
 class SolariumAdapter implements AdapterInterface
 {
@@ -22,12 +21,12 @@ class SolariumAdapter implements AdapterInterface
     private Endpoint|string|null $endpoint = null;
 
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private ?int $resultSetStart = null;
 
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private ?int $resultSetRows = null;
 
@@ -37,27 +36,21 @@ class SolariumAdapter implements AdapterInterface
     ) {}
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
         return $this->getResultSet()->getNumFound();
     }
 
-    /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
-     *
-     * @return iterable<array-key, T>
-     */
     public function getSlice(int $offset, int $length): iterable
     {
         return $this->getResultSet($offset, $length);
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      */
     public function getResultSet(?int $start = null, ?int $rows = null): Result
     {
@@ -77,8 +70,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      *
      * @phpstan-assert-if-true int<0, max> $start
      * @phpstan-assert-if-true int<0, max> $rows
@@ -89,8 +82,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      *
      * @phpstan-assert-if-true int<0, max> $start
      * @phpstan-assert-if-true int<0, max> $rows
@@ -101,8 +94,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $start
-     * @phpstan-param int<0, max> $rows
+     * @param int<0, max> $start
+     * @param int<0, max> $rows
      */
     private function resultSetStartAndRowsChange(int $start, int $rows): bool
     {

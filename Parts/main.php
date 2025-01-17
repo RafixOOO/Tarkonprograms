@@ -2,7 +2,8 @@
 
 <?php
 
-require_once("dbconnect.php");
+require_once("../dbconnect.php");
+
 
 try {
     $dsn = "pgsql:host=10.100.100.42;port=5432;dbname=hrappka;";

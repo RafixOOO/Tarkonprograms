@@ -2,7 +2,8 @@
 require_once('../auth.php');
 if (isset($_POST['selectedrow'])) {
   $selectedRows = json_decode($_POST['selectedrow'], true);
-  require_once("dbconnect.php");
+  require_once("../dbconnect.php");
+
   $length = count($selectedRows);
     $status;
   for($i=0;$i<$length;$i++){

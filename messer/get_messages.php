@@ -1,7 +1,8 @@
 <?php
 
 
-require_once('dbconnect.php');
+require_once("../dbconnect.php");
+
 
 $sql = "SELECT massage, osoba, [date] as time FROM PartCheck.dbo.messages_messer where CONVERT(DATE, [date]) >= CONVERT(DATE, GETDATE()-6) ORDER BY [date] desc";
 

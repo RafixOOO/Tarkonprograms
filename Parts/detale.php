@@ -1,7 +1,7 @@
 <?php require_once '../auth.php'; ?>
 
 <?php
-require_once 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -24,7 +24,7 @@ $filesToLoad = [
     'inne' => 'othersql.php',
     'messer' => 'messer.php',
     'v630' => 'v630.php',
-    'all' => ['cutlogicsql.php','messer.php','v630.php','other.sql'],
+    'all' => ['cutlogicsql.php','messer.php','v630.php','othersql.php'],
 ];
 
 $filteredData = [];
@@ -704,11 +704,7 @@ $jsonData = json_encode($filteredData);
         });
     });
 
-    document.querySelector('.btn-delete').addEventListener('click', () => {
-        if (currentInput) {
-            currentInput.value = currentInput.value.slice(0, -1); // Remove last character
-        }
-    });
+    
 
     $('html').addClass('js');
 
@@ -903,6 +899,11 @@ $jsonData = json_encode($filteredData);
 </script>
 <?php if (!isUserPartskier() and !isLoggedIn()) { ?>
     <script>
+        document.querySelector('.btn-delete').addEventListener('click', () => {
+        if (currentInput) {
+            currentInput.value = currentInput.value.slice(0, -1); // Remove last character
+        }
+    });
         var stored = localStorage.getItem('number1');
         if (stored !== null) {
             var colorButton = document.getElementById('time');

@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4f0bdaee0109f747e0aaa8cf4dac112ffdf0d175',
+        'reference' => '44d198be151056bc8e235c92fb0973069e9d9d06',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4f0bdaee0109f747e0aaa8cf4dac112ffdf0d175',
+            'reference' => '44d198be151056bc8e235c92fb0973069e9d9d06',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,49 +22,49 @@
         'pagerfanta/core' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/doctrine-collections-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/doctrine-dbal-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/doctrine-mongodb-odm-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/doctrine-orm-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/doctrine-phpcr-odm-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/elastica-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/pagerfanta' => array(
-            'pretty_version' => 'v4.7.0',
-            'version' => '4.7.0.0',
-            'reference' => '301903c1be505769e932ba5523cc01969f954d37',
+            'pretty_version' => 'v4.7.1',
+            'version' => '4.7.1.0',
+            'reference' => 'b09216fc53665c4d8a39b7f60e421165cb4693e4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pagerfanta/pagerfanta',
             'aliases' => array(),
@@ -73,13 +73,13 @@
         'pagerfanta/solarium-adapter' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'pagerfanta/twig' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v4.7.0',
+                0 => 'v4.7.1',
             ),
         ),
         'phpmailer/phpmailer' => array(
