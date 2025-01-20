@@ -10,7 +10,7 @@ use Pagerfanta\View\TwitterBootstrap4View;
 // Now you can use the Utils class
 
 if(!isLoggedIn()){
-    $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['cutlogic'];
+    $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['Produkcja'];
 }else{
     $programs = isset($_GET['programs']) ? (array)$_GET['programs'] : ['all'];
 }
@@ -20,6 +20,7 @@ $keywordArray = explode(' ', $keywords);
 $dataFrom = isset($_GET['dataFrom']) ? $_GET['dataFrom'] : '';
 $dataTo = isset($_GET['dataTo']) ? $_GET['dataTo'] : '';
 $filesToLoad = [
+    'Produkcja' => ['cutlogicsql.php','othersql.php'],
     'cutlogic' => 'cutlogicsql.php',
     'inne' => 'othersql.php',
     'messer' => 'messer.php',
@@ -523,7 +524,9 @@ $jsonData = json_encode($filteredData);
                             <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Recznie
                             </button>
                         <?php } ?>
-                        <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Pila
+                        <button type="button" onclick="sendSelectedRowsToPHP1()" class="btn btn-warning btn-lg">Piła
+                        </button>
+                        <button type="button" onclick="sendSelectedRowsToPHP()" class="btn btn-warning btn-lg">Ręcznie
                         </button>
                         <?php if (in_array("cutlogic", $programs)) { ?>
                             <div>
