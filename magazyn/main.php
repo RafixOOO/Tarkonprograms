@@ -240,28 +240,44 @@ document.addEventListener("DOMContentLoaded", function() {
     deleteButtons.forEach(function(button) {
         button.addEventListener("click", function() {
             // Pobierz dane z wiersza
-            var partId = this.closest("tr").getAttribute("data-partid");
-            var localization = this.closest("tr").querySelector("td:nth-child(4)").innerText;
-            var quantity = parseInt(this.closest("tr").querySelector("td:nth-child(5)").innerText);
+            try {
+                // Pobierz wiersz powiązany z przyciskiem
+                var row = this.closest("tr");
+                if (!row) throw new Error("Nie można znaleźć wiersza dla przycisku.");
 
-            if(localization=="zewnątrz"){
-                localization=17;
-            }else if(localization=="kooperacja"){
-                localization=16;
+                // Pobierz dane z wiersza
+                var partId = row.getAttribute("data-partid");
+                if (!partId) throw new Error("Nie można znaleźć ID części w wierszu.");
+
+                var localization = row.querySelector("td:nth-child(4)").innerText;
+                if (!localization) throw new Error("Nie można znaleźć lokalizacji w wierszu.");
+
+                var quantity = parseInt(row.querySelector("td:nth-child(5)").innerText);
+                if (isNaN(quantity) || quantity <= 0) throw new Error("Nieprawidłowa ilość w wierszu.");
+
+                // Mapowanie lokalizacji na ID
+                var localizationMap = {
+                    "zewnątrz": 17,
+                    "kooperacja": 16
+                };
+                localization = localizationMap[localization] || localization;
+
+                // Ustaw wartości w modalu
+                document.getElementById("modal-partid").textContent = partId;
+                document.getElementById("modal-localization").textContent = localization;
+                document.getElementById("modal-quantity").textContent = quantity;
+
+                // Ustaw ograniczenia w polu wyboru ilości
+                document.getElementById("quantityToRemove").min = 1;
+                document.getElementById("quantityToRemove").max = quantity;
+
+                // Wyświetl modal
+                var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+                myModal.show();
+            } catch (error) {
+                // Obsłuż błąd i wyświetl w konsoli
+                console.error("Wystąpił błąd: ", error.message);
             }
-
-            // Ustaw wartości w modalu
-            document.getElementById("modal-partid").textContent = partId;
-            document.getElementById("modal-localization").textContent = localization;
-            document.getElementById("modal-quantity").textContent = quantity;
-
-            // Ustaw minimalną i maksymalną ilość w polu wyboru
-            document.getElementById("quantityToRemove").min = 0;
-            document.getElementById("quantityToRemove").max = quantity;
-
-            // Wyświetl modal
-            var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-            myModal.show();
         });
     });
 });
