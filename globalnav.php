@@ -137,7 +137,7 @@
               <li class="nav-item">
             <a data-bs-toggle="collapse" href="#sidebarLayouts1">
             <i class="fas fa-pallet"></i>
-              <p>Magazyn</p>
+              <p>Magazyn Produkcja</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="sidebarLayouts1">
