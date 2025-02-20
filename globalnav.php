@@ -165,7 +165,7 @@
           </li>-->
           
           <li class="nav-item">
-            <a href="https://urlop.local/" target="_blank">
+            <a href="http://urlop.local/" target="_blank">
               <i class="fa fa-bicycle"></i>
               <p>Urlopy</p>
             </a>
