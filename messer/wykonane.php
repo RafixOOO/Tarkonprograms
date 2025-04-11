@@ -263,6 +263,81 @@ $(document).ready(function(){
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const headers = document.querySelectorAll('#mytable th');
+    let currentSortColumn = -1;  // Zapamiętuje, która kolumna jest sortowana
+    let currentSortDirection = 'asc';  // Możliwe wartości: 'asc' (rosnąco), 'desc' (malejąco)
+
+    // Funkcja do sortowania tabeli
+    function sortTable(columnIndex, type) {
+        const rows = Array.from(document.querySelectorAll('#mytable tbody tr'));
+        let sortedRows;
+
+        // Ignoruj kolumnę "Opcje" (ostatnią)
+        if (columnIndex === headers.length - 1) return;
+
+        // Jeśli ta sama kolumna jest kliknięta ponownie, odwróć kierunek sortowania
+        if (columnIndex === currentSortColumn) {
+            currentSortDirection = (currentSortDirection === 'asc') ? 'desc' : 'asc';
+        } else {
+            currentSortColumn = columnIndex;
+            currentSortDirection = 'asc';  // Domyślnie sortowanie rosnąco
+        }
+
+        // Dodaj lub zmień strzałkę w nagłówku
+        updateSortArrows(columnIndex);
+
+        if (type === 'number') {
+            sortedRows = rows.sort((a, b) => {
+                const cellA = parseFloat(a.cells[columnIndex].innerText);
+                const cellB = parseFloat(b.cells[columnIndex].innerText);
+                return (currentSortDirection === 'asc') ? cellA - cellB : cellB - cellA;
+            });
+        } else if (type === 'datetime') {
+            sortedRows = rows.sort((a, b) => {
+                const dateA = new Date(a.cells[columnIndex].innerText);
+                const dateB = new Date(b.cells[columnIndex].innerText);
+                return (currentSortDirection === 'asc') ? dateA - dateB : dateB - dateA;
+            });
+        } else {
+            sortedRows = rows.sort((a, b) => {
+                const cellA = a.cells[columnIndex].innerText.toLowerCase();
+                const cellB = b.cells[columnIndex].innerText.toLowerCase();
+                return (currentSortDirection === 'asc') ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+        }
+
+        // Zaktualizuj tabelę
+        const tbody = document.querySelector('#mytable tbody');
+        tbody.innerHTML = '';  // Wyczyść obecną zawartość
+        sortedRows.forEach(row => tbody.appendChild(row));  // Dodaj posortowane wiersze
+    }
+
+    // Funkcja aktualizująca strzałki w nagłówkach
+    function updateSortArrows(columnIndex) {
+        // Zresetuj strzałki we wszystkich nagłówkach
+        headers.forEach(header => {
+            header.innerHTML = header.innerHTML.replace(/↑|↓/, '');
+        });
+
+        // Dodaj odpowiednią strzałkę do klikniętej kolumny
+        const currentHeader = headers[columnIndex];
+        if (currentSortDirection === 'asc') {
+            currentHeader.innerHTML += ' ↑';  // Strzałka rosnąco
+        } else {
+            currentHeader.innerHTML += ' ↓';  // Strzałka malejąco
+        }
+    }
+
+    // Dodaj nasłuchiwacze na kliknięcie nagłówków
+    headers.forEach((header, index) => {
+        const sortType = header.getAttribute('data-sort');  // Pobierz typ sortowania
+        header.addEventListener('click', () => {
+            sortTable(index, sortType);
+        });
+    });
+});
 </script>
 
 </html>
