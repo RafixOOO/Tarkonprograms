@@ -2,6 +2,14 @@
 
 <?php
 require_once '../auth.php';
+
+$now = new DateTime('now', new DateTimeZone('Europe/Warsaw'));
+
+// Sprawdzamy, czy to czas letni (DST)
+$isDST = $now->format('I'); // 1 = letni, 0 = zimowy
+
+// Ustalamy zmienną z offsetem
+$offsetHours = $isDST ? 2 : 1;
 ?>
 <html>
 
@@ -109,8 +117,8 @@ j2.id,
             LEN(JSON_VALUE(j2.msg, '$.PartProgramName'))
         )) - 4
     ) AS PartProgramName,
-    DATEADD(hour, 1, j2.[_internal_timestamp]) AS Starttime,
-        DATEADD(hour, 1, j2.[_internal_endtime]) AS Endtime,
+    DATEADD(hour, $offsetHours, j2.[_internal_timestamp]) AS Starttime,
+        DATEADD(hour, $offsetHours, j2.[_internal_endtime]) AS Endtime,
     -- Czas trwania dla każdego typu stanu
     ISNULL(
         CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'CUTTING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
@@ -159,8 +167,8 @@ CROSS APPLY
         Status nvarchar(20) '$.Status'
     ) AS st
 WHERE
-    DATEADD(hour, 2, j2.[_internal_timestamp]) >= '$formattedDate'
-    AND DATEADD(hour, 2, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    DATEADD(hour, $offsetHours, j2.[_internal_timestamp]) >= '$formattedDate'
+    AND DATEADD(hour, $offsetHours, j2.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
 GROUP BY 
 st.Status,
 	JSON_VALUE(j2.msg, '$.PartProgramName'),
@@ -198,8 +206,8 @@ ORDER BY
 SELECT 
     pn.id,
     pn.PartProgramName,
-    DATEADD(hour, 1, pn.[_internal_timestamp]) AS Starttime,
-    DATEADD(hour, 1, pn.[_internal_endtime]) AS Endtime,
+    DATEADD(hour, $offsetHours, pn.[_internal_timestamp]) AS Starttime,
+    DATEADD(hour, $offsetHours, pn.[_internal_endtime]) AS Endtime,
     ISNULL(
         CONVERT(varchar, DATEADD(SECOND, SUM(CASE WHEN j.StatusType = 'CUTTING' THEN CAST(j.Duration AS float) ELSE 0 END), 0), 108), 
         '00:00:00'
@@ -269,8 +277,8 @@ ORDER BY
                 StatusType nvarchar(50) '$.Status.StatusType',
                 Duration float '$.Duration'
             ) AS j
-            WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= '$formattedDate'
-              AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+            WHERE DATEADD(hour, $offsetHours, u.[_internal_timestamp]) >= '$formattedDate'
+              AND DATEADD(hour, $offsetHours, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
             GROUP BY j.StatusType
         ),
         TotalDuration AS (
@@ -297,8 +305,8 @@ ORDER BY
         StatusType nvarchar(50) '$.Status.StatusType',
         Duration float '$.Duration'
     ) AS j
-    WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= '$formattedDate'
-      AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+    WHERE DATEADD(hour, $offsetHours, u.[_internal_timestamp]) >= '$formattedDate'
+      AND DATEADD(hour, $offsetHours, u.[_internal_timestamp]) < DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
     GROUP BY j.StatusType
 ),
 TotalDurationBefore15 AS (
@@ -324,8 +332,8 @@ $sqlafter="WITH DurationDataAfter15 AS (
         StatusType nvarchar(50) '$.Status.StatusType',
         Duration float '$.Duration'
     ) AS j
-    WHERE DATEADD(hour, 1, u.[_internal_timestamp]) >= DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
-      AND DATEADD(hour, 1, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
+    WHERE DATEADD(hour, $offsetHours, u.[_internal_timestamp]) >= DATEADD(hour, 15, CAST('$formattedDate' AS datetime))
+      AND DATEADD(hour, $offsetHours, u.[_internal_timestamp]) < DATEADD(DAY, 1, '$formattedDate')
     GROUP BY j.StatusType
 ),
 TotalDurationAfter15 AS (
@@ -415,9 +423,9 @@ PreviousTimes AS (
         StatusType,
         Duration,
         -- First, add 2 hours using DATEADD, then apply the FORMAT function
-        FORMAT(LAG(DATEADD(HOUR, 1, AdjustedTimestamp), 1, DATEADD(HOUR, 1, _internal_timestamp)) 
+        FORMAT(LAG(DATEADD(HOUR, $offsetHours, AdjustedTimestamp), $offsetHours, DATEADD(HOUR, $offsetHours, _internal_timestamp)) 
                OVER (PARTITION BY _internal_timestamp ORDER BY RowNum), 'yyyy-MM-ddTHH:mm:ss') AS PreviousAdjustedTimestamp,
-        FORMAT(DATEADD(HOUR, 1, AdjustedTimestamp), 'yyyy-MM-ddTHH:mm:ss') AS AdjustedTimestamp
+        FORMAT(DATEADD(HOUR, $offsetHours, AdjustedTimestamp), 'yyyy-MM-ddTHH:mm:ss') AS AdjustedTimestamp
     FROM AccumulatedTimes
 )
 SELECT 
@@ -426,7 +434,7 @@ SELECT
     AdjustedTimestamp
 FROM PreviousTimes
 WHERE PreviousAdjustedTimestamp >= '$formattedDate'
-    AND PreviousAdjustedTimestamp < DATEADD(DAY, 1, '$formattedDate')
+    AND PreviousAdjustedTimestamp < DATEADD(DAY, $offsetHours, '$formattedDate')
 ORDER BY PreviousAdjustedTimestamp ASC;
 
 
@@ -636,12 +644,14 @@ WHERE
                                 // Sprawdź, czy wartość jest instancją DateTime
                                 if ($row['time'] instanceof DateTime) {
                                     // Dodaj 2 godziny
-                                    $row['time']->modify('+1 hours');
+                                    $addHours = "+{$offsetHours} hours";
+                                    $row['time']->modify($addHours);
                                     echo $row['time']->format('Y-m-d H:i:s');
                                 } else {
                                     // Jeśli to nie jest DateTime, przekształć to w DateTime i dodaj 2 godziny
                                     $time = new DateTime($row['time']);
-                                    $time->modify('+1 hours');
+                                    $addHours = "+{$offsetHours} hours";
+                                    $time->modify($addHours);
                                     echo $time->format('Y-m-d H:i:s');
                                 }
                             } else {
