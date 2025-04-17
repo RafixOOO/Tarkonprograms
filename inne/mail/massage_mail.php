@@ -103,14 +103,14 @@ $mail->SMTPOptions = array(
     ));                                                             //Send using SMTP
 
 // Office 365 SMTP HOST
-$mail->Host = '	s190.cyber-folks.pl';
+$mail->Host = '';
 $mail->SMTPAuth = true;                                      //Enable SMTP authentication
-$mail->Username = 'tarkon.powiadomienia@crm-link.eu';                      //SMTP username
-$mail->Password = 'G@*C!Ij-g-24evVz';                         //SMTP password
+$mail->Username = '';                      //SMTP username
+$mail->Password = '';                         //SMTP password
 $mail->Port = 587;                                      //TCP port to connect to; use 587 if 
 
 //Set From Email ID and NAME
-    $mail->setFrom('tarkon.powiadomienia@crm-link.eu', 'Notifications Noreply');
+    $mail->setFrom('', 'Notifications Noreply');
     
 
 //$email = $row['usr_email'];
