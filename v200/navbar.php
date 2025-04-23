@@ -48,7 +48,7 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
             if (strpos($url, '.php') !== false) {
                 echo '<li class="breadcrumb-item"><a href="' . $url . '">' . $label . '</a></li>';
             } else {
-                echo '<li class="breadcrumb-item">' . $label . '</li>';
+                echo '<li class="breadcrumb-item"><a href="' . $url . '/main.php">' . $label . '</li>';
             }
         }
     }
