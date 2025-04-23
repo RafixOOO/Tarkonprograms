@@ -957,13 +957,13 @@ $jsonData = json_encode($filteredData);
 
             } else {
                 // Numer nie został jeszcze sprawdzony, wyświetlamy okno dialogowe
-                //$('#user-modal').modal({
-                   // backdrop: 'static',
-                   // keyboard: false
-               // });
-                //$('#user-modal').modal('show');
-                //$('#user-number').focus();
-                window.location.href = 'panel.php';
+                $('#user-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#user-modal').modal('show');
+                $('#user-number').focus();
+                //window.location.href = 'panel.php';
 
 
                 $('#user-modal').on('shown.bs.modal', function() {
