@@ -434,7 +434,7 @@ SELECT
     AdjustedTimestamp
 FROM PreviousTimes
 WHERE PreviousAdjustedTimestamp >= '$formattedDate'
-    AND PreviousAdjustedTimestamp < DATEADD(DAY, $offsetHours, '$formattedDate')
+    AND PreviousAdjustedTimestamp < DATEADD(DAY, 1, '$formattedDate')
 ORDER BY PreviousAdjustedTimestamp ASC;
 
 
