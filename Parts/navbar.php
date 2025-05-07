@@ -1,35 +1,32 @@
-<?php
-// Pobierz pełny URL i usuń część z parametrami po znaku '?'
-$currentUrl = strtok($_SERVER['REQUEST_URI'], '?');  // np. '/programs/Tarkonprograms/zarzadzaj.php'
+﻿<?php
+// Pobierz URL bez parametrów GET
+$currentUrl = strtok($_SERVER['REQUEST_URI'], '?'); // np. '/zarzadzaj.php'
 
-// Zdefiniuj podstawowy breadcrumb (strona główna)
-$breadcrumb = [
-    'Strona główna' => '/programs/Tarkonprograms/index.php',  // Strona główna
-];
+// Zdefiniuj breadcrumb
+$breadcrumb = [];
 
-// Usuń część '/programs/Tarkonprograms/' z URL, aby uzyskać resztę ścieżki
-$relativeUrl = str_replace('/programs/Tarkonprograms/', '', $currentUrl);
+// Jeśli URL jest pusty lub wskazuje na 'index.php'
+if (empty($currentUrl) || $currentUrl === '/' || $currentUrl === '/index.php') {
+    $breadcrumb['Strona główna'] = null; // Brak linku
+} else {
+    $breadcrumb['Strona główna'] = '../index.php'; // Link do strony głównej
 
-// Jeśli ścieżka nie jest pusta i nie jesteśmy na stronie głównej
-if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
-    // Podziel resztę ścieżki na segmenty
-    $segments = explode('/', $relativeUrl);
-    $path = '/programs/Tarkonprograms';  // Ścieżka do katalogu "programs/Tarkonprograms"
+    // Podziel URL na segmenty
+    $segments = array_filter(explode('/', trim($currentUrl, '/'))); // Usuń puste elementy
 
-    // Tworzenie breadcrumb dla pozostałych segmentów URL
+    // Buduj breadcrumb dla każdego segmentu
+    $path = '';
     foreach ($segments as $segment) {
-        // Jeśli segment zawiera '.php', usuń rozszerzenie '.php' i dodaj link
-        if (strpos($segment, '.php') !== false) {
-            $segment = str_replace('.php', '', $segment);
-            $path .= '/' . $segment;
-            $breadcrumb[ucwords(str_replace('-', ' ', $segment))] = $path;
-        } else {
-            // Jeśli to folder (bez '.php'), dodaj go do breadcrumb bez linku
-            $path .= '/' . $segment;
-            $breadcrumb[ucwords(str_replace('-', ' ', $segment))] = $path;
-        }
+        $path .= '/' . $segment; // Zbuduj pełną ścieżkę do bieżącego segmentu
+
+        // Usuń rozszerzenie '.php', jeśli istnieje
+        $label = str_replace('.php', '', $segment);
+
+        // Zamień myślniki na spacje i ustaw tekst w formacie Ucwords
+        $breadcrumb[ucwords(str_replace('-', ' ', $label))] = $path;
     }
 }
+
 ?>
 <div class="main-header">
 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="margin-top: 0;">
@@ -37,7 +34,7 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
 <div class="container-fluid">
 <ul class="navbar-nav topbar-nav ms-md-auto align-items-left">
 <li class="nav-item max-auto">
-    <ol class="breadcrumb">
+<ol class="breadcrumb">
     <?php
     foreach ($breadcrumb as $label => $url) {
         // Sprawdzamy, czy to ostatni element i nie robimy linku dla niego
@@ -48,7 +45,7 @@ if (!empty($relativeUrl) && $relativeUrl !== 'index.php') {
             if (strpos($url, '.php') !== false) {
                 echo '<li class="breadcrumb-item"><a href="' . $url . '">' . $label . '</a></li>';
             } else {
-                echo '<li class="breadcrumb-item"><a href="' . $url . '/main.php">' . $label . '</a></li>';
+                echo '<li class="breadcrumb-item"><a href="' . $url . '/main.php">' . $label . '</li>';
             }
         }
     }

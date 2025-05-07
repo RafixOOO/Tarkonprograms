@@ -120,7 +120,7 @@ $pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 50;
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
 $showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
 
-if ($showAll) {
+if ($showAll || !!isUserPartskier()) {
     $pageSize = count($filteredData);
 } else {
     $pageSize = (int)$pageSize;

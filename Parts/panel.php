@@ -179,14 +179,17 @@ require_once("../dbconnect.php");
                                 console.log('Twój numer znajduje się w bazie danych!');
                                 localStorage.setItem('number1', userNumber);
                                 localStorage.setItem('nazwa', czesci[1]);
+                                localStorage.setItem('identyfikator', czesci[3]);
                                 localStorage.setItem('czas', 0);
-                                window.location.href = 'main.php';
+                                window.location.href = czesci[2];
                             } else {
+                                toastr.error('Twój numer nie został odnaleziony w bazie danych.');
                                 console.log('Twój numer nie został odnaleziony w bazie danych.');
                                 location.reload();
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
+                            toastr.error('Wystąpił błąd podczas sprawdzania numeru w bazie danych.');
                             console.log('Wystąpił błąd podczas sprawdzania numeru w bazie danych.');
                             console.log(jqXHR.responseText);
                         },

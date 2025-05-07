@@ -10,6 +10,7 @@ $stmt1 = sqlsrv_query($conn, $sql, $params);
 $imie;
 while ($row = sqlsrv_fetch_array($stmt1, SQLSRV_FETCH_ASSOC)) {
     $imie=$row['imie_nazwisko'];
+    $identyfikator=$row['identyfikator'];
 }
 $options = array("Scrollable" => SQLSRV_CURSOR_KEYSET);
 $stmt = sqlsrv_query($conn, $sql, $params, $options);
@@ -20,7 +21,16 @@ if ($stmt === false) {
 $rowCount = sqlsrv_num_rows($stmt);
 if ($rowCount > 0) {
     // Numer znajduje się w bazie danych
-    echo "true,".$imie;
+    $sql1 = "SELECT h.Project from dbo.PersonsID p 
+inner join 
+dbo.HrapWorkTime h on h.PersonID=p.PersonsID 
+where p.identyfikator = ? and h.cuce_date_to is null and h.cuce_time_to is null";
+    $stmt2 = sqlsrv_query($conn, $sql1, $params);
+    $strona;
+    $rowCount1 = sqlsrv_has_rows($stmt2) ? 1 : 0; // Alternatywa, jeśli num_rows nie działa
+    $strona = ($rowCount1 > 0) ? "worktime.php?finish=1&identyfikator=$identyfikator" : "main.php";
+
+    echo "true," . $imie . "," . $strona.", ".$identyfikator;
 } else {
     // Numer nie został odnaleziony w bazie danych
     echo "false";

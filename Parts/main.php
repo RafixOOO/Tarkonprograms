@@ -88,7 +88,11 @@ $stmt = $pdo->query($sql);
                 // Tutaj możesz wykonywać operacje na każdym wierszu
             ?>
                 <div class="col-xl-4 col-lg-4">
+                <?php if (!isLoggedIn()) { ?>
+                    <a href="category.php?project_name=<?php echo $row1['cr_number']; ?>">
+                        <?php }else{ ?>
                     <a href="receiver.php?project_name=<?php echo $row1['cr_number']; ?>">
+                    <?php } ?>
                         <div class="card l-bg-cherry">
                             <div class="card-statistic-3 p-4">
                                 <div class="mb-4">
