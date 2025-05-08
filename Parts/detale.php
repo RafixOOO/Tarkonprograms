@@ -115,21 +115,21 @@ function checkData($item, $myVariable, $keywordArray, $dataFrom, $dataTo)
     return true;
 }
 
-$pageSizeOptions = [50, 200, 500, 1000];
-$pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 50;
-$pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
-$showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
+//$pageSizeOptions = [50, 200, 500, 1000];
+//$pageSize = isset($_GET['page_size']) ? $_GET['page_size'] : 50;
+//$pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
+//$showAll = $pageSize == count($filteredData); // Sprawdzamy, czy wartość jest równa -1, aby określić, czy "ALL" jest wybrane
 
-if ($showAll || !!isUserPartskier()) {
-    $pageSize = count($filteredData);
-} else {
-    $pageSize = (int)$pageSize;
-    $pageSize = max(1, $pageSize); // Upewniamy się, że $pageSize jest większe lub równe 1
-}
+//if ($showAll || !!isUserPartskier()) {
+    $pageSize = max(1, count($filteredData));
+//} else {
+    //$pageSize = (int)$pageSize;
+    //$pageSize = max(1, $pageSize); // Upewniamy się, że $pageSize jest większe lub równe 1
+//}
 $adapter = new ArrayAdapter($filteredData);
 $pagerfanta = new Pagerfanta($adapter);
 $pagerfanta->setMaxPerPage($pageSize);
-$pagerfanta->setCurrentPage($pageNumber);
+//$pagerfanta->setCurrentPage($pageNumber);
 
 $currentPageResults = $pagerfanta->getCurrentPageResults();
 
@@ -175,7 +175,7 @@ $jsonData = json_encode($filteredData);
         .verticalrotate {
             position: fixed;
             bottom: 50%;
-            left: 84.5%;
+            right: 84.5%;
             width: 30%;
             transform: rotate(-90deg);
         }
@@ -315,28 +315,29 @@ $jsonData = json_encode($filteredData);
                 </div>
                 <?php if(isLoggedIn()){ ?>
                 <div style="text-align:right;">
-                    <br />
-                    <select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" id="select" name="programs" style="float:right; width: 65%;">
-                    <option value="all" <?php echo in_array("all", $programs) ? 'selected' : ''; ?>>ALL</option>
-                        <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
-                        <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
-                        <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
-                    </select><br /><br /><br />
+                <br />
                     od: <input type="date" value="<?php echo $dataFrom; ?>" name="dataFrom"> do: <input type="date" value="<?php echo $dataTo; ?>" name="dataTo">
                 </div>
                 <?php } ?>
         </div>
         <?php if(isLoggedIn()){ ?>
         <div class="form-group" style="float:left;">
-            <label for="pageSizeSelect">Liczba wyników na stronie:</label>
-            <select class="form-control" id="pageSizeSelect" name="page_size">
-                <?php foreach ($pageSizeOptions as $option) : ?>
-                    <option value="<?php echo $option; ?>" <?php echo $pageSize === $option ? 'selected' : ''; ?>>
-                        <?php echo $option; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
+           <!-- 
+<label for="pageSizeSelect">Liczba wyników na stronie:</label>
+<select class="form-control" id="pageSizeSelect" name="page_size">
+    <?php //foreach ($pageSizeOptions as $option) : ?>
+        <option value="<?php //echo $option; ?>" <?php //echo $pageSize === $option ? 'selected' : ''; ?>>
+            <?php //echo $option; ?>
+        </option>
+    <?php //endforeach; ?>
+</select>
+-->
+<select data-placeholder="Wybierz kategorie" class="chosen-select form-control form-control-lg" id="select" name="programs" style="float:left; width: 65%;">
+                    <option value="all" <?php echo in_array("all", $programs) ? 'selected' : ''; ?>>ALL</option>
+                        <option value="cutlogic" <?php echo in_array("cutlogic", $programs) ? 'selected' : ''; ?>>CUTLOGIC</option>
+                        <option value="messer" <?php echo in_array("messer", $programs) ? 'selected' : ''; ?>>MESSER</option>
+                        <option value="v630" <?php echo in_array("v630", $programs) ? 'selected' : ''; ?>>V630</option>
+                    </select>
             <label for="checkbox">Pokaż zakończone: </label>
             <input type="checkbox" name="myCheckbox" id="checkbox" <?php if ($myVariable == 1) echo 'checked'; ?>>
         </div>
@@ -408,12 +409,12 @@ $jsonData = json_encode($filteredData);
                 <tbody>
                     <?php foreach ($currentPageResults as $data) :
                         $ilosc = '';
-                        if ($data['ilosc'] == 0 or $data['ilosc'] == '') {
+                        if (empty($data['ilosc']) || $data['ilosc'] == 0) {
                             $ilosc = $data['amount_order'];
-                            $szer = $data['ilosc_zrealizowana'] / $ilosc * 100;
+                            $szer = ($ilosc != 0) ? ($data['ilosc_zrealizowana'] / $ilosc * 100) : 0;
                         } else {
-                            $szer = $data['ilosc_zrealizowana'] / $data['ilosc'] * 100;
                             $ilosc = $data['ilosc'];
+                            $szer = ($ilosc != 0) ? ($data['ilosc_zrealizowana'] / $ilosc * 100) : 0;
                         }
 
                         if ($data['lok'] == 1 or $szer >= 100) {
@@ -473,35 +474,39 @@ $jsonData = json_encode($filteredData);
                 </div>
             </div>
 
-            <div style="float: right;">
-                <?php
-                $view = new TwitterBootstrap4View();
-                $options = array(
-                    'prev_message' => '<',
-                    'next_message' => '>',
-                    'routeGenerator' => function ($page) {
-                        $queryString = $_SERVER['QUERY_STRING'];
-                        parse_str($queryString, $queryParams);
-                        $queryParams['page'] = $page;
-                        $newQueryString = http_build_query($queryParams);
-                        $url = $_SERVER['PHP_SELF'] . '?' . $newQueryString;
-                        return $url;
-                    },
-                );
+            <!--
+<div style="float: right;">
+    <?php
+    /*
+    $view = new TwitterBootstrap4View();
+    $options = array(
+        'prev_message' => '<',
+        'next_message' => '>',
+        'routeGenerator' => function ($page) {
+            $queryString = $_SERVER['QUERY_STRING'];
+            parse_str($queryString, $queryParams);
+            $queryParams['page'] = $page;
+            $newQueryString = http_build_query($queryParams);
+            $url = $_SERVER['PHP_SELF'] . '?' . $newQueryString;
+            return $url;
+        },
+    );
 
-                echo $view->render($pagerfanta, $options['routeGenerator'], $options);
-                ?>
-            </div>
+    echo $view->render($pagerfanta, $options['routeGenerator'], $options);
+    */
+    ?>
+</div>
+-->
             <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
                 <div class="btn-group me-2 " role="group" aria-label="First group">
 
                     <?php if (!isUserParts()) { ?>
                         <?php if (!isUserPartsKier()) { ?>
-                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg">Wyjdź
+                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg"><img src="../static/box-arrow-right.svg" alt="Wyjdź" style="width:20px; height:20px; margin-right:8px;">
                             </button>
                         <?php } ?>
                         <?php if (isUserPartsKier()) { ?>
-                            <button type="Submit" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts">Wyjdź
+                            <button type="Submit" onclick="localStorage.removeItem('number1');window.location.href = 'statuschange.php';" class="btn btn-warning btn-lg" name="role" value="role_parts"><img src="../static/box-arrow-right.svg" alt="Wyjdź" style="width:20px; height:20px; margin-right:8px;">
                             </button>
                             <button type="button" onclick="localStorage.removeItem('number1'); location.reload();" class="btn btn-warning btn-lg">Przełącz
                             </button>

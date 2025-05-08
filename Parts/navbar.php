@@ -45,7 +45,7 @@ if (empty($currentUrl) || $currentUrl === '/' || $currentUrl === '/index.php') {
             if (strpos($url, '.php') !== false) {
                 echo '<li class="breadcrumb-item"><a href="' . $url . '">' . $label . '</a></li>';
             } else {
-                echo '<li class="breadcrumb-item"><a href="' . $url . '/main.php">' . $label . '</li>';
+                echo '<li class="breadcrumb-item"><a href="' . $url . '/main.php">' . $label . '</a></li>';
             }
         }
     }

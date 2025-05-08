@@ -17,14 +17,15 @@ try {
 if (isset($_GET['project_name'])) {
     $rfid = $_GET['project_name'];
 }
-$sql = "select
+$sql = "SELECT
 		ut_id as cuce_task,
 		cr_id as cuce_request,
         ut_name AS cuce_category_detail_additional,
         cr_contractor_fkey,
         COALESCE(cps_id, 1110) AS cuce_position
     from company_contractor_requests AS request_event
-    LEFT JOIN user_tasks ON request_event.cr_id = ut_entity_fkey and ut_deadline_time > NOW()
+    LEFT JOIN user_tasks ON request_event.cr_id = ut_entity_fkey 
+    --and ut_deadline_time > NOW()
     left join company_contractor_positions on cps_contractor_fkey=cr_contractor_fkey  and cps_deleted = false and cps_archival = false
     WHERE ut_deleted IS false
       and request_event.cr_number = '$rfid'
@@ -44,7 +45,7 @@ $stmt = $pdo->query($sql);
         .verticalrotate {
             position: fixed;
             bottom: 50%;
-            left: 84.5%;
+            right: 84.5%;
             width: 30%;
             transform: rotate(-90deg);
         }
@@ -92,7 +93,7 @@ $stmt = $pdo->query($sql);
                         <?php if (!isUserPartsKier()) { ?>
                             <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
                 <div class="btn-group me-2 " role="group" aria-label="First group"></div>
-                            <button type="button" onclick="window.history.go(-1);" class="btn btn-warning btn-lg">Powrót
+                            <button type="button" onclick="window.location.href = 'main.php';" class="btn btn-warning btn-lg"><img src="../static/arrow-left.svg" alt="Back" style="width:20px; height:20px;">
                             </button>
                             </div></div>
                         <?php } ?>

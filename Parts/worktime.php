@@ -43,7 +43,7 @@ if ($datas === false) {
         .verticalrotate {
             position: fixed;
             bottom: 50%;
-            left: 84.5%;
+            right: 84.5%;
             width: 30%;
             transform: rotate(-90deg);
         }
@@ -149,21 +149,21 @@ if ($datas === false) {
                 </table>
                 <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
                 <div class="btn-group me-2 " role="group" aria-label="First group">
-                <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg">Wyjdź
+                <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg"><img src="../static/box-arrow-right.svg" alt="Wyjdź" style="width:20px; height:20px;">
                 </button>
                     <?php if (isset($_GET['finish']) && $_GET['finish']==1) { ?>
                         <script>
                             userID="<?php echo $userID; ?>";
                             </script>
-                <button type="button" onclick=" window.location.href = 'finishwork.php?rfid='+userID;" class="btn btn-info btn-lg">Zakończ rejestrację
+                <button type="button" onclick=" window.location.href = 'finishwork.php?rfid='+userID;" class="btn btn-info btn-lg"><img src="../static/power.svg" alt="Finish" style="width:20px; height:20px;">
                 </button>
                 <?php }else if(isset($_GET['finish']) && $_GET['finish']==2){ ?>
                     <script>
                     project="<?php echo $project; ?>";
                     </script>
-                    <button type="button" onclick="window.location.href = 'receiver.php?project_name=' + project;" class="btn btn-success btn-lg">Zaznacz wykonane detale
+                    <button type="button" onclick="window.location.href = 'receiver.php?project_name=' + project;" class="btn btn-success btn-lg"><img src="../static/list-columns-reverse.svg" alt="Detale" style="width:20px; height:20px;">
                 </button>
-                <button type="button" onclick="window.location.href = 'main.php'" class="btn btn-info btn-lg">Rozpocznij nową aktywność
+                <button type="button" onclick="window.location.href = 'main.php'" class="btn btn-info btn-lg"><img src="../static/play-fill.svg" alt="Start" style="width:20px; height:20px;">
                 </button>
                     <?php } ?>
                             </div></div>

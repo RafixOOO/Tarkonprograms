@@ -20,7 +20,7 @@ try {
 }
 $sql = "SELECT *
 FROM public.company_contractor_requests
-inner join public.tags t on cr_id=t.tag_entity_fkey and t.tag_body = 'RCP'
+inner join public.tags t on cr_id=t.tag_entity_fkey and t.tag_body = 'RCP' and tag_deleted = false and tag_disabled = false
 where (cr_state=
 'Aktywny' or  cr_state= 'Produkcja-aktywny')
 and cr_deleted!=true and cr_allow_work_time_registering=true and ( cr_end_date is null or cr_end_date>CURRENT_DATE)
@@ -41,7 +41,7 @@ $stmt = $pdo->query($sql);
         .verticalrotate {
             position: fixed;
             bottom: 50%;
-            left: 84.5%;
+            right: 84.5%;
             width: 30%;
             transform: rotate(-90deg);
         }
@@ -87,7 +87,7 @@ $stmt = $pdo->query($sql);
             while ($row1 = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 // Tutaj możesz wykonywać operacje na każdym wierszu
             ?>
-                <div class="col-xl-4 col-lg-4">
+                <div class="col-xl-3 col-lg-3">
                 <?php if (!isLoggedIn()) { ?>
                     <a href="category.php?project_name=<?php echo $row1['cr_number']; ?>">
                         <?php }else{ ?>
@@ -222,7 +222,7 @@ FROM PartCheck.dbo.hrappka_godziny where cr_number='$row1[cr_number]';";
                         <?php if (!isUserPartsKier()) { ?>
                             <div class="btn-toolbar position-fixed" role="toolbar" aria-label="Toolbar with button groups" style="bottom:4%;">
                 <div class="btn-group me-2 " role="group" aria-label="First group"></div>
-                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg">Wyjdź
+                            <button type="button" onclick="localStorage.removeItem('number1'); window.location.href = 'panel.php';" class="btn btn-warning btn-lg"><img src="../static/box-arrow-right.svg" alt="Wyjdź" style="width:20px; height:20px;">
                             </button>
                             </div></div>
                         <?php } ?>
