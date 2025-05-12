@@ -161,7 +161,7 @@ if ($datas === false) {
                     <script>
                     project="<?php echo $project; ?>";
                     </script>
-                    <button type="button" onclick="window.location.href = 'receiver.php?project_name=' + project;" class="btn btn-success btn-lg"><img src="../static/list-columns-reverse.svg" alt="Detale" style="width:20px; height:20px;">
+                    <!--<button type="button" onclick="window.location.href = 'receiver.php?project_name=' + project;" class="btn btn-success btn-lg"><img src="../static/list-columns-reverse.svg" alt="Detale" style="width:20px; height:20px;">-->
                 </button>
                 <button type="button" onclick="window.location.href = 'main.php'" class="btn btn-info btn-lg"><img src="../static/play-fill.svg" alt="Start" style="width:20px; height:20px;">
                 </button>

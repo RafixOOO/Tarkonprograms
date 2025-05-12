@@ -98,7 +98,7 @@ require_once("../dbconnect.php");
     <form id="numberForm" onsubmit="handleSubmit(event)">
     <div style="display: flex; gap: 8px; align-items: center;">
   <input type="tel" id="number" class="form-control" placeholder="Wpisz numer" autofocus autocomplete="off" />
-  <a href="dozrobienia.php"><button type="button" class="btn btn-secondary" style="margin-top:70%;height: 60px;">Wykonane</button></a>
+  <!--<a href="dozrobienia.php"><button type="button" class="btn btn-secondary" style="margin-top:70%;height: 60px;">Wykonane</button></a>-->
 </div>
         <div class="grid">
             <div class="button" onclick="appendNumber('1')">1</div>
