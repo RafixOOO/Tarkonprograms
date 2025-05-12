@@ -430,10 +430,10 @@ body {
 }
 
 .wrapper {
-   min-height: 100vh;
+   min-height: 20vh;
    position: relative;
    top: 0;
-   height: 100vh
+   height: 20vh
 }
 
 .flex-1 {
