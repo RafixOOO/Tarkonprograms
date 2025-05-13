@@ -46,7 +46,7 @@
     .verticalrotate {
       position: fixed;
       bottom: 50%;
-      left: 84.5%;
+      right: 84.5%;
       width: 30%;
       transform: rotate(-90deg);
     }
