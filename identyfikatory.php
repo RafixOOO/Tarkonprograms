@@ -52,5 +52,6 @@ where pid.PersonsID = $userID";
                     <div style="float:right;">
                       <a href="zarzadzaj.php"> <button type="button" class="btn btn-secondary">wróć</button></a>
                       </div>
+                      <input type="hidden" id="darkModeButton" class="btn btn-dark">
 </body>
 </html>
